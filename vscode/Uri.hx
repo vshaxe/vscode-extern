@@ -10,6 +10,6 @@ extern class Uri {
 	var query:String;
 	var fragment:String;
 	var fsPath:String;
-	function toString():String;
+	function toString(?skipEncoding:Bool):String;
 	function toJSON():Dynamic;
 }

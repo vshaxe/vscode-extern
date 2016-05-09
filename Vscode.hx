@@ -24,6 +24,7 @@ private extern class Env {
 	var language(default,null):String;
 	var machineId(default,null):String;
 	var sessionId(default,null):String;
+	var appName(default,null):String;
 }
 
 private extern class Extensions {
