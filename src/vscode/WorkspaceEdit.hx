@@ -71,6 +71,7 @@ extern class WorkspaceEdit {
 	function entries():Array<WorkspaceEditEntriesTuple>;
 }
 
+@:dce
 abstract WorkspaceEditEntriesTuple(Array<Any>) to Array<Any> {
 	public var uri(get,never):Uri;
 	public var edits(get,never):Array<TextEdit>;
