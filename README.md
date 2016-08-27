@@ -2,4 +2,4 @@
 
 For version: 1.4.0
 
-Currently require Haxe development build (see http://build.haxe.org/).
+Currently requires Haxe development build (see http://build.haxe.org/).
