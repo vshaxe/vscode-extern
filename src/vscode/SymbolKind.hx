@@ -1,5 +1,8 @@
 package vscode;
 
+/**
+ * A symbol kind.
+ */
 @:enum abstract SymbolKind(Int) {
 	var File = 0;
 	var Module = 1;

@@ -1,5 +1,14 @@
 package vscode;
 
-typedef DocumentSelector = haxe.extern.EitherType<DocumentSelectorSimple,Array<DocumentSelectorSimple>>;
+import haxe.extern.EitherType;
 
-private typedef DocumentSelectorSimple = haxe.extern.EitherType<String,DocumentFilter>;
+/**
+ * A language selector is the combination of one or many language identifiers
+ * and [language filters](#DocumentFilter).
+ *
+ * @sample `let sel:DocumentSelector = 'typescript'`;
+ * @sample `let sel:DocumentSelector = ['typescript', { language: 'json', pattern: '**∕tsconfig.json' }]`;
+ */
+typedef DocumentSelector = EitherType<DocumentSelectorSimple,Array<DocumentSelectorSimple>>;
+
+private typedef DocumentSelectorSimple = EitherType<String,DocumentFilter>;

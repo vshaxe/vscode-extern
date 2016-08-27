@@ -1,5 +1,8 @@
 package vscode;
 
+/**
+ * Completion item kinds.
+ */
 @:enum abstract CompletionItemKind(Int) {
 	var Text = 0;
 	var Method = 1;
