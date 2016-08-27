@@ -4,6 +4,9 @@ import vscode.*;
 
 @:jsRequire("vscode")
 extern class Vscode {
+	/**
+	 * The version of the editor.
+	 */
 	static var version(default,null):String;
 	static var commands(default,null):Commands;
 	static var env(default,null):Env;
