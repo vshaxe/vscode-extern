@@ -9,8 +9,8 @@ VS Code API version: **1.4.0**
 
 ## Usage
 
-Global functions and variables from the `vscode` namespace are available through `Vscode` class,
-while types defined in `vscode` namespace are located in the `vscode` haxe package.
+Global functions and variables from the `vscode` namespace are available through `Vscode` top-level class,
+while types defined in `vscode` namespace are located in the `vscode` package.
 
 VS Code expects a .js module that exports the `activate` function that will be called upon
 extension activation. In Haxe this is done using the `@:expose` metdata.
