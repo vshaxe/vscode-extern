@@ -33,3 +33,6 @@ haxe -lib vscode -js hellohaxe.js HelloHaxe
 ```
 
 For a complete extension example, check the `example/` directory inside this repository.
+
+For general information about how to extend Visual Studio code,
+check [their documentation](https://code.visualstudio.com/docs/extensions/overview).
