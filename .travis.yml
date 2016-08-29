@@ -5,8 +5,8 @@ haxe:
   - development
 
 install:
-  haxelib install hxnodejs
-  haxelib dev vscode .
+  - haxelib install hxnodejs
+  - haxelib dev vscode .
 
 script:
   - haxe build.hxml
