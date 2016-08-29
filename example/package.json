@@ -1,0 +1,20 @@
+{
+    "name": "hellohaxe",
+    "publisher": "",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.4.0"
+    },
+    "activationEvents": [
+        "onCommand:hellohaxe.sayHello"
+    ],
+    "main": "./hellohaxe",
+    "contributes": {
+        "commands": [
+            {
+                "command": "hellohaxe.sayHello",
+                "title": "Say Hello"
+            }
+        ]
+    }
+}

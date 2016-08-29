@@ -1,5 +1,8 @@
 {
     "haxe.displayConfigurations": [
-        ["-cp", "src"]
+        [
+            "-cp", "src",
+            "-js", "main.js"
+        ]
     ]
 }

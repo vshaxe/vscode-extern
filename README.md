@@ -10,7 +10,8 @@ VS Code API version: **1.4.0**
 ## Usage
 
 Global functions and variables from the `vscode` namespace are available through `Vscode` top-level class,
-while types defined in `vscode` namespace are located in the `vscode` package.
+while types defined in `vscode` namespace are located in the `vscode` package. The node.js API externs are
+provided by the [hxnodejs](https://github.com/HaxeFoundation/hxnodejs) library.
 
 VS Code expects a .js module that exports the `activate` function that will be called upon
 extension activation. In Haxe this is done using the `@:expose` metdata.
@@ -30,3 +31,5 @@ compile with:
 ```
 haxe -lib vscode -js hellohaxe.js HelloHaxe
 ```
+
+For a complete extension example, check the `example/` directory inside this repository.
