@@ -3,14 +3,15 @@ package vscode;
 /**
  * Represents the alignment of status bar items.
  */
-@:enum abstract StatusBarAlignment(Int) {
+@:jsRequire("vscode", "StatusBarAlignment")
+@:enum extern abstract StatusBarAlignment(Int) {
 	/**
 	 * Aligned to the left side.
 	 */
-	var Left = 0;
+	var Left;
 
 	/**
 	 * Aligned to the right side.
 	 */
-	var Right = 1;
+	var Right;
 }
