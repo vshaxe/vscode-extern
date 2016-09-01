@@ -6,11 +6,11 @@ haxe:
 
 env:
   global:
-  - ENCRYPTION_LABEL: "deb8c701c4a2"
+  - ENCRYPTION_LABEL: "f500a97551ba"
   - COMMIT_AUTHOR_EMAIL: "nadako@gmail.com"
 
 before_install:
- - openssl aes-256-cbc -K $encrypted_deb8c701c4a2_key -iv $encrypted_deb8c701c4a2_iv -in deploy_key.enc -out deploy_key -d
+ - openssl aes-256-cbc -K $encrypted_f500a97551ba_key -iv $encrypted_f500a97551ba_iv -in deploy_key.enc -out deploy_key -d
 
 install:
  - haxelib install hxnodejs
