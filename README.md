@@ -36,5 +36,7 @@ haxe -lib vscode -js hellohaxe.js HelloHaxe
 
 For a complete extension example, check the `example/` directory inside this repository.
 
+For generated extern API documentation, proceed here http://vshaxe.github.io/vscode-extern/.
+
 For general information about how to extend Visual Studio code,
 check [their documentation](https://code.visualstudio.com/docs/extensions/overview).
