@@ -3,7 +3,7 @@
 -D doc-gen
 -js out.js
 --no-output
--xml doc/js.xml
+-xml out/js.xml
 
 --next
--cmd haxelib run dox -i doc -o doc/pages -in "^[vV]scode*" --title "Haxe externs for Visual Studio Code - API documentation" -D source-path https://github.com/vshaxe/vscode-extern/blob/master/src/
+-cmd haxelib run dox -i out -o out -in "^[vV]scode*" --title "Haxe externs for Visual Studio Code - API documentation" -D source-path https://github.com/vshaxe/vscode-extern/blob/master/src/

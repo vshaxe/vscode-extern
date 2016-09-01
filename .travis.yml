@@ -2,13 +2,21 @@ language: haxe
 sudo: false
 
 haxe:
-  - development
+ - development
+
+env:
+  global:
+  - ENCRYPTION_LABEL: "deb8c701c4a2"
+  - COMMIT_AUTHOR_EMAIL: "nadako@gmail.com"
+
+before_install:
+ - openssl aes-256-cbc -K $encrypted_deb8c701c4a2_key -iv $encrypted_deb8c701c4a2_iv -in key.enc -out key -d
 
 install:
-  - haxelib install hxnodejs
-  - haxelib dev vscode .
+ - haxelib install hxnodejs
+ - haxelib dev vscode .
 
 script:
-  - haxe build.hxml
-  - cd example
-  - haxe build.hxml
+ - haxe build.hxml
+ - cd example
+ - haxe build.hxml
