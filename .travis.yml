@@ -18,5 +18,7 @@ install:
 
 script:
  - haxe build.hxml
- - cd example
+ - pushd example
  - haxe build.hxml
+ - popd
+ - bash doc-deploy.sh
