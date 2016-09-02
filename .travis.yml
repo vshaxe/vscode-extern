@@ -22,4 +22,4 @@ script:
  - haxe build.hxml
  - popd
  - haxelib install dox
- - bash doc-deploy.sh
+ - bash ./doc-deploy.sh
