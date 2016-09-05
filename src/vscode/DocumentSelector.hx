@@ -11,4 +11,4 @@ import haxe.extern.EitherType;
  */
 typedef DocumentSelector = EitherType<DocumentSelectorSimple,Array<DocumentSelectorSimple>>;
 
-private typedef DocumentSelectorSimple = EitherType<String,DocumentFilter>;
+typedef DocumentSelectorSimple = EitherType<String,DocumentFilter>;

@@ -15,7 +15,7 @@ extern class Vscode {
 	/**
 	* Namespace describing the environment the editor runs in.
 	*/
-	static var env(default,null):Env;
+	static var env(default,null):VscodeEnv;
 
 	/**
 	* Namespace for dealing with commands. In short, a command is a function with a
@@ -52,14 +52,14 @@ extern class Vscode {
 	* }
 	* ```
 	*/
-	static var commands(default,null):Commands;
+	static var commands(default,null):VscodeCommands;
 
 	/**
 	* Namespace for dealing with the current window of the editor. That is visible
 	* and active editors, as well as, UI elements to show messages, selections, and
 	* asking for user input.
 	*/
-	static var window(default,null):Window;
+	static var window(default,null):VscodeWindow;
 
 	/**
 	* Namespace for dealing with the current workspace. A workspace is the representation
@@ -70,7 +70,7 @@ extern class Vscode {
 	* events and for [finding](#workspace.findFiles) files. Both perform well and run _outside_
 	* the editor-process so that they should be always used instead of nodejs-equivalents.
 	*/
-	static var workspace(default,null):Workspace;
+	static var workspace(default,null):VscodeWorkspace;
 
 	/**
 	 * Namespace for participating in language-specific editor [features](https://code.visualstudio.com/docs/editor/editingevolved),
@@ -100,7 +100,7 @@ extern class Vscode {
 	 * the score is only checked to be `>0`, for other features, like [IntelliSense](#languages.registerCompletionItemProvider) the
 	 * score is used for determining the order in which providers are asked to participate.
 	 */
-	static var languages(default,null):Languages;
+	static var languages(default,null):VscodeLanguages;
 
 	/**
 	 * Namespace for dealing with installed extensions. Extensions are represented
@@ -135,10 +135,10 @@ extern class Vscode {
 	 * console.log(importedApi.mul(42, 1));
 	 * ```
 	*/
-	static var extensions(default,null):Extensions;
+	static var extensions(default,null):VscodeExtensions;
 }
 
-private extern class Env {
+extern class VscodeEnv {
 	/**
 	 * The application name of the editor, like 'VS Code'.
 	 *
@@ -169,7 +169,7 @@ private extern class Env {
 	var sessionId(default,null):String;
 }
 
-private extern class Commands {
+extern class VscodeCommands {
 	/**
 	 * Registers a command that can be invoked via a keyboard shortcut,
 	 * a menu item, an action, or directly.
@@ -227,7 +227,7 @@ private extern class Commands {
 	function getCommands(?filterInternal:Bool):Thenable<Array<String>>;
 }
 
-private extern class Window {
+extern class VscodeWindow {
 	/**
 	 * The currently active editor or `undefined`. The active editor is the one
 	 * that currently has focus or, when none has focus, the one that has changed
@@ -379,7 +379,7 @@ private extern class Window {
 	function createStatusBarItem(?alignment:StatusBarAlignment, ?priority:Float):StatusBarItem;
 }
 
-private extern class Extensions {
+extern class VscodeExtensions {
 	/**
 	 * Get an extension by its full identifier in the form of: `publisher.name`.
 	 *
@@ -394,7 +394,7 @@ private extern class Extensions {
 	var all(default,null):Array<Extension<Any>>;
 }
 
-private extern class Languages {
+extern class VscodeLanguages {
 	/**
 	 * Return the identifiers of all known languages.
 	 * @return Promise resolving to an array of identifier strings.
@@ -645,7 +645,7 @@ private extern class Languages {
 	function setLanguageConfiguration(language:String, configuration:LanguageConfiguration):Disposable;
 }
 
-private extern class Workspace {
+extern class VscodeWorkspace {
 	/**
 	 * Creates a file system watcher.
 	 *
