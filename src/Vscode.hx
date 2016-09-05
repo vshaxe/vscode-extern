@@ -38,14 +38,14 @@ extern class Vscode {
 	* register a command handler with the identfier `extension.sayHello`.
 	* ```javascript
 	* commands.registerCommand('extension.sayHello', () => {
-	* 		window.showInformationMessage('Hello World!');
+	* 	window.showInformationMessage('Hello World!');
 	* });
 	* ```
 	* Second, bind the command identfier to a title under which it will show in the palette (`package.json`).
 	* ```json
 	* {
 	* "contributes": {
-	* 		"commands": [{
+	* 	"commands": [{
 	* 		"command": "extension.sayHello",
 	* 		"title": "Hello World"
 	* 	}]
@@ -87,9 +87,9 @@ extern class Vscode {
 	 *
 	 * ```javascript
 	 * languages.registerHoverProvider('javascript', {
-	 * 		provideHover(document, position, token) {
-	 * 			return new Hover('I am a hover!');
-	 * 		}
+	 * 	provideHover(document, position, token) {
+	 * 		return new Hover('I am a hover!');
+	 * 	}
 	 * });
 	 * ```
 	 *
@@ -111,28 +111,29 @@ extern class Vscode {
 	 *
 	 * ```javascript
 	 * export function activate(context: vscode.ExtensionContext) {
-	 * 		let api = {
-	 * 			sum(a, b) {
-	 * 				return a + b;
-	 * 			},
-	 * 			mul(a, b) {
-	 * 				return a * b;
-	 * 			}
-	 * 		};
-	 * 		// 'export' public api-surface
-	 *		return api;
-	* }
-	* ```
-	* When depending on the API of another extension add an `extensionDependency`-entry
-	* to `package.json`, and use the [getExtension](#extensions.getExtension)-function
-	* and the [exports](#Extension.exports)-property, like below:
-	*
-	* ```javascript
-	* let mathExt = extensions.getExtension('genius.math');
-	* let importedApi = mathExt.exports;
-	*
-	* console.log(importedApi.mul(42, 1));
-	* ```
+	 * 	let api = {
+	 * 		sum(a, b) {
+	 * 			return a + b;
+	 * 		},
+	 * 		mul(a, b) {
+	 * 			return a * b;
+	 * 		}
+	 * 	};
+	 * 	// 'export' public api-surface
+	 *	return api;
+	 * }
+	 * ```
+	 *
+	 * When depending on the API of another extension add an `extensionDependency`-entry
+	 * to `package.json`, and use the [getExtension](#extensions.getExtension)-function
+	 * and the [exports](#Extension.exports)-property, like below:
+	 *
+	 * ```javascript
+	 * let mathExt = extensions.getExtension('genius.math');
+	 * let importedApi = mathExt.exports;
+	 *
+	 * console.log(importedApi.mul(42, 1));
+	 * ```
 	*/
 	static var extensions(default,null):Extensions;
 }
