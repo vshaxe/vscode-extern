@@ -22,6 +22,11 @@ typedef QuickPickOptions = {
 	@:optional var placeHolder:String;
 
 	/**
+	 * Set to `true` to keep the picker open when focus moves to another part of the editor or to another window.
+	 */
+	@:optional var ignoreFocusOut:Bool;
+
+	/**
 	 * An optional function that is invoked whenever an item is selected.
 	 */
 	@:optional var onDidSelectItem:EitherType<QuickPickItem,String>->Any;

@@ -10,6 +10,12 @@ typedef TextEditorSelectionChangeEvent = {
 	var textEditor:TextEditor;
 
 	/**
+	 * The [change kind](#TextEditorSelectionChangeKind) which has triggered this
+	 * event. Can be `undefined`.
+	 */
+	var kind:TextEditorSelectionChangeKind;
+
+	/**
 	 * The new value for the [text editor's selections](#TextEditor.selections).
 	 */
 	var selections:Array<Selection>;

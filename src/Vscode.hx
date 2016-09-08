@@ -332,10 +332,11 @@ extern class VscodeWindow {
 	 *
 	 * @param items An array of strings, or a promise that resolves to an array of strings.
 	 * @param options Configures the behavior of the selection list.
+	 * @param token A token that can be used to signal cancellation.
 	 * @return A promise that resolves to the selection or undefined.
 	 */
-	@:overload(function(items:EitherType<Array<String>, Thenable<Array<String>>>, ?options:QuickPickOptions):Thenable<String> {})
-	function showQuickPick<T:QuickPickItem>(items:EitherType<Array<T>, Thenable<Array<T>>>, ?options:QuickPickOptions):Thenable<T>;
+	@:overload(function(items:EitherType<Array<String>, Thenable<Array<String>>>, ?options:QuickPickOptions, ?token:CancellationToken):Thenable<String> {})
+	function showQuickPick<T:QuickPickItem>(items:EitherType<Array<T>, Thenable<Array<T>>>, ?options:QuickPickOptions, ?token:CancellationToken):Thenable<T>;
 
 	/**
 	 * Opens an input box to ask the user for input.
@@ -345,9 +346,10 @@ extern class VscodeWindow {
 	 * anything but dismissed the input box with OK.
 	 *
 	 * @param options Configures the behavior of the input box.
+	 * @param token A token that can be used to signal cancellation.
 	 * @return A promise that resolves to a string the user provided or to `undefined` in case of dismissal.
 	 */
-	function showInputBox(?options:InputBoxOptions):Thenable<String>;
+	function showInputBox(?options:InputBoxOptions, ?token:CancellationToken):Thenable<String>;
 
 	/**
 	 * Create a new [output channel](#OutputChannel) with the given name.
@@ -377,6 +379,16 @@ extern class VscodeWindow {
 	 * @return A new status bar item.
 	 */
 	function createStatusBarItem(?alignment:StatusBarAlignment, ?priority:Float):StatusBarItem;
+
+	/**
+	 * Creates a [Terminal](#Terminal). Note that this will currently force the terminal panel
+	 * to the foreground, this is changing in v1.6 such that it will require an explicit call to
+	 * [Terminal.show](#Terminal.show) in order to show the terminal panel.
+	 *
+	 * @param name Optional human-readable string which will be used to represent the terminal in the UI.
+	 * @return A new Terminal.
+	 */
+	function createTerminal(?name:String):Terminal;
 }
 
 extern class VscodeExtensions {
@@ -532,9 +544,9 @@ extern class VscodeLanguages {
 	/**
 	 * Register a workspace symbol provider.
 	 *
-	 * Multiple providers can be registered for a language. In that case providers are asked in
-	 * parallel and the results are merged. A failing provider (rejected promise or exception) will
-	 * not cause a failure of the whole operation.
+	 * Multiple providers can be registered. In that case providers are asked in parallel and
+	 * the results are merged. A failing provider (rejected promise or exception) will not cause
+	 * a failure of the whole operation.
 	 *
 	 * @param provider A workspace symbol provider.
 	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.

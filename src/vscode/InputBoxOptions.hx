@@ -20,12 +20,17 @@ typedef InputBoxOptions = {
 	@:optional var placeHolder:String;
 
 	/**
-	 * Set to true to show a password prompt that will not show the typed value.
+	 * Set to `true` to show a password prompt that will not show the typed value.
 	 */
 	@:optional var password:Bool;
 
 	/**
-	 * An optional function that will be called to valide input and to give a hint
+	 * Set to `true` to keep the input box open when focus moves to another part of the editor or to another window.
+	 */
+	@:optional var ignoreFocusOut:Bool;
+
+	/**
+	 * An optional function that will be called to validate input and to give a hint
 	 * to the user.
 	 *
 	 * @param value The current value of the input box.

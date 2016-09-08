@@ -7,7 +7,7 @@ import haxe.extern.EitherType;
  */
 typedef DecorationOptions = {
 	/**
-	 * Range to which this decoration is applied.
+	 * Range to which this decoration is applied. The range must not be empty.
 	 */
 	var range:Range;
 
