@@ -1,5 +1,7 @@
 package vscode;
 
+import haxe.extern.EitherType;
+
 typedef ThemableDecorationAttachmentRenderOptions = {
 	/**
 	 * Defines a text content that is shown in the attachment. Either an icon or a text can be shown, but not both.
@@ -7,9 +9,10 @@ typedef ThemableDecorationAttachmentRenderOptions = {
 	@:optional var contentText:String;
 
 	/**
-	 * An **absolute path** to an image to be rendered in the attachment. Either an icon or a text can be shown, but not both.
+	 * An **absolute path** or an URI to an image to be rendered in the attachment. Either an icon
+	 * or a text can be shown, but not both.
 	 */
-	@:optional var contentIconPath:String;
+	@:optional var contentIconPath:EitherType<String,Uri>;
 
 	/**
 	 * CSS styling property that will be applied to the decoration attachment.

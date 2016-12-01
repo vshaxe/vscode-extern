@@ -1,5 +1,7 @@
 package vscode;
 
+import js.Promise.Thenable;
+
 /**
  * An individual terminal instance within the integrated terminal.
  */
@@ -12,10 +14,15 @@ typedef Terminal = {
 	var name(default,null):String;
 
 	/**
+	 * The process ID of the shell process.
+	 *
+	 * @readonly
+	 */
+	var processId(default,null):Thenable<Int>;
+
+	/**
 	 * Send text to the terminal. The text is written to the stdin of the underlying pty process
-	 * (shell) of the terminal. Note that this will currently force the terminal panel to the
-	 * foreground, this is changing in v1.6 such that it will require an explicit call to
-	 * [Terminal.show](#Terminal.show) in order to show the terminal panel.
+	 * (shell) of the terminal.
 	 *
 	 * @param text The text to send.
 	 * @param addNewLine Whether to add a new line to the text being sent, this is normally

@@ -29,4 +29,12 @@ typedef TextEditorOptions = {
 	 * When setting a text editor's options, this property is optional.
 	 */
 	@:optional var cursorStyle:TextEditorCursorStyle;
+
+
+	/**
+	 * Render relative line numbers w.r.t. the current line number.
+	 * When getting a text editor's options, this property will always be present.
+	 * When setting a text editor's options, this property is optional.
+	 */
+	@:optional var lineNumbers:TextEditorLineNumbersStyle;
 }

@@ -248,6 +248,12 @@ extern class VscodeWindow {
 	var onDidChangeActiveTextEditor(default,null):Event<TextEditor>;
 
 	/**
+	 * An [event](#Event) which fires when the array of [visible editors](#window.visibleTextEditors)
+	 * has changed.
+	 */
+	var onDidChangeVisibleTextEditors(default,null):Event<Array<TextEditor>>;
+
+	/**
 	 * An [event](#Event) which fires when the selection in an editor has changed.
 	 */
 	var onDidChangeTextEditorSelection(default,null):Event<TextEditorSelectionChangeEvent>;
@@ -261,6 +267,11 @@ extern class VscodeWindow {
 	 * An [event](#Event) which fires when the view column of an editor has changed.
 	 */
 	var onDidChangeTextEditorViewColumn(default,null):Event<TextEditorViewColumnChangeEvent>;
+
+	/**
+	 * An [event](#Event) which fires when a terminal is disposed.
+	 */
+	var onDidCloseTerminal(default,null):Event<Terminal>;
 
 	/**
 	 * Show the given document in a text editor. A [column](#ViewColumn) can be provided
@@ -381,14 +392,14 @@ extern class VscodeWindow {
 	function createStatusBarItem(?alignment:StatusBarAlignment, ?priority:Float):StatusBarItem;
 
 	/**
-	 * Creates a [Terminal](#Terminal). Note that this will currently force the terminal panel
-	 * to the foreground, this is changing in v1.6 such that it will require an explicit call to
-	 * [Terminal.show](#Terminal.show) in order to show the terminal panel.
+	 * Creates a [Terminal](#Terminal).
 	 *
 	 * @param name Optional human-readable string which will be used to represent the terminal in the UI.
+	 * @param shellPath Optional path to a custom shell executable to be used in the terminal.
+	 * @param shellArgs Optional args for the custom shell executable, this does not work on Windows (see #8429)
 	 * @return A new Terminal.
 	 */
-	function createTerminal(?name:String):Terminal;
+	function createTerminal(?name:String, ?shellPath:String, ?shellArgs:Array<String>):Terminal;
 }
 
 extern class VscodeExtensions {
@@ -595,6 +606,10 @@ extern class VscodeLanguages {
 	/**
 	 * Register a formatting provider for a document range.
 	 *
+	 * *Note:* A document range provider is also a [document formatter](#DocumentFormattingEditProvider)
+	 * which means there is no need to [register](registerDocumentFormattingEditProvider) a document
+	 * formatter when also registering a range provider.
+	 *
 	 * Multiple providers can be registered for a language. In that case providers are sorted
 	 * by their [score](#languages.match) and the best-matching provider is used. Failure
 	 * of the selected provider will cause a failure of the whole operation.
@@ -624,8 +639,8 @@ extern class VscodeLanguages {
 	 * Register a signature help provider.
 	 *
 	 * Multiple providers can be registered for a language. In that case providers are sorted
-	 * by their [score](#languages.match) and the best-matching provider is used. Failure
-	 * of the selected provider will cause a failure of the whole operation.
+	 * by their [score](#languages.match) and called sequentially until a provider returns a
+	 * valid result.
 	 *
 	 * @param selector A selector that defines the documents this provider is applicable to.
 	 * @param provider A signature help provider.
@@ -782,6 +797,22 @@ extern class VscodeWorkspace {
 	 */
 	var onDidChangeTextDocument(default,null):Event<TextDocumentChangeEvent>;
 
+
+	/**
+	 * An event that is emitted when a [text document](#TextDocument) will be saved to disk.
+	 *
+	 * *Note 1:* Subscribers can delay saving by registering asynchronous work. For the sake of data integrity the editor
+	 * might save without firing this event. For instance when shutting down with dirty files.
+	 *
+	 * *Note 2:* Subscribers are called sequentially and they can [delay](#TextDocumentWillSaveEvent.waitUntil) saving
+	 * by registering asynchronous work. Protection against misbehaving listeners is implemented as such:
+	 *  * there is an overall time budget that all listeners share and if that is exhausted no further listener is called
+	 *  * listeners that take a long time or produce errors frequently will not be called anymore
+	 *
+	 * The current thresholds are 1.5 seconds as overall time budget and a listener can misbehave 3 times before being ignored.
+	 */
+	var onWillSaveTextDocument(default,null):Event<TextDocumentWillSaveEvent>;
+
 	/**
 	 * An event that is emitted when a [text document](#TextDocument) is saved to disk.
 	 */
@@ -792,8 +823,7 @@ extern class VscodeWorkspace {
 	 *
 	 * When a section-identifier is provided only that part of the configuration
 	 * is returned. Dots in the section-identifier are interpreted as child-access,
-	 * like `{ myExt: { setting: { doIt: true }}}` and `getConfiguration('myExt.setting.doIt') === true`.
-	 *
+	 * like `{ myExt: { setting: { doIt: true }}}` and `getConfiguration('myExt.setting').get('doIt') === true`.
 	 *
 	 * @param section A dot-separated identifier.
 	 * @return The full workspace configuration or a subset.

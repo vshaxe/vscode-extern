@@ -1,5 +1,7 @@
 package vscode;
 
+import haxe.extern.EitherType;
+
 /**
  * Represents theme specific rendering styles for a [text editor decoration](#TextEditorDecorationType).
  */
@@ -88,9 +90,9 @@ typedef ThemableDecorationRenderOptions = {
 	@:optional var letterSpacing:String;
 
 	/**
-	 * An **absolute path** to an image to be rendered in the gutterIconPath.
+	 * An **absolute path** or an URI to an image to be rendered in the gutter.
 	 */
-	@:optional var gutterIconPath:String;
+	@:optional var gutterIconPath:EitherType<String,Uri>;
 
 	/**
 	 * Specifies the size of the gutter icon.
