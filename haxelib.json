@@ -3,7 +3,7 @@
     "description": "Visual Studio Code extern library",
     "url": "https://github.com/vshaxe/vscode-extern",
     "license": "MIT",
-    "version": "1.4.0",
+    "version": "1.7.0",
     "releasenote": "Initial release",
     "classPath": "src",
     "contributors": ["nadako"],
