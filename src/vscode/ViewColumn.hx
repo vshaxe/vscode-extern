@@ -6,7 +6,7 @@ package vscode;
  */
 @:jsRequire("vscode", "ViewColumn")
 @:enum extern abstract ViewColumn(Int) {
-	var One;
-	var Two;
-	var Three;
+    var One;
+    var Two;
+    var Three;
 }

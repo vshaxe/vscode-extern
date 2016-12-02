@@ -5,10 +5,10 @@ package vscode;
  * a [code action](#CodeActionProvider.provideCodeActions) is run.
  */
 typedef CodeActionContext = {
-	/**
-	 * An array of diagnostics.
-	 *
-	 * @readonly
-	 */
-	var diagnostics(default,null):Array<Diagnostic>;
+    /**
+     * An array of diagnostics.
+     *
+     * @readonly
+     */
+    var diagnostics(default,null):Array<Diagnostic>;
 }

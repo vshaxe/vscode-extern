@@ -9,14 +9,14 @@ package vscode;
  * @see [showErrorMessage](#window.showErrorMessage)
  */
 typedef MessageItem = {
-	/**
-	 * A short title like 'Retry', 'Open Log' etc.
-	 */
-	var title:String;
+    /**
+     * A short title like 'Retry', 'Open Log' etc.
+     */
+    var title:String;
 
-	/**
-	 * Indicates that this item replaces the default
-	 * 'Close' action.
-	 */
-	@:optional var isCloseAffordance:Bool;
+    /**
+     * Indicates that this item replaces the default
+     * 'Close' action.
+     */
+    @:optional var isCloseAffordance:Bool;
 }

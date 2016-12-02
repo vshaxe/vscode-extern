@@ -8,23 +8,23 @@ import haxe.extern.EitherType;
  */
 @:jsRequire("vscode", "Hover")
 extern class Hover {
-	/**
-	 * The contents of this hover.
-	 */
-	var contents:Array<MarkedString>;
+    /**
+     * The contents of this hover.
+     */
+    var contents:Array<MarkedString>;
 
-	/**
-	 * The range to which this hover applies. When missing, the
-	 * editor will use the range at the current position or the
-	 * current position itself.
-	 */
-	var range:Range;
+    /**
+     * The range to which this hover applies. When missing, the
+     * editor will use the range at the current position or the
+     * current position itself.
+     */
+    var range:Range;
 
-	/**
-	 * Creates a new hover object.
-	 *
-	 * @param contents The contents of the hover.
-	 * @param range The range to which the hover applies.
-	 */
-	function new(contents:EitherType<MarkedString, Array<MarkedString>>, ?range:Range);
+    /**
+     * Creates a new hover object.
+     *
+     * @param contents The contents of the hover.
+     * @param range The range to which the hover applies.
+     */
+    function new(contents:EitherType<MarkedString, Array<MarkedString>>, ?range:Range);
 }

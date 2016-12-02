@@ -9,36 +9,36 @@ import haxe.extern.EitherType;
  *
  */
 typedef TextEditorEdit = {
-	/**
-	 * Replace a certain text region with a new value.
-	 * You can use \r\n or \n in `value` and they will be normalized to the current [document](#TextDocument).
-	 *
-	 * @param location The range this operation should remove.
-	 * @param value The new text this operation should insert after removing `location`.
-	 */
-	function replace(location:EitherType<Position, EitherType<Range, Selection>>, value:String):Void;
+    /**
+     * Replace a certain text region with a new value.
+     * You can use \r\n or \n in `value` and they will be normalized to the current [document](#TextDocument).
+     *
+     * @param location The range this operation should remove.
+     * @param value The new text this operation should insert after removing `location`.
+     */
+    function replace(location:EitherType<Position, EitherType<Range, Selection>>, value:String):Void;
 
-	/**
-	 * Insert text at a location.
-	 * You can use \r\n or \n in `value` and they will be normalized to the current [document](#TextDocument).
-	 * Although the equivalent text edit can be made with [replace](#TextEditorEdit.replace), `insert` will produce a different resulting selection (it will get moved).
-	 *
-	 * @param location The position where the new text should be inserted.
-	 * @param value The new text this operation should insert.
-	 */
-	function insert(location:Position, value:String):Void;
+    /**
+     * Insert text at a location.
+     * You can use \r\n or \n in `value` and they will be normalized to the current [document](#TextDocument).
+     * Although the equivalent text edit can be made with [replace](#TextEditorEdit.replace), `insert` will produce a different resulting selection (it will get moved).
+     *
+     * @param location The position where the new text should be inserted.
+     * @param value The new text this operation should insert.
+     */
+    function insert(location:Position, value:String):Void;
 
-	/**
-	 * Delete a certain text region.
-	 *
-	 * @param location The range this operation should remove.
-	 */
-	function delete(location:EitherType<Range, Selection>):Void;
+    /**
+     * Delete a certain text region.
+     *
+     * @param location The range this operation should remove.
+     */
+    function delete(location:EitherType<Range, Selection>):Void;
 
-	/**
-	 * Set the end of line sequence.
-	 *
-	 * @param endOfLine The new end of line for the [document](#TextDocument).
-	 */
-	function setEndOfLine(endOfLine:EndOfLine):Void;
+    /**
+     * Set the end of line sequence.
+     *
+     * @param endOfLine The new end of line for the [document](#TextDocument).
+     */
+    function setEndOfLine(endOfLine:EndOfLine):Void;
 }

@@ -10,21 +10,21 @@ package vscode;
  */
 @:jsRequire("vscode", "EventEmitter")
 extern class EventEmitter<T> {
-	/**
-	 * The event listeners can subscribe to.
-	 */
-	var event:Event<T>;
+    /**
+     * The event listeners can subscribe to.
+     */
+    var event:Event<T>;
 
-	/**
-	 * Notify all subscribers of the [event](EventEmitter#event). Failure
-	 * of one or more listener will not fail this function call.
-	 *
-	 * @param data The event object.
-	 */
-	function fire(?data:T):Void;
+    /**
+     * Notify all subscribers of the [event](EventEmitter#event). Failure
+     * of one or more listener will not fail this function call.
+     *
+     * @param data The event object.
+     */
+    function fire(?data:T):Void;
 
-	/**
-	 * Dispose this object and free resources.
-	 */
-	function dispose():Void;
+    /**
+     * Dispose this object and free resources.
+     */
+    function dispose():Void;
 }

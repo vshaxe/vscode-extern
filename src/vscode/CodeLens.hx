@@ -12,26 +12,26 @@ package vscode;
  */
 @:jsRequire("vscode", "CodeLens")
 extern class CodeLens {
-	/**
-	 * The range in which this code lens is valid. Should only span a single line.
-	 */
-	var range:Range;
+    /**
+     * The range in which this code lens is valid. Should only span a single line.
+     */
+    var range:Range;
 
-	/**
-	 * The command this code lens represents.
-	 */
-	var command:Command;
+    /**
+     * The command this code lens represents.
+     */
+    var command:Command;
 
-	/**
-	 * `true` when there is a command associated.
-	 */
-	var isResolved:Bool;
+    /**
+     * `true` when there is a command associated.
+     */
+    var isResolved:Bool;
 
-	/**
-	 * Creates a new code lens object.
-	 *
-	 * @param range The range to which this code lens applies.
-	 * @param command The command associated to this code lens.
-	 */
-	function new(range:Range, ?command:Command);
+    /**
+     * Creates a new code lens object.
+     *
+     * @param range The range to which this code lens applies.
+     * @param command The command associated to this code lens.
+     */
+    function new(range:Range, ?command:Command);
 }

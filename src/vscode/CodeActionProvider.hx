@@ -10,15 +10,15 @@ import haxe.extern.EitherType;
  * A code action can be any command that is [known](#commands.getCommands) to the system.
  */
 typedef CodeActionProvider = {
-	/**
-	 * Provide commands for the given document and range.
-	 *
-	 * @param document The document in which the command was invoked.
-	 * @param range The range for which the command was invoked.
-	 * @param context Context carrying additional information.
-	 * @param token A cancellation token.
-	 * @return An array of commands or a thenable of such. The lack of a result can be
-	 * signaled by returning `undefined`, `null`, or an empty array.
-	 */
-	function provideCodeActions(document:TextDocument, range:Range, context:CodeActionContext, token:CancellationToken):EitherType<Array<Command>, Thenable<Array<Command>>>;
+    /**
+     * Provide commands for the given document and range.
+     *
+     * @param document The document in which the command was invoked.
+     * @param range The range for which the command was invoked.
+     * @param context Context carrying additional information.
+     * @param token A cancellation token.
+     * @return An array of commands or a thenable of such. The lack of a result can be
+     * signaled by returning `undefined`, `null`, or an empty array.
+     */
+    function provideCodeActions(document:TextDocument, range:Range, context:CodeActionContext, token:CancellationToken):EitherType<Array<Command>, Thenable<Array<Command>>>;
 }

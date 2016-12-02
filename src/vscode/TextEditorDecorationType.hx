@@ -8,14 +8,14 @@ package vscode;
  * [createTextEditorDecorationType](#window.createTextEditorDecorationType).
  */
 typedef TextEditorDecorationType = {
-	/**
-	 * Internal representation of the handle.
-	 * @readonly
-	 */
-	var key(default,null):String;
+    /**
+     * Internal representation of the handle.
+     * @readonly
+     */
+    var key(default,null):String;
 
-	/**
-	 * Remove this decoration type and all decorations on all text editors using it.
-	 */
-	function dispose():Void;
+    /**
+     * Remove this decoration type and all decorations on all text editors using it.
+     */
+    function dispose():Void;
 }

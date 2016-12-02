@@ -5,13 +5,13 @@ package vscode;
  */
 @:jsRequire("vscode", "EndOfLine")
 @:enum extern abstract EndOfLine(Int) {
-	/**
-	 * The line feed `\n` character.
-	 */
-	var LF;
-	
-	/**
-	 * The carriage return line feed `\r\n` sequence.
-	 */
-	var CRLF;
+    /**
+     * The line feed `\n` character.
+     */
+    var LF;
+
+    /**
+     * The carriage return line feed `\r\n` sequence.
+     */
+    var CRLF;
 }

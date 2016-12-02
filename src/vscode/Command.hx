@@ -7,20 +7,20 @@ package vscode;
  * function when invoked.
  */
 typedef Command = {
-	/**
-	 * Title of the command, like `save`.
-	 */
-	var title:String;
+    /**
+     * Title of the command, like `save`.
+     */
+    var title:String;
 
-	/**
-	 * The identifier of the actual command handler.
-	 * @see [commands.registerCommand](#commands.registerCommand).
-	 */
-	var command:String;
+    /**
+     * The identifier of the actual command handler.
+     * @see [commands.registerCommand](#commands.registerCommand).
+     */
+    var command:String;
 
-	/**
-	 * Arguments that the command handler should be
-	 * invoked with.
-	 */
-	@:optional var arguments:Array<Any>;
+    /**
+     * Arguments that the command handler should be
+     * invoked with.
+     */
+    @:optional var arguments:Array<Any>;
 }
