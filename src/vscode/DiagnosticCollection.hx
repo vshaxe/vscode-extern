@@ -36,7 +36,7 @@ typedef DiagnosticCollection = {
     //  * @param entries An array of tuples, like `[[file1, [d1, d2]], [file2, [d3, d4, d5]]]`, or `undefined`.
     //  */
     @:overload(function(entries:Array<Array<Any>>):Void {})
-    function set(uri:Uri, diagnostics:Array<Diagnostic>):Void;
+    function set(uri:Uri, diagnostics:Null<Array<Diagnostic>>):Void;
 
     /**
      * Remove all diagnostics from this collection that belong
@@ -67,7 +67,7 @@ typedef DiagnosticCollection = {
      * @param uri A resource identifier.
      * @returns An immutable array of [diagnostics](#Diagnostic) or `undefined`.
      */
-    function get(uri:Uri):Array<Diagnostic>;
+    function get(uri:Uri):Null<Array<Diagnostic>>;
 
     /**
      * Check if this collection contains diagnostics for a

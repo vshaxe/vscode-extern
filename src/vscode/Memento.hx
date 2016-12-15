@@ -15,7 +15,8 @@ typedef Memento = {
      * value (`undefined`) with the given key.
      * @return The stored value, `undefined`, or the defaultValue.
      */
-    function get<T>(key:String, ?defaultValue:T):T;
+    @:overload(function<T>(key:String, defaultValue:T):T {})
+    function get<T>(key:String):Null<T>;
 
     /**
      * Store a value. The value must be JSON-stringifyable.

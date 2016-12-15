@@ -1,8 +1,5 @@
 package vscode;
 
-import js.Promise.Thenable;
-import haxe.extern.EitherType;
-
 /**
  * The workspace symbol provider interface defines the contract between extensions and
  * the [symbol search](https://code.visualstudio.com/docs/editor/editingevolved#_open-symbol-by-name)-feature.
@@ -19,7 +16,7 @@ typedef WorkspaceSymbolProvider = {
      * @return An array of document highlights or a thenable that resolves to such. The lack of a result can be
      * signaled by returning `undefined`, `null`, or an empty array.
      */
-    function provideWorkspaceSymbols(query:String, token:CancellationToken):EitherType<Array<SymbolInformation>, Thenable<Array<SymbolInformation>>>;
+    function provideWorkspaceSymbols(query:String, token:CancellationToken):ProviderResult<Array<SymbolInformation>>;
 
     /**
      * Given a symbol fill in its [location](#SymbolInformation.location). This method is called whenever a symbol
@@ -33,5 +30,5 @@ typedef WorkspaceSymbolProvider = {
      * @return The resolved symbol or a thenable that resolves to that. When no result is returned,
      * the given `symbol` is used.
      */
-    @:optional var resolveWorkspaceSymbol:SymbolInformation->CancellationToken->EitherType<SymbolInformation, Thenable<SymbolInformation>>;
+    @:optional var resolveWorkspaceSymbol:SymbolInformation->CancellationToken->ProviderResult<SymbolInformation>;
 }

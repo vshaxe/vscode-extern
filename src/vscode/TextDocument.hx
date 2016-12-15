@@ -122,14 +122,16 @@ typedef TextDocument = {
     /**
      * Get a word-range at the given position. By default words are defined by
      * common separators, like space, -, _, etc. In addition, per languge custom
-     * [word definitions](#LanguageConfiguration.wordPattern) can be defined.
+     * [word definitions](#LanguageConfiguration.wordPattern) can be defined. It
+     * is also possible to provide a custom regular expression.
      *
      * The position will be [adjusted](#TextDocument.validatePosition).
      *
      * @param position A position.
+     * @param regex Optional regular expression that describes what a word is.
      * @return A range spanning a word, or `undefined`.
      */
-    function getWordRangeAtPosition(position:Position):Range;
+    function getWordRangeAtPosition(position:Position, ?regex:js.RegExp):Null<Range>;
 
     /**
      * Ensure a range is completely contained in this document.

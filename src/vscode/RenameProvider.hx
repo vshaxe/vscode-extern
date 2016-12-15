@@ -1,8 +1,5 @@
 package vscode;
 
-import js.Promise.Thenable;
-import haxe.extern.EitherType;
-
 /**
  * The rename provider interface defines the contract between extensions and
  * the [rename](https://code.visualstudio.com/docs/editor/editingevolved#_rename-symbol)-feature.
@@ -19,5 +16,5 @@ typedef RenameProvider = {
      * @return A workspace edit or a thenable that resolves to such. The lack of a result can be
      * signaled by returning `undefined` or `null`.
      */
-    function provideRenameEdits(document:TextDocument, position:Position, newName:String, token:CancellationToken):EitherType<WorkspaceEdit, Thenable<WorkspaceEdit>>;
+    function provideRenameEdits(document:TextDocument, position:Position, newName:String, token:CancellationToken):ProviderResult<WorkspaceEdit>;
 }

@@ -37,5 +37,5 @@ typedef InputBoxOptions = {
      * @return A human readable string which is presented as diagnostic message.
      * Return `undefined`, `null`, or the empty string when 'value' is valid.
      */
-    @:optional var validateInput:String->String;
+    @:optional var validateInput:String->Null<String>;
 }

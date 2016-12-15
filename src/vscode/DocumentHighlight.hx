@@ -15,7 +15,7 @@ extern class DocumentHighlight {
     /**
      * The highlight kind, default is [text](#DocumentHighlightKind.Text).
      */
-    var kind:DocumentHighlightKind;
+    var kind:Null<DocumentHighlightKind>;
 
     /**
      * Creates a new document highlight object.

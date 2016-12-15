@@ -1,8 +1,5 @@
 package vscode;
 
-import js.Promise.Thenable;
-import haxe.extern.EitherType;
-
 /**
  * The hover provider interface defines the contract between extensions and
  * the [hover](https://code.visualstudio.com/docs/editor/editingevolved#_hover)-feature.
@@ -19,5 +16,5 @@ typedef HoverProvider = {
      * @return A hover or a thenable that resolves to such. The lack of a result can be
      * signaled by returning `undefined` or `null`.
      */
-    function provideHover(document:TextDocument, position:Position, token:CancellationToken):EitherType<Hover, Thenable<Hover>>;
+    function provideHover(document:TextDocument, position:Position, token:CancellationToken):ProviderResult<Hover>;
 }

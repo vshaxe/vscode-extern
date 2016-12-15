@@ -16,7 +16,7 @@ extern class ParameterInformation {
      * The human-readable doc-comment of this signature. Will be shown
      * in the UI but can be omitted.
      */
-    var documentation:String;
+    var documentation:Null<String>;
 
     /**
      * Creates a new parameter information object.

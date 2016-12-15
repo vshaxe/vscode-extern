@@ -31,7 +31,7 @@ typedef TextEditor = {
      * The column in which this editor shows. Will be `undefined` in case this
      * isn't one of the three main editors, e.g an embedded editor.
      */
-    var viewColumn:ViewColumn;
+    @:optional var viewColumn:ViewColumn;
 
     /**
      * Perform an edit on the document associated with this text editor.

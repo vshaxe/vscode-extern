@@ -1,8 +1,5 @@
 package vscode;
 
-import js.Promise.Thenable;
-import haxe.extern.EitherType;
-
 /**
  * A code lens provider adds [commands](#Command) to source text. The commands will be shown
  * as dedicated horizontal lines in between the source text.
@@ -18,7 +15,7 @@ typedef CodeLensProvider = {
      * @return An array of code lenses or a thenable that resolves to such. The lack of a result can be
      * signaled by returning `undefined`, `null`, or an empty array.
      */
-    function provideCodeLenses(document:TextDocument, token:CancellationToken):EitherType<Array<CodeLens>, Thenable<Array<CodeLens>>>;
+    function provideCodeLenses(document:TextDocument, token:CancellationToken):ProviderResult<Array<CodeLens>>;
 
     /**
      * This function will be called for each visible code lens, usually when scrolling and after
@@ -29,5 +26,5 @@ typedef CodeLensProvider = {
      * @return The given, resolved code lens or thenable that resolves to such.
      */
     @:optional // TODO: will this work?
-    function resolveCodeLens(codeLens:CodeLens, token:CancellationToken):EitherType<CodeLens, Thenable<CodeLens>>;
+    function resolveCodeLens(codeLens:CodeLens, token:CancellationToken):ProviderResult<CodeLens>;
 }

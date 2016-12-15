@@ -1,8 +1,5 @@
 package vscode;
 
-import js.Promise.Thenable;
-import haxe.extern.EitherType;
-
 /**
  * The reference provider interface defines the contract between extensions and
  * the [find references](https://code.visualstudio.com/docs/editor/editingevolved#_peek)-feature.
@@ -18,5 +15,5 @@ typedef ReferenceProvider = {
      * @return An array of locations or a thenable that resolves to such. The lack of a result can be
      * signaled by returning `undefined`, `null`, or an empty array.
      */
-    function provideReferences(document:TextDocument, position:Position, context:ReferenceContext, token:CancellationToken):EitherType<Array<Location>, Thenable<Array<Location>>>;
+    function provideReferences(document:TextDocument, position:Position, context:ReferenceContext, token:CancellationToken):ProviderResult<Array<Location>>;
 }

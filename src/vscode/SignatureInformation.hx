@@ -17,7 +17,7 @@ extern class SignatureInformation {
      * The human-readable doc-comment of this signature. Will be shown
      * in the UI but can be omitted.
      */
-    var documentation:String;
+    var documentation:Null<String>;
 
     /**
      * The parameters of this signature.

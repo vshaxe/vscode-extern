@@ -80,7 +80,7 @@ extern class Range {
      * @return A range of the greater start and smaller end positions. Will
      * return undefined when there is no overlap.
      */
-    function intersection(range:Range):Range;
+    function intersection(range:Range):Null<Range>;
 
     /**
      * Compute the union of `other` with this range.

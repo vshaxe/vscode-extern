@@ -18,7 +18,7 @@ extern class Hover {
      * editor will use the range at the current position or the
      * current position itself.
      */
-    var range:Range;
+    var range:Null<Range>;
 
     /**
      * Creates a new hover object.

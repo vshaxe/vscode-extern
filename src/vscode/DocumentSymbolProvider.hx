@@ -1,8 +1,5 @@
 package vscode;
 
-import js.Promise.Thenable;
-import haxe.extern.EitherType;
-
 /**
  * The document symbol provider interface defines the contract between extensions and
  * the [go to symbol](https://code.visualstudio.com/docs/editor/editingevolved#_goto-symbol)-feature.
@@ -16,5 +13,5 @@ typedef DocumentSymbolProvider = {
      * @return An array of document highlights or a thenable that resolves to such. The lack of a result can be
      * signaled by returning `undefined`, `null`, or an empty array.
      */
-    function provideDocumentSymbols(document:TextDocument, token:CancellationToken):EitherType<Array<SymbolInformation>, Thenable<Array<SymbolInformation>>>;
+    function provideDocumentSymbols(document:TextDocument, token:CancellationToken):ProviderResult<Array<SymbolInformation>>;
 }

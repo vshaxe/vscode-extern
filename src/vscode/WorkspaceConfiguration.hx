@@ -23,14 +23,15 @@ import js.Promise.Thenable;
  * ```
  */
 typedef WorkspaceConfiguration = {
+
     /**
      * Return a value from this configuration.
      *
      * @param section Configuration name, supports _dotted_ names.
-     * @param defaultValue A value should be returned when no value could be found, is `undefined`.
-     * @return The value `section` denotes or the default.
+     * @return The value `section` denotes or `undefined`.
      */
-    function get<T>(section:String, ?defaultValue:T):T;
+    @:overload(function<T>(section:String, defaultValue:T):T {})
+    function get<T>(section:String):Null<T>;
 
     /**
      * Check if this configuration has a certain value.
@@ -39,6 +40,21 @@ typedef WorkspaceConfiguration = {
      * @return `true` iff the section doesn't resolve to `undefined`.
      */
     function has(section:String):Bool;
+
+    /**
+     * Retrieve all information about a configuration setting. A configuration value
+     * often consists of a *default* value, a global or installation-wide value, and
+     * a workspace-specific value. The *effective* value (returned by [`get`](#WorkspaceConfiguration.get))
+     * is computed like this: `defaultValue` overwritten by `globalValue`,
+     * `globalValue` overwritten by `workspaceValue`.
+     *
+     * *Note:* The configuration name must denote a leaf in the configuration tree
+     * (`editor.fontSize` vs `editor`) otherwise no result is returned.
+     *
+     * @param section Configuration name, supports _dotted_ names.
+     * @return Information about a configuration setting or `undefined`.
+     */
+    function inspect<T>(section:String):Null<{key:String, ?defaultValue:T, ?globalValue:T, ?workspaceValue:T}>;
 
     /**
      * Update a configuration value. A value can be changed for the current

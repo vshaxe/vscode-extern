@@ -215,7 +215,7 @@ extern class VscodeCommands {
      * @return A thenable that resolves to the returned value of the given command. `undefined` when
      * the command handler function doesn't return anything.
      */
-    function executeCommand<T>(command:String, rest:Rest<Any>):Thenable<T>;
+    function executeCommand<T>(command:String, rest:Rest<Any>):Thenable<Null<T>>;
 
     /**
      * Retrieve the list of all available commands. Commands starting an underscore are
@@ -233,7 +233,7 @@ extern class VscodeWindow {
      * that currently has focus or, when none has focus, the one that has changed
      * input most recently.
      */
-    var activeTextEditor:TextEditor;
+    var activeTextEditor:Null<TextEditor>;
 
     /**
      * The currently visible editors or an empty array.
@@ -311,8 +311,8 @@ extern class VscodeWindow {
     //  * @param items A set of items that will be rendered as actions in the message.
     //  * @return A thenable that resolves to the selected item or `undefined` when being dismissed.
     //  */
-    @:overload(function(message:String, items:Rest<String>):Thenable<String> {})
-    function showInformationMessage<T:MessageItem>(message:String, items:Rest<T>):Thenable<T>;
+    @:overload(function(message:String, items:Rest<String>):Thenable<Null<String>> {})
+    function showInformationMessage<T:MessageItem>(message:String, items:Rest<T>):Thenable<Null<T>>;
 
     /**
      * Show a warning message.
@@ -323,8 +323,8 @@ extern class VscodeWindow {
      * @param items A set of items that will be rendered as actions in the message.
      * @return A thenable that resolves to the selected item or `undefined` when being dismissed.
      */
-    @:overload(function(message:String, items:Rest<String>):Thenable<String> {})
-    function showWarningMessage<T:MessageItem>(message:String, items:Rest<T>):Thenable<T>;
+    @:overload(function(message:String, items:Rest<String>):Thenable<Null<String>> {})
+    function showWarningMessage<T:MessageItem>(message:String, items:Rest<T>):Thenable<Null<T>>;
 
     /**
      * Show an error message.
@@ -335,8 +335,8 @@ extern class VscodeWindow {
      * @param items A set of items that will be rendered as actions in the message.
      * @return A thenable that resolves to the selected item or `undefined` when being dismissed.
      */
-    @:overload(function(message:String, items:Rest<String>):Thenable<String> {})
-    function showErrorMessage<T:MessageItem>(message:String, items:Rest<T>):Thenable<T>;
+    @:overload(function(message:String, items:Rest<String>):Thenable<Null<String>> {})
+    function showErrorMessage<T:MessageItem>(message:String, items:Rest<T>):Thenable<Null<T>>;
 
     /**
      * Shows a selection list.
@@ -344,10 +344,10 @@ extern class VscodeWindow {
      * @param items An array of strings, or a promise that resolves to an array of strings.
      * @param options Configures the behavior of the selection list.
      * @param token A token that can be used to signal cancellation.
-     * @return A promise that resolves to the selection or undefined.
+     * @return A promise that resolves to the selection or `undefined`.
      */
-    @:overload(function(items:EitherType<Array<String>, Thenable<Array<String>>>, ?options:QuickPickOptions, ?token:CancellationToken):Thenable<String> {})
-    function showQuickPick<T:QuickPickItem>(items:EitherType<Array<T>, Thenable<Array<T>>>, ?options:QuickPickOptions, ?token:CancellationToken):Thenable<T>;
+    @:overload(function(items:EitherType<Array<String>, Thenable<Array<String>>>, ?options:QuickPickOptions, ?token:CancellationToken):Thenable<Null<String>> {})
+    function showQuickPick<T:QuickPickItem>(items:EitherType<Array<T>, Thenable<Array<T>>>, ?options:QuickPickOptions, ?token:CancellationToken):Thenable<Null<T>>;
 
     /**
      * Opens an input box to ask the user for input.
@@ -360,7 +360,7 @@ extern class VscodeWindow {
      * @param token A token that can be used to signal cancellation.
      * @return A promise that resolves to a string the user provided or to `undefined` in case of dismissal.
      */
-    function showInputBox(?options:InputBoxOptions, ?token:CancellationToken):Thenable<String>;
+    function showInputBox(?options:InputBoxOptions, ?token:CancellationToken):Thenable<Null<String>>;
 
     /**
      * Create a new [output channel](#OutputChannel) with the given name.
@@ -409,7 +409,7 @@ extern class VscodeExtensions {
      * @param extensionId An extension identifier.
      * @return An extension or `undefined`.
      */
-    function getExtension<T>(extensionId:String):Extension<T>;
+    function getExtension<T>(extensionId:String):Null<Extension<T>>;
 
     /**
      * All extensions currently known to the system.
@@ -693,7 +693,7 @@ extern class VscodeWorkspace {
      *
      * @readonly
      */
-    var rootPath(default,null):String;
+    var rootPath(default,null):Null<String>;
 
     /**
      * Returns a path that is relative to the workspace root.
@@ -716,7 +716,7 @@ extern class VscodeWorkspace {
      * @param token A token that can be used to signal cancellation to the underlying search engine.
      * @return A thenable that resolves to an array of resource identifiers.
      */
-    function findFiles(include:String, exclude:String, ?maxResults:Int, ?token:CancellationToken):Thenable<Array<Uri>>;
+    function findFiles(include:String, ?exclude:String, ?maxResults:Int, ?token:CancellationToken):Thenable<Array<Uri>>;
 
     /**
      * Save all dirty files.

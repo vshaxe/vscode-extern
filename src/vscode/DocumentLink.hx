@@ -14,7 +14,7 @@ extern class DocumentLink {
     /**
      * The uri this link points to.
      */
-    var target:Uri;
+    var target:Null<Uri>;
 
     /**
      * Creates a new document link.
@@ -22,5 +22,5 @@ extern class DocumentLink {
      * @param range The range the document link applies to. Must not be empty.
      * @param target The uri the document link points to.
      */
-    function new(range:Range, target:Uri);
+    function new(range:Range, ?target:Uri);
 }

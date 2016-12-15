@@ -20,12 +20,14 @@ extern class CodeLens {
     /**
      * The command this code lens represents.
      */
-    var command:Command;
+    var command:Null<Command>;
 
     /**
      * `true` when there is a command associated.
+     *
+     * @readonly
      */
-    var isResolved:Bool;
+    var isResolved(default,null):Bool;
 
     /**
      * Creates a new code lens object.

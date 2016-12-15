@@ -1,8 +1,5 @@
 package vscode;
 
-import js.Promise.Thenable;
-import haxe.extern.EitherType;
-
 /**
  * The document formatting provider interface defines the contract between extensions and
  * the formatting-feature.
@@ -23,5 +20,5 @@ typedef OnTypeFormattingEditProvider = {
      * @return A set of text edits or a thenable that resolves to such. The lack of a result can be
      * signaled by returning `undefined`, `null`, or an empty array.
      */
-    function provideOnTypeFormattingEdits(document:TextDocument, position:Position, ch:String, options:FormattingOptions, token:CancellationToken):EitherType<Array<TextEdit>, Thenable<Array<TextEdit>>>;
+    function provideOnTypeFormattingEdits(document:TextDocument, position:Position, ch:String, options:FormattingOptions, token:CancellationToken):ProviderResult<Array<TextEdit>>;
 }

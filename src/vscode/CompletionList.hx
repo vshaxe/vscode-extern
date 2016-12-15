@@ -10,7 +10,7 @@ extern class CompletionList {
      * This list it not complete. Further typing should result in recomputing
      * this list.
      */
-    var isIncomplete:Bool;
+    var isIncomplete:Null<Bool>;
 
     /**
      * The completion items.

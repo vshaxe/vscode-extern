@@ -1,8 +1,5 @@
 package vscode;
 
-import js.Promise.Thenable;
-import haxe.extern.EitherType;
-
 /**
  * The signature help provider interface defines the contract between extensions and
  * the [parameter hints](https://code.visualstudio.com/docs/editor/editingevolved#_parameter-hints)-feature.
@@ -17,5 +14,5 @@ typedef SignatureHelpProvider = {
      * @return Signature help or a thenable that resolves to such. The lack of a result can be
      * signaled by returning `undefined` or `null`.
      */
-    function provideSignatureHelp(document:TextDocument, position:Position, token:CancellationToken):EitherType<SignatureHelp, Thenable<SignatureHelp>>;
+    function provideSignatureHelp(document:TextDocument, position:Position, token:CancellationToken):ProviderResult<SignatureHelp>;
 }

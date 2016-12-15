@@ -1,5 +1,7 @@
 package vscode;
 
+import haxe.extern.EitherType;
+
 /**
  * A completion item represents a text snippet that is proposed to complete text that is being typed.
  *
@@ -28,63 +30,78 @@ extern class CompletionItem {
      * The kind of this completion item. Based on the kind
      * an icon is chosen by the editor.
      */
-    var kind:CompletionItemKind;
+    var kind:Null<CompletionItemKind>;
 
     /**
      * A human-readable string with additional information
      * about this item, like type or symbol information.
      */
-    var detail:String;
+    var detail:Null<String>;
 
     /**
      * A human-readable string that represents a doc-comment.
      */
-    var documentation:String;
+    var documentation:Null<String>;
 
     /**
      * A string that should be used when comparing this item
      * with other items. When `falsy` the [label](#CompletionItem.label)
      * is used.
      */
-    var sortText:String;
+    var sortText:Null<String>;
 
     /**
      * A string that should be used when filtering a set of
      * completion items. When `falsy` the [label](#CompletionItem.label)
      * is used.
      */
-    var filterText:String;
+    var filterText:Null<String>;
 
     /**
-     * A string that should be inserted in a document when selecting
+     * A string or snippet that should be inserted in a document when selecting
      * this completion. When `falsy` the [label](#CompletionItem.label)
      * is used.
      */
-    var insertText:String;
+    var insertText:Null<EitherType<String, SnippetString>>;
 
     /**
-     * An [edit](#TextEdit) which is applied to a document when selecting
-     * this completion. When an edit is provided the value of
-     * [insertText](#CompletionItem.insertText) is ignored.
+     * A range of text that should be replaced by this completion item.
      *
-     * The [range](#Range) of the edit must be single-line and on the same
-     * line completions were [requested](#CompletionItemProvider.provideCompletionItems) at.
+     * Defaults to a range from the start of the [current word](#TextDocument.getWordRangeAtPosition) to the
+     * current position.
+     *
+     * *Note:* The range must be a [single line](#Range.isSingleLine) and it must
+     * [contain](#Range.contains) the position at which completion has been [requested](#CompletionItemProvider.provideCompletionItems).
      */
-    var textEdit:TextEdit;
+    var range:Null<Range>;
+
+
+    /**
+     * @deprecated **Deprecated** in favor of `CompletionItem.insertText` and `CompletionItem.range`.
+     *
+     * ~~An [edit](#TextEdit) which is applied to a document when selecting
+     * this completion. When an edit is provided the value of
+     * [insertText](#CompletionItem.insertText) is ignored.~~
+     *
+     * ~~The [range](#Range) of the edit must be single-line and on the same
+     * line completions were [requested](#CompletionItemProvider.provideCompletionItems) at.~~
+     */
+    @:deprecated
+    var textEdit:Null<TextEdit>;
 
     /**
      * An optional array of additional [text edits](#TextEdit) that are applied when
      * selecting this completion. Edits must not overlap with the main [edit](#CompletionItem.textEdit)
      * nor with themselves.
      */
-    var additionalTextEdits:Array<TextEdit>;
+    var additionalTextEdits:Null<Array<TextEdit>>;
 
     /**
      * An optional [command](#Command) that is executed *after* inserting this completion. *Note* that
      * additional modifications to the current document should be described with the
      * [additionalTextEdits](#CompletionItem.additionalTextEdits)-property.
      */
-    var command:Command;
+    var command:Null<Command>;
 
     /**
      * Creates a new completion item.

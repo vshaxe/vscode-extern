@@ -1,8 +1,5 @@
 package vscode;
 
-import js.Promise.Thenable;
-import haxe.extern.EitherType;
-
 /**
  * The document highlight provider interface defines the contract between extensions and
  * the word-highlight-feature.
@@ -18,5 +15,5 @@ typedef DocumentHighlightProvider = {
      * @return An array of document highlights or a thenable that resolves to such. The lack of a result can be
      * signaled by returning `undefined`, `null`, or an empty array.
      */
-    function provideDocumentHighlights(document:TextDocument, position:Position, token:CancellationToken):EitherType<Array<DocumentHighlight>, Thenable<Array<DocumentHighlight>>>;
+    function provideDocumentHighlights(document:TextDocument, position:Position, token:CancellationToken):ProviderResult<Array<DocumentHighlight>>;
 }

@@ -1,8 +1,5 @@
 package vscode;
 
-import js.Promise.Thenable;
-import haxe.extern.EitherType;
-
 /**
  * A text document content provider allows to add readonly documents
  * to the editor, such as source from a dll or generated html from md.
@@ -29,5 +26,5 @@ typedef TextDocumentContentProvider = {
      * @param token A cancellation token.
      * @return A string or a thenable that resolves to such.
      */
-    function provideTextDocumentContent(uri:Uri, token:CancellationToken):EitherType<String, Thenable<String>>;
+    function provideTextDocumentContent(uri:Uri, token:CancellationToken):ProviderResult<String>;
 }

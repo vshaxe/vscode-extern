@@ -1,6 +1,5 @@
 package vscode;
 
-import js.Promise.Thenable;
 import haxe.extern.EitherType;
 
 /**
@@ -27,7 +26,7 @@ typedef CompletionItemProvider = {
      * @return An array of completions, a [completion list](#CompletionList), or a thenable that resolves to either.
      * The lack of a result can be signaled by returning `undefined`, `null`, or an empty array.
      */
-    function provideCompletionItems(document:TextDocument, position:Position, token:CancellationToken):EitherType<Array<CompletionItem>, EitherType<Thenable<Array<CompletionItem>>, EitherType<CompletionList, Thenable<CompletionList>>>>;
+    function provideCompletionItems(document:TextDocument, position:Position, token:CancellationToken):ProviderResult<EitherType<Array<CompletionItem>, CompletionList>>;
 
     /**
      * Given a completion item fill in more data, like [doc-comment](#CompletionItem.documentation)
@@ -41,5 +40,5 @@ typedef CompletionItemProvider = {
      * `item`. When no result is returned, the given `item` will be used.
      */
     @:optional // TODO: will that work?
-    function resolveCompletionItem(item:CompletionItem, token:CancellationToken):EitherType<CompletionItem, Thenable<CompletionItem>>;
+    function resolveCompletionItem(item:CompletionItem, token:CancellationToken):ProviderResult<CompletionItem>;
 }
