@@ -40,7 +40,7 @@ typedef TextEditor = {
      * be used to make edits. Note that the edit-builder is only valid while the
      * callback executes.
      *
-     * @param @param callback A function which can create edits using an [edit-builder](#TextEditorEdit).
+     * @param callback A function which can create edits using an [edit-builder](#TextEditorEdit).
      * @param options The undo/redo behaviour around this edit. By default, undo stops will be created before and after this edit.
      * @return A promise that resolves with a value indicating if the edits could be applied.
      */
