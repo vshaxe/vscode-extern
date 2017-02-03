@@ -10,7 +10,6 @@ package vscode;
 typedef TextEditorDecorationType = {
     /**
      * Internal representation of the handle.
-     * @readonly
      */
     var key(default,null):String;
 

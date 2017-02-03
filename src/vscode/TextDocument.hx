@@ -11,45 +11,33 @@ typedef TextDocument = {
      * The associated URI for this document. Most documents have the __file__-scheme, indicating that they
      * represent files on disk. However, some documents may have other schemes indicating that they are not
      * available on disk.
-     *
-     * @readonly
      */
     var uri(default,null):Uri;
 
     /**
      * The file system path of the associated resource. Shorthand
      * notation for [TextDocument.uri.fsPath](#TextDocument.uri). Independent of the uri scheme.
-     *
-     * @readonly
      */
     var fileName(default,null):String;
 
     /**
      * Is this document representing an untitled file.
-     *
-     * @readonly
      */
     var isUntitled(default,null):Bool;
 
     /**
      * The identifier of the language associated with this document.
-     *
-     * @readonly
      */
     var languageId(default,null):String;
 
     /**
      * The version number of this document (it will strictly increase after each
      * change, including undo/redo).
-     *
-     * @readonly
      */
     var version(default,null):Int;
 
     /**
      * true if there are unpersisted changes.
-     *
-     * @readonly
      */
     var isDirty(default,null):Bool;
 
@@ -64,10 +52,8 @@ typedef TextDocument = {
 
     /**
      * The number of lines in this document.
-     *
-     * @readonly
      */
-    var lineCount:Int;
+    var lineCount(default,null):Int;
 
     /**
      * Returns a text line denoted by the line number. Note

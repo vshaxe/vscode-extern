@@ -8,15 +8,11 @@ import js.Promise.Thenable;
 typedef Terminal = {
     /**
      * The name of the terminal.
-     *
-     * @readonly
      */
     var name(default,null):String;
 
     /**
      * The process ID of the shell process.
-     *
-     * @readonly
      */
     var processId(default,null):Thenable<Int>;
 

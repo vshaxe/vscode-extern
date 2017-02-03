@@ -75,6 +75,12 @@ extern class CompletionItem {
      */
     var range:Null<Range>;
 
+    /**
+     * An optional set of characters that when pressed while this completion is active will accept it first and
+     * then type that character. *Note* that all commit characters should have `length=1` and that superfluous
+     * characters will be ignored.
+     */
+    var commitCharacters:Null<Array<String>>;
 
     /**
      * @deprecated **Deprecated** in favor of `CompletionItem.insertText` and `CompletionItem.range`.

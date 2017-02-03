@@ -12,13 +12,11 @@ package vscode;
 extern class Position {
     /**
      * The zero-based line value.
-     * @readonly
      */
     var line(default,null):Int;
 
     /**
      * The zero-based character value.
-     * @readonly
      */
     var character(default,null):Int;
 

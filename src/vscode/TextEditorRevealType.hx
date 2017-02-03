@@ -20,4 +20,9 @@ package vscode;
      * Otherwise, it will be revealed with as little scrolling as possible.
      */
     var InCenterIfOutsideViewport;
+
+    /**
+     * The range will always be revealed at the top of the viewport.
+     */
+    var AtTop;
 }

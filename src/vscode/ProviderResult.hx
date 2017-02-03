@@ -12,25 +12,25 @@ import js.Promise.Thenable;
  * The snippets below are all valid implementions of the [`HoverProvider`](#HoverProvider):
  *
  * ```ts
- *	let a: HoverProvider = {
- *		provideHover(doc, pos, token): ProviderResult<Hover> {
- *			return new Hover('Hello World');
- *		}
- *	}
+ * let a: HoverProvider = {
+ * 	provideHover(doc, pos, token): ProviderResult<Hover> {
+ * 		return new Hover('Hello World');
+ * 	}
+ * }
  *
- *	let b: HoverProvider = {
- *		provideHover(doc, pos, token): ProviderResult<Hover> {
- *			return new Promise(resolve => {
- * 				resolve(new Hover('Hello World'));
- *			});
- *		}
- *	}
+ * let b: HoverProvider = {
+ * 	provideHover(doc, pos, token): ProviderResult<Hover> {
+ * 		return new Promise(resolve => {
+ * 			resolve(new Hover('Hello World'));
+ * 	 	});
+ * 	}
+ * }
  *
- *	let c: HoverProvider = {
- *		provideHover(doc, pos, token): ProviderResult<Hover> {
- *			return; // undefined
- *		}
- *	}
- *```
+ * let c: HoverProvider = {
+ * 	provideHover(doc, pos, token): ProviderResult<Hover> {
+ * 		return; // undefined
+ * 	}
+ * }
+ * ```
  */
 typedef ProviderResult<T> = EitherType<T,Thenable<T>>;

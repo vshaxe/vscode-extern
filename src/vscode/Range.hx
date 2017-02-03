@@ -14,13 +14,11 @@ import haxe.extern.EitherType;
 extern class Range {
     /**
      * The start position. It is before or equal to [end](#Range.end).
-     * @readonly
      */
     var start(default,null):Position;
 
     /**
      * The end position. It is after or equal to [start](#Range.start).
-     * @readonly
      */
     var end(default,null):Position;
 

@@ -24,8 +24,6 @@ extern class CodeLens {
 
     /**
      * `true` when there is a command associated.
-     *
-     * @readonly
      */
     var isResolved(default,null):Bool;
 

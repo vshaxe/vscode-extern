@@ -23,4 +23,5 @@ package vscode;
     var Color;
     var File;
     var Reference;
+    var Folder;
 }

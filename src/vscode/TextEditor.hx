@@ -47,6 +47,19 @@ typedef TextEditor = {
     function edit(callback:TextEditorEdit->Void, ?options:{undoStopBefore:Bool, undoStopAfter:Bool}):Thenable<Bool>;
 
     /**
+     * Insert a [snippet](#SnippetString) and put the editor into snippet mode. "Snippet mode"
+     * means the editor adds placeholders and additionals cursors so that the user can complete
+     * or accept the snippet.
+     *
+     * @param snippet The snippet to insert in this edit.
+     * @param location Position or range at which to insert the snippet, defaults to the current editor selection or selections.
+     * @param options The undo/redo behaviour around this edit. By default, undo stops will be created before and after this edit.
+     * @return A promise that resolves with a value indicating if the snippet could be inserted. Note that the promise does not signal
+     * that the snippet is completely filled-in or accepted.
+     */
+    function insertSnippet(snippet:SnippetString, ?location:EitherType<Position,EitherType<Range,EitherType<Array<Position>,Array<Range>>>>, ?options:{undoStopBefore:Bool, undoStopAfter:Bool}):Thenable<Bool>;
+
+    /**
      * Adds a set of decorations to the text editor. If a set of decorations already exists with
      * the given [decoration type](#TextEditorDecorationType), they will be replaced.
      *

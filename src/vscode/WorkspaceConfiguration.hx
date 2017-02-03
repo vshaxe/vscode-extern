@@ -14,12 +14,12 @@ import js.Promise.Thenable;
  * part of the section identifier. The following snippets shows how to retrieve all configurations
  * from `launch.json`:
  *
- * ```
+ * ```haxe
  * // launch.json configuration
- * const config = workspace.getConfiguration('launch');
+ * var config = workspace.getConfiguration('launch');
  *
  * // retrieve values
- * const values = config.get('configurations');
+ * var values = config.get('configurations');
  * ```
  */
 typedef WorkspaceConfiguration = {

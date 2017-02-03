@@ -7,8 +7,6 @@ package vscode;
 typedef CodeActionContext = {
     /**
      * An array of diagnostics.
-     *
-     * @readonly
      */
     var diagnostics(default,null):Array<Diagnostic>;
 }

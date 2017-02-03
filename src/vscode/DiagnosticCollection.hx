@@ -13,7 +13,6 @@ typedef DiagnosticCollection = {
      * The name of this diagnostic collection, for instance `typescript`. Every diagnostic
      * from this collection will be associated with this name. Also, the task framework uses this
      * name when defining [problem matchers](https://code.visualstudio.com/docs/editor/tasks#_defining-a-problem-matcher).
-     * @readonly
      */
     var name(default,null):String;
 

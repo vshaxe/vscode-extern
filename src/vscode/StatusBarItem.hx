@@ -7,16 +7,12 @@ package vscode;
 typedef StatusBarItem = {
     /**
      * The alignment of this item.
-     *
-     * @readonly
      */
     var alignment(default,null):StatusBarAlignment;
 
     /**
      * The priority of this item. Higher value means the item should
      * be shown more to the left.
-     *
-     * @readonly
      */
     var priority(default,null):Float;
 

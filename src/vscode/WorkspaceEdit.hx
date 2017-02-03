@@ -9,8 +9,6 @@ extern class WorkspaceEdit {
 
     /**
      * The number of affected resources.
-     *
-     * @readonly
      */
     var size(default,null):Int;
 

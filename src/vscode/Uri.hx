@@ -28,28 +28,28 @@ extern class Uri {
      * Scheme is the `http` part of `http://www.msft.com/some/path?query#fragment`.
      * The part before the first colon.
      */
-    var scheme:String;
+    var scheme(default,null):String;
 
     /**
      * Authority is the `www.msft.com` part of `http://www.msft.com/some/path?query#fragment`.
      * The part between the first double slashes and the next slash.
      */
-    var authority:String;
+    var authority(default,null):String;
 
     /**
      * Path is the `/some/path` part of `http://www.msft.com/some/path?query#fragment`.
      */
-    var path:String;
+    var path(default,null):String;
 
     /**
      * Query is the `query` part of `http://www.msft.com/some/path?query#fragment`.
      */
-    var query:String;
+    var query(default,null):String;
 
     /**
      * Fragment is the `fragment` part of `http://www.msft.com/some/path?query#fragment`.
      */
-    var fragment:String;
+    var fragment(default,null):String;
 
     /**
      * The string representing the corresponding file system path of this Uri.
@@ -58,21 +58,22 @@ extern class Uri {
      * uses the platform specific path separator. Will *not* validate the path for
      * invalid characters and semantics. Will *not* look at the scheme of this Uri.
      */
-    var fsPath:String;
+    var fsPath(default,null):String;
 
     /**
      * Derive a new Uri from this Uri.
+     *
+     * ```haxe
+     * var file = Uri.parse('before:some/file/path');
+     * var other = file.with({scheme: 'after'});
+     * Assert.ok(other.toString() == 'after:some/file/path');
+     * ```
      *
      * @param change An object that describes a change to this Uri. To unset components use `null` or
      *  the empty string.
      * @return A new Uri that reflects the given change. Will return `this` Uri if the change
      *  is not changing anything.
-     * @sample ```
-        let file = Uri.parse('before:some/file/path');
-        let other = file.with({ scheme: 'after' });
-        assert.ok(other.toString() === 'after:some/file/path');
-        * ```
-        */
+     */
     function with(change:{?scheme:String, ?authority:String, ?path:String, ?query:String, ?fragment:String}):Uri;
 
     /**

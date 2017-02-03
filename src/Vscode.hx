@@ -38,17 +38,18 @@ extern class Vscode {
     * register a command handler with the identfier `extension.sayHello`.
     * ```javascript
     * commands.registerCommand('extension.sayHello', () => {
-    *   window.showInformationMessage('Hello World!');
+    * 	window.showInformationMessage('Hello World!');
     * });
     * ```
     * Second, bind the command identfier to a title under which it will show in the palette (`package.json`).
     * ```json
     * {
-    * "contributes": {
-    *   "commands": [{
-    *       "command": "extension.sayHello",
-    *       "title": "Hello World"
-    *   }]
+    * 	"contributes": {
+    * 		"commands": [{
+    * 			"command": "extension.sayHello",
+    * 			"title": "Hello World"
+    * 		}]
+    * 	}
     * }
     * ```
     */
@@ -87,9 +88,9 @@ extern class Vscode {
      *
      * ```javascript
      * languages.registerHoverProvider('javascript', {
-     *  provideHover(document, position, token) {
-     *      return new Hover('I am a hover!');
-     *  }
+     * 	provideHover(document, position, token) {
+     * 		return new Hover('I am a hover!');
+     * 	}
      * });
      * ```
      *
@@ -111,16 +112,16 @@ extern class Vscode {
      *
      * ```javascript
      * export function activate(context: vscode.ExtensionContext) {
-     *  let api = {
-     *      sum(a, b) {
-     *          return a + b;
-     *      },
-     *      mul(a, b) {
-     *          return a * b;
-     *      }
-     *  };
-     *  // 'export' public api-surface
-     *  return api;
+     * 	let api = {
+     * 		sum(a, b) {
+     * 			return a + b;
+     * 		},
+     * 		mul(a, b) {
+     * 			return a * b;
+     * 		}
+     * 	};
+     * 	// 'export' public api-surface
+     * 	return api;
      * }
      * ```
      *
@@ -373,6 +374,9 @@ extern class VscodeWindow {
      * Set a message to the status bar. This is a short hand for the more powerful
      * status bar [items](#window.createStatusBarItem).
      *
+     * *Note* that status bar messages without hide arguments stack and that they must be disposed when no
+     * longer used.
+     *
      * @param text The message to show, support icon subtitution as in status bar [items](#StatusBarItem.text).
      * @param hideAfterTimeout Timeout in milliseconds after which the message will be disposed.
      * @param hideWhenDone Thenable on which completion (resolve or reject) the message will be disposed.
@@ -392,13 +396,16 @@ extern class VscodeWindow {
     function createStatusBarItem(?alignment:StatusBarAlignment, ?priority:Float):StatusBarItem;
 
     /**
-     * Creates a [Terminal](#Terminal).
+     * Creates a [Terminal](#Terminal). The cwd of the terminal will be the workspace directory
+     * if it exists, regardless of whether an explicit customStartPath setting exists.
      *
      * @param name Optional human-readable string which will be used to represent the terminal in the UI.
      * @param shellPath Optional path to a custom shell executable to be used in the terminal.
      * @param shellArgs Optional args for the custom shell executable, this does not work on Windows (see #8429)
+     * @param options A TerminalOptions object describing the characteristics of the new terminal.
      * @return A new Terminal.
      */
+    @:overload(function(options:TerminalOptions):Terminal {})
     function createTerminal(?name:String, ?shellPath:String, ?shellArgs:Array<String>):Terminal;
 }
 
@@ -512,6 +519,19 @@ extern class VscodeLanguages {
      * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
      */
     function registerDefinitionProvider(selector:DocumentSelector, provider:DefinitionProvider):Disposable;
+
+    /**
+     * Register an implementation provider.
+     *
+     * Multiple providers can be registered for a language. In that case providers are asked in
+     * parallel and the results are merged. A failing provider (rejected promise or exception) will
+     * not cause a failure of the whole operation.
+     *
+     * @param selector A selector that defines the documents this provider is applicable to.
+     * @param provider An implementation provider.
+     * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+     */
+    function registerImplementationProvider(selector:DocumentSelector, provider:ImplementationProvider):Disposable;
 
     /**
      * Register a hover provider.
@@ -757,17 +777,22 @@ extern class VscodeWorkspace {
      *
      * Uris with other schemes will make this method return a rejected promise.
      *
+     * ---
+     *
+     * A short-hand for `openTextDocument(Uri.file(fileName))`.
+     *
+     * ---
+     *
+     * Opens an untitled text document. The editor will prompt the user for a file
+     * path when the document is to be saved. The `options` parameter allows to
+     * specify the *language* of the document.
+     *
      * @param uri Identifies the resource to open.
+     * @param fileName A name of a file on disk.
+     * @param options Options to control how the document will be created.
      * @return A promise that resolves to a [document](#TextDocument).
      */
-    // TODO overload plox
-    // /**
-    //  * A short-hand for `openTextDocument(Uri.file(fileName))`.
-    //  *
-    //  * @see [openTextDocument](#openTextDocument)
-    //  * @param fileName A name of a file on disk.
-    //  * @return A promise that resolves to a [document](#TextDocument).
-    //  */
+    @:overload(function(?options:{language:String}):Thenable<TextDocument> {})
     @:overload(function(fileName:String):Thenable<TextDocument> {})
     function openTextDocument(uri:Uri):Thenable<TextDocument>;
 

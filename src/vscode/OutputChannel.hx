@@ -9,7 +9,6 @@ package vscode;
 typedef OutputChannel = {
     /**
      * The human-readable name of this output channel.
-     * @readonly
      */
     var name:String;
 
