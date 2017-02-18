@@ -10,6 +10,8 @@ package vscode;
  */
 @:jsRequire("vscode", "EventEmitter")
 extern class EventEmitter<T> {
+    function new();
+
     /**
      * The event listeners can subscribe to.
      */

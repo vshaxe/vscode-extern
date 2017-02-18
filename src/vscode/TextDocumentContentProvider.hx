@@ -13,7 +13,7 @@ typedef TextDocumentContentProvider = {
     /**
      * An event to signal a resource has changed.
      */
-    @:optional var onDidChange:Event<Uri>;
+    @:optional var onDidChange(default,never):Event<Uri>;
 
     /**
      * Provide textual content for a given uri.
