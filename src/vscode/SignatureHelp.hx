@@ -7,6 +7,8 @@ package vscode;
  */
 @:jsRequire("vscode", "SignatureHelp")
 extern class SignatureHelp {
+    function new();
+
     /**
      * One or more signatures.
      */

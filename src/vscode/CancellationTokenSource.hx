@@ -5,6 +5,8 @@ package vscode;
  */
 @:jsRequire("vscode", "CancellationTokenSource")
 extern class CancellationTokenSource {
+    function new();
+
     /**
      * The cancellation token of this source.
      */
