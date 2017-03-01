@@ -1,12 +1,12 @@
 package vscode;
 
 /**
- * The implemenetation provider interface defines the contract between extensions and
- * the go to implementation feature.
+ * The type definition provider defines the contract between extensions and
+ * the go to type definition feature.
  */
-typedef ImplementationProvider = {
+typedef TypeDefinitionProvider = {
     /**
-     * Provide the implementations of the symbol at the given position and document.
+     * Provide the type definition of the symbol at the given position and document.
      *
      * @param document The document in which the command was invoked.
      * @param position The position at which the command was invoked.
@@ -14,5 +14,5 @@ typedef ImplementationProvider = {
      * @return A definition or a thenable that resolves to such. The lack of a result can be
      * signaled by returning `undefined` or `null`.
      */
-    function provideImplementation(document:TextDocument, position:Position, token:CancellationToken):ProviderResult<Definition>;
+    function provideTypeDefinition(document:TextDocument, position:Position, token:CancellationToken):ProviderResult<Definition>;
 }

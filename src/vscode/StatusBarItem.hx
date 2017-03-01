@@ -29,18 +29,18 @@ typedef StatusBarItem = {
     /**
      * The tooltip text when you hover over this entry.
      */
-    var tooltip:String;
+    var tooltip:Null<String>;
 
     /**
      * The foreground color for this entry.
      */
-    var color:String;
+    var color:Null<String>;
 
     /**
      * The identifier of a command to run on click. The command must be
      * [known](#commands.getCommands).
      */
-    var command:String;
+    var command:Null<String>;
 
     /**
      * Shows the entry in the status bar.

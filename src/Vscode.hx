@@ -35,13 +35,13 @@ extern class Vscode {
     * when invoking an editor command not all argument types are supported.
     *
     * This is a sample that registers a command handler and adds an entry for that command to the palette. First
-    * register a command handler with the identfier `extension.sayHello`.
+    * register a command handler with the identifier `extension.sayHello`.
     * ```javascript
     * commands.registerCommand('extension.sayHello', () => {
     * 	window.showInformationMessage('Hello World!');
     * });
     * ```
-    * Second, bind the command identfier to a title under which it will show in the palette (`package.json`).
+    * Second, bind the command identifier to a title under which it will show in the palette (`package.json`).
     * ```json
     * {
     * 	"contributes": {
@@ -301,6 +301,7 @@ extern class VscodeWindow {
      *
      * @param message The message to show.
      * @param items A set of items that will be rendered as actions in the message.
+     * @param options Configures the behaviour of the message.
      * @return A thenable that resolves to the selected item or `undefined` when being dismissed.
      */
     // TODO overload plox
@@ -312,7 +313,18 @@ extern class VscodeWindow {
     //  * @param items A set of items that will be rendered as actions in the message.
     //  * @return A thenable that resolves to the selected item or `undefined` when being dismissed.
     //  */
+    // /**
+    //  * Show an information message to users. Optionally provide an array of items which will be presented as
+    //  * clickable buttons.
+    //  *
+    //  * @param message The message to show.
+    //  * @param options Configures the behaviour of the message.
+    //  * @param items A set of items that will be rendered as actions in the message.
+    //  * @return A thenable that resolves to the selected item or `undefined` when being dismissed.
+    //  */
     @:overload(function(message:String, items:Rest<String>):Thenable<Null<String>> {})
+    @:overload(function(message:String, options:MessageOptions, items:Rest<String>):Thenable<Null<String>> {})
+    @:overload(function<T:MessageItem>(message:String, options:MessageOptions, items:Rest<T>):Thenable<Null<T>> {})
     function showInformationMessage<T:MessageItem>(message:String, items:Rest<T>):Thenable<Null<T>>;
 
     /**
@@ -321,10 +333,13 @@ extern class VscodeWindow {
      * @see [showInformationMessage](#window.showInformationMessage)
      *
      * @param message The message to show.
+     * @param options Configures the behaviour of the message.
      * @param items A set of items that will be rendered as actions in the message.
      * @return A thenable that resolves to the selected item or `undefined` when being dismissed.
      */
     @:overload(function(message:String, items:Rest<String>):Thenable<Null<String>> {})
+    @:overload(function(message:String, options:MessageOptions, items:Rest<String>):Thenable<Null<String>> {})
+    @:overload(function<T:MessageItem>(message:String, options:MessageOptions, items:Rest<T>):Thenable<Null<T>> {})
     function showWarningMessage<T:MessageItem>(message:String, items:Rest<T>):Thenable<Null<T>>;
 
     /**
@@ -333,10 +348,13 @@ extern class VscodeWindow {
      * @see [showInformationMessage](#window.showInformationMessage)
      *
      * @param message The message to show.
+     * @param options Configures the behaviour of the message.
      * @param items A set of items that will be rendered as actions in the message.
      * @return A thenable that resolves to the selected item or `undefined` when being dismissed.
      */
     @:overload(function(message:String, items:Rest<String>):Thenable<Null<String>> {})
+    @:overload(function(message:String, options:MessageOptions, items:Rest<String>):Thenable<Null<String>> {})
+    @:overload(function<T:MessageItem>(message:String, options:MessageOptions, items:Rest<T>):Thenable<Null<T>> {})
     function showErrorMessage<T:MessageItem>(message:String, items:Rest<T>):Thenable<Null<T>>;
 
     /**
@@ -377,7 +395,7 @@ extern class VscodeWindow {
      * *Note* that status bar messages without hide arguments stack and that they must be disposed when no
      * longer used.
      *
-     * @param text The message to show, support icon subtitution as in status bar [items](#StatusBarItem.text).
+     * @param text The message to show, supports icon substitution as in status bar [items](#StatusBarItem.text).
      * @param hideAfterTimeout Timeout in milliseconds after which the message will be disposed.
      * @param hideWhenDone Thenable on which completion (resolve or reject) the message will be disposed.
      * @return A disposable which hides the status bar message.
@@ -532,6 +550,19 @@ extern class VscodeLanguages {
      * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
      */
     function registerImplementationProvider(selector:DocumentSelector, provider:ImplementationProvider):Disposable;
+
+    /**
+     * Register a type definition provider.
+     *
+     * Multiple providers can be registered for a language. In that case providers are asked in
+     * parallel and the results are merged. A failing provider (rejected promise or exception) will
+     * not cause a failure of the whole operation.
+     *
+     * @param selector A selector that defines the documents this provider is applicable to.
+     * @param provider A type definition provider.
+     * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+     */
+    function registerTypeDefinitionProvider(selector:DocumentSelector, provider:TypeDefinitionProvider):Disposable;
 
     /**
      * Register a hover provider.

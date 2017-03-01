@@ -37,7 +37,7 @@ typedef WorkspaceConfiguration = {
      * Check if this configuration has a certain value.
      *
      * @param section Configuration name, supports _dotted_ names.
-     * @return `true` iff the section doesn't resolve to `undefined`.
+     * @return `true` if the section doesn't resolve to `undefined`.
      */
     function has(section:String):Bool;
 

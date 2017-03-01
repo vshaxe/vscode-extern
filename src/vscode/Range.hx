@@ -23,12 +23,12 @@ extern class Range {
     var end(default,null):Position;
 
     /**
-     * `true` iff `start` and `end` are equal.
+     * `true` if `start` and `end` are equal.
      */
     var isEmpty:Bool;
 
     /**
-     * `true` iff `start.line` and `end.line` are equal.
+     * `true` if `start.line` and `end.line` are equal.
      */
     var isSingleLine:Bool;
 
@@ -56,7 +56,7 @@ extern class Range {
      * Check if a position or a range is contained in this range.
      *
      * @param positionOrRange A position or a range.
-     * @return `true` iff the position or range is inside or equal
+     * @return `true` if the position or range is inside or equal
      * to this range.
      */
     function contains(positionOrRange:EitherType<Position, Range>):Bool;
