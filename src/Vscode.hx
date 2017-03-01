@@ -322,10 +322,10 @@ extern class VscodeWindow {
     //  * @param items A set of items that will be rendered as actions in the message.
     //  * @return A thenable that resolves to the selected item or `undefined` when being dismissed.
     //  */
-    @:overload(function(message:String, items:Rest<String>):Thenable<Null<String>> {})
-    @:overload(function(message:String, options:MessageOptions, items:Rest<String>):Thenable<Null<String>> {})
+    @:overload(function<T:MessageItem>(message:String, items:Rest<T>):Thenable<Null<T>> {})
     @:overload(function<T:MessageItem>(message:String, options:MessageOptions, items:Rest<T>):Thenable<Null<T>> {})
-    function showInformationMessage<T:MessageItem>(message:String, items:Rest<T>):Thenable<Null<T>>;
+    @:overload(function(message:String, items:Rest<String>):Thenable<Null<String>> {})
+    function showInformationMessage(message:String, options:MessageOptions, items:Rest<String>):Thenable<Null<String>>;
 
     /**
      * Show a warning message.
@@ -337,10 +337,10 @@ extern class VscodeWindow {
      * @param items A set of items that will be rendered as actions in the message.
      * @return A thenable that resolves to the selected item or `undefined` when being dismissed.
      */
-    @:overload(function(message:String, items:Rest<String>):Thenable<Null<String>> {})
-    @:overload(function(message:String, options:MessageOptions, items:Rest<String>):Thenable<Null<String>> {})
+    @:overload(function<T:MessageItem>(message:String, items:Rest<T>):Thenable<Null<T>> {})
     @:overload(function<T:MessageItem>(message:String, options:MessageOptions, items:Rest<T>):Thenable<Null<T>> {})
-    function showWarningMessage<T:MessageItem>(message:String, items:Rest<T>):Thenable<Null<T>>;
+    @:overload(function(message:String, items:Rest<String>):Thenable<Null<String>> {})
+    function showWarningMessage(message:String, options:MessageOptions, items:Rest<String>):Thenable<Null<String>>;
 
     /**
      * Show an error message.
@@ -352,10 +352,10 @@ extern class VscodeWindow {
      * @param items A set of items that will be rendered as actions in the message.
      * @return A thenable that resolves to the selected item or `undefined` when being dismissed.
      */
-    @:overload(function(message:String, items:Rest<String>):Thenable<Null<String>> {})
-    @:overload(function(message:String, options:MessageOptions, items:Rest<String>):Thenable<Null<String>> {})
+    @:overload(function<T:MessageItem>(message:String, items:Rest<T>):Thenable<Null<T>> {})
     @:overload(function<T:MessageItem>(message:String, options:MessageOptions, items:Rest<T>):Thenable<Null<T>> {})
-    function showErrorMessage<T:MessageItem>(message:String, items:Rest<T>):Thenable<Null<T>>;
+    @:overload(function(message:String, items:Rest<String>):Thenable<Null<String>> {})
+    function showErrorMessage(message:String, options:MessageOptions, items:Rest<String>):Thenable<Null<String>>;
 
     /**
      * Shows a selection list.
