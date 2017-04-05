@@ -26,9 +26,9 @@ extern class Vscode {
     * can be executed [manually](#commands.executeCommand) or from a UI gesture. Those are:
     *
     * * palette - Use the `commands`-section in `package.json` to make a command show in
-    * the [command palette](https://code.visualstudio.com/docs/editor/codebasics#_command-palette).
+    * the [command palette](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette).
     * * keybinding - Use the `keybindings`-section in `package.json` to enable
-    * [keybindings](https://code.visualstudio.com/docs/customization/keybindings#_customizing-shortcuts)
+    * [keybindings](https://code.visualstudio.com/docs/getstarted/keybindings#_customizing-shortcuts)
     * for your extension.
     *
     * Commands from other extensions and from the editor itself are accessible to an extension. However,
@@ -102,6 +102,8 @@ extern class Vscode {
      * score is used for determining the order in which providers are asked to participate.
      */
     static var languages(default,null):VscodeLanguages;
+
+    static var scm(default,null):VscodeScm;
 
     /**
      * Namespace for dealing with installed extensions. Extensions are represented
@@ -405,6 +407,16 @@ extern class VscodeWindow {
     function setStatusBarMessage(text:String):Disposable;
 
     /**
+     * Show progress in the Source Control viewlet while running the given callback and while
+     * its returned promise isn't resolve or rejected.
+     *
+     * @param task A callback returning a promise. Progress increments can be reported with
+     * the provided [progress](#Progress)-object.
+     * @return The thenable the task did return.
+     */
+    function withScmProgress<R>(task:Progress<Float>->Thenable<R>):Thenable<R>;
+
+    /**
      * Creates a status bar [item](#StatusBarItem).
      *
      * @param alignment The alignment of the item.
@@ -442,6 +454,22 @@ extern class VscodeExtensions {
     var all(default,null):Array<Extension<Any>>;
 }
 
+extern class VscodeScm {
+    /**
+     * The [input box](#SourceControlInputBox) in the Source Control viewlet.
+     */
+    var inputBox(default,null):SourceControlInputBox;
+
+    /**
+     * Creates a new [source control](#SourceControl) instance.
+     *
+     * @param id A unique `id` for the source control. Something short, eg: `git`.
+     * @param label A human-readable string for the source control. Eg: `Git`.
+     * @return An instance of [source control](#SourceControl).
+     */
+    function createSourceControl(id:String, label:String):SourceControl;
+}
+
 extern class VscodeLanguages {
     /**
      * Return the identifiers of all known languages.
@@ -451,28 +479,41 @@ extern class VscodeLanguages {
 
     /**
      * Compute the match between a document [selector](#DocumentSelector) and a document. Values
-     * greater than zero mean the selector matches the document. The more individual matches a selector
-     * and a document have, the higher the score is. These are the abstract rules given a `selector`:
+     * greater than zero mean the selector matches the document.
      *
+     * A match is computed according to these rules:
+     * 1. When [`DocumentSelector`](#DocumentSelector) is an array, compute the match for each contained `DocumentFilter` or language identifier and take the maximum value.
+     * 2. A string will be desugared to become the `language`-part of a [`DocumentFilter`](#DocumentFilter), so `"fooLang"` is like `{ language: "fooLang" }`.
+     * 3. A [`DocumentFilter`](#DocumentFilter) will be matched against the document by comparing its parts with the document. The following rules apply:
+     *  1. When the `DocumentFilter` is empty (`{}`) the result is `0`
+     *  2. When `scheme`, `language`, or `pattern` are defined but one doesnвЂ™t match, the result is `0`
+     *  3. Matching against `*` gives a score of `5`, matching via equality or via a glob-pattern gives a score of `10`
+     *  4. The result is the maximun value of each match
+     *
+     * Samples:
+     * ```js
+     * // default document from disk (file-scheme)
+     * doc.uri; //'file:///my/file.js'
+     * doc.languageId; // 'javascript'
+     * match('javascript', doc); // 10;
+     * match({language: 'javascript'}, doc); // 10;
+     * match({language: 'javascript', scheme: 'file'}, doc); // 10;
+     * match('*', doc); // 5
+     * match('fooLang', doc); // 0
+     * match(['fooLang', '*'], doc); // 5
+     *
+     * // virtual document, e.g. from git-index
+     * doc.uri; // 'git:/my/file.js'
+     * doc.languageId; // 'javascript'
+     * match('javascript', doc); // 10;
+     * match({language: 'javascript', scheme: 'git'}, doc); // 10;
+     * match('*', doc); // 5
      * ```
-     * (1) When selector is an array, return the maximum individual result.
-     * (2) When selector is a string match that against the [languageId](#TextDocument.languageId).
-     *  (2.1) When both are equal score is `10`,
-     *  (2.2) When the selector is `*` score is `5`,
-     *  (2.3) Else score is `0`.
-     * (3) When selector is a [filter](#DocumentFilter) return the maximum individual score given that each score is `>0`.
-     *  (3.1) When [language](#DocumentFilter.language) is set apply rules from #2, when `0` the total score is `0`.
-        *   (3.2) When [scheme](#DocumentFilter.scheme) is set and equals the [uri](#TextDocument.uri)-scheme score with `10`, else the total score is `0`.
-        *   (3.3) When [pattern](#DocumentFilter.pattern) is set
-        *       (3.3.1) pattern equals the [uri](#TextDocument.uri)-fsPath score with `10`,
-        *       (3.3.1) if the pattern matches as glob-pattern score with `5`,
-        *       (3.3.1) the total score is `0`
-        * ```
-        *
-        * @param selector A document selector.
-        * @param document A text document.
-        * @return A number `>0` when the selector matches and `0` when the selector does not match.
-        */
+     *
+     * @param selector A document selector.
+     * @param document A text document.
+     * @return A number `>0` when the selector matches and `0` when the selector does not match.
+     */
     function match(selector:DocumentSelector, document:TextDocument):Float;
 
     /**
@@ -798,15 +839,18 @@ extern class VscodeWorkspace {
     var textDocuments(default,null):Array<TextDocument>;
 
     /**
-     * Opens the denoted document from disk. Will return early if the
-     * document is already open, otherwise the document is loaded and the
-     * [open document](#workspace.onDidOpenTextDocument)-event fires.
-     * The document to open is denoted by the [uri](#Uri). Two schemes are supported:
+     * Opens a document. Will return early if this document is already open. Otherwise
+     * the document is loaded and the [didOpen](#workspace.onDidOpenTextDocument)-event fires.
      *
-     * file: A file on disk, will be rejected if the file does not exist or cannot be loaded, e.g. `file:///Users/frodo/r.ini`.
-     * untitled: A new file that should be saved on disk, e.g. `untitled:c:\frodo\new.js`. The language will be derived from the file name.
+     * The document is denoted by an [uri](#Uri). Depending on the [scheme](#Uri.scheme) the
+     * following rules apply:
+     * * `file`-scheme: Open a file on disk, will be rejected if the file does not exist or cannot be loaded.
+     * * `untitled`-scheme: A new file that should be saved on disk, e.g. `untitled:c:\frodo\new.js`. The language
+     * will be derived from the file name.
+     * * For all other schemes the registered text document content [providers](#TextDocumentContentProvider) are consulted.
      *
-     * Uris with other schemes will make this method return a rejected promise.
+     * *Note* that the lifecycle of the returned document is owned by the editor and not by the extension. That means an
+     * [`onDidClose`](#workspace.onDidCloseTextDocument)-event can occur at any time after opening it.
      *
      * ---
      *
@@ -816,14 +860,14 @@ extern class VscodeWorkspace {
      *
      * Opens an untitled text document. The editor will prompt the user for a file
      * path when the document is to be saved. The `options` parameter allows to
-     * specify the *language* of the document.
+     * specify the *language* and/or the *content* of the document.
      *
      * @param uri Identifies the resource to open.
      * @param fileName A name of a file on disk.
      * @param options Options to control how the document will be created.
      * @return A promise that resolves to a [document](#TextDocument).
      */
-    @:overload(function(?options:{language:String}):Thenable<TextDocument> {})
+    @:overload(function(?options:{?language:String, ?content:String}):Thenable<TextDocument> {})
     @:overload(function(fileName:String):Thenable<TextDocument> {})
     function openTextDocument(uri:Uri):Thenable<TextDocument>;
 

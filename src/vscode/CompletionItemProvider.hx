@@ -4,7 +4,7 @@ import haxe.extern.EitherType;
 
 /**
  * The completion item provider interface defines the contract between extensions and
- * [IntelliSense](https://code.visualstudio.com/docs/editor/editingevolved#_intellisense).
+ * [IntelliSense](https://code.visualstudio.com/docs/editor/intellisense).
  *
  * When computing *complete* completion items is expensive, providers can optionally implement
  * the `resolveCompletionItem`-function. In that case it is enough to return completion

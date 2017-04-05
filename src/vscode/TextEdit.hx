@@ -33,6 +33,14 @@ extern class TextEdit {
     static function delete(range:Range):TextEdit;
 
     /**
+     * Utility to create an eol-edit.
+     *
+     * @param eol An eol-sequence
+     * @return A new text edit object.
+     */
+    static function setEndOfLine(eol:EndOfLine):TextEdit;
+
+    /**
      * The range this edit applies to.
      */
     var range:Range;
@@ -41,6 +49,14 @@ extern class TextEdit {
      * The string this edit will insert.
      */
     var newText:String;
+
+    /**
+     * The eol-sequence used in the document.
+     *
+     * *Note* that the eol-sequence will be applied to the
+     * whole document.
+     */
+    var newEol:EndOfLine;
 
     /**
      * Create a new TextEdit.

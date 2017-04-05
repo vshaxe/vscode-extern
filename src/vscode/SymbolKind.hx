@@ -15,6 +15,8 @@ package vscode;
     var Field;
     var Constructor;
     var Enum;
+    var EnumMember;
+    var Struct;
     var Interface;
     var Function;
     var Variable;

@@ -2,7 +2,7 @@ package vscode;
 
 /**
  * The signature help provider interface defines the contract between extensions and
- * the [parameter hints](https://code.visualstudio.com/docs/editor/editingevolved#_parameter-hints)-feature.
+ * the [parameter hints](https://code.visualstudio.com/docs/editor/intellisense)-feature.
  */
 typedef SignatureHelpProvider = {
     /**

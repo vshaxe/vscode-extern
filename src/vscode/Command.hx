@@ -19,6 +19,11 @@ typedef Command = {
     var command:String;
 
     /**
+     * A tooltip for for command, when represented in the UI.
+     */
+    @:optional var tooltip:String;
+
+    /**
      * Arguments that the command handler should be
      * invoked with.
      */

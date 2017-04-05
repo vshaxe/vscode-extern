@@ -37,9 +37,15 @@ typedef TextDocument = {
     var version(default,null):Int;
 
     /**
-     * true if there are unpersisted changes.
+     * `true` if there are unpersisted changes.
      */
     var isDirty(default,null):Bool;
+
+    /**
+     * `true` if the document have been closed. A closed document isn't synchronized anymore
+     * and won't be re-used when the same resource is opened again.
+     */
+    var isClosed(default,null):Bool;
 
     /**
      * Save the underlying file.
@@ -49,6 +55,12 @@ typedef TextDocument = {
      * will return false.
      */
     function save():Thenable<Bool>;
+
+    /**
+     * The [end of line](#EndOfLine) sequence that is predominately
+     * used in this document.
+     */
+    var eol(default,null):EndOfLine;
 
     /**
      * The number of lines in this document.
