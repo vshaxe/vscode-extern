@@ -14,6 +14,12 @@ typedef SourceControlResourceDecorations = {
     @:optional var strikeThrough(default,null):Bool;
 
     /**
+     * Whether the [source control resource state](#SourceControlResourceState) should
+     * be faded in the UI.
+     */
+    @:optional var faded(default,null):Bool;
+
+    /**
      * The light theme decorations.
      */
     @:optional var light(default,null):SourceControlResourceThemableDecorations;

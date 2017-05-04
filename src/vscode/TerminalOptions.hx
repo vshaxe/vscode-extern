@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * Value-object describing what options formatting should use.
+ * Value-object describing what options a terminal should use.
  */
 typedef TerminalOptions = {
     /**

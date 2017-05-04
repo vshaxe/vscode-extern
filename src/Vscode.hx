@@ -284,8 +284,10 @@ extern class VscodeWindow {
      * @param column A view column in which the editor should be shown. The default is the [one](#ViewColumn.One), other values
      * are adjusted to be __Min(column, columnCount + 1)__.
      * @param preserveFocus When `true` the editor will not take focus.
+     * @param options [Editor options](#ShowTextDocumentOptions) to configure the behavior of showing the [editor](#TextEditor).
      * @return A promise that resolves to an [editor](#TextEditor).
      */
+    @:overload(function(document:TextDocument, ?options:TextDocumentShowOptions):Thenable<TextEditor> {})
     function showTextDocument(document:TextDocument, ?column:ViewColumn, ?preserveFocus:Bool):Thenable<TextEditor>;
 
     /**
@@ -407,14 +409,28 @@ extern class VscodeWindow {
     function setStatusBarMessage(text:String):Disposable;
 
     /**
-     * Show progress in the Source Control viewlet while running the given callback and while
-     * its returned promise isn't resolve or rejected.
+     * @deprecated This function **deprecated**. Use `withProgress` instead.
+     *
+     * ~~Show progress in the Source Control viewlet while running the given callback and while
+     * its returned promise isn't resolve or rejected.~~
      *
      * @param task A callback returning a promise. Progress increments can be reported with
      * the provided [progress](#Progress)-object.
      * @return The thenable the task did return.
      */
+    @:deprecated("This function **deprecated**. Use `withProgress` instead")
     function withScmProgress<R>(task:Progress<Float>->Thenable<R>):Thenable<R>;
+
+    /**
+     * Show progress in the editor. Progress is shown while running the given callback
+     * and while the promise it returned isn't resolved nor rejected. The location at which
+     * progress should show (and other details) is defined via the passed [`ProgressOptions`](#ProgressOptions).
+     *
+     * @param task A callback returning a promise. Progress state can be reported with
+     * the provided [progress](#Progress)-object.
+     * @return The thenable the task-callback returned.
+     */
+    function withProgress<R>(options:ProgressOptions, task:Progress<{?message:String}>->Thenable<R>):Thenable<R>;
 
     /**
      * Creates a status bar [item](#StatusBarItem).
