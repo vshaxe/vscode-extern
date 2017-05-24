@@ -950,4 +950,12 @@ extern class VscodeWorkspace {
      * An event that is emitted when the [configuration](#WorkspaceConfiguration) changed.
      */
     var onDidChangeConfiguration(default,null):Event<Void>;
+
+    /**
+     * Register a task provider.
+     *
+     * @param provider A task provider.
+     * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+     */
+    function registerTaskProvider(provider:TaskProvider):Disposable;
 }
