@@ -38,13 +38,13 @@ typedef ProblemPattern = {
      *
      * Defaults to 3 if omitted.
      */
-    @:optional character:Int;
+    @:optional var character:Int;
 
     /**
-      * The match group index of the problem's end line in the source file.
-      *
-      * Defaults to undefined. No end line is captured.
-      */
+     * The match group index of the problem's end line in the source file.
+     *
+     * Defaults to undefined. No end line is captured.
+     */
     @:optional var endLine:Int;
 
     /**
