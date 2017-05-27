@@ -65,5 +65,5 @@ extern class ProcessTask {
      * The problem matchers attached to the task. Defaults to an empty
      * array.
      */
-    var problemMatchers:EitherType<Array<String>, Array<ProblemMatcher>>;
+    var problemMatchers:Array<String>;
 }

@@ -59,5 +59,5 @@ extern class ShellTask {
      * The problem matchers attached to the task. Defaults to an empty
      * array.
      */
-    var problemMatchers:Array<EitherType<String, ProblemMatcher>>;
+    var problemMatchers:Array<String>;
 }
