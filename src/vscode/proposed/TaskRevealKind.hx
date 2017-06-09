@@ -4,7 +4,7 @@ package vscode.proposed;
  * Controls the behaviour of the terminal's visibility.
  */
 @:jsRequire("vscode", "RevealKind")
-@:enum extern abstract RevealKind(Int) {
+@:enum extern abstract TaskRevealKind(Int) {
     /**
      * Always brings the terminal to front if the task is executed.
      */

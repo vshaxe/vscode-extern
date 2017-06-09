@@ -1,14 +1,14 @@
 package vscode.proposed;
 
 /**
- * Controls terminal specific behaviour.
+ * Controls terminal specific behavior.
  */
-typedef TerminalBehaviour = {
+typedef TaskTerminalBehavior = {
     /**
      * Controls whether the terminal executing a task is brought to front or not.
      * Defaults to `RevealKind.Always`.
      */
-    @:optional var reveal:RevealKind;
+    @:optional var reveal:TaskRevealKind;
 
     /**
      * Controls whether the command is echoed in the terminal or not.

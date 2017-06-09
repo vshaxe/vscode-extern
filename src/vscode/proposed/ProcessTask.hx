@@ -14,9 +14,9 @@ extern class ProcessTask {
      * @param process the process to start.
      * @param problemMatchers the problem matchers to use.
      */
-    @:overload(function(name:String, process:String, args:Array<String>, ?problemMatchers:ProblemMatchers):Void {})
-    @:overload(function(name:String, process:String, args:Array<String>, options:ProcessOptions, ?problemMatchers:ProblemMatchers):Void {})
-    function new(name:String, process:String, ?problemMatchers:ProblemMatchers);
+    @:overload(function(name:String, process:String, args:Array<String>, ?problemMatchers:EitherType<String, Array<String>>):Void {})
+    @:overload(function(name:String, process:String, args:Array<String>, options:ProcessTaskOptions, ?problemMatchers:EitherType<String, Array<String>>):Void {})
+    function new(name:String, process:String, ?problemMatchers:EitherType<String, Array<String>>);
 
     /**
      * The task's name
@@ -24,10 +24,10 @@ extern class ProcessTask {
     var name(default,null):String;
 
     /**
-     * The task's identifier. If omitted the name is
-     * used as an identifier.
+     * The task's identifier. If omitted the internal identifier will
+     * be `${extensionName}:${name}`
      */
-    var identifier:String;
+    var identifier:Null<String>;
 
     /**
      * Whether the task is a background task or not.
@@ -45,21 +45,29 @@ extern class ProcessTask {
     var args:Array<String>;
 
     /**
-     * The task group this tasks belongs to. Defaults to undefined meaning
-     * that the task doesn't belong to any special group.
+     * A human-readable string describing the source of this
+     * shell task, e.g. 'gulp' or 'npm'.
      */
-    @:optional var group:TaskGroup;
+    var source:Null<String>;
+
+    /**
+     * The task group this tasks belongs to. See TaskGroup
+     * for a predefined set of available groups.
+     * Defaults to undefined meaning that the task doesn't
+     * belong to any special group.
+     */
+    var group:Null<String>;
 
     /**
      * The process options used when the process is executed.
      * Defaults to an empty object literal.
      */
-    var options:ProcessOptions;
+    var options:ProcessTaskOptions;
 
     /**
      * The terminal options. Defaults to an empty object literal.
      */
-    var terminal:TerminalBehaviour;
+    var terminalBehavior:TaskTerminalBehavior;
 
     /**
      * The problem matchers attached to the task. Defaults to an empty

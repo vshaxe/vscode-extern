@@ -3,7 +3,7 @@ package vscode.proposed;
 import haxe.DynamicAccess;
 import haxe.extern.EitherType;
 
-typedef ShellOptions = EitherType<{
+typedef ShellTaskOptions = EitherType<{
     /**
      * The shell executable.
      */

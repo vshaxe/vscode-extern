@@ -14,8 +14,8 @@ extern class ShellTask {
      * @param commandLine the command line to execute.
      * @param problemMatchers the problem matchers to use.
      */
-    @:overload(function(name:String, commandLine:String, options:ShellOptions, ?problemMatchers:ProblemMatchers):Void {})
-    function new(name:String, commandLine:String, ?problemMatchers:ProblemMatchers);
+    @:overload(function(name:String, commandLine:String, options:ShellTaskOptions, ?problemMatchers:EitherType<String, Array<String>>):Void {})
+    function new(name:String, commandLine:String, ?problemMatchers:EitherType<String, Array<String>>);
 
     /**
      * The task's name
@@ -23,10 +23,10 @@ extern class ShellTask {
     var name(default,null):String;
 
     /**
-     * The task's identifier. If omitted the name is
-     * used as an identifier.
+     * The task's identifier. If omitted the internal identifier will
+     * be `${extensionName}:${name}`
      */
-    var identifier:String;
+    var identifier:Null<String>;
 
     /**
      * Whether the task is a background task or not.
@@ -39,21 +39,29 @@ extern class ShellTask {
     var commandLine(default,null):String;
 
     /**
-     * The task group this tasks belongs to. Defaults to undefined meaning
-     * that the task doesn't belong to any special group.
+     * A human-readable string describing the source of this
+     * shell task, e.g. 'gulp' or 'npm'.
      */
-    @:optional var group:TaskGroup;
+    var source:Null<String>;
+
+    /**
+     * The task group this tasks belongs to. See TaskGroup
+     * for a predefined set of available groups.
+     * Defaults to undefined meaning that the task doesn't
+     * belong to any special group.
+     */
+    var group:Null<String>;
 
     /**
      * The shell options used when the shell is executed. Defaults to an
      * empty object literal.
      */
-    var options:ShellOptions;
+    var options:ShellTaskOptions;
 
     /**
      * The terminal options. Defaults to an empty object literal.
      */
-    var terminal:TerminalBehaviour;
+    var terminalBehavior:TaskTerminalBehavior;
 
     /**
      * The problem matchers attached to the task. Defaults to an empty

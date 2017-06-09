@@ -1,24 +1,24 @@
 package vscode.proposed;
 
 @:jsRequire("vscode", "TaskGroup")
-@:enum abstract TaskGroup(String) {
+extern class TaskGroup {
     /**
      * The clean task group
      */
-    var Clean = 'clean';
+    inline static var Clean = 'clean';
 
     /**
      * The build task group
      */
-    var Build = 'build';
+    inline static var Build = 'build';
 
     /**
      * The rebuild all task group
      */
-    var RebuildAll = 'rebuildAll';
+    inline static var RebuildAll = 'rebuildAll';
 
     /**
      * The test task group
      */
-    var Test = 'test';
+    inline static var Test = 'test';
 }
