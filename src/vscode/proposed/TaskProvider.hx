@@ -1,4 +1,4 @@
-package vscode;
+package vscode.proposed;
 
 /**
  * A task provider allows to add tasks to the task service.

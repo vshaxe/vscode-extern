@@ -1,4 +1,4 @@
-package vscode;
+package vscode.proposed;
 
 import haxe.DynamicAccess;
 

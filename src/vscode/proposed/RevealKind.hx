@@ -1,4 +1,4 @@
-package vscode;
+package vscode.proposed;
 
 /**
  * Controls the behaviour of the terminal's visibility.

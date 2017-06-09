@@ -13,64 +13,64 @@ extern class Vscode {
     static var version(default,null):String;
 
     /**
-    * Namespace describing the environment the editor runs in.
-    */
+     * Namespace describing the environment the editor runs in.
+     */
     static var env(default,null):VscodeEnv;
 
     /**
-    * Namespace for dealing with commands. In short, a command is a function with a
-    * unique identifier. The function is sometimes also called _command handler_.
-    *
-    * Commands can be added to the editor using the [registerCommand](#commands.registerCommand)
-    * and [registerTextEditorCommand](#commands.registerTextEditorCommand) functions. Commands
-    * can be executed [manually](#commands.executeCommand) or from a UI gesture. Those are:
-    *
-    * * palette - Use the `commands`-section in `package.json` to make a command show in
-    * the [command palette](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette).
-    * * keybinding - Use the `keybindings`-section in `package.json` to enable
-    * [keybindings](https://code.visualstudio.com/docs/getstarted/keybindings#_customizing-shortcuts)
-    * for your extension.
-    *
-    * Commands from other extensions and from the editor itself are accessible to an extension. However,
-    * when invoking an editor command not all argument types are supported.
-    *
-    * This is a sample that registers a command handler and adds an entry for that command to the palette. First
-    * register a command handler with the identifier `extension.sayHello`.
-    * ```javascript
-    * commands.registerCommand('extension.sayHello', () => {
-    * 	window.showInformationMessage('Hello World!');
-    * });
-    * ```
-    * Second, bind the command identifier to a title under which it will show in the palette (`package.json`).
-    * ```json
-    * {
-    * 	"contributes": {
-    * 		"commands": [{
-    * 			"command": "extension.sayHello",
-    * 			"title": "Hello World"
-    * 		}]
-    * 	}
-    * }
-    * ```
-    */
+     * Namespace for dealing with commands. In short, a command is a function with a
+     * unique identifier. The function is sometimes also called _command handler_.
+     *
+     * Commands can be added to the editor using the [registerCommand](#commands.registerCommand)
+     * and [registerTextEditorCommand](#commands.registerTextEditorCommand) functions. Commands
+     * can be executed [manually](#commands.executeCommand) or from a UI gesture. Those are:
+     *
+     * * palette - Use the `commands`-section in `package.json` to make a command show in
+     * the [command palette](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette).
+     * * keybinding - Use the `keybindings`-section in `package.json` to enable
+     * [keybindings](https://code.visualstudio.com/docs/getstarted/keybindings#_customizing-shortcuts)
+     * for your extension.
+     *
+     * Commands from other extensions and from the editor itself are accessible to an extension. However,
+     * when invoking an editor command not all argument types are supported.
+     *
+     * This is a sample that registers a command handler and adds an entry for that command to the palette. First
+     * register a command handler with the identifier `extension.sayHello`.
+     * ```javascript
+     * commands.registerCommand('extension.sayHello', () => {
+     * 	window.showInformationMessage('Hello World!');
+     * });
+     * ```
+     * Second, bind the command identifier to a title under which it will show in the palette (`package.json`).
+     * ```json
+     * {
+     * 	"contributes": {
+     * 		"commands": [{
+     * 			"command": "extension.sayHello",
+     * 			"title": "Hello World"
+     * 		}]
+     * 	}
+     * }
+     * ```
+     */
     static var commands(default,null):VscodeCommands;
 
     /**
-    * Namespace for dealing with the current window of the editor. That is visible
-    * and active editors, as well as, UI elements to show messages, selections, and
-    * asking for user input.
-    */
+     * Namespace for dealing with the current window of the editor. That is visible
+     * and active editors, as well as, UI elements to show messages, selections, and
+     * asking for user input.
+     */
     static var window(default,null):VscodeWindow;
 
     /**
-    * Namespace for dealing with the current workspace. A workspace is the representation
-    * of the folder that has been opened. There is no workspace when just a file but not a
-    * folder has been opened.
-    *
-    * The workspace offers support for [listening](#workspace.createFileSystemWatcher) to fs
-    * events and for [finding](#workspace.findFiles) files. Both perform well and run _outside_
-    * the editor-process so that they should be always used instead of nodejs-equivalents.
-    */
+     * Namespace for dealing with the current workspace. A workspace is the representation
+     * of the folder that has been opened. There is no workspace when just a file but not a
+     * folder has been opened.
+     *
+     * The workspace offers support for [listening](#workspace.createFileSystemWatcher) to fs
+     * events and for [finding](#workspace.findFiles) files. Both perform well and run _outside_
+     * the editor-process so that they should be always used instead of nodejs-equivalents.
+     */
     static var workspace(default,null):VscodeWorkspace;
 
     /**
@@ -950,12 +950,4 @@ extern class VscodeWorkspace {
      * An event that is emitted when the [configuration](#WorkspaceConfiguration) changed.
      */
     var onDidChangeConfiguration(default,null):Event<Void>;
-
-    /**
-     * Register a task provider.
-     *
-     * @param provider A task provider.
-     * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
-     */
-    function registerTaskProvider(provider:TaskProvider):Disposable;
 }

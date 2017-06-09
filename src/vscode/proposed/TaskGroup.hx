@@ -1,4 +1,4 @@
-package vscode;
+package vscode.proposed;
 
 @:jsRequire("vscode", "TaskGroup")
 @:enum abstract TaskGroup(String) {
