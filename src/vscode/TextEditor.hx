@@ -41,7 +41,7 @@ typedef TextEditor = {
      * callback executes.
      *
      * @param callback A function which can create edits using an [edit-builder](#TextEditorEdit).
-     * @param options The undo/redo behaviour around this edit. By default, undo stops will be created before and after this edit.
+     * @param options The undo/redo behavior around this edit. By default, undo stops will be created before and after this edit.
      * @return A promise that resolves with a value indicating if the edits could be applied.
      */
     function edit(callback:TextEditorEdit->Void, ?options:{undoStopBefore:Bool, undoStopAfter:Bool}):Thenable<Bool>;
@@ -53,7 +53,7 @@ typedef TextEditor = {
      *
      * @param snippet The snippet to insert in this edit.
      * @param location Position or range at which to insert the snippet, defaults to the current editor selection or selections.
-     * @param options The undo/redo behaviour around this edit. By default, undo stops will be created before and after this edit.
+     * @param options The undo/redo behavior around this edit. By default, undo stops will be created before and after this edit.
      * @return A promise that resolves with a value indicating if the snippet could be inserted. Note that the promise does not signal
      * that the snippet is completely filled-in or accepted.
      */

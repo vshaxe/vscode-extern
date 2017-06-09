@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * Denotes a column in the VS Code window. Columns are
+ * Denotes a column in the editor window. Columns are
  * used to show editors side by side.
  */
 @:jsRequire("vscode", "ViewColumn")

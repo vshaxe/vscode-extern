@@ -13,6 +13,12 @@ typedef DecorationRenderOptions = {
     @:optional var isWholeLine:Bool;
 
     /**
+     * Customize the growing behavior of the decoration when edits occur at the edges of the decoration's range.
+     * Defaults to `DecorationRangeBehavior.OpenOpen`.
+     */
+    @:optional var rangeBehavior:DecorationRangeBehavior;
+
+    /**
      * The position in the overview ruler where the decoration should be rendered.
      */
     @:optional var overviewRulerLane:OverviewRulerLane;

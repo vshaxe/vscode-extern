@@ -8,8 +8,9 @@ import haxe.extern.EitherType;
 typedef ThemableDecorationRenderOptions = {
     /**
      * Background color of the decoration. Use rgba() and define transparent background colors to play well with other decorations.
+     * Alternativly a color from the color registry an be [referenced](#ColorIdentifier).
      */
-    @:optional var backgroundColor:String;
+    @:optional var backgroundColor:EitherType<String, ThemeColor>;
 
     /**
      * CSS styling property that will be applied to text enclosed by a decoration.
@@ -20,7 +21,7 @@ typedef ThemableDecorationRenderOptions = {
      * CSS styling property that will be applied to text enclosed by a decoration.
      * Better use 'outline' for setting one or more of the individual outline properties.
      */
-    @:optional var outlineColor:String;
+    @:optional var outlineColor:EitherType<String, ThemeColor>;
 
     /**
      * CSS styling property that will be applied to text enclosed by a decoration.
@@ -43,7 +44,7 @@ typedef ThemableDecorationRenderOptions = {
      * CSS styling property that will be applied to text enclosed by a decoration.
      * Better use 'border' for setting one or more of the individual border properties.
      */
-    @:optional var borderColor:String;
+    @:optional var borderColor:EitherType<String, ThemeColor>;
 
     /**
      * CSS styling property that will be applied to text enclosed by a decoration.
@@ -82,7 +83,7 @@ typedef ThemableDecorationRenderOptions = {
     /**
      * CSS styling property that will be applied to text enclosed by a decoration.
      */
-    @:optional var color:String;
+    @:optional var color:EitherType<String, ThemeColor>;
 
     /**
      * CSS styling property that will be applied to text enclosed by a decoration.
@@ -104,7 +105,7 @@ typedef ThemableDecorationRenderOptions = {
     /**
      * The color of the decoration in the overview ruler. Use rgba() and define transparent colors to play well with other decorations.
      */
-    @:optional var overviewRulerColor:String;
+    @:optional var overviewRulerColor:EitherType<String, ThemeColor>;
 
     /**
      * Defines the rendering options of the attachment that is inserted before the decorated text

@@ -453,6 +453,13 @@ extern class VscodeWindow {
      */
     @:overload(function(options:TerminalOptions):Terminal {})
     function createTerminal(?name:String, ?shellPath:String, ?shellArgs:Array<String>):Terminal;
+
+    /**
+     * Register a [TreeDataProvider](#TreeDataProvider) for the view contributed using the extension point `views`.
+     * @param viewId Id of the view contributed using the extension point `views`.
+     * @param treeDataProvider A [TreeDataProvider](#TreeDataProvider) that provides tree data for the view
+     */
+    function registerTreeDataProvider<T>(viewId:String, treeDataProvider:TreeDataProvider<T>): Disposable;
 }
 
 extern class VscodeExtensions {
@@ -787,6 +794,8 @@ extern class VscodeWorkspace {
      * A glob pattern that filters the file events must be provided. Optionally, flags to ignore certain
      * kinds of events can be provided. To stop listening to events the watcher must be disposed.
      *
+     * *Note* that only files within the current [workspace](#workspace.rootPath) can be watched.
+     *
      * @param globPattern A glob pattern that is applied to the names of created, changed, and deleted files.
      * @param ignoreCreateEvents Ignore when files have been created.
      * @param ignoreChangeEvents Ignore when files have been changed.
@@ -796,7 +805,7 @@ extern class VscodeWorkspace {
     function createFileSystemWatcher(globPattern:String, ?ignoreCreateEvents:Bool, ?ignoreChangeEvents:Bool, ?ignoreDeleteEvents:Bool):FileSystemWatcher;
 
     /**
-     * The folder that is open in VS Code. `undefined` when no folder
+     * The folder that is open in the editor. `undefined` when no folder
      * has been opened.
      *
      * @readonly

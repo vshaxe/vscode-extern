@@ -20,6 +20,11 @@ typedef ThemableDecorationAttachmentRenderOptions = {
     @:optional var border:String;
 
     /**
+     * CSS styling property that will be applied to text enclosed by a decoration.
+     */
+    @:optional var borderColor:EitherType<String, ThemeColor>;
+
+    /**
      * CSS styling property that will be applied to the decoration attachment.
      */
     @:optional var textDecoration:String;
@@ -27,12 +32,12 @@ typedef ThemableDecorationAttachmentRenderOptions = {
     /**
      * CSS styling property that will be applied to the decoration attachment.
      */
-    @:optional var color:String;
+    @:optional var color:EitherType<String, ThemeColor>;
 
     /**
      * CSS styling property that will be applied to the decoration attachment.
      */
-    @:optional var backgroundColor:String;
+    @:optional var backgroundColor:EitherType<String, ThemeColor>;
 
     /**
      * CSS styling property that will be applied to the decoration attachment.

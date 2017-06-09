@@ -13,7 +13,7 @@ typedef SourceControlResourceGroup = {
     /**
      * The label of this source control resource group.
      */
-    var label(default,null):String;
+    var label:String;
 
     /**
      * Whether this source control resource group is hidden when it contains

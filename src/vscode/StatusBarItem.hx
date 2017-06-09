@@ -1,5 +1,7 @@
 package vscode;
 
+import haxe.extern.EitherType;
+
 /**
  * A status bar item is a status bar contribution that can
  * show text and icons and run a command on click.
@@ -34,7 +36,7 @@ typedef StatusBarItem = {
     /**
      * The foreground color for this entry.
      */
-    var color:Null<String>;
+    var color:Null<EitherType<String, ThemeColor>>;
 
     /**
      * The identifier of a command to run on click. The command must be

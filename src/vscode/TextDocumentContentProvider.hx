@@ -19,7 +19,7 @@ typedef TextDocumentContentProvider = {
      * Provide textual content for a given uri.
      *
      * The editor will use the returned string-content to create a readonly
-     * [document](TextDocument). Resources allocated should be released when
+     * [document](#TextDocument). Resources allocated should be released when
      * the corresponding document has been [closed](#workspace.onDidCloseTextDocument).
      *
      * @param uri An uri which scheme matches the scheme this provider was [registered](#workspace.registerTextDocumentContentProvider) for.
