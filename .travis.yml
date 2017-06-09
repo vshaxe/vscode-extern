@@ -20,5 +20,5 @@ script:
  - pushd example
  - haxe build.hxml
  - popd
- - haxelib install dox
+ - haxelib git dox https://github.com/HaxeFoundation/dox
  - bash ./doc-deploy.sh
