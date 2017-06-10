@@ -7,6 +7,7 @@ package vscode;
  * To get an instance of a `FileSystemWatcher` use
  * [createFileSystemWatcher](#workspace.createFileSystemWatcher).
  */
+@:jsRequire("vscode", "FileSystemWatcher")
 extern class FileSystemWatcher extends Disposable {
     /**
      * true if this file system watcher has been created such that
