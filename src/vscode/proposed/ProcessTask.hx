@@ -12,7 +12,11 @@ extern class ProcessTask {
      *
      * @param name the task's name. Is presented in the user interface.
      * @param process the process to start.
-     * @param problemMatchers the problem matchers to use.
+     * @param args arguments to be passed to the process.
+     * @param options additional options for the started process.
+     * @param problemMatchers the problem matchers to use, like '$tsc'
+     *  or '$eslint'. Problem matchers can be contributed by an extension using
+     *  the `problemMatchers` extension point.
      */
     @:overload(function(name:String, process:String, args:Array<String>, ?problemMatchers:EitherType<String, Array<String>>):Void {})
     @:overload(function(name:String, process:String, args:Array<String>, options:ProcessTaskOptions, ?problemMatchers:EitherType<String, Array<String>>):Void {})

@@ -11,7 +11,7 @@ typedef TreeDataProvider<T> = {
      * An optional event to signal that an element or root has changed.
      * To signal that root has changed, do not pass any argument or pass `undefined` or `null`.
      */
-    @:optional var onDidChangeTreeData:Event<T>;
+    @:optional var onDidChangeTreeData:Event<Null<T>>;
 
     /**
      * Get [TreeItem](#TreeItem) representation of the `element`

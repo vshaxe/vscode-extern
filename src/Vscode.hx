@@ -459,7 +459,7 @@ extern class VscodeWindow {
      * @param viewId Id of the view contributed using the extension point `views`.
      * @param treeDataProvider A [TreeDataProvider](#TreeDataProvider) that provides tree data for the view
      */
-    function registerTreeDataProvider<T>(viewId:String, treeDataProvider:TreeDataProvider<T>): Disposable;
+    function registerTreeDataProvider<T>(viewId:String, treeDataProvider:TreeDataProvider<T>):Disposable;
 }
 
 extern class VscodeExtensions {

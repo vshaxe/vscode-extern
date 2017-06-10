@@ -12,7 +12,10 @@ extern class ShellTask {
      *
      * @param name the task's name. Is presented in the user interface.
      * @param commandLine the command line to execute.
-     * @param problemMatchers the problem matchers to use.
+     * @param options additional options used when creating the shell.
+     * @param problemMatchers the problem matchers to use, like '$tsc'
+     *  or '$eslint'. Problem matchers can be contributed by an extension using
+     *  the `problemMatchers` extension point.
      */
     @:overload(function(name:String, commandLine:String, options:ShellTaskOptions, ?problemMatchers:EitherType<String, Array<String>>):Void {})
     function new(name:String, commandLine:String, ?problemMatchers:EitherType<String, Array<String>>);
