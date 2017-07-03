@@ -1,11 +1,14 @@
-package vscode.proposed;
+package vscode;
 
 import haxe.DynamicAccess;
 
-typedef ProcessTaskOptions = {
+/**
+ * Options for a process execution
+ */
+typedef ProcessExecutionOptions = {
     /**
      * The current working directory of the executed program or shell.
-     * If omitted VSCode's current workspace root is used.
+     * If omitted the tools current workspace root is used.
      */
     @:optional var cwd:String;
 

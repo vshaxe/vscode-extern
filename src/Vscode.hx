@@ -917,8 +917,11 @@ extern class VscodeWorkspace {
      */
     var onDidCloseTextDocument(default,null):Event<TextDocument>;
 
+
     /**
-     * An event that is emitted when a [text document](#TextDocument) is changed.
+     * An event that is emitted when a [text document](#TextDocument) is changed. This usually happens
+     * when the [contents](#TextDocument.getText) changes but also when other things like the
+     * [dirty](TextDocument#isDirty)-state changes.
      */
     var onDidChangeTextDocument(default,null):Event<TextDocumentChangeEvent>;
 
@@ -959,4 +962,13 @@ extern class VscodeWorkspace {
      * An event that is emitted when the [configuration](#WorkspaceConfiguration) changed.
      */
     var onDidChangeConfiguration(default,null):Event<Void>;
+
+    /**
+     * Register a task provider.
+     *
+     * @param type The task kind type this provider is registered for.
+     * @param provider A task provider.
+     * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+     */
+    function registerTaskProvider(type:String, provider:TaskProvider):Disposable;
 }
