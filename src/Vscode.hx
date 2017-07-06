@@ -106,6 +106,11 @@ extern class Vscode {
     static var scm(default,null):VscodeScm;
 
     /**
+     * Namespace for dealing with debug sessions.
+     */
+    static var debug(default,null):VscodeDebug;
+
+    /**
      * Namespace for dealing with installed extensions. Extensions are represented
      * by an [extension](#Extension)-interface which allows to reflect on them.
      *
@@ -971,4 +976,17 @@ extern class VscodeWorkspace {
      * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
      */
     function registerTaskProvider(type:String, provider:TaskProvider):Disposable;
+}
+
+extern class VscodeDebug {
+    /**
+     * An [event](#Event) which fires when a debug session has terminated.
+     */
+    var onDidTerminateDebugSession(default,never):Event<DebugSession>;
+
+    /**
+     * Create a new debug session based on the given configuration.
+     * @param configuration
+     */
+    function createDebugSession(configuration:DebugConfiguration):Thenable<DebugSession>;
 }
