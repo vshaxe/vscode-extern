@@ -92,7 +92,7 @@ extern class CompletionItem {
      * ~~The [range](#Range) of the edit must be single-line and on the same
      * line completions were [requested](#CompletionItemProvider.provideCompletionItems) at.~~
      */
-    @:deprecated
+    @:deprecated("Use `CompletionItem.insertText` and `CompletionItem.range` instead.")
     var textEdit:Null<TextEdit>;
 
     /**
