@@ -79,22 +79,22 @@ typedef TextEditor = {
     function revealRange(range:Range, ?revealType:TextEditorRevealType):Void;
 
     /**
-     * Show the text editor.
+     * ~~Show the text editor.~~
      *
-     * @deprecated **This method is deprecated.** Use [window.showTextDocument](#window.showTextDocument)
-     * instead. This method shows unexpected behavior and will be removed in the next major update.
+     * @deprecated Use [window.showTextDocument](#window.showTextDocument)
      *
      * @param column The [column](#ViewColumn) in which to show this editor.
+     * instead. This method shows unexpected behavior and will be removed in the next major update.
      */
-    @:deprecated("Use [window.showTextDocument](#window.showTextDocument) instead.")
+    @:deprecated("Use [window.showTextDocument](#window.showTextDocument)")
     function show(?column:ViewColumn):Void;
 
     /**
-     * Hide the text editor.
+     * ~~Hide the text editor.~~
      *
-     * @deprecated **This method is deprecated.** Use the command 'workbench.action.closeActiveEditor' instead.
+     * @deprecated Use the command `workbench.action.closeActiveEditor` instead.
      * This method shows unexpected behavior and will be removed in the next major update.
      */
-    @:deprecated("Use the command 'workbench.action.closeActiveEditor' instead.")
+    @:deprecated("Use the command `workbench.action.closeActiveEditor` instead.")
     function hide():Void;
 }

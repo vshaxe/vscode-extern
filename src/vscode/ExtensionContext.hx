@@ -16,13 +16,13 @@ typedef ExtensionContext = {
 
     /**
      * A memento object that stores state in the context
-     * of the currently opened [workspace](#workspace.rootPath).
+     * of the currently opened [workspace](#workspace.workspaceFolders).
      */
     var workspaceState:Memento;
 
     /**
      * A memento object that stores state independent
-     * of the current opened [workspace](#workspace.rootPath).
+     * of the current opened [workspace](#workspace.workspaceFolders).
      */
     var globalState:Memento;
 

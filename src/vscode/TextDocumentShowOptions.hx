@@ -21,4 +21,9 @@ typedef TextDocumentShowOptions = {
      * with the next editor or if it will be kept.
      */
     @:optional var preview:Bool;
+
+    /**
+     * An optional selection to apply for the document in the [editor](#TextEditor).
+     */
+    @:optional var selection:Range;
 }

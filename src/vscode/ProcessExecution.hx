@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * The execution of a task happens as a external process
+ * The execution of a task happens as an external process
  * without shell interaction.
  */
 @:jsRequire("vscode", "ProcessExecution")

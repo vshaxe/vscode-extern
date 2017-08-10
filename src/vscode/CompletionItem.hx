@@ -83,7 +83,7 @@ extern class CompletionItem {
     var commitCharacters:Null<Array<String>>;
 
     /**
-     * @deprecated **Deprecated** in favor of `CompletionItem.insertText` and `CompletionItem.range`.
+     * @deprecated Use `CompletionItem.insertText` and `CompletionItem.range` instead.
      *
      * ~~An [edit](#TextEdit) which is applied to a document when selecting
      * this completion. When an edit is provided the value of

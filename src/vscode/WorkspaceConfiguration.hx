@@ -1,26 +1,35 @@
 package vscode;
 
+import haxe.extern.EitherType;
 import js.Promise.Thenable;
 
 /**
- * Represents the workspace configuration.
+ * Represents the configuration. It is a merged view of
  *
- * The workspace configuration is a merged view: Configurations of the current [workspace](#workspace.rootPath)
- * (if available), files like `launch.json`, and the installation-wide configuration. Workspace specific values
- * shadow installation-wide values.
+ * - Default configuration
+ * - Global configuration
+ * - Workspace configuration (if available)
+ * - Workspace folder configuration of the requested resource (if available)
  *
- * *Note:* The merged configuration of the current [workspace](#workspace.rootPath)
- * also contains settings from files like `launch.json` and `tasks.json`. Their basename will be
+ * *Global configuration* comes from User Settings and shadows Defaults.
+ *
+ * *Workspace configuration* comes from Workspace Settings and shadows Global configuration.
+ *
+ * *Workspace Folder configuration* comes from `.vscode` folder under one of the [workspace folders](#workspace.workspaceFolders).
+ *
+ * *Note:* Workspace and Workspace Folder configurations contains `launch` and `tasks` settings. Their basename will be
  * part of the section identifier. The following snippets shows how to retrieve all configurations
  * from `launch.json`:
  *
- * ```haxe
+ * ```ts
  * // launch.json configuration
- * var config = workspace.getConfiguration('launch');
+ * const config = workspace.getConfiguration('launch', vscode.window.activeTextEditor.document.uri);
  *
  * // retrieve values
- * var values = config.get('configurations');
+ * const values = config.get('configurations');
  * ```
+ *
+ * Refer to [Settings](https://code.visualstudio.com/docs/getstarted/settings) for more information.
  */
 typedef WorkspaceConfiguration = {
 
@@ -43,10 +52,14 @@ typedef WorkspaceConfiguration = {
 
     /**
      * Retrieve all information about a configuration setting. A configuration value
-     * often consists of a *default* value, a global or installation-wide value, and
-     * a workspace-specific value. The *effective* value (returned by [`get`](#WorkspaceConfiguration.get))
+     * often consists of a *default* value, a global or installation-wide value,
+     * a workspace-specific value and a folder-specific value.
+     *
+     * The *effective* value (returned by [`get`](#WorkspaceConfiguration.get))
      * is computed like this: `defaultValue` overwritten by `globalValue`,
-     * `globalValue` overwritten by `workspaceValue`.
+     * `globalValue` overwritten by `workspaceValue`. `workspaceValue` overwritten by `workspaceFolderValue`.
+     * Refer to [Settings Inheritence](https://code.visualstudio.com/docs/getstarted/settings)
+     * for more information.
      *
      * *Note:* The configuration name must denote a leaf in the configuration tree
      * (`editor.fontSize` vs `editor`) otherwise no result is returned.
@@ -54,22 +67,38 @@ typedef WorkspaceConfiguration = {
      * @param section Configuration name, supports _dotted_ names.
      * @return Information about a configuration setting or `undefined`.
      */
-    function inspect<T>(section:String):Null<{key:String, ?defaultValue:T, ?globalValue:T, ?workspaceValue:T}>;
+    function inspect<T>(section:String):Null<{key:String, ?defaultValue:T, ?globalValue:T, ?workspaceValue:T, ?workspaceFolderValue:T}>;
 
     /**
-     * Update a configuration value. A value can be changed for the current
-     * [workspace](#workspace.rootPath) only, or globally for all instances of the
-     * editor. The updated configuration values are persisted.
+     * Update a configuration value. The updated configuration values are persisted.
      *
-     * *Note 1:* Setting an installation-wide value (`global: true`) in the presence of
-     * a more specific workspace value has no observable effect in that workspace, but
-     * in others.
+     * A value can be changed in
+     *
+     * - [Global configuration](#ConfigurationTarget.Global): Changes the value for all instances of the editor.
+     * - [Workspace configuration](#ConfigurationTarget.Workspace): Changes the value for current workspace, if available.
+     * - [Workspace folder configuration](#ConfigurationTarget.WorkspaceFolder): Changes the value for the
+     * [Workspace folder](#workspace.workspaceFolders) to which the current [configuration](#WorkspaceConfiguration) is scoped to.
+     *
+     * *Note 1:* Setting a global value in the presence of a more specific workspace value
+     * has no observable effect in that workspace, but in others. Setting a workspace value
+     * in the presence of a more specific folder value has no observable effect for the resources
+     * under respective [folder](#workspace.workspaceFolders), but in others. Refer to
+     * [Settings Inheritence](https://code.visualstudio.com/docs/getstarted/settings) for more information.
      *
      * *Note 2:* To remove a configuration value use `undefined`, like so: `config.update('somekey', undefined)`
      *
+     * Will throw error when
+     * - Writing a configuration which is not registered.
+     * - Writing a configuration to workspace or folder target when no workspace is opened
+     * - Writing a configuration to folder target when there is no folder settings
+     * - Writing to folder target without passing a resource when getting the configuration (`workspace.getConfiguration(section, resource)`)
+     * - Writing a window configuration to folder target
+     *
      * @param section Configuration name, supports _dotted_ names.
      * @param value The new value.
-     * @param global When `true` changes the configuration value for all instances of the editor.
+     * @param configurationTarget The [configuration target](#ConfigurationTarget) or a boolean value.
+     *	If `undefined` or `null` or `false` configuration target is `ConfigurationTarget.Workspace`.
+     *	If `true` configuration target is `ConfigurationTarget.Global`.
      */
-    function update(section:String, value:Any, ?global:Bool):Thenable<Void>;
+    function update(section:String, value:Any, ?configurationTarget:EitherType<ConfigurationTarget,Bool>):Thenable<Void>;
 }

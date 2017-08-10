@@ -7,12 +7,17 @@ import js.Promise.Thenable;
  */
 typedef DebugSession = {
     /**
-     * The debug session's type from the debug configuration.
+     * The unique ID of this debug session.
+     */
+    var id(default,null):String;
+
+    /**
+     * The debug session's type from the [debug configuration](#DebugConfiguration).
      */
     var type(default,null):String;
 
     /**
-     * The debug session's name from the debug configuration.
+     * The debug session's name from the [debug configuration](#DebugConfiguration).
      */
     var readonly(default,null):String;
 

@@ -282,9 +282,10 @@ extern class VscodeWindow {
     var onDidCloseTerminal(default,null):Event<Terminal>;
 
     /**
-     * Show the given document in a text editor. A [column](#ViewColumn) can be provided
-     * to control where the editor is being shown. Might change the [active editor](#window.activeTextEditor).
+     * Show the given document in a text editor. [Options](#TextDocumentShowOptions) can be provided
+     * to control options of the editor is being shown. Might change the [active editor](#window.activeTextEditor).
      *
+     * @param uri A resource identifier.
      * @param document A text document to be shown.
      * @param column A view column in which the editor should be shown. The default is the [one](#ViewColumn.One), other values
      * are adjusted to be __Min(column, columnCount + 1)__.
@@ -292,6 +293,7 @@ extern class VscodeWindow {
      * @param options [Editor options](#ShowTextDocumentOptions) to configure the behavior of showing the [editor](#TextEditor).
      * @return A promise that resolves to an [editor](#TextEditor).
      */
+    @:overload(function(uri:Uri, ?options:TextDocumentShowOptions):Thenable<TextEditor> {})
     @:overload(function(document:TextDocument, ?options:TextDocumentShowOptions):Thenable<TextEditor> {})
     function showTextDocument(document:TextDocument, ?column:ViewColumn, ?preserveFocus:Bool):Thenable<TextEditor>;
 
@@ -414,16 +416,16 @@ extern class VscodeWindow {
     function setStatusBarMessage(text:String):Disposable;
 
     /**
-     * @deprecated This function **deprecated**. Use `withProgress` instead.
-     *
      * ~~Show progress in the Source Control viewlet while running the given callback and while
      * its returned promise isn't resolve or rejected.~~
+     *
+     * @deprecated Use `withProgress` instead.
      *
      * @param task A callback returning a promise. Progress increments can be reported with
      * the provided [progress](#Progress)-object.
      * @return The thenable the task did return.
      */
-    @:deprecated("This function **deprecated**. Use `withProgress` instead")
+    @:deprecated("Use `withProgress` instead.")
     function withScmProgress<R>(task:Progress<Float>->Thenable<R>):Thenable<R>;
 
     /**
@@ -794,12 +796,55 @@ extern class VscodeLanguages {
 
 extern class VscodeWorkspace {
     /**
+     * ~~The folder that is open in the editor. `undefined` when no folder
+     * has been opened.~~
+     *
+     * @deprecated Use [`workspaceFolders`](#workspace.workspaceFolders) instead.
+     */
+    @:deprecated("Use [`workspaceFolders`](#workspace.workspaceFolders) instead.")
+    var rootPath(default,null):Null<String>;
+
+    /**
+     * List of workspace folders or `undefined` when no folder is open.
+     * *Note* that the first entry corresponds to the value of `rootPath`.
+     */
+    var workspaceFolders(default,null):Null<Array<WorkspaceFolder>>;
+
+    /**
+     * An event that is emitted when a workspace folder is added or removed.
+     */
+    var onDidChangeWorkspaceFolders(default,null):Event<WorkspaceFoldersChangeEvent>;
+
+    /**
+     * Returns a [workspace folder](#WorkspaceFolder) for the provided resource. When the resource
+     * is a workspace folder itself, its parent workspace folder or `undefined` is returned.
+     *
+     * @param uri An uri.
+     * @return A workspace folder or `undefined`
+     */
+    function getWorkspaceFolder(uri:Uri):Null<WorkspaceFolder>;
+
+    /**
+     * Returns a path that is relative to the workspace folder or folders.
+     *
+     * When there are no [workspace folders](#workspace.workspaceFolders) or when the path
+     * is not contained in them, the input is returned.
+     *
+     * @param pathOrUri A path or uri. When a uri is given its [fsPath](#Uri.fsPath) is used.
+     * @param includeWorkspaceFolder When `true` and when the given path is contained inside a
+     * workspace folder the name of the workspace is prepended. Defaults to `true` when there are
+     * multiple workspace folders and `false` otherwise.
+     * @return A path relative to the root or the input.
+     */
+    function asRelativePath(pathOrUri:EitherType<String,Uri>, ?includeWorkspaceFolder:Bool):String;
+
+    /**
      * Creates a file system watcher.
      *
      * A glob pattern that filters the file events must be provided. Optionally, flags to ignore certain
      * kinds of events can be provided. To stop listening to events the watcher must be disposed.
      *
-     * *Note* that only files within the current [workspace](#workspace.rootPath) can be watched.
+     * *Note* that only files within the current [workspace folders](#workspace.workspaceFolders) can be watched.
      *
      * @param globPattern A glob pattern that is applied to the names of created, changed, and deleted files.
      * @param ignoreCreateEvents Ignore when files have been created.
@@ -808,25 +853,6 @@ extern class VscodeWorkspace {
      * @return A new file system watcher instance.
      */
     function createFileSystemWatcher(globPattern:String, ?ignoreCreateEvents:Bool, ?ignoreChangeEvents:Bool, ?ignoreDeleteEvents:Bool):FileSystemWatcher;
-
-    /**
-     * The folder that is open in the editor. `undefined` when no folder
-     * has been opened.
-     *
-     * @readonly
-     */
-    var rootPath(default,null):Null<String>;
-
-    /**
-     * Returns a path that is relative to the workspace root.
-     *
-     * When there is no [workspace root](#workspace.rootPath) or when the path
-     * is not a child of that folder, the input is returned.
-     *
-     * @param pathOrUri A path or uri. When a uri is given its [fsPath](#Uri.fsPath) is used.
-     * @return A path relative to the root or the input.
-     */
-    function asRelativePath(pathOrUri:EitherType<String, Uri>):String;
 
     /**
      * Find files in the workspace.
@@ -952,16 +978,19 @@ extern class VscodeWorkspace {
     var onDidSaveTextDocument(default,null):Event<TextDocument>;
 
     /**
-     * Get a configuration object.
+     * Get a workspace configuration object.
      *
      * When a section-identifier is provided only that part of the configuration
      * is returned. Dots in the section-identifier are interpreted as child-access,
      * like `{ myExt: { setting: { doIt: true }}}` and `getConfiguration('myExt.setting').get('doIt') === true`.
      *
+     * When a resource is provided, configuration scoped to that resource is returned.
+     *
      * @param section A dot-separated identifier.
-     * @return The full workspace configuration or a subset.
+     * @param resource A resource for which the configuration is asked for
+     * @return The full configuration or a subset.
      */
-    function getConfiguration(?section:String):WorkspaceConfiguration;
+    function getConfiguration(?section:String, ?resource:Uri):WorkspaceConfiguration;
 
     /**
      * An event that is emitted when the [configuration](#WorkspaceConfiguration) changed.
@@ -980,13 +1009,43 @@ extern class VscodeWorkspace {
 
 extern class VscodeDebug {
     /**
-     * An [event](#Event) which fires when a debug session has terminated.
+     * Start debugging by using either a named launch or named compound configuration,
+     * or by directly passing a [DebugConfiguration](#DebugConfiguration).
+     * The named configurations are looked up in '.vscode/launch.json' found in the given folder.
+     * Before debugging starts, all unsaved files are saved and the launch configurations are brought up-to-date.
+     * Folder specific variables used in the configuration (e.g. '${workspaceRoot}') are resolved against the given folder.
+     * @param folder The [workspace folder](#WorkspaceFolder) for looking up named configurations and resolving variables or `undefined` for a non-folder setup.
+     * @param nameOrConfiguration Either the name of a debug or compound configuration or a [DebugConfiguration](#DebugConfiguration) object.
+     * @return A thenable that resolves when debugging could be successfully started.
      */
-    var onDidTerminateDebugSession(default,never):Event<DebugSession>;
+    function startDebugging(folder:Null<WorkspaceFolder>, nameOrConfiguration:EitherType<String,DebugConfiguration>):Thenable<Bool>;
 
     /**
-     * Create a new debug session based on the given configuration.
-     * @param configuration
+     * The currently active [debug session](#DebugSession) or `undefined`. The active debug session is the one
+     * represented by the debug action floating window or the one currently shown in the drop down menu of the debug action floating window.
+     * If no debug session is active, the value is `undefined`.
      */
-    function createDebugSession(configuration:DebugConfiguration):Thenable<DebugSession>;
+    var activeDebugSession:Null<DebugSession>;
+
+    /**
+     * An [event](#Event) which fires when the [active debug session](#debug.activeDebugSession)
+     * has changed. *Note* that the event also fires when the active debug session changes
+     * to `undefined`.
+     */
+    var onDidChangeActiveDebugSession(default,null):Event<Null<DebugSession>>;
+
+    /**
+     * An [event](#Event) which fires when a new [debug session](#DebugSession) has been started.
+     */
+    var onDidStartDebugSession(default,null):Event<DebugSession>;
+
+    /**
+     * An [event](#Event) which fires when a custom DAP event is received from the [debug session](#DebugSession).
+     */
+    var onDidReceiveDebugSessionCustomEvent(default,null):Event<DebugSessionCustomEvent>;
+
+    /**
+     * An [event](#Event) which fires when a [debug session](#DebugSession) has terminated.
+     */
+    var onDidTerminateDebugSession(default,null):Event<DebugSession>;
 }
