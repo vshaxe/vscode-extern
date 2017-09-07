@@ -155,6 +155,13 @@ extern class VscodeEnv {
     var appName(default,null):String;
 
     /**
+     * The application root folder from which the editor is running.
+     *
+     * @readonly
+     */
+    var appRoot(default,null):String;
+
+    /**
      * Represents the preferred user-language, like `de-CH`, `fr`, or `en-US`.
      *
      * @readonly
@@ -212,10 +219,10 @@ extern class VscodeCommands {
     /**
      * Executes the command denoted by the given command identifier.
      *
-     * When executing an editor command not all types are allowed to
+     * * *Note 1:* When executing an editor command not all types are allowed to
      * be passed as arguments. Allowed are the primitive types `string`, `boolean`,
-     * `number`, `undefined`, and `null`, as well as classes defined in this API.
-     * There are no restrictions when executing commands that have been contributed
+     * `number`, `undefined`, and `null`, as well as [`Position`](#Position), [`Range`](#Range), [`Uri`](#Uri) and [`Location`](#Location).
+     * * *Note 2:* There are no restrictions when executing commands that have been contributed
      * by extensions.
      *
      * @param command Identifier of the command to execute.
@@ -280,6 +287,19 @@ extern class VscodeWindow {
      * An [event](#Event) which fires when a terminal is disposed.
      */
     var onDidCloseTerminal(default,null):Event<Terminal>;
+
+    /**
+     * Represents the current window's state.
+     *
+     * @readonly
+     */
+    var state(default,null):WindowState;
+
+    /**
+     * An [event](#Event) which fires when the focus state of the current window
+     * changes. The value of the event represents whether the window is focused.
+     */
+    var onDidChangeWindowState(default,null):Event<WindowState>;
 
     /**
      * Show the given document in a text editor. [Options](#TextDocumentShowOptions) can be provided
@@ -486,14 +506,18 @@ extern class VscodeExtensions {
 
 extern class VscodeScm {
     /**
-     * The [input box](#SourceControlInputBox) in the Source Control viewlet.
+     * ~~The [input box](#SourceControlInputBox) for the last source control
+     * created by the extension.~~
+     *
+     * @deprecated Use [SourceControl.inputBox](#SourceControl.inputBox) instead
      */
+    @:deprecated("Use SourceControl.inputBox instead")
     var inputBox(default,null):SourceControlInputBox;
 
     /**
      * Creates a new [source control](#SourceControl) instance.
      *
-     * @param id A unique `id` for the source control. Something short, eg: `git`.
+     * @param id An `id` for the source control. Something short, eg: `git`.
      * @param label A human-readable string for the source control. Eg: `Git`.
      * @return An instance of [source control](#SourceControl).
      */

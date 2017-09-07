@@ -20,6 +20,12 @@ typedef SourceControlResourceDecorations = {
     @:optional var faded(default,null):Bool;
 
     /**
+     * The title for a specific
+     * [source control resource state](#SourceControlResourceState).
+     */
+    @:optional var tooltip(default,null):String;
+
+    /**
      * The light theme decorations.
      */
     @:optional var light(default,null):SourceControlResourceThemableDecorations;

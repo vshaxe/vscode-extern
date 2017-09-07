@@ -5,14 +5,14 @@ package vscode;
  */
 typedef DebugConfiguration = {
     /**
-     * The type for the debug session.
+     * The type of the debug session.
      */
     var type:String;
 
     /**
-     * An optional name for the debug session.
+     * The name of the debug session.
      */
-    @:optional var name:String;
+    var name:String;
 
     /**
      * The request type of the debug session.

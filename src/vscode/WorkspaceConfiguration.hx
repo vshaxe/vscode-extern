@@ -97,8 +97,11 @@ typedef WorkspaceConfiguration = {
      * @param section Configuration name, supports _dotted_ names.
      * @param value The new value.
      * @param configurationTarget The [configuration target](#ConfigurationTarget) or a boolean value.
-     *	If `undefined` or `null` or `false` configuration target is `ConfigurationTarget.Workspace`.
-     *	If `true` configuration target is `ConfigurationTarget.Global`.
+     *	- If `true` configuration target is `ConfigurationTarget.Global`.
+     *	- If `false` configuration target is `ConfigurationTarget.Workspace`.
+     *	- If `undefined` or `null` configuration target is
+     *	`ConfigurationTarget.WorkspaceFolder` when configuration is resource specific
+     *	`ConfigurationTarget.Workspace` otherwise.
      */
     function update(section:String, value:Any, ?configurationTarget:EitherType<ConfigurationTarget,Bool>):Thenable<Void>;
 }

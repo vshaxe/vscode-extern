@@ -16,6 +16,11 @@ typedef SourceControl = {
     var label(default,null):String;
 
     /**
+     * The [input box](#SourceControlInputBox) for this source control.
+     */
+    var inputBox(default,null):SourceControlInputBox;
+
+    /**
      * The UI-visible count of [resource states](#SourceControlResourceState) of
      * this source control.
      *

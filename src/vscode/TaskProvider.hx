@@ -2,7 +2,7 @@ package vscode;
 
 /**
  * A task provider allows to add tasks to the task service.
- * A task provider is registerd via #workspace.registerTaskProvider.
+ * A task provider is registered via #workspace.registerTaskProvider.
  */
 typedef TaskProvider = {
     /**
