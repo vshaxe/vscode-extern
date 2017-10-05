@@ -307,10 +307,11 @@ extern class VscodeWindow {
      *
      * @param uri A resource identifier.
      * @param document A text document to be shown.
-     * @param column A view column in which the editor should be shown. The default is the [one](#ViewColumn.One), other values
-     * are adjusted to be __Min(column, columnCount + 1)__.
+     * @param column A view column in which the [editor](#TextEditor) should be shown. The default is the [one](#ViewColumn.One), other values
+     * are adjusted to be `Min(column, columnCount + 1)`, the [active](#ViewColumn.Active)-column is
+     * not adjusted.
      * @param preserveFocus When `true` the editor will not take focus.
-     * @param options [Editor options](#ShowTextDocumentOptions) to configure the behavior of showing the [editor](#TextEditor).
+     * @param options [Editor options](#TextDocumentShowOptions) to configure the behavior of showing the [editor](#TextEditor).
      * @return A promise that resolves to an [editor](#TextEditor).
      */
     @:overload(function(uri:Uri, ?options:TextDocumentShowOptions):Thenable<TextEditor> {})
@@ -398,6 +399,24 @@ extern class VscodeWindow {
      */
     @:overload(function(items:EitherType<Array<String>, Thenable<Array<String>>>, ?options:QuickPickOptions, ?token:CancellationToken):Thenable<Null<String>> {})
     function showQuickPick<T:QuickPickItem>(items:EitherType<Array<T>, Thenable<Array<T>>>, ?options:QuickPickOptions, ?token:CancellationToken):Thenable<Null<T>>;
+
+    /**
+     * Shows a file open dialog to the user which allows to select a file
+     * for opening-purposes.
+     *
+     * @param options Options that control the dialog.
+     * @returns A promise that resolves to the selected resources or `undefined`.
+     */
+    function showOpenDialog(options:OpenDialogOptions):Thenable<Null<Array<Uri>>>;
+
+    /**
+     * Shows a file save dialog to the user which allows to select a file
+     * for saving-purposes.
+     *
+     * @param options Options that control the dialog.
+     * @returns A promise that resolves to the selected resource or `undefined`.
+     */
+    function showSaveDialog(options:SaveDialogOptions):Thenable<Null<Uri>>;
 
     /**
      * Opens an input box to ask the user for input.
@@ -509,7 +528,7 @@ extern class VscodeScm {
      * ~~The [input box](#SourceControlInputBox) for the last source control
      * created by the extension.~~
      *
-     * @deprecated Use [SourceControl.inputBox](#SourceControl.inputBox) instead
+     * @deprecated Use SourceControl.inputBox instead
      */
     @:deprecated("Use SourceControl.inputBox instead")
     var inputBox(default,null):SourceControlInputBox;
@@ -519,9 +538,10 @@ extern class VscodeScm {
      *
      * @param id An `id` for the source control. Something short, eg: `git`.
      * @param label A human-readable string for the source control. Eg: `Git`.
+     * @param rootUri An optional Uri of the root of the source control. Eg: `Uri.parse(workspaceRoot)`.
      * @return An instance of [source control](#SourceControl).
      */
-    function createSourceControl(id:String, label:String):SourceControl;
+    function createSourceControl(id:String, label:String, ?rootUri:Uri):SourceControl;
 }
 
 extern class VscodeLanguages {
@@ -840,8 +860,9 @@ extern class VscodeWorkspace {
     var onDidChangeWorkspaceFolders(default,null):Event<WorkspaceFoldersChangeEvent>;
 
     /**
-     * Returns a [workspace folder](#WorkspaceFolder) for the provided resource. When the resource
-     * is a workspace folder itself, its parent workspace folder or `undefined` is returned.
+     * Returns the [workspace folder](#WorkspaceFolder) that contains a given uri.
+     * * returns `undefined` when the given uri doesn't match any workspace folder
+     * * returns the *input* when the given uri is a workspace folder itself
      *
      * @param uri An uri.
      * @return A workspace folder or `undefined`
@@ -865,30 +886,35 @@ extern class VscodeWorkspace {
     /**
      * Creates a file system watcher.
      *
-     * A glob pattern that filters the file events must be provided. Optionally, flags to ignore certain
-     * kinds of events can be provided. To stop listening to events the watcher must be disposed.
+     * A glob pattern that filters the file events on their absolute path must be provided. Optionally,
+     * flags to ignore certain kinds of events can be provided. To stop listening to events the watcher must be disposed.
      *
      * *Note* that only files within the current [workspace folders](#workspace.workspaceFolders) can be watched.
      *
-     * @param globPattern A glob pattern that is applied to the names of created, changed, and deleted files.
+     * @param globPattern A [glob pattern](#GlobPattern) that is applied to the absolute paths of created, changed,
+     * and deleted files. Use a [relative pattern](#RelativePattern) to limit events to a certain [workspace folder](#WorkspaceFolder).
      * @param ignoreCreateEvents Ignore when files have been created.
      * @param ignoreChangeEvents Ignore when files have been changed.
      * @param ignoreDeleteEvents Ignore when files have been deleted.
      * @return A new file system watcher instance.
      */
-    function createFileSystemWatcher(globPattern:String, ?ignoreCreateEvents:Bool, ?ignoreChangeEvents:Bool, ?ignoreDeleteEvents:Bool):FileSystemWatcher;
+    function createFileSystemWatcher(globPattern:GlobPattern, ?ignoreCreateEvents:Bool, ?ignoreChangeEvents:Bool, ?ignoreDeleteEvents:Bool):FileSystemWatcher;
 
     /**
-     * Find files in the workspace.
+     * Find files across all [workspace folders](#workspace.workspaceFolders) in the workspace.
      *
      * @sample `findFiles('**∕*.js', '**∕node_modules∕**', 10)`
-     * @param include A glob pattern that defines the files to search for.
-     * @param exclude A glob pattern that defines files and folders to exclude.
+     * @param include A [glob pattern](#GlobPattern) that defines the files to search for. The glob pattern
+     * will be matched against the file paths of resulting matches relative to their workspace. Use a [relative pattern](#RelativePattern)
+     * to restrict the search results to a [workspace folder](#WorkspaceFolder).
+     * @param exclude  A [glob pattern](#GlobPattern) that defines files and folders to exclude. The glob pattern
+     * will be matched against the file paths of resulting matches relative to their workspace.
      * @param maxResults An upper-bound for the result.
      * @param token A token that can be used to signal cancellation to the underlying search engine.
-     * @return A thenable that resolves to an array of resource identifiers.
+     * @return A thenable that resolves to an array of resource identifiers. Will return no results if no
+     * [workspace folders](#workspace.workspaceFolders) are opened.
      */
-    function findFiles(include:String, ?exclude:String, ?maxResults:Int, ?token:CancellationToken):Thenable<Array<Uri>>;
+    function findFiles(include:GlobPattern, ?exclude:GlobPattern, ?maxResults:Int, ?token:CancellationToken):Thenable<Array<Uri>>;
 
     /**
      * Save all dirty files.
@@ -976,7 +1002,7 @@ extern class VscodeWorkspace {
     /**
      * An event that is emitted when a [text document](#TextDocument) is changed. This usually happens
      * when the [contents](#TextDocument.getText) changes but also when other things like the
-     * [dirty](TextDocument#isDirty)-state changes.
+     * [dirty](#TextDocument.isDirty)-state changes.
      */
     var onDidChangeTextDocument(default,null):Event<TextDocumentChangeEvent>;
 
@@ -1037,7 +1063,7 @@ extern class VscodeDebug {
      * or by directly passing a [DebugConfiguration](#DebugConfiguration).
      * The named configurations are looked up in '.vscode/launch.json' found in the given folder.
      * Before debugging starts, all unsaved files are saved and the launch configurations are brought up-to-date.
-     * Folder specific variables used in the configuration (e.g. '${workspaceRoot}') are resolved against the given folder.
+     * Folder specific variables used in the configuration (e.g. '${workspaceFolder}') are resolved against the given folder.
      * @param folder The [workspace folder](#WorkspaceFolder) for looking up named configurations and resolving variables or `undefined` for a non-folder setup.
      * @param nameOrConfiguration Either the name of a debug or compound configuration or a [DebugConfiguration](#DebugConfiguration) object.
      * @return A thenable that resolves when debugging could be successfully started.
@@ -1072,4 +1098,14 @@ extern class VscodeDebug {
      * An [event](#Event) which fires when a [debug session](#DebugSession) has terminated.
      */
     var onDidTerminateDebugSession(default,null):Event<DebugSession>;
+
+    /**
+     * Register a [debug configuration provider](#DebugConfigurationProvider) for a specifc debug type.
+     * More than one provider can be registered for the same type.
+     *
+     * @param type The debug type for which the provider is registered.
+     * @param provider The [debug configuration provider](#DebugConfigurationProvider) to register.
+     * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+     */
+    function registerDebugConfigurationProvider(debugType:String, provider:DebugConfigurationProvider):Disposable;
 }

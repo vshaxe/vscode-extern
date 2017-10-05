@@ -1,0 +1,35 @@
+package vscode;
+
+import haxe.extern.EitherType;
+
+/**
+ * A relative pattern is a helper to construct glob patterns that are matched
+ * relatively to a base path. The base path can either be an absolute file path
+ * or a [workspace folder](#WorkspaceFolder).
+ */
+@:jsRequire("vscode", "RelativePattern")
+extern class RelativePattern {
+    /**
+     * A base file path to which this pattern will be matched against relatively.
+     */
+    var base:String;
+
+    /**
+     * A file glob pattern like `*.{ts,js}` that will be matched on file paths
+     * relative to the base path.
+     *
+     * Example: Given a base of `/home/work/folder` and a file path of `/home/work/folder/index.js`,
+     * the file glob pattern will match on `index.js`.
+     */
+    var pattern:String;
+
+    /**
+     * Creates a new relative pattern object with a base path and pattern to match. This pattern
+     * will be matched on file paths relative to the base path.
+     *
+     * @param base A base file path to which this pattern will be matched against relatively.
+     * @param pattern A file glob pattern like `*.{ts,js}` that will be matched on file paths
+     * relative to the base path.
+     */
+    function new(base:EitherType<WorkspaceFolder,String>, pattern:String);
+}

@@ -41,7 +41,7 @@ extern class CompletionItem {
     /**
      * A human-readable string that represents a doc-comment.
      */
-    var documentation:Null<String>;
+    var documentation:Null<EitherType<String,MarkdownString>>;
 
     /**
      * A string that should be used when comparing this item

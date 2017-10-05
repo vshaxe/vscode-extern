@@ -25,6 +25,11 @@ extern class Uri {
     static function parse(value:String):Uri;
 
     /**
+     * Use the `file` and `parse` factory functions to create new `Uri` objects.
+     */
+    private function new(scheme:String, authority:String, path:String, query:String, fragment:String);
+
+    /**
      * Scheme is the `http` part of `http://www.msft.com/some/path?query#fragment`.
      * The part before the first colon.
      */

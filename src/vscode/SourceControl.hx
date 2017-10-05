@@ -16,6 +16,11 @@ typedef SourceControl = {
     var label(default,null):String;
 
     /**
+     * The (optional) Uri of the root of this source control.
+     */
+    var rootUri(default,null):Null<Uri>;
+
+    /**
      * The [input box](#SourceControlInputBox) for this source control.
      */
     var inputBox(default,null):SourceControlInputBox;

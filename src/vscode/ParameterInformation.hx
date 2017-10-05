@@ -1,5 +1,7 @@
 package vscode;
 
+import haxe.extern.EitherType;
+
 /**
  * Represents a parameter of a callable-signature. A parameter can
  * have a label and a doc-comment.
@@ -16,7 +18,7 @@ extern class ParameterInformation {
      * The human-readable doc-comment of this signature. Will be shown
      * in the UI but can be omitted.
      */
-    var documentation:Null<String>;
+    var documentation:Null<EitherType<String,MarkdownString>>;
 
     /**
      * Creates a new parameter information object.
@@ -24,5 +26,5 @@ extern class ParameterInformation {
      * @param label A label string.
      * @param documentation A doc string.
      */
-    function new(label:String, ?documentation:String);
+    function new(label:String, ?documentation:EitherType<String,MarkdownString>);
 }

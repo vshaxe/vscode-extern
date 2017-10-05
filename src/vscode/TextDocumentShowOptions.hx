@@ -6,8 +6,8 @@ package vscode;
 typedef TextDocumentShowOptions = {
     /**
      * An optional view column in which the [editor](#TextEditor) should be shown.
-     * The default is the [one](#ViewColumn.One), other values are adjusted to
-     * be __Min(column, columnCount + 1)__.
+     * be `Min(column, columnCount + 1)`, the [active](#ViewColumn.Active)-column is
+     * not adjusted.
      */
     @:optional var viewColumn:ViewColumn;
 

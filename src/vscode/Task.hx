@@ -11,6 +11,7 @@ extern class Task {
      * Creates a new task.
      *
      * @param definition The task definition as defined in the taskDefinitions extension point.
+     * @param target Specifies the task's target. It is either a global or a workspace task or a task for a specific workspace folder.
      * @param name The task's name. Is presented in the user interface.
      * @param source The task's source (e.g. 'gulp', 'npm', ...). Is presented in the user interface.
      * @param execution The process or shell execution.
@@ -18,12 +19,18 @@ extern class Task {
      *  or '$eslint'. Problem matchers can be contributed by an extension using
      *  the `problemMatchers` extension point.
      */
-    function new(taskDefinition:TaskDefinition, name:String, source:String, ?execution:EitherType<ProcessExecution, ShellExecution>, ?problemMatchers:EitherType<String,Array<String>>);
+    @:overload(function(taskDefinition:TaskDefinition, name:String, source:String, ?execution:EitherType<ProcessExecution, ShellExecution>, ?problemMatchers:EitherType<String,Array<String>>):Void {}) // deprecated
+    function new(taskDefinition:TaskDefinition, target:EitherType<WorkspaceFolder,TaskScope>, name:String, source:String, ?execution:EitherType<ProcessExecution, ShellExecution>, ?problemMatchers:EitherType<String,Array<String>>);
 
     /**
      * The task's definition.
      */
     var definition:TaskDefinition;
+
+    /**
+     * The task's scope.
+     */
+    var scope:Null<EitherType<TaskScope,WorkspaceFolder>>;
 
     /**
      * The task's name

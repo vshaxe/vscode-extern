@@ -23,10 +23,11 @@ typedef CompletionItemProvider = {
      * @param document The document in which the command was invoked.
      * @param position The position at which the command was invoked.
      * @param token A cancellation token.
+     * @param context How the completion was triggered.
      * @return An array of completions, a [completion list](#CompletionList), or a thenable that resolves to either.
      * The lack of a result can be signaled by returning `undefined`, `null`, or an empty array.
      */
-    function provideCompletionItems(document:TextDocument, position:Position, token:CancellationToken):ProviderResult<EitherType<Array<CompletionItem>, CompletionList>>;
+    function provideCompletionItems(document:TextDocument, position:Position, token:CancellationToken, context:CompletionContext):ProviderResult<EitherType<Array<CompletionItem>, CompletionList>>;
 
     /**
      * Given a completion item fill in more data, like [doc-comment](#CompletionItem.documentation)

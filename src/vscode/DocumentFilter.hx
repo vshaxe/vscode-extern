@@ -20,7 +20,8 @@ typedef DocumentFilter = {
     @:optional var scheme:String;
 
     /**
-     * A glob pattern, like `*.{ts,js}`.
+     * A [glob pattern](#GlobPattern) that is matched on the absolute path of the document. Use a [relative pattern](#RelativePattern)
+     * to filter documents to a [workspace folder](#WorkspaceFolder).
      */
-    @:optional var pattern:String;
+    @:optional var pattern:GlobPattern;
 }

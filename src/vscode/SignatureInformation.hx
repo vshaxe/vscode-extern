@@ -1,5 +1,7 @@
 package vscode;
 
+import haxe.extern.EitherType;
+
 /**
  * Represents the signature of something callable. A signature
  * can have a label, like a function-name, a doc-comment, and
@@ -17,7 +19,7 @@ extern class SignatureInformation {
      * The human-readable doc-comment of this signature. Will be shown
      * in the UI but can be omitted.
      */
-    var documentation:Null<String>;
+    var documentation:Null<EitherType<String,MarkdownString>>;
 
     /**
      * The parameters of this signature.
@@ -30,5 +32,5 @@ extern class SignatureInformation {
      * @param label A label string.
      * @param documentation A doc string.
      */
-    function new(label:String, ?documentation:String);
+    function new(label:String, ?documentation:EitherType<String,MarkdownString>);
 }
