@@ -260,7 +260,7 @@ extern class VscodeWindow {
      * has changed. *Note* that the event also fires when the active editor changes
      * to `undefined`.
      */
-    var onDidChangeActiveTextEditor(default,null):Event<TextEditor>;
+    var onDidChangeActiveTextEditor(default,null):Event<Null<TextEditor>>;
 
     /**
      * An [event](#Event) which fires when the array of [visible editors](#window.visibleTextEditors)
