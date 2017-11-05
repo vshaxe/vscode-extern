@@ -35,4 +35,11 @@ extern class MarkdownString {
      * @param value Markdown string.
      */
     function appendMarkdown(value:String):MarkdownString;
+
+    /**
+     * Appends the given string as codeblock using the provided language.
+     * @param value A code snippet.
+     * @param language An optional [language identifier](#languages.getLanguages).
+     */
+    function appendCodeblock(value:String, ?language:String):MarkdownString;
 }

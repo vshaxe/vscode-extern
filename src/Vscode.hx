@@ -401,6 +401,15 @@ extern class VscodeWindow {
     function showQuickPick<T:QuickPickItem>(items:EitherType<Array<T>, Thenable<Array<T>>>, ?options:QuickPickOptions, ?token:CancellationToken):Thenable<Null<T>>;
 
     /**
+     * Shows a selection list of [workspace folders](#workspace.workspaceFolders) to pick from.
+     * Returns `undefined` if no folder is open.
+     *
+     * @param options Configures the behavior of the workspace folder list.
+     * @return A promise that resolves to the workspace folder or `undefined`.
+     */
+    function showWorkspaceFolderPick(?options:WorkspaceFolderPickOptions):Thenable<Null<WorkspaceFolder>>;
+
+    /**
      * Shows a file open dialog to the user which allows to select a file
      * for opening-purposes.
      *
@@ -829,6 +838,19 @@ extern class VscodeLanguages {
     function registerDocumentLinkProvider(selector:DocumentSelector, provider:DocumentLinkProvider):Disposable;
 
     /**
+     * Register a color provider.
+     *
+     * Multiple providers can be registered for a language. In that case providers are asked in
+     * parallel and the results are merged. A failing provider (rejected promise or exception) will
+     * not cause a failure of the whole operation.
+     *
+     * @param selector A selector that defines the documents this provider is applicable to.
+     * @param provider A color provider.
+     * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+     */
+    function registerColorProvider(selector:DocumentSelector, provider:DocumentColorProvider):Disposable;
+
+    /**
      * Set a [language configuration](#LanguageConfiguration) for a language.
      *
      * @param language A language identifier like `typescript`.
@@ -853,6 +875,12 @@ extern class VscodeWorkspace {
      * *Note* that the first entry corresponds to the value of `rootPath`.
      */
     var workspaceFolders(default,null):Null<Array<WorkspaceFolder>>;
+
+    /**
+     * The name of the workspace. `undefined` when no folder
+     * has been opened.
+     */
+    var name(default,null):Null<String>;
 
     /**
      * An event that is emitted when a workspace folder is added or removed.
@@ -1045,7 +1073,7 @@ extern class VscodeWorkspace {
     /**
      * An event that is emitted when the [configuration](#WorkspaceConfiguration) changed.
      */
-    var onDidChangeConfiguration(default,null):Event<Void>;
+    var onDidChangeConfiguration(default,null):Event<ConfigurationChangeEvent>;
 
     /**
      * Register a task provider.
