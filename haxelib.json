@@ -3,8 +3,8 @@
     "description": "Visual Studio Code extern library",
     "url": "https://github.com/vshaxe/vscode-extern",
     "license": "MIT",
-    "version": "1.17.0",
-    "releasenote": "Update to VSCode 1.17",
+    "version": "1.18.0",
+    "releasenote": "Update to VSCode 1.18",
     "classPath": "src",
     "contributors": ["nadako"],
     "dependencies": {
