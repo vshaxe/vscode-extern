@@ -14,7 +14,7 @@ extern class Location {
     var uri:Uri;
 
     /**
-     * The document range of this locations.
+     * The document range of this location.
      */
     var range:Range;
 

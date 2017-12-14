@@ -7,7 +7,7 @@ import haxe.extern.EitherType;
  * and [language filters](#DocumentFilter).
  *
  * @sample `let sel:DocumentSelector = 'typescript'`;
- * @sample `let sel:DocumentSelector = ['typescript', { language: 'json', pattern: '**∕tsconfig.json' }]`;
+ * @sample `let sel:DocumentSelector = ['typescript', { language: 'json', pattern: '**​/tsconfig.json' }]`;
  */
 typedef DocumentSelector = EitherType<DocumentSelectorSimple,Array<DocumentSelectorSimple>>;
 

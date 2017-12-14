@@ -931,7 +931,7 @@ extern class VscodeWorkspace {
     /**
      * Find files across all [workspace folders](#workspace.workspaceFolders) in the workspace.
      *
-     * @sample `findFiles('**∕*.js', '**∕node_modules∕**', 10)`
+     * @sample `findFiles('**​/*.js', '**​/node_modules/**', 10)`
      * @param include A [glob pattern](#GlobPattern) that defines the files to search for. The glob pattern
      * will be matched against the file paths of resulting matches relative to their workspace. Use a [relative pattern](#RelativePattern)
      * to restrict the search results to a [workspace folder](#WorkspaceFolder).
@@ -1104,6 +1104,11 @@ extern class VscodeDebug {
      * If no debug session is active, the value is `undefined`.
      */
     var activeDebugSession:Null<DebugSession>;
+
+    /**
+     * The currently active [debug console](#DebugConsole).
+     */
+    var activeDebugConsole:DebugConsole;
 
     /**
      * An [event](#Event) which fires when the [active debug session](#debug.activeDebugSession)
