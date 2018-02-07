@@ -1,6 +1,5 @@
 package vscode;
 
-import js.Promise.Thenable;
 import haxe.extern.EitherType;
 
 /**
@@ -17,8 +16,8 @@ typedef CodeActionProvider = {
      * @param range The range for which the command was invoked.
      * @param context Context carrying additional information.
      * @param token A cancellation token.
-     * @return An array of commands or a thenable of such. The lack of a result can be
+     * @return An array of commands, quick fixes, or refactorings or a thenable of such. The lack of a result can be
      * signaled by returning `undefined`, `null`, or an empty array.
      */
-    function provideCodeActions(document:TextDocument, range:Range, context:CodeActionContext, token:CancellationToken):ProviderResult<Array<Command>>;
+    function provideCodeActions(document:TextDocument, range:Range, context:CodeActionContext, token:CancellationToken):ProviderResult<Array<EitherType<Command,CodeAction>>>;
 }

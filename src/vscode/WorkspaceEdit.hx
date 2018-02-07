@@ -1,7 +1,8 @@
 package vscode;
 
 /**
- * A workspace edit represents textual changes for many documents.
+ * A workspace edit represents textual and files changes for
+ * multiple resources and documents.
  */
 @:jsRequire("vscode", "WorkspaceEdit")
 extern class WorkspaceEdit {
@@ -64,7 +65,7 @@ extern class WorkspaceEdit {
     /**
      * Get all text edits grouped by resource.
      *
-     * @return An array of `[Uri, TextEdit[]]`-tuples.
+     * @return A shallow copy of `[Uri, TextEdit[]]`-tuples.
      */
     function entries():Array<WorkspaceEditEntriesTuple>;
 }

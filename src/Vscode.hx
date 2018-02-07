@@ -936,13 +936,14 @@ extern class VscodeWorkspace {
      * will be matched against the file paths of resulting matches relative to their workspace. Use a [relative pattern](#RelativePattern)
      * to restrict the search results to a [workspace folder](#WorkspaceFolder).
      * @param exclude  A [glob pattern](#GlobPattern) that defines files and folders to exclude. The glob pattern
-     * will be matched against the file paths of resulting matches relative to their workspace.
+     * will be matched against the file paths of resulting matches relative to their workspace. When `undefined` only default excludes will
+     * apply, when `null` no excludes will apply.
      * @param maxResults An upper-bound for the result.
      * @param token A token that can be used to signal cancellation to the underlying search engine.
      * @return A thenable that resolves to an array of resource identifiers. Will return no results if no
      * [workspace folders](#workspace.workspaceFolders) are opened.
      */
-    function findFiles(include:GlobPattern, ?exclude:GlobPattern, ?maxResults:Int, ?token:CancellationToken):Thenable<Array<Uri>>;
+    function findFiles(include:GlobPattern, ?exclude:Null<GlobPattern>, ?maxResults:Int, ?token:CancellationToken):Thenable<Array<Uri>>;
 
     /**
      * Save all dirty files.
@@ -1018,11 +1019,23 @@ extern class VscodeWorkspace {
 
     /**
      * An event that is emitted when a [text document](#TextDocument) is opened.
+     *
+     * To add an event listener when a visible text document is opened, use the [TextEditor](#TextEditor) events in the
+     * [window](#window) namespace. Note that:
+     *
+     * - The event is emitted before the [document](#TextDocument) is updated in the
+     * [active text editor](#window.activeTextEditor)
+     * - When a [text document](#TextDocument) is already open (e.g.: open in another [visible text editor](#window.visibleTextEditors)) this event is not emitted
+     *
      */
     var onDidOpenTextDocument(default,null):Event<TextDocument>;
 
     /**
      * An event that is emitted when a [text document](#TextDocument) is disposed.
+     *
+     * To add an event listener when a visible text document is closed, use the [TextEditor](#TextEditor) events in the
+     * [window](#window) namespace. Note that this event is not emitted when a [TextEditor](#TextEditor) is closed
+     * but the document remains open in another [visible text editor](#window.visibleTextEditors).
      */
     var onDidCloseTextDocument(default,null):Event<TextDocument>;
 
@@ -1068,7 +1081,7 @@ extern class VscodeWorkspace {
      * @param resource A resource for which the configuration is asked for
      * @return The full configuration or a subset.
      */
-    function getConfiguration(?section:String, ?resource:Uri):WorkspaceConfiguration;
+    function getConfiguration(?section:String, ?resource:Null<Uri>):WorkspaceConfiguration;
 
     /**
      * An event that is emitted when the [configuration](#WorkspaceConfiguration) changed.

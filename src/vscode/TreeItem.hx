@@ -5,14 +5,29 @@ import haxe.extern.EitherType;
 @:jsRequire("vscode", "TreeItem")
 extern class TreeItem {
     /**
-     * A human-readable string describing this item
+     * A human-readable string describing this item. When `falsy`, it is derived from [resourceUri](#TreeItem.resourceUri).
      */
-    var label:String;
+    var label:Null<String>;
 
     /**
-     * The icon path for the tree item
+     * Optional id for the tree item that has to be unique across tree. The id is used to preserve the selection and expansion state of the tree item.
+     *
+     * If not provided, an id is generated using the tree item's label. **Note** that when labels change, ids will change and that selection and expansion state cannot be kept stable anymore.
+     */
+    var id:Null<String>;
+
+    /**
+     * The icon path for the tree item. When `falsy`, it is derived from [resourceUri](#TreeItem.resourceUri).
      */
     var iconPath:Null<EitherType<String, EitherType<Uri, {light:EitherType<String, Uri>, dark:EitherType<String, Uri>}>>>;
+
+    /**
+     * The [uri](#Uri) of the resource representing this item.
+     *
+     * Will be used to derive the [label](#TreeItem.label), when it is not provided.
+     * Will be used to derive the icon from current file icon theme, when [iconPath](#TreeItem.iconPath) is not provided.
+     */
+    var resourceUri:Null<Uri>;
 
     /**
      * The [command](#Command) which should be run when the tree item is selected.
@@ -46,7 +61,9 @@ extern class TreeItem {
 
     /**
      * @param label A human-readable string describing this item
+     * @param resourceUri The [uri](#Uri) of the resource representing this item.
      * @param collapsibleState [TreeItemCollapsibleState](#TreeItemCollapsibleState) of the tree item. Default is [TreeItemCollapsibleState.None](#TreeItemCollapsibleState.None)
      */
+    @:overload(function(resourceUri:Uri, ?collapsibleState:TreeItemCollapsibleState):Void {})
     function new(label:String, ?collapsibleState:TreeItemCollapsibleState);
 }

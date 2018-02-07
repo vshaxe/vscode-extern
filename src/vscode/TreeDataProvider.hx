@@ -9,6 +9,7 @@ import haxe.extern.EitherType;
 typedef TreeDataProvider<T> = {
     /**
      * An optional event to signal that an element or root has changed.
+     * This will trigger the view to update the changed element/root and its children recursively (if shown).
      * To signal that root has changed, do not pass any argument or pass `undefined` or `null`.
      */
     @:optional var onDidChangeTreeData:Event<Null<T>>;

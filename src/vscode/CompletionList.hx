@@ -7,7 +7,7 @@ package vscode;
 @:jsRequire("vscode", "CompletionList")
 extern class CompletionList {
     /**
-     * This list it not complete. Further typing should result in recomputing
+     * This list is not complete. Further typing should result in recomputing
      * this list.
      */
     var isIncomplete:Null<Bool>;

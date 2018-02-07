@@ -20,6 +20,11 @@ typedef TerminalOptions = {
     @:optional var shellArgs:Array<String>;
 
     /**
+     * A path for the current working directory to be used for the terminal.
+     */
+    @:optional var cwd:String;
+
+    /**
      * Object with environment variables that will be added to the VS Code process.
      */
     @:optional var env:haxe.DynamicAccess<Null<String>>;

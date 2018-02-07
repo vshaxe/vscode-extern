@@ -14,4 +14,9 @@ package vscode;
      * Completion was triggered by a trigger character.
      */
     var TriggerCharacter;
+
+    /**
+     * Completion was re-triggered as current completion list is incomplete
+     */
+    var TriggerForIncompleteCompletions;
 }

@@ -27,6 +27,16 @@ typedef ThemableDecorationAttachmentRenderOptions = {
     /**
      * CSS styling property that will be applied to the decoration attachment.
      */
+    @:optional var fontStyle:String;
+
+    /**
+     * CSS styling property that will be applied to the decoration attachment.
+     */
+    @:optional var fontWeight:String;
+
+    /**
+     * CSS styling property that will be applied to the decoration attachment.
+     */
     @:optional var textDecoration:String;
 
     /**

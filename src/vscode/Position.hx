@@ -27,7 +27,7 @@ extern class Position {
     function new(line:Int, character:Int):Void;
 
     /**
-     * Check if `other` is before this position.
+     * Check if this position is before `other`.
      *
      * @param other A position.
      * @return `true` if position is on a smaller line
@@ -36,7 +36,7 @@ extern class Position {
     function isBefore(other:Position):Bool;
 
     /**
-     * Check if `other` is before or equal to this position.
+     * Check if this position is before or equal to `other`.
      *
      * @param other A position.
      * @return `true` if position is on a smaller line
@@ -45,7 +45,7 @@ extern class Position {
     function isBeforeOrEqual(other:Position):Bool;
 
     /**
-     * Check if `other` is after this position.
+     * Check if this position is after `other`.
      *
      * @param other A position.
      * @return `true` if position is on a greater line
@@ -54,7 +54,7 @@ extern class Position {
     function isAfter(other:Position):Bool;
 
     /**
-     * Check if `other` is after or equal to this position.
+     * Check if this position is after or equal to `other`.
      *
      * @param other A position.
      * @return `true` if position is on a greater line
@@ -63,7 +63,7 @@ extern class Position {
     function isAfterOrEqual(other:Position):Bool;
 
     /**
-     * Check if `other` equals this position.
+     * Check if this position is equal to `other`.
      *
      * @param other A position.
      * @return `true` if the line and character of the given position are equal to
