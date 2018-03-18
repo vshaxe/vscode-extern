@@ -10,7 +10,7 @@ typedef TextEditor = {
     /**
      * The document associated with this text editor. The document will be the same for the entire lifetime of this text editor.
      */
-    var document:TextDocument;
+    var document(default,never):TextDocument;
 
     /**
      * The primary selection on this text editor. Shorthand for `TextEditor.selections[0]`.

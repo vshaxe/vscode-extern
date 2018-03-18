@@ -16,18 +16,25 @@ extern class TreeItem {
      */
     var id:Null<String>;
 
-    /**
-     * The icon path for the tree item. When `falsy`, it is derived from [resourceUri](#TreeItem.resourceUri).
-     */
-    var iconPath:Null<EitherType<String, EitherType<Uri, {light:EitherType<String, Uri>, dark:EitherType<String, Uri>}>>>;
+	/**
+	 * The icon path or [ThemeIcon](#ThemeIcon) for the tree item.
+	 * When `falsy`, [Folder Theme Icon](#ThemeIcon.Folder) is assigned, if item is collapsible otherwise [File Theme Icon](#ThemeIcon.File).
+	 * When a [ThemeIcon](#ThemeIcon) is specified, icon is derived from the current file icon theme for the specified theme icon using [resourceUri](#TreeItem.resourceUri) (if provided).
+	 */
+    var iconPath:Null<EitherType<String, EitherType<Uri, EitherType<{light:EitherType<String, Uri>, dark:EitherType<String, Uri>}, ThemeIcon>>>>;
 
     /**
      * The [uri](#Uri) of the resource representing this item.
      *
      * Will be used to derive the [label](#TreeItem.label), when it is not provided.
-     * Will be used to derive the icon from current file icon theme, when [iconPath](#TreeItem.iconPath) is not provided.
+	 * Will be used to derive the icon from current icon theme, when [iconPath](#TreeItem.iconPath) has [ThemeIcon](#ThemeIcon) value.
      */
     var resourceUri:Null<Uri>;
+
+	/**
+	 * The tooltip text when you hover over this item.
+	 */
+	var tooltip:Null<String>;
 
     /**
      * The [command](#Command) which should be run when the tree item is selected.
