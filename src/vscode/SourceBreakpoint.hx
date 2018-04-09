@@ -13,5 +13,5 @@ extern class SourceBreakpoint extends Breakpoint {
 	/**
 	 * Create a new breakpoint for a source location.
 	 */
-	function new(location:Location, ?enabled:Bool, ?condition:String, ?hitCondition:String);
+	function new(location:Location, ?enabled:Bool, ?condition:String, ?hitCondition:String, ?logMessage:String);
 }

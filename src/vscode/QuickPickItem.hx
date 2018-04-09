@@ -13,10 +13,18 @@ typedef QuickPickItem = {
     /**
      * A human readable string which is rendered less prominent.
      */
-    var description:String;
+    @:optional var description:String;
 
     /**
      * A human readable string which is rendered less prominent.
      */
     @:optional var detail:String;
+
+    /**
+     * Optional flag indicating if this item is picked initially.
+     * (Only honored when the picker allows multiple selections.)
+     *
+     * @see [QuickPickOptions.canPickMany](#QuickPickOptions.canPickMany)
+     */
+    @:optional var picked:Bool;
 }

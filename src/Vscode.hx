@@ -274,6 +274,11 @@ extern class VscodeWindow {
     var onDidChangeTextEditorSelection(default,null):Event<TextEditorSelectionChangeEvent>;
 
     /**
+     * An [event](#Event) which fires when the selection in an editor has changed.
+     */
+    var onDidChangeTextEditorVisibleRanges(default,null):Event<TextEditorVisibleRangesChangeEvent>;
+
+    /**
      * An [event](#Event) which fires when the options of an editor have changed.
      */
     var onDidChangeTextEditorOptions(default,null):Event<TextEditorOptionsChangeEvent>;
@@ -483,9 +488,18 @@ extern class VscodeWindow {
      *
      * @param task A callback returning a promise. Progress state can be reported with
      * the provided [progress](#Progress)-object.
+     *
+     * To report discrete progress, use `increment` to indicate how much work has been completed. Each call with
+     * a `increment` value will be summed up and reflected as overall progress until 100% is reached (a value of
+     * e.g. `10` accounts for `10%` of work done).
+     * Note that currently only `ProgressLocation.Notification` is capable of showing discrete progress.
+     *
+     * To monitor if the operation has been cancelled by the user, use the provided [`CancellationToken`](#CancellationToken).
+     * Note that currently only `ProgressLocation.Notification` is supporting to show a cancel button to cancel the
+     * long running operation.
      * @return The thenable the task-callback returned.
      */
-    function withProgress<R>(options:ProgressOptions, task:Progress<{?message:String}>->Thenable<R>):Thenable<R>;
+    function withProgress<R>(options:ProgressOptions, task:Progress<{?message:String, ?increment:Float}>->CancellationToken->Thenable<R>):Thenable<R>;
 
     /**
      * Creates a status bar [item](#StatusBarItem).
@@ -511,10 +525,21 @@ extern class VscodeWindow {
 
     /**
      * Register a [TreeDataProvider](#TreeDataProvider) for the view contributed using the extension point `views`.
+     * This will allow you to contribute data to the [TreeView](#TreeView) and update if the data changes.
+     *
+     * **Note:** To get access to the [TreeView](#TreeView) and perform operations on it, use [createTreeView](#window.createTreeView).
      * @param viewId Id of the view contributed using the extension point `views`.
      * @param treeDataProvider A [TreeDataProvider](#TreeDataProvider) that provides tree data for the view
      */
     function registerTreeDataProvider<T>(viewId:String, treeDataProvider:TreeDataProvider<T>):Disposable;
+
+    /**
+     * Create a [TreeView](#TreeView) for the view contributed using the extension point `views`.
+     * @param viewId Id of the view contributed using the extension point `views`.
+     * @param options Options object to provide [TreeDataProvider](#TreeDataProvider) for the view.
+     * @returns a [TreeView](#TreeView).
+     */
+    function createTreeView<T>(viewId:String, options:{treeDataProvider:TreeDataProvider<T>}):TreeView<T>;
 }
 
 extern class VscodeExtensions {

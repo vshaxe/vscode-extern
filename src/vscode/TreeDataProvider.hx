@@ -29,4 +29,15 @@ typedef TreeDataProvider<T> = {
      * @return Children of `element` or root if no element is passed.
      */
     function getChildren(?element:T):ProviderResult<Array<T>>;
+
+    /**
+     * Optional method to return the parent of `element`.
+     * Return `null` or `undefined` if `element` is a child of root.
+     *
+     * **NOTE:** This method should be implemented in order to access [reveal](#TreeView.reveal) API.
+     *
+     * @param element The element for which the parent has to be returned.
+     * @return Parent of `element`.
+     */
+    @:optional function getParent(element:T):ProviderResult<T>;
 }

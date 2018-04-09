@@ -23,6 +23,12 @@ typedef TextEditor = {
     var selections:Array<Selection>;
 
     /**
+     * The current visible ranges in the editor (vertically).
+     * This accounts only for vertical scrolling, and not for horizontal scrolling.
+     */
+    var visibleRanges(default,never):Array<Range>;
+
+    /**
      * Text editor options.
      */
     var options:TextEditorOptions;

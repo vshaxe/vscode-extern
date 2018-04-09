@@ -13,5 +13,5 @@ extern class FunctionBreakpoint extends Breakpoint {
 	/**
 	 * Create a new function breakpoint.
 	 */
-	function new(functionName:String, ?enabled:Bool, ?condition:String, ?hitCondition:String);
+	function new(functionName:String, ?enabled:Bool, ?condition:String, ?hitCondition:String, ?logMessage:String);
 }

@@ -18,7 +18,7 @@ extern class CancellationTokenSource {
     function cancel():Void;
 
     /**
-     * Dispose object and free resources. Will call [cancel](#CancellationTokenSource.cancel).
+     * Dispose object and free resources.
      */
     function dispose():Void;
 }

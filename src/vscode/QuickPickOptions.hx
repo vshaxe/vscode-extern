@@ -27,6 +27,11 @@ typedef QuickPickOptions = {
     @:optional var ignoreFocusOut:Bool;
 
     /**
+     * An optional flag to make the picker accept multiple selections, if true the result is an array of picks.
+     */
+    @:optional var canPickMany:Bool;
+
+    /**
      * An optional function that is invoked whenever an item is selected.
      */
     @:optional var onDidSelectItem:EitherType<QuickPickItem,String>->Any;
