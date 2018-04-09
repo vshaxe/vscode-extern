@@ -39,5 +39,5 @@ typedef TreeDataProvider<T> = {
      * @param element The element for which the parent has to be returned.
      * @return Parent of `element`.
      */
-    @:optional function getParent(element:T):ProviderResult<T>;
+    @:optional var getParent(default,never):T->ProviderResult<T>;
 }
