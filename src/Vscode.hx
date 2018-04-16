@@ -406,6 +406,23 @@ extern class VscodeWindow {
     function showQuickPick<T:QuickPickItem>(items:EitherType<Array<T>, Thenable<Array<T>>>, ?options:QuickPickOptions, ?token:CancellationToken):Thenable<Null<T>>;
 
     /**
+     * Shows a selection list allowing multiple selections.
+     *
+     * @param items An array of items, or a promise that resolves to an array of items.
+     * @param options Configures the behavior of the selection list.
+     * @param token A token that can be used to signal cancellation.
+     * @return A promise that resolves to the selected items or `undefined`.
+     */
+    // see #13 for details on why this is needed
+    @:extern inline function showQuickPickMany<T:QuickPickItem>(items:EitherType<Array<T>, Thenable<Array<T>>>, ?options:QuickPickOptions, ?token:CancellationToken):Thenable<Null<Array<T>>> {
+        if (options == null)
+            options = {canPickMany: true};
+        else
+            options.canPickMany = true;
+        return cast showQuickPick(items, options, if (token == null) js.Lib.undefined else token);
+    }
+
+    /**
      * Shows a selection list of [workspace folders](#workspace.workspaceFolders) to pick from.
      * Returns `undefined` if no folder is open.
      *
