@@ -10,6 +10,11 @@ typedef TextDocumentContentChangeEvent = {
     var range:Range;
 
     /**
+     * The offset of the range that got replaced.
+     */
+    var rangeOffset:Int;
+
+    /**
      * The length of the range that got replaced.
      */
     var rangeLength:Int;

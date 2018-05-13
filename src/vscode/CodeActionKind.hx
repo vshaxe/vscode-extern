@@ -13,17 +13,17 @@ extern class CodeActionKind {
     static var Empty(default,null):CodeActionKind;
 
     /**
-     * Base kind for quickfix actions.
+     * Base kind for quickfix actions: `quickfix`
      */
     static var QuickFix(default,null):CodeActionKind;
 
     /**
-     * Base kind for refactoring actions.
+     * Base kind for refactoring actions: `refactor`
      */
     static var Refactor(default,null):CodeActionKind;
 
     /**
-     * Base kind for refactoring extraction actions.
+     * Base kind for refactoring extraction actions: `refactor.extract`
      *
      * Example extract actions:
      *
@@ -36,7 +36,7 @@ extern class CodeActionKind {
     static var RefactorExtract(default,null):CodeActionKind;
 
     /**
-     * Base kind for refactoring inline actions.
+     * Base kind for refactoring inline actions: `refactor.inline`
      *
      * Example inline actions:
      *
@@ -48,7 +48,7 @@ extern class CodeActionKind {
     static var RefactorInline(default,null):CodeActionKind;
 
     /**
-     * Base kind for refactoring rewrite actions.
+     * Base kind for refactoring rewrite actions: `refactor.rewrite`
      *
      * Example rewrite actions:
      *
@@ -60,6 +60,18 @@ extern class CodeActionKind {
      * - ...
      */
     static var RefactorRewrite(default,null):CodeActionKind;
+
+    /**
+     * Base kind for source actions: `source`
+     *
+     * Source code actions apply to the entire file.
+     */
+    static var Source(default,null):CodeActionKind;
+
+    /**
+     * Base kind for an organize imports source action: `source.organizeImports`
+     */
+    static var SourceOrganizeImports(default,null):CodeActionKind;
 
     private function new(value:String);
 

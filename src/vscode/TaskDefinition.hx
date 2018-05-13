@@ -16,6 +16,9 @@ typedef TaskDefinition = {
      *     script: string;
      * }
      * ```
+     *
+     * Note that type identifier starting with a '$' are reserved for internal
+     * usages and shouldn't be used by extensions.
      */
     var type(default,null):String;
 }

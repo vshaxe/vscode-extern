@@ -470,6 +470,18 @@ extern class VscodeWindow {
     function createOutputChannel(name:String):OutputChannel;
 
     /**
+     * Create and show a new webview panel.
+     *
+     * @param viewType Identifies the type of the webview panel.
+     * @param title Title of the panel.
+     * @param position Editor column to show the new panel in.
+     * @param options Settings for the new panel.
+     *
+     * @return New webview panel.
+     */
+    function createWebviewPanel(viewType:String, title:String, position:ViewColumn, ?options:{>WebviewPanelOptions,>WebviewOptions,}):WebviewPanel;
+
+    /**
      * Set a message to the status bar. This is a short hand for the more powerful
      * status bar [items](#window.createStatusBarItem).
      *
@@ -545,6 +557,7 @@ extern class VscodeWindow {
      * This will allow you to contribute data to the [TreeView](#TreeView) and update if the data changes.
      *
      * **Note:** To get access to the [TreeView](#TreeView) and perform operations on it, use [createTreeView](#window.createTreeView).
+     *
      * @param viewId Id of the view contributed using the extension point `views`.
      * @param treeDataProvider A [TreeDataProvider](#TreeDataProvider) that provides tree data for the view
      */
@@ -642,6 +655,30 @@ extern class VscodeLanguages {
     function match(selector:DocumentSelector, document:TextDocument):Float;
 
     /**
+     * An [event](#Event) which fires when the global set of diagnostics changes. This is
+     * newly added and removed diagnostics.
+     */
+    var onDidChangeDiagnostics(default,never):Event<DiagnosticChangeEvent>;
+
+    /**
+     * Get all diagnostics for a given resource. *Note* that this includes diagnostics from
+     * all extensions but *not yet* from the task framework.
+     *
+     * @param resource A resource
+     * @returns An arrary of [diagnostics](#Diagnostic) objects or an empty array.
+     */
+    function getDiagnostics(resource:Uri):Array<Diagnostic>;
+
+    // TODO: how to represent tuples?
+    /**
+     * Get all diagnostics. *Note* that this includes diagnostics from
+     * all extensions but *not yet* from the task framework.
+     *
+     * @returns An array of uri-diagnostics tuples or an empty array.
+     */
+    //function getDiagnostics(): [Uri, Diagnostic[]][];
+
+    /**
      * Create a diagnostics collection.
      *
      * @param name The [name](#DiagnosticCollection.name) of the collection.
@@ -674,9 +711,10 @@ extern class VscodeLanguages {
      *
      * @param selector A selector that defines the documents this provider is applicable to.
      * @param provider A code action provider.
+     * @param metadata Metadata about the kind of code actions the provider providers.
      * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
      */
-    function registerCodeActionsProvider(selector:DocumentSelector, provider:CodeActionProvider):Disposable;
+    function registerCodeActionsProvider(selector:DocumentSelector, provider:CodeActionProvider, ?metadata:CodeActionProviderMetadata):Disposable;
 
     /**
      * Register a code lens provider.
@@ -891,6 +929,23 @@ extern class VscodeLanguages {
      * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
      */
     function registerColorProvider(selector:DocumentSelector, provider:DocumentColorProvider):Disposable;
+
+    /**
+     * Register a folding range provider.
+     *
+     * Multiple providers can be registered for a language. In that case providers are asked in
+     * parallel and the results are merged.
+     * If multiple folding ranges start at the same position, only the range of the first registered provider is used.
+     * If a folding range overlaps with an other range that has a smaller position, it is also ignored.
+     *
+     * A failing provider (rejected promise or exception) will
+     * not cause a failure of the whole operation.
+     *
+     * @param selector A selector that defines the documents this provider is applicable to.
+     * @param provider A folding range provider.
+     * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+     */
+    function registerFoldingRangeProvider(selector:DocumentSelector, provider:FoldingRangeProvider):Disposable;
 
     /**
      * Set a [language configuration](#LanguageConfiguration) for a language.
@@ -1181,6 +1236,19 @@ extern class VscodeWorkspace {
      * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
      */
     function registerTaskProvider(type:String, provider:TaskProvider):Disposable;
+
+    /**
+     * Register a filesystem provider for a given scheme, e.g. `ftp`.
+     *
+     * There can only be one provider per scheme and an error is being thrown when a scheme
+     * has been claimed by another provider or when it is reserved.
+     *
+     * @param scheme The uri-[scheme](#Uri.scheme) the provider registers for.
+     * @param provider The filesystem provider.
+     * @param options Immutable metadata about the provider.
+     * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+     */
+    function registerFileSystemProvider(scheme:String, provider:FileSystemProvider, options:{?isCaseSensitive:Bool}):Disposable;
 }
 
 extern class VscodeDebug {

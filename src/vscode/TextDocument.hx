@@ -8,9 +8,13 @@ import js.Promise.Thenable;
  */
 typedef TextDocument = {
     /**
-     * The associated URI for this document. Most documents have the __file__-scheme, indicating that they
-     * represent files on disk. However, some documents may have other schemes indicating that they are not
-     * available on disk.
+     * The associated uri for this document.
+     *
+     * *Note* that most documents use the `file`-scheme, which means they are files on disk. However, **not** all documents are
+     * saved on disk and therefore the `scheme` must be checked before trying to access the underlying file or siblings on disk.
+     *
+     * @see [FileSystemProvider](#FileSystemProvider)
+     * @see [TextDocumentContentProvider](#TextDocumentContentProvider)
      */
     var uri(default,null):Uri;
 
@@ -21,7 +25,9 @@ typedef TextDocument = {
     var fileName(default,null):String;
 
     /**
-     * Is this document representing an untitled file.
+     * Is this document representing an untitled file which has never been saved yet. *Note* that
+     * this does not mean the document will be saved to disk, use [`uri.scheme`](#Uri.scheme)
+     * to figure out where a document will be [saved](#FileSystemProvider), e.g. `file`, `ftp` etc.
      */
     var isUntitled(default,null):Bool;
 

@@ -8,7 +8,6 @@ package vscode;
  */
 @:jsRequire("vscode", "CodeAction")
 extern class CodeAction {
-
     /**
      * A short, human-readable, title for this code action.
      */

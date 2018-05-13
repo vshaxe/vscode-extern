@@ -98,6 +98,11 @@ typedef ThemableDecorationRenderOptions = {
     /**
      * CSS styling property that will be applied to text enclosed by a decoration.
      */
+    @:optional var opacity:String;
+
+    /**
+     * CSS styling property that will be applied to text enclosed by a decoration.
+     */
     @:optional var letterSpacing:String;
 
     /**
