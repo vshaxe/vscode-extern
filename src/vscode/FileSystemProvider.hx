@@ -1,8 +1,6 @@
 package vscode;
 
-import js.Promise;
 import js.html.Uint8Array;
-import haxe.extern.EitherType;
 
 /**
  * The filesystem provider defines what the editor needs to read, write, discover,

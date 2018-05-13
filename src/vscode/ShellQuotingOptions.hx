@@ -1,7 +1,5 @@
 package vscode;
 
-import haxe.extern.EitherType;
-
 /**
  * The shell quoting options.
  */

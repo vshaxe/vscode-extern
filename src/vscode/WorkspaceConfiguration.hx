@@ -1,8 +1,5 @@
 package vscode;
 
-import haxe.extern.EitherType;
-import js.Promise.Thenable;
-
 /**
  * Represents the configuration. It is a merged view of
  *

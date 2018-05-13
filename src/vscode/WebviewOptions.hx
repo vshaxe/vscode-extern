@@ -1,7 +1,5 @@
 package vscode;
 
-import ts.ReadonlyArray;
-
 /**
  * Content settings for a webview.
  */

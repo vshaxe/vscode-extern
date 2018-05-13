@@ -1,7 +1,5 @@
 package vscode;
 
-import haxe.DynamicAccess;
-
 /**
  * Options for a process execution
  */

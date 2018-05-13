@@ -1,7 +1,5 @@
 package vscode;
 
-import haxe.extern.EitherType;
-
 /**
  * A status bar item is a status bar contribution that can
  * show text and icons and run a command on click.

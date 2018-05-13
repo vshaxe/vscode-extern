@@ -1,8 +1,5 @@
 package vscode;
 
-import js.Error;
-import haxe.extern.EitherType;
-
 /**
  * A type that filesystem providers should use to signal errors.
  *

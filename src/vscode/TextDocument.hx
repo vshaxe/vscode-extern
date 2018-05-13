@@ -1,7 +1,5 @@
 package vscode;
 
-import js.Promise.Thenable;
-
 /**
  * Represents a text document, such as a source file. Text documents have
  * [lines](#TextLine) and knowledge about an underlying resource like a file.

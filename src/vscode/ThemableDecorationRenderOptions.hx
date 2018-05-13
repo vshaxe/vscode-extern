@@ -1,7 +1,5 @@
 package vscode;
 
-import haxe.extern.EitherType;
-
 /**
  * Represents theme specific rendering styles for a [text editor decoration](#TextEditorDecorationType).
  */

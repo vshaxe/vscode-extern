@@ -1,7 +1,5 @@
 package vscode;
 
-import haxe.extern.EitherType;
-
 typedef ThemableDecorationAttachmentRenderOptions = {
     /**
      * Defines a text content that is shown in the attachment. Either an icon or a text can be shown, but not both.

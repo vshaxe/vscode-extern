@@ -1,7 +1,5 @@
 package vscode;
 
-import js.Promise;
-
 /**
  * A webview displays html content, like an iframe.
  */

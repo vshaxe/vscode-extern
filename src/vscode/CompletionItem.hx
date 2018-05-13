@@ -1,7 +1,5 @@
 package vscode;
 
-import haxe.extern.EitherType;
-
 /**
  * A completion item represents a text snippet that is proposed to complete text that is being typed.
  *

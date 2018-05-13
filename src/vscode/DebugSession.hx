@@ -1,7 +1,5 @@
 package vscode;
 
-import js.Promise.Thenable;
-
 /**
  * A debug session.
  */

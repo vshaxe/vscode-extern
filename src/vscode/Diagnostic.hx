@@ -1,7 +1,5 @@
 package vscode;
 
-import haxe.extern.EitherType;
-
 /**
  * Represents a diagnostic, such as a compiler error or warning. Diagnostic objects
  * are only valid in the scope of a file.

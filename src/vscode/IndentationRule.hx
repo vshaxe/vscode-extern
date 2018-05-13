@@ -1,7 +1,5 @@
 package vscode;
 
-import js.RegExp;
-
 /**
  * Describes indentation rules for a language.
  */

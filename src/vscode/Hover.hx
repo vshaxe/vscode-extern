@@ -1,7 +1,5 @@
 package vscode;
 
-import haxe.extern.EitherType;
-
 /**
  * A hover represents additional information for a symbol or word. Hovers are
  * rendered in a tooltip-like widget.

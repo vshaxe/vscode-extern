@@ -1,7 +1,5 @@
 package vscode;
 
-import haxe.extern.EitherType;
-
 /**
  * A range represents an ordered pair of two positions.
  * It is guaranteed that [start](#Range.start).isBeforeOrEqual([end](#Range.end))

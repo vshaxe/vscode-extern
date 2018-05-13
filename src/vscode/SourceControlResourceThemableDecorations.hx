@@ -1,7 +1,5 @@
 package vscode;
 
-import haxe.extern.EitherType;
-
 /**
  * The theme-aware decorations for a
  * [source control resource state](#SourceControlResourceState).

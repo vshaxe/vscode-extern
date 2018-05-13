@@ -1,7 +1,5 @@
 package vscode;
 
-import ts.ReadonlyArray;
-
 /**
  * Metadata about the type of code actions that a [CodeActionProvider](#CodeActionProvider) providers
  */

@@ -1,7 +1,5 @@
 package vscode;
 
-import haxe.DynamicAccess;
-
 /**
  * Options for a shell execution
  */
@@ -20,7 +18,7 @@ typedef ShellExecutionOptions = {
      * The shell quotes supported by this shell.
      */
     @:optional var shellQuoting:ShellQuotingOptions;
-    
+
     /**
      * The current working directory of the executed shell.
      * If omitted the tools current workspace root is used.

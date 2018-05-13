@@ -1,7 +1,5 @@
 package vscode;
 
-import haxe.extern.EitherType;
-
 @:jsRequire("vscode", "TreeItem")
 extern class TreeItem {
     /**

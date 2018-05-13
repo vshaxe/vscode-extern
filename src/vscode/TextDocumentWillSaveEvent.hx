@@ -1,7 +1,5 @@
 package vscode;
 
-import js.Promise.Thenable;
-
 /**
  * An event that is fired when a [document](#TextDocument) will be saved.
  *

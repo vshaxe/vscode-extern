@@ -1,7 +1,5 @@
 package vscode;
 
-import js.Promise.Thenable;
-
 /**
  * An individual terminal instance within the integrated terminal.
  */

@@ -1,7 +1,5 @@
 package vscode;
 
-import haxe.extern.EitherType;
-
 /**
  * ~~MarkedString can be used to render human readable text. It is either a markdown string
  * or a code-block that provides a language and a code snippet. Note that

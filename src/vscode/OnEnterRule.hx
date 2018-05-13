@@ -1,7 +1,5 @@
 package vscode;
 
-import js.RegExp;
-
 /**
  * Describes a rule to be evaluated when pressing Enter.
  */

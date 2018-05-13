@@ -1,7 +1,5 @@
 package vscode;
 
-import js.Promise.Thenable;
-
 /**
  * A memento represents a storage utility. It can store and retrieve
  * values.

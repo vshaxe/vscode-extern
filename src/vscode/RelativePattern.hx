@@ -1,7 +1,5 @@
 package vscode;
 
-import haxe.extern.EitherType;
-
 /**
  * A relative pattern is a helper to construct glob patterns that are matched
  * relatively to a base path. The base path can either be an absolute file path

@@ -1,7 +1,5 @@
 package vscode;
 
-import haxe.extern.EitherType;
-
 /**
  * A snippet string is a template which allows to insert text
  * and to control the editor cursor when insertion happens.

@@ -1,7 +1,5 @@
 package vscode;
 
-import js.Promise.Thenable;
-
 /**
  * Represents a Tree view
  */
@@ -10,7 +8,7 @@ typedef TreeView<T> = {
      * Dispose this object.
      */
     function dispose():Void;
-    
+
     /**
      * Reveal an element. By default revealed element is selected.
      *

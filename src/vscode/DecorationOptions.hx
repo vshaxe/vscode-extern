@@ -1,7 +1,5 @@
 package vscode;
 
-import haxe.extern.EitherType;
-
 /**
  * Represents options for a specific decoration in a [decoration set](#TextEditorDecorationType).
  */

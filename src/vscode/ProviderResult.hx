@@ -1,8 +1,5 @@
 package vscode;
 
-import haxe.extern.EitherType;
-import js.Promise.Thenable;
-
 /**
  * A provider result represents the values a provider, like the [`HoverProvider`](#HoverProvider),
  * may return. For once this is the actual result type `T`, like `Hover`, or a thenable that resolves

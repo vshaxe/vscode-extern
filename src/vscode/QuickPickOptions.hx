@@ -1,7 +1,5 @@
 package vscode;
 
-import haxe.extern.EitherType;
-
 /**
  * Options to configure the behavior of the quick pick UI.
  */

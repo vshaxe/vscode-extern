@@ -1,7 +1,5 @@
 package vscode;
 
-import haxe.extern.EitherType;
-
 /**
  * Represents a [text editor](#TextEditor)'s [options](#TextEditor.options).
  */

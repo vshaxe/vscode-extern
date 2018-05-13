@@ -1,8 +1,5 @@
 package vscode;
 
-import haxe.extern.Rest;
-import haxe.Constraints.Function;
-
 /**
  * Represents a type which can release resources, such
  * as event listening or a timer.

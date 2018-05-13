@@ -1,7 +1,5 @@
 package vscode;
 
-import haxe.extern.EitherType;
-
 @:jsRequire("vscode", "ShellExecution")
 extern class ShellExecution {
     /**
@@ -31,7 +29,7 @@ extern class ShellExecution {
      * The shell command. Is `undefined` if created with a full command line.
      */
     var command:EitherType<String,ShellQuotedString>;
-    
+
     /**
      * The shell args. Is `undefined` if created with a full command line.
      */
