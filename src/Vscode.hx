@@ -100,9 +100,9 @@ extern class Vscode {
 
     static var scm(default,null):VscodeScm;
 
-	/**
-	 * Namespace for debug functionality.
-	 */
+    /**
+     * Namespace for debug functionality.
+     */
     static var debug(default,null):VscodeDebug;
 
     /**
@@ -661,17 +661,17 @@ extern class VscodeLanguages {
      *
      * @param resource A resource
      * @returns An arrary of [diagnostics](#Diagnostic) objects or an empty array.
-     */
-    function getDiagnostics(resource:Uri):Array<Diagnostic>;
-
-    // TODO: how to represent tuples?
-    /**
+     *
+     * OR
+     *
      * Get all diagnostics. *Note* that this includes diagnostics from
      * all extensions but *not yet* from the task framework.
      *
      * @returns An array of uri-diagnostics tuples or an empty array.
+     *
      */
-    //function getDiagnostics(): [Uri, Diagnostic[]][];
+    @:overload(function(resource:Uri):Array<Diagnostic> {})
+    function getDiagnostics():Array<VscodeLanguagesGetDiagnosticsReturn>;
 
     /**
      * Create a diagnostics collection.
@@ -1003,48 +1003,48 @@ extern class VscodeWorkspace {
      */
     function asRelativePath(pathOrUri:EitherType<String,Uri>, ?includeWorkspaceFolder:Bool):String;
 
-	/**
-	 * This method replaces `deleteCount` [workspace folders](#workspace.workspaceFolders) starting at index `start`
-	 * by an optional set of `workspaceFoldersToAdd` on the `vscode.workspace.workspaceFolders` array. This "splice"
-	 * behavior can be used to add, remove and change workspace folders in a single operation.
-	 *
-	 * If the first workspace folder is added, removed or changed, the currently executing extensions (including the
-	 * one that called this method) will be terminated and restarted so that the (deprecated) `rootPath` property is
-	 * updated to point to the first workspace folder.
-	 *
-	 * Use the [`onDidChangeWorkspaceFolders()`](#onDidChangeWorkspaceFolders) event to get notified when the
-	 * workspace folders have been updated.
-	 *
-	 * **Example:** adding a new workspace folder at the end of workspace folders
-	 * ```typescript
-	 * workspace.updateWorkspaceFolders(workspace.workspaceFolders ? workspace.workspaceFolders.length : 0, null, { uri: ...});
-	 * ```
-	 *
-	 * **Example:** removing the first workspace folder
-	 * ```typescript
-	 * workspace.updateWorkspaceFolders(0, 1);
-	 * ```
-	 *
-	 * **Example:** replacing an existing workspace folder with a new one
-	 * ```typescript
-	 * workspace.updateWorkspaceFolders(0, 1, { uri: ...});
-	 * ```
-	 *
-	 * It is valid to remove an existing workspace folder and add it again with a different name
-	 * to rename that folder.
-	 *
-	 * **Note:** it is not valid to call [updateWorkspaceFolders()](#updateWorkspaceFolders) multiple times
-	 * without waiting for the [`onDidChangeWorkspaceFolders()`](#onDidChangeWorkspaceFolders) to fire.
-	 *
-	 * @param start the zero-based location in the list of currently opened [workspace folders](#WorkspaceFolder)
-	 * from which to start deleting workspace folders.
-	 * @param deleteCount the optional number of workspace folders to remove.
-	 * @param workspaceFoldersToAdd the optional variable set of workspace folders to add in place of the deleted ones.
-	 * Each workspace is identified with a mandatory URI and an optional name.
-	 * @return true if the operation was successfully started and false otherwise if arguments were used that would result
-	 * in invalid workspace folder state (e.g. 2 folders with the same URI).
-	 */
-	function updateWorkspaceFolders(start:Int, deleteCount:Null<Int>, workspaceFoldersToAdd:Rest<{uri:Uri, ?name:String}>):Bool;
+    /**
+     * This method replaces `deleteCount` [workspace folders](#workspace.workspaceFolders) starting at index `start`
+     * by an optional set of `workspaceFoldersToAdd` on the `vscode.workspace.workspaceFolders` array. This "splice"
+     * behavior can be used to add, remove and change workspace folders in a single operation.
+     *
+     * If the first workspace folder is added, removed or changed, the currently executing extensions (including the
+     * one that called this method) will be terminated and restarted so that the (deprecated) `rootPath` property is
+     * updated to point to the first workspace folder.
+     *
+     * Use the [`onDidChangeWorkspaceFolders()`](#onDidChangeWorkspaceFolders) event to get notified when the
+     * workspace folders have been updated.
+     *
+     * **Example:** adding a new workspace folder at the end of workspace folders
+     * ```typescript
+     * workspace.updateWorkspaceFolders(workspace.workspaceFolders ? workspace.workspaceFolders.length : 0, null, { uri: ...});
+     * ```
+     *
+     * **Example:** removing the first workspace folder
+     * ```typescript
+     * workspace.updateWorkspaceFolders(0, 1);
+     * ```
+     *
+     * **Example:** replacing an existing workspace folder with a new one
+     * ```typescript
+     * workspace.updateWorkspaceFolders(0, 1, { uri: ...});
+     * ```
+     *
+     * It is valid to remove an existing workspace folder and add it again with a different name
+     * to rename that folder.
+     *
+     * **Note:** it is not valid to call [updateWorkspaceFolders()](#updateWorkspaceFolders) multiple times
+     * without waiting for the [`onDidChangeWorkspaceFolders()`](#onDidChangeWorkspaceFolders) to fire.
+     *
+     * @param start the zero-based location in the list of currently opened [workspace folders](#WorkspaceFolder)
+     * from which to start deleting workspace folders.
+     * @param deleteCount the optional number of workspace folders to remove.
+     * @param workspaceFoldersToAdd the optional variable set of workspace folders to add in place of the deleted ones.
+     * Each workspace is identified with a mandatory URI and an optional name.
+     * @return true if the operation was successfully started and false otherwise if arguments were used that would result
+     * in invalid workspace folder state (e.g. 2 folders with the same URI).
+     */
+    function updateWorkspaceFolders(start:Int, deleteCount:Null<Int>, workspaceFoldersToAdd:Rest<{uri:Uri, ?name:String}>):Bool;
 
     /**
      * Creates a file system watcher.
@@ -1259,10 +1259,10 @@ extern class VscodeDebug {
      */
     var activeDebugConsole:DebugConsole;
 
-	/**
-	 * List of breakpoints.
-	 */
-	var breakpoints:Array<Breakpoint>;
+    /**
+     * List of breakpoints.
+     */
+    var breakpoints:Array<Breakpoint>;
 
     /**
      * An [event](#Event) which fires when the [active debug session](#debug.activeDebugSession)
@@ -1286,10 +1286,10 @@ extern class VscodeDebug {
      */
     var onDidTerminateDebugSession(default,null):Event<DebugSession>;
 
-	/**
-	 * An [event](#Event) that is emitted when the set of breakpoints is added, removed, or changed.
-	 */
-	var onDidChangeBreakpoints(default,null):Event<BreakpointsChangeEvent>;
+    /**
+     * An [event](#Event) that is emitted when the set of breakpoints is added, removed, or changed.
+     */
+    var onDidChangeBreakpoints(default,null):Event<BreakpointsChangeEvent>;
 
     /**
      * Register a [debug configuration provider](#DebugConfigurationProvider) for a specifc debug type.
@@ -1301,27 +1301,36 @@ extern class VscodeDebug {
      */
     function registerDebugConfigurationProvider(debugType:String, provider:DebugConfigurationProvider):Disposable;
 
-	/**
-	 * Start debugging by using either a named launch or named compound configuration,
-	 * or by directly passing a [DebugConfiguration](#DebugConfiguration).
-	 * The named configurations are looked up in '.vscode/launch.json' found in the given folder.
-	 * Before debugging starts, all unsaved files are saved and the launch configurations are brought up-to-date.
-	 * Folder specific variables used in the configuration (e.g. '${workspaceFolder}') are resolved against the given folder.
-	 * @param folder The [workspace folder](#WorkspaceFolder) for looking up named configurations and resolving variables or `undefined` for a non-folder setup.
-	 * @param nameOrConfiguration Either the name of a debug or compound configuration or a [DebugConfiguration](#DebugConfiguration) object.
-	 * @return A thenable that resolves when debugging could be successfully started.
-	 */
-	function startDebugging(folder:Null<WorkspaceFolder>, nameOrConfiguration:EitherType<String,DebugConfiguration>):Thenable<Bool>;
+    /**
+     * Start debugging by using either a named launch or named compound configuration,
+     * or by directly passing a [DebugConfiguration](#DebugConfiguration).
+     * The named configurations are looked up in '.vscode/launch.json' found in the given folder.
+     * Before debugging starts, all unsaved files are saved and the launch configurations are brought up-to-date.
+     * Folder specific variables used in the configuration (e.g. '${workspaceFolder}') are resolved against the given folder.
+     * @param folder The [workspace folder](#WorkspaceFolder) for looking up named configurations and resolving variables or `undefined` for a non-folder setup.
+     * @param nameOrConfiguration Either the name of a debug or compound configuration or a [DebugConfiguration](#DebugConfiguration) object.
+     * @return A thenable that resolves when debugging could be successfully started.
+     */
+    function startDebugging(folder:Null<WorkspaceFolder>, nameOrConfiguration:EitherType<String,DebugConfiguration>):Thenable<Bool>;
 
-	/**
-	 * Add breakpoints.
-	 * @param breakpoints The breakpoints to add.
-	*/
-	function addBreakpoints(breakpoints:Array<Breakpoint>):Void;
+    /**
+     * Add breakpoints.
+     * @param breakpoints The breakpoints to add.
+    */
+    function addBreakpoints(breakpoints:Array<Breakpoint>):Void;
 
-	/**
-	 * Remove breakpoints.
-	 * @param breakpoints The breakpoints to remove.
-	 */
-	function removeBreakpoints(breakpoints:Array<Breakpoint>):Void;
+    /**
+     * Remove breakpoints.
+     * @param breakpoints The breakpoints to remove.
+     */
+    function removeBreakpoints(breakpoints:Array<Breakpoint>):Void;
+}
+
+/**
+    Return value type for `VscodeLanguages.getDiagnostics`.
+**/
+@:dce
+abstract VscodeLanguagesGetDiagnosticsReturn(Array<Dynamic>) {
+    public var uri(get,never):Uri; inline function get_uri() return this[0];
+    public var diagnostics(get,never):Array<Diagnostic>; inline function get_diagnostics() return this[1];
 }

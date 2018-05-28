@@ -13,4 +13,4 @@ package vscode;
  */
 typedef DocumentSelector = EitherType<DocumentSelectorSimple,Array<DocumentSelectorSimple>>;
 
-typedef DocumentSelectorSimple = EitherType<String,DocumentFilter>;
+typedef DocumentSelectorSimple = EitherType<DocumentFilter,String>;
