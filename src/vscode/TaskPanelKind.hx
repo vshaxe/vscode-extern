@@ -5,19 +5,19 @@ package vscode;
  */
 @:jsRequire("vscode", "TaskPanelKind")
 @:enum extern abstract TaskPanelKind(Int) {
-	/**
-	 * Shares a panel with other tasks. This is the default.
-	 */
-	var Shared;
+    /**
+     * Shares a panel with other tasks. This is the default.
+     */
+    var Shared;
 
-	/**
-	 * Uses a dedicated panel for this tasks. The panel is not
-	 * shared with other tasks.
-	 */
-	var Dedicated;
+    /**
+     * Uses a dedicated panel for this tasks. The panel is not
+     * shared with other tasks.
+     */
+    var Dedicated;
 
-	/**
-	 * Creates a new panel whenever this task is executed.
-	 */
-	var New;
+    /**
+     * Creates a new panel whenever this task is executed.
+     */
+    var New;
 }
