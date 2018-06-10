@@ -105,7 +105,7 @@ typedef FileSystemProvider = {
      *
      * @param oldUri The existing file.
      * @param newUri The new location.
-     * @param options Defines if existing files should be overwriten.
+     * @param options Defines if existing files should be overwritten.
      * @throws [`FileNotFound`](#FileSystemError.FileNotFound) when `oldUri` doesn't exist.
      * @throws [`FileNotFound`](#FileSystemError.FileNotFound) when parent of `newUri` doesn't exist, e.g. no mkdirp-logic required.
      * @throws [`FileExists`](#FileSystemError.FileExists) when `newUri` exists and when the `overwrite` option is not `true`.

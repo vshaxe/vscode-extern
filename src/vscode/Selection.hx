@@ -23,7 +23,7 @@ extern class Selection extends Range {
     var isReversed:Bool;
 
     /**
-     * Create a selection from two postions.
+     * Create a selection from two positions.
      *
      * @param anchor A position.
      * @param active A position.

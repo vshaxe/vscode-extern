@@ -16,7 +16,7 @@ typedef DecorationOptions = {
 
     /**
      * Render options applied to the current decoration. For performance reasons, keep the
-     * number of decoration specific options small, and use decoration types whereever possible.
+     * number of decoration specific options small, and use decoration types wherever possible.
      */
     @:optional var renderOptions:DecorationInstanceRenderOptions;
 }

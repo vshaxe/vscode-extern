@@ -30,7 +30,7 @@ extern class Color {
      *
      * @param red The red component.
      * @param green The green component.
-     * @param blue The bluew component.
+     * @param blue The blue component.
      * @param alpha The alpha component.
      */
     function new(red:Float, green:Float, blue:Float, alpha:Float);

@@ -51,7 +51,7 @@ typedef TextEditor = {
 
     /**
      * Insert a [snippet](#SnippetString) and put the editor into snippet mode. "Snippet mode"
-     * means the editor adds placeholders and additionals cursors so that the user can complete
+     * means the editor adds placeholders and additional cursors so that the user can complete
      * or accept the snippet.
      *
      * @param snippet The snippet to insert in this edit.

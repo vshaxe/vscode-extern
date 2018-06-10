@@ -10,6 +10,21 @@ typedef TreeView<T> = {
     function dispose():Void;
 
     /**
+     * Event that is fired when an element is expanded
+     */
+    var onDidExpandElement(default,null):Event<TreeViewExpansionEvent<T>>;
+
+    /**
+     * Event that is fired when an element is collapsed
+     */
+    var onDidCollapseElement(default,null):Event<TreeViewExpansionEvent<T>>;
+
+    /**
+     * Currently selected elements.
+     */
+    var selection(default,null):ReadonlyArray<T>;
+
+    /**
      * Reveal an element. By default revealed element is selected.
      *
      * In order to not to select, set the option `select` to `false`.

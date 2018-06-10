@@ -139,6 +139,11 @@ extern class Vscode {
      * ```
     */
     static var extensions(default,null):VscodeExtensions;
+
+    /**
+     * Namespace for tasks functionality.
+     */
+    static var tasks(default,null):VscodeTasks;
 }
 
 extern class VscodeEnv {
@@ -469,12 +474,12 @@ extern class VscodeWindow {
      *
      * @param viewType Identifies the type of the webview panel.
      * @param title Title of the panel.
-     * @param position Editor column to show the new panel in.
+     * @param showOptions Where to show the webview in the editor. If preserveFocus is set, the new webview will not take focus.
      * @param options Settings for the new panel.
      *
      * @return New webview panel.
      */
-    function createWebviewPanel(viewType:String, title:String, position:ViewColumn, ?options:{>WebviewPanelOptions,>WebviewOptions,}):WebviewPanel;
+    function createWebviewPanel(viewType:String, title:String, showOptions:EitherType<ViewColumn,{viewColumn:ViewColumn, ?preserveFocus:Bool}>, ?options:{>WebviewPanelOptions,>WebviewOptions,}):WebviewPanel;
 
     /**
      * Set a message to the status bar. This is a short hand for the more powerful
@@ -621,7 +626,7 @@ extern class VscodeLanguages {
      *  1. When the `DocumentFilter` is empty (`{}`) the result is `0`
      *  2. When `scheme`, `language`, or `pattern` are defined but one doesn't match, the result is `0`
      *  3. Matching against `*` gives a score of `5`, matching via equality or via a glob-pattern gives a score of `10`
-     *  4. The result is the maximun value of each match
+     *  4. The result is the maximum value of each match
      *
      * Samples:
      * ```js
@@ -660,7 +665,7 @@ extern class VscodeLanguages {
      * all extensions but *not yet* from the task framework.
      *
      * @param resource A resource
-     * @returns An arrary of [diagnostics](#Diagnostic) objects or an empty array.
+     * @returns An array of [diagnostics](#Diagnostic) objects or an empty array.
      *
      * OR
      *
@@ -1229,7 +1234,10 @@ extern class VscodeWorkspace {
      * @param type The task kind type this provider is registered for.
      * @param provider A task provider.
      * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+     *
+     * @deprecated Use the corresponding function on the `tasks` namespace instead
      */
+    @:deprecated("Use the corresponding function on the `tasks` namespace instead")
     function registerTaskProvider(type:String, provider:TaskProvider):Disposable;
 
     /**
@@ -1292,7 +1300,7 @@ extern class VscodeDebug {
     var onDidChangeBreakpoints(default,null):Event<BreakpointsChangeEvent>;
 
     /**
-     * Register a [debug configuration provider](#DebugConfigurationProvider) for a specifc debug type.
+     * Register a [debug configuration provider](#DebugConfigurationProvider) for a specific debug type.
      * More than one provider can be registered for the same type.
      *
      * @param type The debug type for which the provider is registered.
@@ -1333,4 +1341,63 @@ extern class VscodeDebug {
 abstract VscodeLanguagesGetDiagnosticsReturn(Array<Dynamic>) {
     public var uri(get,never):Uri; inline function get_uri() return this[0];
     public var diagnostics(get,never):Array<Diagnostic>; inline function get_diagnostics() return this[1];
+}
+
+extern class VscodeTasks {
+    /**
+     * Register a task provider.
+     *
+     * @param type The task kind type this provider is registered for.
+     * @param provider A task provider.
+     * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+     */
+    function registerTaskProvider(type:String, provider:TaskProvider):Disposable;
+
+    /**
+     * Fetches all tasks available in the systems. This includes tasks
+     * from `tasks.json` files as well as tasks from task providers
+     * contributed through extensions.
+     *
+     * @param filter a filter to filter the return tasks.
+     */
+    function fetchTasks(?filter:TaskFilter):Thenable<Array<Task>>;
+
+    /**
+     * Executes a task that is managed by VS Code. The returned
+     * task execution can be used to terminate the task.
+     *
+     * @param task the task to execute
+     */
+    function executeTask(task:Task):Thenable<TaskExecution>;
+
+    /**
+     * The currently active task executions or an empty array.
+     *
+     * @readonly
+     */
+    var taskExecutions(default,null):ReadonlyArray<TaskExecution>;
+
+    /**
+     * Fires when a task starts.
+     */
+    var onDidStartTask(default,null):Event<TaskStartEvent>;
+
+    /**
+     * Fires when a task ends.
+     */
+    var onDidEndTask(default,null):Event<TaskEndEvent>;
+
+    /**
+     * Fires when the underlying process has been started.
+     * This event will not fire for tasks that don't
+     * execute an underlying process.
+     */
+    var onDidStartTaskProcess(default,null):Event<TaskProcessStartEvent>;
+
+    /**
+     * Fires when the underlying process has ended.
+     * This event will not fire for tasks that don't
+     * execute an underlying process.
+     */
+    var onDidEndTaskProcess(default,null):Event<TaskProcessEndEvent>;
 }

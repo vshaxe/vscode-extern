@@ -5,7 +5,7 @@ package vscode;
  */
 typedef IndentationRule = {
     /**
-     * If a line matches this pattern, then all the lines after it should be unindendented once (until another rule matches).
+     * If a line matches this pattern, then all the lines after it should be unindented once (until another rule matches).
      */
     var decreaseIndentPattern:RegExp;
 

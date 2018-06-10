@@ -57,8 +57,9 @@ typedef WebviewPanel = {
      * method moves it to a new column.
      *
      * @param viewColumn View column to show the panel in. Shows in the current `viewColumn` if undefined.
+     * @param preserveFocus When `true`, the webview will not take focus.
      */
-    function reveal(?viewColumn:ViewColumn):Void;
+    function reveal(?viewColumn:ViewColumn, ?preserveFocus:Bool):Void;
 
     /**
      * Dispose of the webview panel.

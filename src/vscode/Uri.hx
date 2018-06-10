@@ -87,7 +87,7 @@ extern class Uri {
      * [Uri.parse](#Uri.parse).
      *
      * @param skipEncoding Do not percentage-encode the result, defaults to `false`. Note that
-     *  the `#` and `?` characters occuring in the path will always be encoded.
+     *	the `#` and `?` characters occurring in the path will always be encoded.
      * @returns A string representation of this Uri.
      */
     function toString(?skipEncoding:Bool):String;

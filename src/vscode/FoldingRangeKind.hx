@@ -1,5 +1,8 @@
 package vscode;
 
+/**
+ * An enumeration of all folding range kinds. The kind is used to categorize folding ranges.
+ */
 @:jsRequire("vscode", "FoldingRangeKind")
 @:enum extern abstract FoldingRangeKind(Int) {
     /**

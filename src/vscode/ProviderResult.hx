@@ -6,7 +6,7 @@ package vscode;
  * to that type `T`. In addition, `null` and `undefined` can be returned - either directly or from a
  * thenable.
  *
- * The snippets below are all valid implementions of the [`HoverProvider`](#HoverProvider):
+ * The snippets below are all valid implementations of the [`HoverProvider`](#HoverProvider):
  *
  * ```ts
  * let a: HoverProvider = {

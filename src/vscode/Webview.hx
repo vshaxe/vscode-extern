@@ -24,7 +24,7 @@ typedef Webview = {
     /**
      * Post a message to the webview content.
      *
-     * Messages are only develivered if the webview is visible.
+     * Messages are only delivered if the webview is visible.
      *
      * @param message Body of the message.
      */
