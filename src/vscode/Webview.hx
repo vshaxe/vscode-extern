@@ -7,7 +7,7 @@ typedef Webview = {
     /**
      * Content settings for the webview.
      */
-    var options(default,null):WebviewOptions;
+    var options:WebviewOptions;
 
     /**
      * Contents of the webview.

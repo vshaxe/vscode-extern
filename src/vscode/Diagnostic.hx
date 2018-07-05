@@ -41,6 +41,11 @@ extern class Diagnostic {
     var relatedInformation:Null<Array<DiagnosticRelatedInformation>>;
 
     /**
+     * Additional metadata about the diagnostic.
+     */
+    var tags:Null<Array<DiagnosticTag>>;
+
+    /**
      * Creates a new diagnostic object.
      *
      * @param range The range to which this diagnostic applies.

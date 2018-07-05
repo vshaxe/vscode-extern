@@ -35,7 +35,7 @@ extern class TreeItem {
     var tooltip:Null<String>;
 
     /**
-     * The [command](#Command) which should be run when the tree item is selected.
+     * The [command](#Command) that should be executed when the tree item is selected.
      */
     var command:Null<Command>;
 

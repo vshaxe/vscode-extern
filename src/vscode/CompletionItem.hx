@@ -56,6 +56,13 @@ extern class CompletionItem {
     var filterText:Null<String>;
 
     /**
+     * Select this item when showing. *Note* that only one completion item can be selected and
+     * that the editor decides which item that is. The rule is that the *first* item of those
+     * that match best is selected.
+     */
+    var preselect:Null<Bool>;
+
+    /**
      * A string or snippet that should be inserted in a document when selecting
      * this completion. When `falsy` the [label](#CompletionItem.label)
      * is used.

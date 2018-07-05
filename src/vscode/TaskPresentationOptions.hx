@@ -27,4 +27,9 @@ typedef TaskPresentationOptions = {
      * every task execution (new). Defaults to `TaskInstanceKind.Shared`
      */
     @:optional var panel:TaskPanelKind;
+
+    /**
+     * Controls whether to show the "Terminal will be reused by tasks, press any key to close it" message.
+     */
+    @:optional var showReuseMessage:Bool;
 }

@@ -107,7 +107,7 @@ extern class Vscode {
 
     /**
      * Namespace for dealing with installed extensions. Extensions are represented
-     * by an [extension](#Extension)-interface which allows to reflect on them.
+     * by an [extension](#Extension)-interface which enables reflection on them.
      *
      * Extension writers can provide APIs to other extensions by returning their API public
      * surface from the `activate`-call.
@@ -274,7 +274,7 @@ extern class VscodeWindow {
     var onDidChangeTextEditorSelection(default,null):Event<TextEditorSelectionChangeEvent>;
 
     /**
-     * An [event](#Event) which fires when the selection in an editor has changed.
+     * An [event](#Event) which fires when the visible ranges of an editor has changed.
      */
     var onDidChangeTextEditorVisibleRanges(default,null):Event<TextEditorVisibleRangesChangeEvent>;
 
@@ -307,16 +307,14 @@ extern class VscodeWindow {
     var onDidChangeWindowState(default,null):Event<WindowState>;
 
     /**
-     * Show the given document in a text editor. [Options](#TextDocumentShowOptions) can be provided
-     * to control options of the editor is being shown. Might change the [active editor](#window.activeTextEditor).
+     * Show the given document in a text editor. A [column](#ViewColumn) can be provided
+     * to control where the editor is being shown. Might change the [active editor](#window.activeTextEditor).
      *
-     * @param uri A resource identifier.
      * @param document A text document to be shown.
-     * @param column A view column in which the [editor](#TextEditor) should be shown. The default is the [one](#ViewColumn.One), other values
-     * are adjusted to be `Min(column, columnCount + 1)`, the [active](#ViewColumn.Active)-column is
-     * not adjusted.
+     * @param column A view column in which the [editor](#TextEditor) should be shown. The default is the [active](#ViewColumn.Active), other values
+     * are adjusted to be `Min(column, columnCount + 1)`, the [active](#ViewColumn.Active)-column is not adjusted. Use [`ViewColumn.Beside`](#ViewColumn.Beside)
+     * to open the editor to the side of the currently active one.
      * @param preserveFocus When `true` the editor will not take focus.
-     * @param options [Editor options](#TextDocumentShowOptions) to configure the behavior of showing the [editor](#TextEditor).
      * @return A promise that resolves to an [editor](#TextEditor).
      */
     @:overload(function(uri:Uri, ?options:TextDocumentShowOptions):Thenable<TextEditor> {})
@@ -570,6 +568,19 @@ extern class VscodeWindow {
      * @returns a [TreeView](#TreeView).
      */
     function createTreeView<T>(viewId:String, options:{treeDataProvider:TreeDataProvider<T>}):TreeView<T>;
+
+    /**
+     * Registers a webview panel serializer.
+     *
+     * Extensions that support reviving should have an `"onWebviewPanel:viewType"` activation event and
+     * make sure that [registerWebviewPanelSerializer](#registerWebviewPanelSerializer) is called during activation.
+     *
+     * Only a single serializer may be registered at a time for a given `viewType`.
+     *
+     * @param viewType Type of the webview panel that can be serialized.
+     * @param serializer Webview serializer.
+     */
+    function registerWebviewPanelSerializer(viewType:String, serializer:WebviewPanelSerializer):Disposable;
 }
 
 extern class VscodeExtensions {
@@ -1251,7 +1262,7 @@ extern class VscodeWorkspace {
      * @param options Immutable metadata about the provider.
      * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
      */
-    function registerFileSystemProvider(scheme:String, provider:FileSystemProvider, options:{?isCaseSensitive:Bool}):Disposable;
+    function registerFileSystemProvider(scheme:String, provider:FileSystemProvider, options:{?isCaseSensitive:Bool, ?isReadonly:Bool}):Disposable;
 }
 
 extern class VscodeDebug {

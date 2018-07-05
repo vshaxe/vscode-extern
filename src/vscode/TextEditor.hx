@@ -32,7 +32,8 @@ typedef TextEditor = {
 
     /**
      * The column in which this editor shows. Will be `undefined` in case this
-     * isn't one of the three main editors, e.g an embedded editor.
+     * isn't one of the main editors, e.g an embedded editor, or when the editor
+     * column is larger than three.
      */
     @:optional var viewColumn:ViewColumn;
 
@@ -84,10 +85,10 @@ typedef TextEditor = {
     /**
      * ~~Show the text editor.~~
      *
-     * @deprecated Use [window.showTextDocument](#window.showTextDocument)
+     * @deprecated Use [window.showTextDocument](#window.showTextDocument) instead.
      *
      * @param column The [column](#ViewColumn) in which to show this editor.
-     * instead. This method shows unexpected behavior and will be removed in the next major update.
+     * This method shows unexpected behavior and will be removed in the next major update.
      */
     @:deprecated("Use [window.showTextDocument](#window.showTextDocument)")
     function show(?column:ViewColumn):Void;

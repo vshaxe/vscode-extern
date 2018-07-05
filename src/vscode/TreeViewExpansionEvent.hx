@@ -7,5 +7,5 @@ typedef TreeViewExpansionEvent<T> = {
     /**
      * Element that is expanded or collapsed.
      */
-    var element:T;
+    var element(default,null):T;
 }

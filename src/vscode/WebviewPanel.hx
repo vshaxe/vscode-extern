@@ -26,12 +26,17 @@ typedef WebviewPanel = {
 
     /**
      * Editor position of the panel. This property is only set if the webview is in
-     * one of the three editor view columns.
+     * one of the editor view columns.
      */
     @:deprecated @:optional var viewColumn(default,null):ViewColumn;
 
     /**
-     * Is the panel currently visible?
+     * Whether the panel is active (focused by the user).
+     */
+    var active(default,null):Bool;
+
+    /**
+     * Whether the panel is visible.
      */
     var visible(default,null):Bool;
 
