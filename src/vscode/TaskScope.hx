@@ -5,13 +5,13 @@ package vscode;
  */
 @:jsRequire("vscode", "TaskScope")
 @:enum extern abstract TaskScope(Int) {
-    /**
-     * The task is a global task
-     */
-    var Global;
+	/**
+	 * The task is a global task
+	 */
+	var Global;
 
-    /**
-     * The task is a workspace task
-     */
-    var Workspace;
+	/**
+	 * The task is a workspace task
+	 */
+	var Workspace;
 }

@@ -5,8 +5,8 @@ package vscode;
  * requesting references.
  */
 typedef ReferenceContext = {
-    /**
-     * Include the declaration of the current symbol.
-     */
-    var includeDeclaration:Bool;
+	/**
+	 * Include the declaration of the current symbol.
+	 */
+	var includeDeclaration:Bool;
 }

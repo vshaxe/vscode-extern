@@ -6,15 +6,14 @@ package vscode;
  */
 @:jsRequire("vscode", "ThemeIcon")
 extern class ThemeIcon {
-    /**
-     * Reference to a icon representing a file. The icon is taken from the current file icon theme or a placeholder icon.
-     */
-    static var File(default,never):ThemeIcon;
+	/**
+	 * Reference to a icon representing a file. The icon is taken from the current file icon theme or a placeholder icon.
+	 */
+	static var File(default, never):ThemeIcon;
 
-    /**
-     * Reference to a icon representing a folder. The icon is taken from the current file icon theme or a placeholder icon.
-     */
-    static var Folder(default,never):ThemeIcon;
-
-    private function new(id:String);
+	/**
+	 * Reference to a icon representing a folder. The icon is taken from the current file icon theme or a placeholder icon.
+	 */
+	static var Folder(default, never):ThemeIcon;
+	private function new(id:String);
 }

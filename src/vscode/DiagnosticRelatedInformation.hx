@@ -7,21 +7,21 @@ package vscode;
  */
 @:jsRequire("vscode", "DiagnosticRelatedInformation")
 extern class DiagnosticRelatedInformation {
-    /**
-     * The location of this related diagnostic information.
-     */
-    var location:Location;
+	/**
+	 * The location of this related diagnostic information.
+	 */
+	var location:Location;
 
-    /**
-     * The message of this related diagnostic information.
-     */
-    var message:String;
+	/**
+	 * The message of this related diagnostic information.
+	 */
+	var message:String;
 
-    /**
-     * Creates a new related diagnostic information object.
-     *
-     * @param location The location.
-     * @param message The message.
-     */
-    function new(location:Location, message:String);
+	/**
+	 * Creates a new related diagnostic information object.
+	 *
+	 * @param location The location.
+	 * @param message The message.
+	 */
+	function new(location:Location, message:String);
 }

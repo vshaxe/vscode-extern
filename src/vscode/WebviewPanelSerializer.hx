@@ -32,16 +32,16 @@ package vscode;
  * The extension can then restore the old `WebviewPanel` from this state.
  */
 typedef WebviewPanelSerializer = {
-    /**
-     * Restore a webview panel from its seriailzed `state`.
-     *
-     * Called when a serialized webview first becomes visible.
-     *
-     * @param webviewPanel Webview panel to restore. The serializer should take ownership of this panel. The
-     * serializer must restore the webview's `.html` and hook up all webview events.
-     * @param state Persisted state from the webview content.
-     *
-     * @return Thanble indicating that the webview has been fully restored.
-     */
-    function deserializeWebviewPanel(webviewPanel:WebviewPanel, state:Any):Thenable<Void>;
+	/**
+	 * Restore a webview panel from its seriailzed `state`.
+	 *
+	 * Called when a serialized webview first becomes visible.
+	 *
+	 * @param webviewPanel Webview panel to restore. The serializer should take ownership of this panel. The
+	 * serializer must restore the webview's `.html` and hook up all webview events.
+	 * @param state Persisted state from the webview content.
+	 *
+	 * @return Thanble indicating that the webview has been fully restored.
+	 */
+	function deserializeWebviewPanel(webviewPanel:WebviewPanel, state:Any):Thenable<Void>;
 }

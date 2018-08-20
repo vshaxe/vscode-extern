@@ -5,13 +5,13 @@ package vscode;
  * triggered through a task
  */
 typedef TaskProcessStartEvent = {
-    /**
-     * The task execution for which the process got started.
-     */
-    var execution:TaskExecution;
+	/**
+	 * The task execution for which the process got started.
+	 */
+	var execution:TaskExecution;
 
-    /**
-     * The underlying process id.
-     */
-    var processId:Int;
+	/**
+	 * The underlying process id.
+	 */
+	var processId:Int;
 }

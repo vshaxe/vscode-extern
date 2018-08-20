@@ -5,13 +5,13 @@ package vscode;
  * triggered through a task
  */
 typedef TaskProcessEndEvent = {
-    /**
-     * The task execution for which the process got started.
-     */
-    var execution:TaskExecution;
+	/**
+	 * The task execution for which the process got started.
+	 */
+	var execution:TaskExecution;
 
-    /**
-     * The process's exit code.
-     */
-    var exitCode:Int;
+	/**
+	 * The process's exit code.
+	 */
+	var exitCode:Int;
 }

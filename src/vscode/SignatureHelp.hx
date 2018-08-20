@@ -7,20 +7,20 @@ package vscode;
  */
 @:jsRequire("vscode", "SignatureHelp")
 extern class SignatureHelp {
-    function new();
+	function new();
 
-    /**
-     * One or more signatures.
-     */
-    var signatures:Array<SignatureInformation>;
+	/**
+	 * One or more signatures.
+	 */
+	var signatures:Array<SignatureInformation>;
 
-    /**
-     * The active signature.
-     */
-    var activeSignature:Int;
+	/**
+	 * The active signature.
+	 */
+	var activeSignature:Int;
 
-    /**
-     * The active parameter of the active signature.
-     */
-    var activeParameter:Int;
+	/**
+	 * The active parameter of the active signature.
+	 */
+	var activeParameter:Int;
 }

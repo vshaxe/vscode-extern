@@ -6,8 +6,8 @@ package vscode;
  * This interface is not intended to be implemented.
  */
 typedef TaskEndEvent = {
-    /**
-     * The task item representing the task that finished.
-     */
-    var execution:TaskExecution;
+	/**
+	 * The task item representing the task that finished.
+	 */
+	var execution:TaskExecution;
 }

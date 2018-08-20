@@ -9,13 +9,13 @@ package vscode;
  * [CancellationTokenSource](#CancellationTokenSource).
  */
 typedef CancellationToken = {
-    /**
-     * Is `true` when the token has been cancelled, `false` otherwise.
-     */
-    var isCancellationRequested:Bool;
+	/**
+	 * Is `true` when the token has been cancelled, `false` otherwise.
+	 */
+	var isCancellationRequested:Bool;
 
-    /**
-     * An [event](#Event) which fires upon cancellation.
-     */
-    var onCancellationRequested:Event<Any>;
+	/**
+	 * An [event](#Event) which fires upon cancellation.
+	 */
+	var onCancellationRequested:Event<Any>;
 }

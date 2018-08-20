@@ -5,20 +5,20 @@ package vscode;
  */
 @:jsRequire("vscode", "CancellationTokenSource")
 extern class CancellationTokenSource {
-    function new();
+	function new();
 
-    /**
-     * The cancellation token of this source.
-     */
-    var token:CancellationToken;
+	/**
+	 * The cancellation token of this source.
+	 */
+	var token:CancellationToken;
 
-    /**
-     * Signal cancellation on the token.
-     */
-    function cancel():Void;
+	/**
+	 * Signal cancellation on the token.
+	 */
+	function cancel():Void;
 
-    /**
-     * Dispose object and free resources.
-     */
-    function dispose():Void;
+	/**
+	 * Dispose object and free resources.
+	 */
+	function dispose():Void;
 }

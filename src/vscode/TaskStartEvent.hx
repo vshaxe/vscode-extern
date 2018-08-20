@@ -6,8 +6,8 @@ package vscode;
  * This interface is not intended to be implemented.
  */
 typedef TaskStartEvent = {
-    /**
-     * The task item representing the task that got started.
-     */
-    var execution:TaskExecution;
+	/**
+	 * The task item representing the task that got started.
+	 */
+	var execution:TaskExecution;
 }

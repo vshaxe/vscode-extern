@@ -7,23 +7,23 @@ package vscode;
  */
 @:jsRequire("vscode", "FileType")
 @:enum extern abstract FileType(Int) {
-    /**
-     * The file type is unknown.
-     */
-    var Unknown;
+	/**
+	 * The file type is unknown.
+	 */
+	var Unknown;
 
-    /**
-     * A regular file.
-     */
-    var File;
+	/**
+	 * A regular file.
+	 */
+	var File;
 
-    /**
-     * A directory.
-     */
-    var Directory;
+	/**
+	 * A directory.
+	 */
+	var Directory;
 
-    /**
-     * A symbolic link to a file.
-     */
-    var SymbolicLink;
+	/**
+	 * A symbolic link to a file.
+	 */
+	var SymbolicLink;
 }

@@ -5,18 +5,18 @@ package vscode;
  */
 @:jsRequire("vscode", "ConfigurationTarget")
 @:enum extern abstract ConfigurationTarget(Int) {
-    /**
-     * Global configuration
-     */
-    var Global;
+	/**
+	 * Global configuration
+	 */
+	var Global;
 
-    /**
-     * Workspace configuration
-     */
-    var Workspace;
+	/**
+	 * Workspace configuration
+	 */
+	var Workspace;
 
-    /**
-     * Workspace folder configuration
-     */
-    var WorkspaceFolder;
+	/**
+	 * Workspace folder configuration
+	 */
+	var WorkspaceFolder;
 }

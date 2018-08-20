@@ -5,13 +5,13 @@ package vscode;
  */
 @:jsRequire("vscode", "StatusBarAlignment")
 @:enum extern abstract StatusBarAlignment(Int) {
-    /**
-     * Aligned to the left side.
-     */
-    var Left;
+	/**
+	 * Aligned to the left side.
+	 */
+	var Left;
 
-    /**
-     * Aligned to the right side.
-     */
-    var Right;
+	/**
+	 * Aligned to the right side.
+	 */
+	var Right;
 }

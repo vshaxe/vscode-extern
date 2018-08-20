@@ -5,30 +5,30 @@ package vscode;
  * [source control resource states](#SourceControlResourceState).
  */
 typedef SourceControlResourceGroup = {
-    /**
-     * The id of this source control resource group.
-     */
-    var id(default,null):String;
+	/**
+	 * The id of this source control resource group.
+	 */
+	var id(default, null):String;
 
-    /**
-     * The label of this source control resource group.
-     */
-    var label:String;
+	/**
+	 * The label of this source control resource group.
+	 */
+	var label:String;
 
-    /**
-     * Whether this source control resource group is hidden when it contains
-     * no [source control resource states](#SourceControlResourceState).
-     */
-    @:optional var hideWhenEmpty:Bool;
+	/**
+	 * Whether this source control resource group is hidden when it contains
+	 * no [source control resource states](#SourceControlResourceState).
+	 */
+	@:optional var hideWhenEmpty:Bool;
 
-    /**
-     * This group's collection of
-     * [source control resource states](#SourceControlResourceState).
-     */
-    var resourceStates:Array<SourceControlResourceState>;
+	/**
+	 * This group's collection of
+	 * [source control resource states](#SourceControlResourceState).
+	 */
+	var resourceStates:Array<SourceControlResourceState>;
 
-    /**
-     * Dispose this source control resource group.
-     */
-    function dispose():Void;
+	/**
+	 * Dispose this source control resource group.
+	 */
+	function dispose():Void;
 }

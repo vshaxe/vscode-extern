@@ -30,4 +30,4 @@ package vscode;
  * }
  * ```
  */
-typedef ProviderResult<T> = EitherType<T,Thenable<T>>;
+typedef ProviderResult<T> = EitherType<T, Thenable<T>>;

@@ -9,19 +9,19 @@ package vscode;
  * @sample A language filter that applies to all package.json paths: `{ language: 'json', scheme: 'untitled', pattern: '**​/package.json' }`
  */
 typedef DocumentFilter = {
-    /**
-     * A language id, like `typescript`.
-     */
-    @:optional var language:String;
+	/**
+	 * A language id, like `typescript`.
+	 */
+	@:optional var language:String;
 
-    /**
-     * A Uri [scheme](#Uri.scheme), like `file` or `untitled`.
-     */
-    @:optional var scheme:String;
+	/**
+	 * A Uri [scheme](#Uri.scheme), like `file` or `untitled`.
+	 */
+	@:optional var scheme:String;
 
-    /**
-     * A [glob pattern](#GlobPattern) that is matched on the absolute path of the document. Use a [relative pattern](#RelativePattern)
-     * to filter documents to a [workspace folder](#WorkspaceFolder).
-     */
-    @:optional var pattern:GlobPattern;
+	/**
+	 * A [glob pattern](#GlobPattern) that is matched on the absolute path of the document. Use a [relative pattern](#RelativePattern)
+	 * to filter documents to a [workspace folder](#WorkspaceFolder).
+	 */
+	@:optional var pattern:GlobPattern;
 }

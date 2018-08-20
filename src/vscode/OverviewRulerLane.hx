@@ -6,8 +6,8 @@ package vscode;
  */
 @:jsRequire("vscode", "OverviewRulerLane")
 @:enum extern abstract OverviewRulerLane(Int) {
-    var Left;
-    var Center;
-    var Right;
-    var Full;
+	var Left;
+	var Center;
+	var Right;
+	var Full;
 }

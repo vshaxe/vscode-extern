@@ -6,21 +6,21 @@ package vscode;
  */
 @:jsRequire("vscode", "DocumentLink")
 extern class DocumentLink {
-    /**
-     * The range this link applies to.
-     */
-    var range:Range;
+	/**
+	 * The range this link applies to.
+	 */
+	var range:Range;
 
-    /**
-     * The uri this link points to.
-     */
-    var target:Null<Uri>;
+	/**
+	 * The uri this link points to.
+	 */
+	var target:Null<Uri>;
 
-    /**
-     * Creates a new document link.
-     *
-     * @param range The range the document link applies to. Must not be empty.
-     * @param target The uri the document link points to.
-     */
-    function new(range:Range, ?target:Uri);
+	/**
+	 * Creates a new document link.
+	 *
+	 * @param range The range the document link applies to. Must not be empty.
+	 * @param target The uri the document link points to.
+	 */
+	function new(range:Range, ?target:Uri);
 }

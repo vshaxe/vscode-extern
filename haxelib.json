@@ -1,14 +1,14 @@
 {
-    "name": "vscode",
-    "description": "Visual Studio Code extern library",
-    "url": "https://github.com/vshaxe/vscode-extern",
-    "license": "MIT",
-    "version": "1.25.0",
-    "releasenote": "Update to VSCode 1.25",
-    "classPath": "src",
-    "contributors": ["nadako"],
-    "dependencies": {
-        "hxnodejs": ""
-    },
-    "tags": ["extern", "js", "vscode"]
+	"name": "vscode",
+	"description": "Visual Studio Code extern library",
+	"url": "https://github.com/vshaxe/vscode-extern",
+	"license": "MIT",
+	"version": "1.25.0",
+	"releasenote": "Update to VSCode 1.25",
+	"classPath": "src",
+	"contributors": ["nadako"],
+	"dependencies": {
+		"hxnodejs": ""
+	},
+	"tags": ["extern", "js", "vscode"]
 }

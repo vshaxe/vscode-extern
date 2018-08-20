@@ -6,25 +6,24 @@ package vscode;
  */
 @:jsRequire("vscode", "TaskGroup")
 extern class TaskGroup {
-    /**
-     * The clean task group;
-     */
-    public static var Clean:TaskGroup;
+	/**
+	 * The clean task group;
+	 */
+	public static var Clean:TaskGroup;
 
-    /**
-     * The build task group;
-     */
-    public static var Build:TaskGroup;
+	/**
+	 * The build task group;
+	 */
+	public static var Build:TaskGroup;
 
-    /**
-     * The rebuild all task group;
-     */
-    public static var Rebuild:TaskGroup;
+	/**
+	 * The rebuild all task group;
+	 */
+	public static var Rebuild:TaskGroup;
 
-    /**
-     * The test all task group;
-     */
-    public static var Test:TaskGroup;
-
-    private function new(id:String, label:String);
+	/**
+	 * The test all task group;
+	 */
+	public static var Test:TaskGroup;
+	private function new(id:String, label:String);
 }

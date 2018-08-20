@@ -8,8 +8,8 @@ package vscode;
  * @see [showErrorMessage](#window.showErrorMessage)
  */
 typedef MessageOptions = {
-    /**
-     * Indicates that this message should be modal.
-     */
-    @:optional var modal:Bool;
+	/**
+	 * Indicates that this message should be modal.
+	 */
+	@:optional var modal:Bool;
 }
