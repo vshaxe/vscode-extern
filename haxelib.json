@@ -6,7 +6,7 @@
 	"version": "1.26.0",
 	"releasenote": "Update to VSCode 1.26",
 	"classPath": "src",
-	"contributors": ["nadako"],
+	"contributors": ["nadako", "Gama11"],
 	"dependencies": {
 		"hxnodejs": ""
 	},
