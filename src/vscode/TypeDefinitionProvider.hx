@@ -14,5 +14,5 @@ typedef TypeDefinitionProvider = {
 	 * @return A definition or a thenable that resolves to such. The lack of a result can be
 	 * signaled by returning `undefined` or `null`.
 	 */
-	function provideTypeDefinition(document:TextDocument, position:Position, token:CancellationToken):ProviderResult<Definition>;
+	function provideTypeDefinition(document:TextDocument, position:Position, token:CancellationToken):ProviderResult<EitherType<Definition, Array<DefinitionLink>>>;
 }

@@ -23,6 +23,7 @@ extern class FoldingRange {
 	 * [Region](#FoldingRangeKind.Region). The kind is used to categorize folding ranges and used by commands
 	 * like 'Fold all comments'. See
 	 * [FoldingRangeKind](#FoldingRangeKind) for an enumeration of all kinds.
+	 * If not set, the range is originated from a syntax element.
 	 */
 	var kind:Null<FoldingRangeKind>;
 

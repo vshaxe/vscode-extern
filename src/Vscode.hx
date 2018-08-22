@@ -288,6 +288,17 @@ extern class VscodeWindow {
 	var onDidChangeTextEditorViewColumn(default, null):Event<TextEditorViewColumnChangeEvent>;
 
 	/**
+	 * The currently opened terminals or an empty array.
+	 */
+	var terminals(default, null):ReadonlyArray<Terminal>;
+
+	/**
+	 * An [event](#Event) which fires when a terminal has been created, either through the
+	 * [createTerminal](#window.createTerminal) API or commands.
+	 */
+	var onDidOpenTerminal(default, null):Event<Terminal>;
+
+	/**
 	 * An [event](#Event) which fires when a terminal is disposed.
 	 */
 	var onDidCloseTerminal(default, null):Event<Terminal>;
@@ -462,6 +473,29 @@ extern class VscodeWindow {
 	function showInputBox(?options:InputBoxOptions, ?token:CancellationToken):Thenable<Null<String>>;
 
 	/**
+	 * Creates a [QuickPick](#QuickPick) to let the user pick an item from a list
+	 * of items of type T.
+	 *
+	 * Note that in many cases the more convenient [window.showQuickPick](#window.showQuickPick)
+	 * is easier to use. [window.createQuickPick](#window.createQuickPick) should be used
+	 * when [window.showQuickPick](#window.showQuickPick) does not offer the required flexibility.
+	 *
+	 * @return A new [QuickPick](#QuickPick).
+	 */
+	function createQuickPick<T:QuickPickItem>():QuickPick<T>;
+
+	/**
+	 * Creates a [InputBox](#InputBox) to let the user enter some text input.
+	 *
+	 * Note that in many cases the more convenient [window.showInputBox](#window.showInputBox)
+	 * is easier to use. [window.createInputBox](#window.createInputBox) should be used
+	 * when [window.showInputBox](#window.showInputBox) does not offer the required flexibility.
+	 *
+	 * @return A new [InputBox](#InputBox).
+	 */
+	function createInputBox():InputBox;
+
+	/**
 	 * Create a new [output channel](#OutputChannel) with the given name.
 	 *
 	 * @param name Human-readable string which will be used to represent the channel in the UI.
@@ -571,6 +605,29 @@ extern class VscodeWindow {
 	 * @returns a [TreeView](#TreeView).
 	 */
 	function createTreeView<T>(viewId:String, options:{treeDataProvider:TreeDataProvider<T>}):TreeView<T>;
+
+	/**
+	 * Registers a [uri handler](#UriHandler) capable of handling system-wide [uris](#Uri).
+	 * In case there are multiple windows open, the topmost window will handle the uri.
+	 * A uri handler is scoped to the extension it is contributed from; it will only
+	 * be able to handle uris which are directed to the extension itself. A uri must respect
+	 * the following rules:
+	 *
+	 * - The uri-scheme must be the product name;
+	 * - The uri-authority must be the extension id (eg. `my.extension`);
+	 * - The uri-path, -query and -fragment parts are arbitrary.
+	 *
+	 * For example, if the `my.extension` extension registers a uri handler, it will only
+	 * be allowed to handle uris with the prefix `product-name://my.extension`.
+	 *
+	 * An extension can only register a single uri handler in its entire activation lifetime.
+	 *
+	 * * *Note:* There is an activation event `onUri` that fires when a uri directed for
+	 * the current extension is about to be handled.
+	 *
+	 * @param handler The uri handler to register for this extension.
+	 */
+	function registerUriHandler(handler:UriHandler):Disposable;
 
 	/**
 	 * Registers a webview panel serializer.
@@ -1109,12 +1166,17 @@ extern class VscodeWorkspace {
 	function saveAll(?includeUntitled:Bool):Thenable<Bool>;
 
 	/**
-	 * Make changes to one or many resources as defined by the given
+	 * Make changes to one or many resources or create, delete, and rename resources as defined by the given
 	 * [workspace edit](#WorkspaceEdit).
 	 *
-	 * When applying a workspace edit, the editor implements an 'all-or-nothing'-strategy,
-	 * that means failure to load one document or make changes to one document will cause
-	 * the edit to be rejected.
+	 * All changes of a workspace edit are applied in the same order in which they have been added. If
+	 * multiple textual inserts are made at the same position, these strings appear in the resulting text
+	 * in the order the 'inserts' were made. Invalid sequences like 'delete file a' -> 'insert text in file a'
+	 * cause failure of the operation.
+	 *
+	 * When applying a workspace edit that consists only of text edits an 'all-or-nothing'-strategy is used.
+	 * A workspace edit with resource creations or deletions aborts the operation, e.g. consective edits will
+	 * not be attempted, when a single edit fails.
 	 *
 	 * @param edit A workspace edit.
 	 * @return A thenable that resolves when the edit could be applied.
@@ -1242,13 +1304,13 @@ extern class VscodeWorkspace {
 	var onDidChangeConfiguration(default, null):Event<ConfigurationChangeEvent>;
 
 	/**
-	 * Register a task provider.
+	 * ~~Register a task provider.~~
+	 *
+	 * @deprecated Use the corresponding function on the `tasks` namespace instead
 	 *
 	 * @param type The task kind type this provider is registered for.
 	 * @param provider A task provider.
 	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
-	 *
-	 * @deprecated Use the corresponding function on the `tasks` namespace instead
 	 */
 	@:deprecated("Use the corresponding function on the `tasks` namespace instead")
 	function registerTaskProvider(type:String, provider:TaskProvider):Disposable;
