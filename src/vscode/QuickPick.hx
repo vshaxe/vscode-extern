@@ -10,7 +10,9 @@ package vscode;
  * is easier to use. [window.createQuickPick](#window.createQuickPick) should be used
  * when [window.showQuickPick](#window.showQuickPick) does not offer the required flexibility.
  */
-typedef QuickPick<T:QuickPickItem> = QuickInput & {
+typedef QuickPick<T:QuickPickItem> = {
+	> QuickInput,
+
 	/**
 	 * Current value of the filter text.
 	 */

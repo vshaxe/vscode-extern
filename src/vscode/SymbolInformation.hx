@@ -32,7 +32,7 @@ extern class SymbolInformation {
 	 * @param name The name of the symbol.
 	 * @param kind The kind of the symbol.
 	 * @param containerName The name of the symbol containing the symbol.
-	 * @param location The the location of the symbol.
+	 * @param location The location of the symbol.
 	 */
 	@:overload(function(name:String, kind:SymbolKind, range:Range, ?uri:Uri, ?containerName:String):Void {})
 	function new(name:String, kind:SymbolKind, containerName:String, location:Location);

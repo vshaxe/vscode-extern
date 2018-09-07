@@ -7,7 +7,9 @@ package vscode;
  * is easier to use. [window.createInputBox](#window.createInputBox) should be used
  * when [window.showInputBox](#window.showInputBox) does not offer the required flexibility.
  */
-typedef InputBox = QuickInput & {
+typedef InputBox = {
+	> QuickInput,
+
 	/**
 	 * Current input value.
 	 */
