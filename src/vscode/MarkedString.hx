@@ -7,5 +7,4 @@ package vscode;
  *
  * @deprecated This type is deprecated, please use [`MarkdownString`](#MarkdownString) instead.
  */
-@:deprecated("This type is deprecated, please use `MarkdownString` instead.")
 typedef MarkedString = EitherType<MarkdownString, EitherType<String, {language:String, value:String}>>;
