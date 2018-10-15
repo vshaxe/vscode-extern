@@ -410,9 +410,9 @@ extern class VscodeWindow {
 	 * @param token A token that can be used to signal cancellation.
 	 * @return A promise that resolves to the selection or `undefined`.
 	 */
-	@:overload(
-	function(items:EitherType<Array<String>, Thenable<Array<String>>>, ?options:QuickPickOptions, ?token:CancellationToken):Thenable<Null<String>> {})
-	function showQuickPick<T:QuickPickItem>(items:EitherType<Array<T>, Thenable<Array<T>>>, ?options:QuickPickOptions, ?token:CancellationToken):Thenable<Null<T>>;
+	@:overload(function(items:EitherType<Array<String>, Thenable<Array<String>>>, ?options:QuickPickOptions, ?token:CancellationToken):Thenable<Null<String>> {})
+	function showQuickPick<T:QuickPickItem>(items:EitherType<Array<T>, Thenable<Array<T>>>, ?options:QuickPickOptions,
+		?token:CancellationToken):Thenable<Null<T>>;
 
 	/**
 	 * Shows a selection list allowing multiple selections.
@@ -496,7 +496,7 @@ extern class VscodeWindow {
 	function createInputBox():InputBox;
 
 	/**
-	 * Create a new [output channel](#OutputChannel) with the given name.
+	 * Creates a new [output channel](#OutputChannel) with the given name.
 	 *
 	 * @param name Human-readable string which will be used to represent the channel in the UI.
 	 */
@@ -512,9 +512,10 @@ extern class VscodeWindow {
 	 *
 	 * @return New webview panel.
 	 */
-	function createWebviewPanel(viewType:String, title:String, showOptions:EitherType<ViewColumn, {viewColumn:ViewColumn, ?preserveFocus:Bool}>, ?options:{
-		> WebviewPanelOptions, > WebviewOptions,
-	}):WebviewPanel;
+	function createWebviewPanel(viewType:String, title:String, showOptions:EitherType<ViewColumn, {viewColumn:ViewColumn, ?preserveFocus:Bool}>,
+		?options:{
+			> WebviewPanelOptions, > WebviewOptions,
+		}):WebviewPanel;
 
 	/**
 	 * Set a message to the status bar. This is a short hand for the more powerful
@@ -685,6 +686,19 @@ extern class VscodeLanguages {
 	 * @return Promise resolving to an array of identifier strings.
 	 */
 	function getLanguages():Thenable<Array<String>>;
+
+	/**
+	 * Set (and change) the [language](#TextDocument.languageId) that is associated
+	 * with the given document.
+	 *
+	 * *Note* that calling this function will trigger the [`onDidCloseTextDocument`](#workspace.onDidCloseTextDocument) event
+	 * followed by the [`onDidOpenTextDocument`](#workspace.onDidOpenTextDocument) event.
+	 *
+	 * @param document The document which language is to be changed
+	 * @param languageId The new language identifier.
+	 * @returns A thenable that resolves with the updated document.
+	 */
+	function setTextDocumentLanguage(document:TextDocument, languageId:String):Thenable<TextDocument>;
 
 	/**
 	 * Compute the match between a document [selector](#DocumentSelector) and a document. Values
@@ -1235,7 +1249,8 @@ extern class VscodeWorkspace {
 	function registerTextDocumentContentProvider(scheme:String, provider:TextDocumentContentProvider):Disposable;
 
 	/**
-	 * An event that is emitted when a [text document](#TextDocument) is opened.
+	 * An event that is emitted when a [text document](#TextDocument) is opened or when the  language id
+	 * of a text document [has been changed](#languages.setTextDocumentLanguage).
 	 *
 	 * To add an event listener when a visible text document is opened, use the [TextEditor](#TextEditor) events in the
 	 * [window](#window) namespace. Note that:
@@ -1248,7 +1263,8 @@ extern class VscodeWorkspace {
 	var onDidOpenTextDocument(default, null):Event<TextDocument>;
 
 	/**
-	 * An event that is emitted when a [text document](#TextDocument) is disposed.
+	 * An event that is emitted when a [text document](#TextDocument) is disposed or when the language id
+	 * of a text document [has been changed](#languages.setTextDocumentLanguage).
 	 *
 	 * To add an event listener when a visible text document is closed, use the [TextEditor](#TextEditor) events in the
 	 * [window](#window) namespace. Note that this event is not emitted when a [TextEditor](#TextEditor) is closed

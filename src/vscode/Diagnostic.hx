@@ -28,9 +28,8 @@ extern class Diagnostic {
 	var source:Null<String>;
 
 	/**
-	 * A code or identifier for this diagnostics. Will not be surfaced
-	 * to the user, but should be used for later processing, e.g. when
-	 * providing [code actions](#CodeActionContext).
+	 * A code or identifier for this diagnostic.
+	 * Should be used for later processing, e.g. when providing [code actions](#CodeActionContext).
 	 */
 	var code:Null<EitherType<String, Int>>;
 
