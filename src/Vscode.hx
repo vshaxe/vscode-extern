@@ -293,6 +293,19 @@ extern class VscodeWindow {
 	var terminals(default, null):ReadonlyArray<Terminal>;
 
 	/**
+	 * The currently active terminal or `undefined`. The active terminal is the one that
+	 * currently has focus or most recently had focus.
+	 */
+	var activeTerminal(default, null):Null<Terminal>;
+
+	/**
+	 * An [event](#Event) which fires when the [active terminal](#window.activeTerminal)
+	 * has changed. *Note* that the event also fires when the active terminal changes
+	 * to `undefined`.
+	 */
+	var onDidChangeActiveTerminal(default, null):Null<Event<Terminal>>;
+
+	/**
 	 * An [event](#Event) which fires when a terminal has been created, either through the
 	 * [createTerminal](#window.createTerminal) API or commands.
 	 */
@@ -410,7 +423,8 @@ extern class VscodeWindow {
 	 * @param token A token that can be used to signal cancellation.
 	 * @return A promise that resolves to the selection or `undefined`.
 	 */
-	@:overload(function(items:EitherType<Array<String>, Thenable<Array<String>>>, ?options:QuickPickOptions, ?token:CancellationToken):Thenable<Null<String>> {})
+	@:overload(function(items:EitherType<Array<String>, Thenable<Array<String>>>, ?options:QuickPickOptions,
+		?token:CancellationToken):Thenable<Null<String>> {})
 	function showQuickPick<T:QuickPickItem>(items:EitherType<Array<T>, Thenable<Array<T>>>, ?options:QuickPickOptions,
 		?token:CancellationToken):Thenable<Null<T>>;
 
@@ -512,10 +526,9 @@ extern class VscodeWindow {
 	 *
 	 * @return New webview panel.
 	 */
-	function createWebviewPanel(viewType:String, title:String, showOptions:EitherType<ViewColumn, {viewColumn:ViewColumn, ?preserveFocus:Bool}>,
-		?options:{
-			> WebviewPanelOptions, > WebviewOptions,
-		}):WebviewPanel;
+	function createWebviewPanel(viewType:String, title:String, showOptions:EitherType<ViewColumn, {viewColumn:ViewColumn, ?preserveFocus:Bool}>, ?options:{
+		> WebviewPanelOptions, > WebviewOptions,
+	}):WebviewPanel;
 
 	/**
 	 * Set a message to the status bar. This is a short hand for the more powerful
@@ -947,7 +960,7 @@ extern class VscodeLanguages {
 	 * Register a formatting provider for a document range.
 	 *
 	 * *Note:* A document range provider is also a [document formatter](#DocumentFormattingEditProvider)
-	 * which means there is no need to [register](registerDocumentFormattingEditProvider) a document
+	 * which means there is no need to [register](#languages.registerDocumentFormattingEditProvider) a document
 	 * formatter when also registering a range provider.
 	 *
 	 * Multiple providers can be registered for a language. In that case providers are sorted
@@ -1152,7 +1165,8 @@ extern class VscodeWorkspace {
 	 * @param ignoreDeleteEvents Ignore when files have been deleted.
 	 * @return A new file system watcher instance.
 	 */
-	function createFileSystemWatcher(globPattern:GlobPattern, ?ignoreCreateEvents:Bool, ?ignoreChangeEvents:Bool, ?ignoreDeleteEvents:Bool):FileSystemWatcher;
+	function createFileSystemWatcher(globPattern:GlobPattern, ?ignoreCreateEvents:Bool, ?ignoreChangeEvents:Bool,
+		?ignoreDeleteEvents:Bool):FileSystemWatcher;
 
 	/**
 	 * Find files across all [workspace folders](#workspace.workspaceFolders) in the workspace.

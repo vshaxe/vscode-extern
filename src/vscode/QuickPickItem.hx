@@ -27,4 +27,9 @@ typedef QuickPickItem = {
 	 * @see [QuickPickOptions.canPickMany](#QuickPickOptions.canPickMany)
 	 */
 	@:optional var picked:Bool;
+
+	/**
+	 * Always show this item.
+	 */
+	@:optional var alwaysShow:Bool;
 }

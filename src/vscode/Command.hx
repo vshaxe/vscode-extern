@@ -19,7 +19,7 @@ typedef Command = {
 	var command:String;
 
 	/**
-	 * A tooltip for for command, when represented in the UI.
+	 * A tooltip for the command, when represented in the UI.
 	 */
 	@:optional var tooltip:String;
 

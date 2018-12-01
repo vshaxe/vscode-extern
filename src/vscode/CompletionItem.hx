@@ -6,10 +6,10 @@ package vscode;
  * It is sufficient to create a completion item from just a [label](#CompletionItem.label). In that
  * case the completion item will replace the [word](#TextDocument.getWordRangeAtPosition)
  * until the cursor with the given label or [insertText](#CompletionItem.insertText). Otherwise the
- * the given [edit](#CompletionItem.textEdit) is used.
+ * given [edit](#CompletionItem.textEdit) is used.
  *
  * When selecting a completion item in the editor its defined or synthesized text edit will be applied
- * to *all* cursors/selections whereas [additionalTextEdits](CompletionItem.additionalTextEdits) will be
+ * to *all* cursors/selections whereas [additionalTextEdits](#CompletionItem.additionalTextEdits) will be
  * applied as provided.
  *
  * @see [CompletionItemProvider.provideCompletionItems](#CompletionItemProvider.provideCompletionItems)

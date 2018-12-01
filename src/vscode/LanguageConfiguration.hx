@@ -52,7 +52,7 @@ typedef LanguageConfiguration = {
 		/**
 		 * This property is deprecated and not fully supported anymore by
 		 * the editor (scope and lineStart are ignored).
-		 * Use the the autoClosingPairs property in the language configuration file instead.
+		 * Use the autoClosingPairs property in the language configuration file instead.
 		 * @deprecated
 		 */
 		@:deprecated @:optional var docComment:{
@@ -66,9 +66,9 @@ typedef LanguageConfiguration = {
 	/**
 	 * **Deprecated** Do not use.
 	 *
-	 * @deprecated * Use the the autoClosingPairs property in the language configuration file instead.
+	 * @deprecated * Use the autoClosingPairs property in the language configuration file instead.
 	 */
-	@:deprecated("Use the the autoClosingPairs property in the language configuration file instead.")
+	@:deprecated("Use the autoClosingPairs property in the language configuration file instead.")
 	@:optional var __characterPairSupport:{
 		var autoClosingPairs:Array<{open:String, close:String, ?notIn:Array<String>}>;
 	};

@@ -35,7 +35,7 @@ typedef TreeView<T> = {
 	var visible(default, null):Bool;
 
 	/**
-	 * Event that is fired when [visibility](TreeView.visible) has changed
+	 * Event that is fired when [visibility](#TreeView.visible) has changed
 	 */
 	var onDidChangeVisibility(default, null):Event<TreeViewVisibilityChangeEvent>;
 
@@ -43,11 +43,13 @@ typedef TreeView<T> = {
 	 * Reveals the given element in the tree view.
 	 * If the tree view is not visible then the tree view is shown and element is revealed.
 	 *
-	 * By default revealed element is selected and not focused.
+	 * By default revealed element is selected.
 	 * In order to not to select, set the option `select` to `false`.
 	 * In order to focus, set the option `focus` to `true`.
+	 * In order to expand the revealed element, set the option `expand` to `true`. To expand recursively set `expand` to the number of levels to expand.
+	 * **NOTE:** You can expand only to 3 levels maximum.
 	 *
 	 * **NOTE:** [TreeDataProvider](#TreeDataProvider) is required to implement [getParent](#TreeDataProvider.getParent) method to access this API.
 	 */
-	function reveal(element:T, ?options:{?select:Bool, ?focus:Bool}):Thenable<Void>;
+	function reveal(element:T, ?options:{?select:Bool, ?focus:Bool, ?exapnd:EitherType<Bool, Int>}):Thenable<Void>;
 }

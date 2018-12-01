@@ -4,7 +4,7 @@ package vscode;
  * A code action represents a change that can be performed in code, e.g. to fix a problem or
  * to refactor code.
  *
- * A CodeAction must set either [`edit`](CodeAction#edit) and/or a [`command`](CodeAction#command). If both are supplied, the `edit` is applied first, then the command is executed.
+ * A CodeAction must set either [`edit`](#CodeAction.edit) and/or a [`command`](#CodeAction.command). If both are supplied, the `edit` is applied first, then the command is executed.
  */
 @:jsRequire("vscode", "CodeAction")
 extern class CodeAction {
