@@ -5,7 +5,7 @@
 This extern library makes it possible to write extensions for [Visual Studio Code](https://code.visualstudio.com/)
 using [Haxe](https://haxe.org/).
 
-VS Code API version: **1.29**
+VS Code API version: **1.30**
 
 **NOTE**: Requires Haxe 3.4 or later
 

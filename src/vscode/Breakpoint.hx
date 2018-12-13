@@ -6,6 +6,11 @@ package vscode;
 @:jsRequire("vscode", "Breakpoint")
 extern class Breakpoint {
 	/**
+	 * The unique ID of the breakpoint.
+	 */
+	var id(default, never):String;
+
+	/**
 	 * Is breakpoint enabled.
 	 */
 	var enabled(default, never):Bool;

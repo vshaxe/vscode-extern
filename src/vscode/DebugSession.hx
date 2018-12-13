@@ -17,7 +17,20 @@ typedef DebugSession = {
 	/**
 	 * The debug session's name from the [debug configuration](#DebugConfiguration).
 	 */
-	var readonly(default, null):String;
+	var name(default, null):String;
+
+	/**
+	 * The workspace folder of this session or `undefined` for a folderless setup.
+	 */
+	@:optional var workspaceFolder(default, null):WorkspaceFolder;
+
+	/**
+	 * The "resolved" [debug configuration](#DebugConfiguration) of this session.
+	 * "Resolved" means that
+	 * - all variables have been substituted and
+	 * - platform specific attribute sections have been "flattened" for the matching platform and removed for non-matching platforms.
+	 */
+	var configuration(default, null):DebugConfiguration;
 
 	/**
 	 * Send a custom request to the debug adapter.

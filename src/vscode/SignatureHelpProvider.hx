@@ -11,8 +11,11 @@ typedef SignatureHelpProvider = {
 	 * @param document The document in which the command was invoked.
 	 * @param position The position at which the command was invoked.
 	 * @param token A cancellation token.
+	 * @param context Information about how signature help was triggered.
+	 *
 	 * @return Signature help or a thenable that resolves to such. The lack of a result can be
 	 * signaled by returning `undefined` or `null`.
 	 */
-	function provideSignatureHelp(document:TextDocument, position:Position, token:CancellationToken):ProviderResult<SignatureHelp>;
+	function provideSignatureHelp(document:TextDocument, position:Position, token:CancellationToken,
+		context:SignatureHelpContext):ProviderResult<SignatureHelp>;
 }

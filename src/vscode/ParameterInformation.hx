@@ -26,8 +26,8 @@ extern class ParameterInformation {
 	/**
 	 * Creates a new parameter information object.
 	 *
-	 * @param label A label string.
+	 * @param label A label string or inclusive start and exclusive end offsets within its containing signature label.
 	 * @param documentation A doc string.
 	 */
-	function new(label:String, ?documentation:EitherType<String, MarkdownString>);
+	function new(label:EitherType<String, Array<Int>>, ?documentation:EitherType<String, MarkdownString>);
 }

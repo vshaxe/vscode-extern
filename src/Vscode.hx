@@ -168,6 +168,11 @@ extern class VscodeEnv {
 	var language(default, null):String;
 
 	/**
+	 * The system clipboard.
+	 */
+	var clipboard(default, null):Clipboard;
+
+	/**
 	 * A unique identifier for the computer.
 	 *
 	 * @readonly
@@ -615,10 +620,10 @@ extern class VscodeWindow {
 	/**
 	 * Create a [TreeView](#TreeView) for the view contributed using the extension point `views`.
 	 * @param viewId Id of the view contributed using the extension point `views`.
-	 * @param options Options object to provide [TreeDataProvider](#TreeDataProvider) for the view.
+	 * @param options Options for creating the [TreeView](#TreeView)
 	 * @returns a [TreeView](#TreeView).
 	 */
-	function createTreeView<T>(viewId:String, options:{treeDataProvider:TreeDataProvider<T>}):TreeView<T>;
+	function createTreeView<T>(viewId:String, options:TreeViewOptions<T>):TreeView<T>;
 
 	/**
 	 * Registers a [uri handler](#UriHandler) capable of handling system-wide [uris](#Uri).
@@ -867,6 +872,19 @@ extern class VscodeLanguages {
 	function registerTypeDefinitionProvider(selector:DocumentSelector, provider:TypeDefinitionProvider):Disposable;
 
 	/**
+	 * Register a declaration provider.
+	 *
+	 * Multiple providers can be registered for a language. In that case providers are asked in
+	 * parallel and the results are merged. A failing provider (rejected promise or exception) will
+	 * not cause a failure of the whole operation.
+	 *
+	 * @param selector A selector that defines the documents this provider is applicable to.
+	 * @param provider A declaration provider.
+	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+	 */
+	function registerDeclarationProvider(selector:DocumentSelector, provider:DeclarationProvider):Disposable;
+
+	/**
 	 * Register a hover provider.
 	 *
 	 * Multiple providers can be registered for a language. In that case providers are asked in
@@ -901,9 +919,11 @@ extern class VscodeLanguages {
 	 *
 	 * @param selector A selector that defines the documents this provider is applicable to.
 	 * @param provider A document symbol provider.
+	 * @param metaData metadata about the provider
 	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
 	 */
-	function registerDocumentSymbolProvider(selector:DocumentSelector, provider:DocumentSymbolProvider):Disposable;
+	function registerDocumentSymbolProvider(selector:DocumentSelector, provider:DocumentSymbolProvider,
+		?metaData:DocumentSymbolProviderMetadata):Disposable;
 
 	/**
 	 * Register a workspace symbol provider.
@@ -987,7 +1007,7 @@ extern class VscodeLanguages {
 	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
 	 */
 	function registerOnTypeFormattingEditProvider(selector:DocumentSelector, provider:OnTypeFormattingEditProvider, firstTriggerCharacter:String,
-		moreTriggerCharacter:haxe.extern.Rest<String>):Disposable;
+		moreTriggerCharacter:Rest<String>):Disposable;
 
 	/**
 	 * Register a signature help provider.
@@ -999,9 +1019,11 @@ extern class VscodeLanguages {
 	 * @param selector A selector that defines the documents this provider is applicable to.
 	 * @param provider A signature help provider.
 	 * @param triggerCharacters Trigger signature help when the user types one of the characters, like `,` or `(`.
+	 * @param metadata Information about the provider.
 	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
 	 */
-	function registerSignatureHelpProvider(selector:DocumentSelector, provider:SignatureHelpProvider, triggerCharacters:haxe.extern.Rest<String>):Disposable;
+	@:overload(function(selector:DocumentSelector, provider:SignatureHelpProvider, triggerCharacters:Rest<String>):Disposable {})
+	function registerSignatureHelpProvider(selector:DocumentSelector, provider:SignatureHelpProvider, metadata:SignatureHelpProviderMetadata):Disposable;
 
 	/**
 	 * Register a document link provider.
@@ -1369,6 +1391,7 @@ extern class VscodeDebug {
 
 	/**
 	 * The currently active [debug console](#DebugConsole).
+	 * If no debug session is active, output sent to the debug console is not shown.
 	 */
 	var activeDebugConsole:DebugConsole;
 
@@ -1413,6 +1436,26 @@ extern class VscodeDebug {
 	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
 	 */
 	function registerDebugConfigurationProvider(debugType:String, provider:DebugConfigurationProvider):Disposable;
+
+	/**
+	 * Register a [debug adapter descriptor factory](#DebugAdapterDescriptorFactory) for a specific debug type.
+	 * An extension is only allowed to register a DebugAdapterDescriptorFactory for the debug type(s) defined by the extension. Otherwise an error is thrown.
+	 * Registering more than one DebugAdapterDescriptorFactory for a debug type results in an error.
+	 *
+	 * @param debugType The debug type for which the factory is registered.
+	 * @param factory The [debug adapter descriptor factory](#DebugAdapterDescriptorFactory) to register.
+	 * @return A [disposable](#Disposable) that unregisters this factory when being disposed.
+	 */
+	function registerDebugAdapterDescriptorFactory(debugType:String, factory:DebugAdapterDescriptorFactory):Disposable;
+
+	/**
+	 * Register a debug adapter tracker factory for the given debug type.
+	 *
+	 * @param debugType The debug type for which the factory is registered or '*' for matching all debug types.
+	 * @param factory The [debug adapter tracker factory](#DebugAdapterTrackerFactory) to register.
+	 * @return A [disposable](#Disposable) that unregisters this factory when being disposed.
+	 */
+	function registerDebugAdapterTrackerFactory(debugType:String, factory:DebugAdapterTrackerFactory):Disposable;
 
 	/**
 	 * Start debugging by using either a named launch or named compound configuration,
