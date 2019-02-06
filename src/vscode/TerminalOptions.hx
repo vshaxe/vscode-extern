@@ -20,12 +20,21 @@ typedef TerminalOptions = {
 	@:optional var shellArgs:Array<String>;
 
 	/**
-	 * A path for the current working directory to be used for the terminal.
+	 * A path or Uri for the current working directory to be used for the terminal.
 	 */
-	@:optional var cwd:String;
+	@:optional var cwd:EitherType<String, Uri>;
 
 	/**
 	 * Object with environment variables that will be added to the VS Code process.
 	 */
 	@:optional var env:haxe.DynamicAccess<Null<String>>;
+
+	/**
+	 * Whether the terminal process environment should be exactly as provided in
+	 * `TerminalOptions.env`. When this is false (default), the environment will be based on the
+	 * window's environment and also apply configured platform settings like
+	 * `terminal.integrated.windows.env` on top. When this is true, the complete environment
+	 * must be provided as nothing will be inherited from the process or any configuration.
+	 */
+	@:optional var strictEnv:Bool;
 }

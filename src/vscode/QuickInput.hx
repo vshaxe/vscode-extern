@@ -1,13 +1,13 @@
 package vscode;
 
 /**
- * A light-weight user input UI that is intially not visible. After
+ * A light-weight user input UI that is initially not visible. After
  * configuring it through its properties the extension can make it
  * visible by calling [QuickInput.show](#QuickInput.show).
  *
  * There are several reasons why this UI might have to be hidden and
  * the extension will be notified through [QuickInput.onDidHide](#QuickInput.onDidHide).
- * (Examples include: an explict call to [QuickInput.hide](#QuickInput.hide),
+ * (Examples include: an explicit call to [QuickInput.hide](#QuickInput.hide),
  * the user pressing Esc, some other input UI opening, etc.)
  *
  * A user pressing Enter or some other gesture implying acceptance
@@ -75,7 +75,7 @@ typedef QuickInput = {
 	 *
 	 * There are several reasons why this UI might have to be hidden and
 	 * the extension will be notified through [QuickInput.onDidHide](#QuickInput.onDidHide).
-	 * (Examples include: an explict call to [QuickInput.hide](#QuickInput.hide),
+	 * (Examples include: an explicit call to [QuickInput.hide](#QuickInput.hide),
 	 * the user pressing Esc, some other input UI opening, etc.)
 	 */
 	var onDidHide:Event<Void>;

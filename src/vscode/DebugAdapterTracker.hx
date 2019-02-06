@@ -25,7 +25,7 @@ typedef DebugAdapterTracker = {
 	@:optional function onWillStopSession():Void;
 
 	/**
-	 * An error with the debug adapter has occured.
+	 * An error with the debug adapter has occurred.
 	 */
 	@:optional function onError(error:Error):Void;
 

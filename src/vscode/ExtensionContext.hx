@@ -50,6 +50,15 @@ typedef ExtensionContext = {
 	var storagePath:Null<String>;
 
 	/**
+	 * An absolute file path in which the extension can store global state.
+	 * The directory might not exist on disk and creation is
+	 * up to the extension. However, the parent directory is guaranteed to be existent.
+	 *
+	 * Use [`globalState`](#ExtensionContext.globalState) to store key value data.
+	 */
+	var globalStoragePath:String;
+
+	/**
 	 * An absolute file path of a directory in which the extension can create log files.
 	 * The directory might not exist on disk and creation is up to the extension. However,
 	 * the parent directory is guaranteed to be existent.

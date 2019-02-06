@@ -148,22 +148,16 @@ extern class Vscode {
 extern class VscodeEnv {
 	/**
 	 * The application name of the editor, like 'VS Code'.
-	 *
-	 * @readonly
 	 */
 	var appName(default, null):String;
 
 	/**
 	 * The application root folder from which the editor is running.
-	 *
-	 * @readonly
 	 */
 	var appRoot(default, null):String;
 
 	/**
 	 * Represents the preferred user-language, like `de-CH`, `fr`, or `en-US`.
-	 *
-	 * @readonly
 	 */
 	var language(default, null):String;
 
@@ -174,18 +168,26 @@ extern class VscodeEnv {
 
 	/**
 	 * A unique identifier for the computer.
-	 *
-	 * @readonly
 	 */
 	var machineId(default, null):String;
 
 	/**
 	 * A unique identifier for the current session.
 	 * Changes each time the editor is started.
-	 *
-	 * @readonly
 	 */
 	var sessionId(default, null):String;
+
+	/**
+	 * Opens an *external* item, e.g. a http(s) or mailto-link, using the
+	 * default application.
+	 *
+	 * *Note* that [`showTextDocument`](#window.showTextDocument) is the right
+	 * way to open a text document inside the editor, not this function.
+	 *
+	 * @param target The uri that should be opened.
+	 * @returns A promise indicating if open was successful.
+	 */
+	function openExternal(target:Uri):Thenable<Bool>;
 }
 
 extern class VscodeCommands {
@@ -323,8 +325,6 @@ extern class VscodeWindow {
 
 	/**
 	 * Represents the current window's state.
-	 *
-	 * @readonly
 	 */
 	var state(default, null):WindowState;
 
@@ -675,6 +675,12 @@ extern class VscodeExtensions {
 	 * All extensions currently known to the system.
 	 */
 	var all(default, null):Array<Extension<Any>>;
+
+	/**
+	 * An event which fires when `extensions.all` changes. This can happen when extensions are
+	 * installed, uninstalled, enabled or disabled.
+	 */
+	var onDidChange(default, null):Event<Void>;
 }
 
 extern class VscodeScm {
@@ -1225,7 +1231,7 @@ extern class VscodeWorkspace {
 	 * cause failure of the operation.
 	 *
 	 * When applying a workspace edit that consists only of text edits an 'all-or-nothing'-strategy is used.
-	 * A workspace edit with resource creations or deletions aborts the operation, e.g. consective edits will
+	 * A workspace edit with resource creations or deletions aborts the operation, e.g. consecutive edits will
 	 * not be attempted, when a single edit fails.
 	 *
 	 * @param edit A workspace edit.
@@ -1235,8 +1241,6 @@ extern class VscodeWorkspace {
 
 	/**
 	 * All text documents currently known to the system.
-	 *
-	 * @readonly
 	 */
 	var textDocuments(default, null):Array<TextDocument>;
 
@@ -1527,8 +1531,6 @@ extern class VscodeTasks {
 
 	/**
 	 * The currently active task executions or an empty array.
-	 *
-	 * @readonly
 	 */
 	var taskExecutions(default, null):ReadonlyArray<TaskExecution>;
 

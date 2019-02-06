@@ -89,7 +89,7 @@ extern class CompletionItem {
 
 	/**
 	 * Keep whitespace of the [insertText](#CompletionItem.insertText) as is. By default, the editor adjusts leading
-	 * whitespace of new lines so that they match the indentation of the line for which the item is accepeted - setting
+	 * whitespace of new lines so that they match the indentation of the line for which the item is accepted - setting
 	 * this to `true` will prevent that.
 	 */
 	var keepWhitespace:Null<Bool>;
