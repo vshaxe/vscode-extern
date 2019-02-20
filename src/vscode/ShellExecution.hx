@@ -17,8 +17,8 @@ extern class ShellExecution {
 	 * @param args The command arguments.
 	 * @param options Optional options for the started the shell.
 	 */
-	@:overload(
-	function(command:EitherType<String, ShellQuotedString>, args:Array<EitherType<String, ShellQuotedString>>, ?options:ShellExecutionOptions):Void {})
+	@:overload(function(command:EitherType<String, ShellQuotedString>, args:Array<EitherType<String, ShellQuotedString>>,
+		?options:ShellExecutionOptions):Void {})
 	function new(commandLine:String, ?options:ShellExecutionOptions);
 
 	/**

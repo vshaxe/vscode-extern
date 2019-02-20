@@ -18,5 +18,6 @@ typedef CodeActionProvider = {
 	 * @return An array of commands, quick fixes, or refactorings or a thenable of such. The lack of a result can be
 	 * signaled by returning `undefined`, `null`, or an empty array.
 	 */
-	function provideCodeActions(document:TextDocument, range:EitherType<Range, Selection>, context:CodeActionContext, token:CancellationToken):ProviderResult<Array<EitherType<Command, CodeAction>>>;
+	function provideCodeActions(document:TextDocument, range:EitherType<Range, Selection>, context:CodeActionContext,
+		token:CancellationToken):ProviderResult<Array<EitherType<Command, CodeAction>>>;
 }

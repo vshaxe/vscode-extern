@@ -30,5 +30,6 @@ typedef DebugConfigurationProvider = {
 	 * @return The resolved debug configuration or undefined or null.
 	 */
 	@:optional // TODO: will that work?
-	function resolveDebugConfiguration(folder:Null<WorkspaceFolder>, debugConfiguration:DebugConfiguration, ?token:CancellationToken):ProviderResult<DebugConfiguration>;
+	function resolveDebugConfiguration(folder:Null<WorkspaceFolder>, debugConfiguration:DebugConfiguration,
+		?token:CancellationToken):ProviderResult<DebugConfiguration>;
 }

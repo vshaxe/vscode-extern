@@ -24,5 +24,6 @@ typedef DocumentColorProvider = {
 	 * @return An array of color presentations or a thenable that resolves to such. The lack of a result
 	 * can be signaled by returning `undefined`, `null`, or an empty array.
 	 */
-	function provideColorPresentations(color:Color, context:{document:TextDocument, range:Range}, token:CancellationToken):ProviderResult<Array<ColorPresentation>>;
+	function provideColorPresentations(color:Color, context:{document:TextDocument, range:Range},
+		token:CancellationToken):ProviderResult<Array<ColorPresentation>>;
 }
