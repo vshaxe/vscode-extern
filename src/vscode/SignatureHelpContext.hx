@@ -25,4 +25,12 @@ typedef SignatureHelpContext = {
 	 * typing a trigger character, a cursor move, or document content changes.
 	 */
 	var isRetrigger(default, null):Bool;
+
+	/**
+	 * The currently active [`SignatureHelp`](#SignatureHelp).
+	 *
+	 * The `activeSignatureHelp` has its [`SignatureHelp.activeSignature`] field updated based on
+	 * the user arrowing through available signatures.
+	 */
+	@:optional var activeSignatureHelp(default, null):SignatureHelp;
 }

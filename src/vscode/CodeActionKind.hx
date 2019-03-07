@@ -80,12 +80,20 @@ extern class CodeActionKind {
 	 * Base kind for an organize imports source action: `source.organizeImports`.
 	 */
 	static var SourceOrganizeImports(default, null):CodeActionKind;
+
+	/**
+	 * Base kind for auto-fix source actions: `source.fixAll`.
+	 *
+	 * Fix all actions automatically fix errors that have a clear fix that do not require user input.
+	 * They should not suppress errors or perform unsafe fixes such as generating new types or classes.
+	 */
+	static var SourceFixAll(default, null):CodeActionKind;
 	private function new(value:String);
 
 	/**
 	 * String value of the kind, e.g. `"refactor.extract.function"`.
 	 */
-	var value(default, null):Null<String>;
+	var value(default, null):String;
 
 	/**
 	 * Create a new kind by appending a more specific selector to the current kind.
