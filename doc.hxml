@@ -6,4 +6,4 @@
 -xml out/js.xml
 
 --next
--cmd haxelib run dox -i out -o out -in "^[vV]scode*" --title "Haxe externs for Visual Studio Code - API documentation" -D version 1.32.0 -D themeColor 0x141419 -D textColor 0xFFFFFF -D logo "https://avatars3.githubusercontent.com/u/19169749?v=3&s=100" -D source-path https://github.com/vshaxe/vscode-extern/blob/master/src/ -D website "https://github.com/vshaxe/"
+-cmd haxelib run dox -i out -o out -in "^[vV]scode*" --title "Haxe externs for Visual Studio Code - API documentation" -D version 1.33.0 -D themeColor 0x141419 -D textColor 0xFFFFFF -D logo "https://avatars3.githubusercontent.com/u/19169749?v=3&s=100" -D source-path https://github.com/vshaxe/vscode-extern/blob/master/src/ -D website "https://github.com/vshaxe/"

@@ -14,7 +14,7 @@ typedef StatusBarItem = {
 	 * The priority of this item. Higher value means the item should
 	 * be shown more to the left.
 	 */
-	var priority(default, null):Float;
+	@:optional var priority(default, null):Float;
 
 	/**
 	 * The text to show for the entry. You can embed icons in the text by leveraging the syntax:

@@ -599,12 +599,13 @@ extern class VscodeWindow {
 	 *
 	 * @param name Optional human-readable string which will be used to represent the terminal in the UI.
 	 * @param shellPath Optional path to a custom shell executable to be used in the terminal.
-	 * @param shellArgs Optional args for the custom shell executable, this does not work on Windows (see #8429)
+	 * @param shellArgs Optional args for the custom shell executable. A string can be used on Windows only which
+	 * allows specifying shell args in [command-line format](https://msdn.microsoft.com/en-au/08dfcab2-eb6e-49a4-80eb-87d4076c98c6).
 	 * @param options A TerminalOptions object describing the characteristics of the new terminal.
 	 * @return A new Terminal.
 	 */
 	@:overload(function(options:TerminalOptions):Terminal {})
-	function createTerminal(?name:String, ?shellPath:String, ?shellArgs:Array<String>):Terminal;
+	function createTerminal(?name:String, ?shellPath:String, ?shellArgs:EitherType<Array<String>, String>):Terminal;
 
 	/**
 	 * Register a [TreeDataProvider](#TreeDataProvider) for the view contributed using the extension point `views`.
@@ -1075,6 +1076,19 @@ extern class VscodeLanguages {
 	function registerFoldingRangeProvider(selector:DocumentSelector, provider:FoldingRangeProvider):Disposable;
 
 	/**
+	 * Register a selection range provider.
+	 *
+	 * Multiple providers can be registered for a language. In that case providers are asked in
+	 * parallel and the results are merged. A failing provider (rejected promise or exception) will
+	 * not cause a failure of the whole operation.
+	 *
+	 * @param selector A selector that defines the documents this provider is applicable to.
+	 * @param provider A selection range provider.
+	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+	 */
+	function registerSelectionRangeProvider(selector:DocumentSelector, provider:SelectionRangeProvider):Disposable;
+
+	/**
 	 * Set a [language configuration](#LanguageConfiguration) for a language.
 	 *
 	 * @param language A language identifier like `typescript`.
@@ -1469,9 +1483,11 @@ extern class VscodeDebug {
 	 * Folder specific variables used in the configuration (e.g. '${workspaceFolder}') are resolved against the given folder.
 	 * @param folder The [workspace folder](#WorkspaceFolder) for looking up named configurations and resolving variables or `undefined` for a non-folder setup.
 	 * @param nameOrConfiguration Either the name of a debug or compound configuration or a [DebugConfiguration](#DebugConfiguration) object.
+	 * @param parent If specified the newly created debug session is registered as a "child" session of a "parent" debug session.
 	 * @return A thenable that resolves when debugging could be successfully started.
 	 */
-	function startDebugging(folder:Null<WorkspaceFolder>, nameOrConfiguration:EitherType<String, DebugConfiguration>):Thenable<Bool>;
+	function startDebugging(folder:Null<WorkspaceFolder>, nameOrConfiguration:EitherType<String, DebugConfiguration>,
+		?parentSession:DebugSession):Thenable<Bool>;
 
 	/**
 	 * Add breakpoints.
