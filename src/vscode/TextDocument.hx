@@ -1,5 +1,11 @@
 package vscode;
 
+#if haxe4
+import js.lib.RegExp;
+#else
+import js.RegExp;
+#end
+
 /**
  * Represents a text document, such as a source file. Text documents have
  * [lines](#TextLine) and knowledge about an underlying resource like a file.
@@ -139,7 +145,7 @@ typedef TextDocument = {
 	 * @param regex Optional regular expression that describes what a word is.
 	 * @return A range spanning a word, or `undefined`.
 	 */
-	function getWordRangeAtPosition(position:Position, ?regex:js.RegExp):Null<Range>;
+	function getWordRangeAtPosition(position:Position, ?regex:RegExp):Null<Range>;
 
 	/**
 	 * Ensure a range is completely contained in this document.

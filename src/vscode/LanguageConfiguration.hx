@@ -1,5 +1,11 @@
 package vscode;
 
+#if haxe4
+import js.lib.RegExp;
+#else
+import js.RegExp;
+#end
+
 /**
  * The language configuration interfaces defines the contract between extensions
  * and various editor features, like automatic bracket insertion, automatic indentation etc.
@@ -23,7 +29,7 @@ typedef LanguageConfiguration = {
 	 * e.g.: A regex that matches anything except known separators (and dot is allowed to occur in a floating point number):
 	 *   /(-?\d*\.\d\w*)|([^\`\~\!\@\#\%\^\&\*\(\)\-\=\+\[\{\]\}\\\|\;\:\'\"\,\.\<\>\/\?\s]+)/g
 	 */
-	@:optional var wordPattern:js.RegExp;
+	@:optional var wordPattern:RegExp;
 
 	/**
 	 * The language's indentation settings.
