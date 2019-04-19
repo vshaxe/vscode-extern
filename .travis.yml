@@ -1,6 +1,5 @@
-dist: trusty
 language: haxe
-sudo: false
+dist: xenial
 haxe:
  - development
 
