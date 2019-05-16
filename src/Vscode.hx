@@ -157,6 +157,11 @@ extern class VscodeEnv {
 	var appRoot(default, null):String;
 
 	/**
+	 * The custom uri scheme the editor registers to in the operating system.
+	 */
+	var uriScheme(default, null):String;
+
+	/**
 	 * Represents the preferred user-language, like `de-CH`, `fr`, or `en-US`.
 	 */
 	var language(default, null):String;
@@ -633,7 +638,7 @@ extern class VscodeWindow {
 	 * be able to handle uris which are directed to the extension itself. A uri must respect
 	 * the following rules:
 	 *
-	 * - The uri-scheme must be the product name;
+	 * - The uri-scheme must be `vscode.env.uriScheme`;
 	 * - The uri-authority must be the extension id (eg. `my.extension`);
 	 * - The uri-path, -query and -fragment parts are arbitrary.
 	 *

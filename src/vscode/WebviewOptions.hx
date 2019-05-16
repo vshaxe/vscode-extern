@@ -26,4 +26,16 @@ typedef WebviewOptions = {
 	 * Pass in an empty array to disallow access to any local resources.
 	 */
 	@:optional var localResourceRoots(default, null):ReadonlyArray<Uri>;
+
+	/**
+	 * Mappings of localhost ports used inside the webview.
+	 *
+	 * Port mapping allow webviews to transparently define how localhost ports are resolved. This can be used
+	 * to allow using a static localhost port inside the webview that is resolved to random port that a service is
+	 * running on.
+	 *
+	 * If a webview accesses localhost content, we recomend that you specify port mappings even if
+	 * the `webviewPort` and `extensionHostPort` ports are the same.
+	 */
+	@:optional var portMapping(default, null):ReadonlyArray<WebviewPortMapping>;
 }
