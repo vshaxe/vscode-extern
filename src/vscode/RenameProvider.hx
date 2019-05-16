@@ -29,6 +29,7 @@ typedef RenameProvider = {
 	 * @return The range or range and placeholder text of the identifier that is to be renamed. The lack of a result can signaled by returning `undefined` or `null`.
 	 */
 	@:optional var prepareRename:TextDocument->Position->CancellationToken->ProviderResult<EitherType<Range, {range:Range, placeholder:String}>>;
+
 	// TODO: use Haxe 4 function types whenever we drop Haxe 3.4 support for the externs (lets us have argument names)
 	// function prepareRename?(document: TextDocument, position: Position, token: CancellationToken): ProviderResult<Range | { range: Range, placeholder: string }>;
 }

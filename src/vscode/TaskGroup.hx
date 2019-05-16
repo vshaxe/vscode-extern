@@ -25,5 +25,6 @@ extern class TaskGroup {
 	 * The test all task group;
 	 */
 	public static var Test:TaskGroup;
+
 	private function new(id:String, label:String);
 }

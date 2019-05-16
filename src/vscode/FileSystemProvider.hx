@@ -51,6 +51,7 @@ typedef FileSystemProvider = {
 	 * @throws [`FileNotFound`](#FileSystemError.FileNotFound) when `uri` doesn't exist.
 	 */
 	function stat(uri:Uri):EitherType<FileStat, Thenable<FileStat>>;
+
 	// TODO: how to represent tuples?
 	/**
 	 * Retrieve all entries of a [directory](#FileType.Directory).
@@ -129,6 +130,7 @@ typedef FileSystemProvider = {
 	 * @throws [`NoPermissions`](#FileSystemError.NoPermissions) when permissions aren't sufficient.
 	 */
 	@:optional var copy:Uri->Uri->{overwrite:Bool}->EitherType<Void, Thenable<Void>>;
+
 	// TODO: use Haxe 4 function types whenever we drop Haxe 3.4 support for the externs (lets us have argument names)
 	// copy?(source: Uri, destination: Uri, options: { overwrite: boolean }): void | Thenable<void>;
 }

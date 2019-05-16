@@ -97,6 +97,7 @@ extern class Vscode {
 	 * score is used for determining the order in which providers are asked to participate.
 	 */
 	static var languages(default, null):VscodeLanguages;
+
 	static var scm(default, null):VscodeScm;
 
 	/**
@@ -934,8 +935,7 @@ extern class VscodeLanguages {
 	 * @param metaData metadata about the provider
 	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
 	 */
-	function registerDocumentSymbolProvider(selector:DocumentSelector, provider:DocumentSymbolProvider,
-		?metaData:DocumentSymbolProviderMetadata):Disposable;
+	function registerDocumentSymbolProvider(selector:DocumentSelector, provider:DocumentSymbolProvider, ?metaData:DocumentSymbolProviderMetadata):Disposable;
 
 	/**
 	 * Register a workspace symbol provider.
@@ -1212,8 +1212,7 @@ extern class VscodeWorkspace {
 	 * @param ignoreDeleteEvents Ignore when files have been deleted.
 	 * @return A new file system watcher instance.
 	 */
-	function createFileSystemWatcher(globPattern:GlobPattern, ?ignoreCreateEvents:Bool, ?ignoreChangeEvents:Bool,
-		?ignoreDeleteEvents:Bool):FileSystemWatcher;
+	function createFileSystemWatcher(globPattern:GlobPattern, ?ignoreCreateEvents:Bool, ?ignoreChangeEvents:Bool, ?ignoreDeleteEvents:Bool):FileSystemWatcher;
 
 	/**
 	 * Find files across all [workspace folders](#workspace.workspaceFolders) in the workspace.

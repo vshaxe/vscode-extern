@@ -88,6 +88,7 @@ extern class CodeActionKind {
 	 * They should not suppress errors or perform unsafe fixes such as generating new types or classes.
 	 */
 	static var SourceFixAll(default, null):CodeActionKind;
+
 	private function new(value:String);
 
 	/**

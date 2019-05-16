@@ -16,6 +16,7 @@ extern class SnippetString {
 	 * The snippet string.
 	 */
 	var value:String;
+
 	function new(?value:String);
 
 	/**
