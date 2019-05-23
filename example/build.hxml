@@ -1,5 +1,5 @@
 -cp src
 -lib vscode
--js hellohaxe.js
+-js bin/extension.js
 -debug
-HelloHaxe
+Main

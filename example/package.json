@@ -8,7 +8,7 @@
 	"activationEvents": [
 		"onCommand:hellohaxe.sayHello"
 	],
-	"main": "./hellohaxe",
+	"main": "bin/extension.js",
 	"contributes": {
 		"commands": [
 			{
