@@ -1,5 +1,7 @@
 -cp src
 -lib vscode
 -js bin/extension.js
+-D analyzer-optimize
+-D js-es=6
 -debug
 Main
