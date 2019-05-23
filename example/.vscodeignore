@@ -1,0 +1,4 @@
+.vscode
+bin/*.map
+src
+build.hxml
