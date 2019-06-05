@@ -144,6 +144,8 @@ extern class Vscode {
 	 * Namespace for tasks functionality.
 	 */
 	static var tasks(default, null):VscodeTasks;
+
+	static var comments(default, null):VscodeComments;
 }
 
 extern class VscodeEnv {
@@ -1577,4 +1579,15 @@ extern class VscodeTasks {
 	 * execute an underlying process.
 	 */
 	var onDidEndTaskProcess(default, null):Event<TaskProcessEndEvent>;
+}
+
+extern class VscodeComments {
+	/**
+	 * Creates a new [comment controller](#CommentController) instance.
+	 *
+	 * @param id An `id` for the comment controller.
+	 * @param label A human-readable string for the comment controller.
+	 * @return An instance of [comment controller](#CommentController).
+	 */
+	function createCommentController(id:String, label:String):CommentController;
 }

@@ -3,8 +3,8 @@ package vscode;
 /**
  * A type that filesystem providers should use to signal errors.
  *
- * This class has factory methods for common error-cases, like `EntryNotFound` when
- * a file or folder doesn't exist, use them like so: `throw vscode.FileSystemError.EntryNotFound(someUri);`
+ * This class has factory methods for common error-cases, like `FileNotFound` when
+ * a file or folder doesn't exist, use them like so: `throw vscode.FileSystemError.FileNotFound(someUri);`
  */
 @:jsRequire("vscode", "FileSystemError")
 extern class FileSystemError extends Error {
