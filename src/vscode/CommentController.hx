@@ -33,6 +33,11 @@ typedef CommentController = {
 	function createCommentThread(uri:Uri, range:Range, comments:Array<Comment>):CommentThread;
 
 	/**
+	 * Optional reaction handler for creating and deleting reactions on a [comment](#Comment).
+	 */
+	@:optional var reactionHandler:(comment:Comment, reaction:CommentReaction) -> Promise<Void>;
+
+	/**
 	 * Dispose this comment controller.
 	 *
 	 * Once disposed, all [comment threads](#CommentThread) created by this comment controller will also be removed from the editor

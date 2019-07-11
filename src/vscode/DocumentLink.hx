@@ -17,6 +17,15 @@ extern class DocumentLink {
 	var target:Null<Uri>;
 
 	/**
+	 * The tooltip text when you hover over this link.
+	 *
+	 * If a tooltip is provided, is will be displayed in a string that includes instructions on how to
+	 * trigger the link, such as `{0} (ctrl + click)`. The specific instructions vary depending on OS,
+	 * user settings, and localization.
+	 */
+	@:optional var tooltip:String;
+
+	/**
 	 * Creates a new document link.
 	 *
 	 * @param range The range the document link applies to. Must not be empty.

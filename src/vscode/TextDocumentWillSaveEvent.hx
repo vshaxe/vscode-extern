@@ -11,12 +11,12 @@ typedef TextDocumentWillSaveEvent = {
 	/**
 	 * The document that will be saved.
 	 */
-	var document:TextDocument;
+	var document(default, null):TextDocument;
 
 	/**
 	 * The reason why save was triggered.
 	 */
-	var reason:TextDocumentSaveReason;
+	var reason(default, null):TextDocumentSaveReason;
 
 	/**
 	 * Allows to pause the event loop and to apply [pre-save-edits](#TextEdit).

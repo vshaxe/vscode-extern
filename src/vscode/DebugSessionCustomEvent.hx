@@ -7,15 +7,15 @@ typedef DebugSessionCustomEvent = {
 	/**
 	 * The [debug session](#DebugSession) for which the custom event was received.
 	 */
-	var session:DebugSession;
+	var session(default, null):DebugSession;
 
 	/**
 	 * Type of event.
 	 */
-	var event:String;
+	var event(default, null):String;
 
 	/**
 	 * Event specific information.
 	 */
-	@:optional var body:Any;
+	@:optional var body(default, null):Any;
 }

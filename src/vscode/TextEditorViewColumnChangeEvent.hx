@@ -7,10 +7,10 @@ typedef TextEditorViewColumnChangeEvent = {
 	/**
 	 * The [text editor](#TextEditor) for which the view column has changed.
 	 */
-	var textEditor:TextEditor;
+	var textEditor(default, null):TextEditor;
 
 	/**
 	 * The new value for the [text editor's view column](#TextEditor.viewColumn).
 	 */
-	var viewColumn:ViewColumn;
+	var viewColumn(default, null):ViewColumn;
 }

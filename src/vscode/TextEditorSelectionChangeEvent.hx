@@ -7,16 +7,16 @@ typedef TextEditorSelectionChangeEvent = {
 	/**
 	 * The [text editor](#TextEditor) for which the selections have changed.
 	 */
-	var textEditor:TextEditor;
+	var textEditor(default, null):TextEditor;
 
 	/**
 	 * The new value for the [text editor's selections](#TextEditor.selections).
 	 */
-	var selections:Array<Selection>;
+	var selections(default, null):ReadonlyArray<Selection>;
 
 	/**
 	 * The [change kind](#TextEditorSelectionChangeKind) which has triggered this
 	 * event. Can be `undefined`.
 	 */
-	@:optional var kind:TextEditorSelectionChangeKind;
+	@:optional var kind(default, null):TextEditorSelectionChangeKind;
 }

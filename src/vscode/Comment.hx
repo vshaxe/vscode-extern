@@ -23,7 +23,7 @@ typedef Comment = {
 	 * Context value of the comment. This can be used to contribute comment specific actions.
 	 * For example, a comment is given a context value as `editable`. When contributing actions to `comments/comment/title`
 	 * using `menus` extension point, you can specify context value for key `comment` in `when` expression like `comment == editable`.
-	 * ```
+	 * ```json
 	 *	"contributes": {
 	 *		"menus": {
 	 *			"comments/comment/title": [
@@ -38,6 +38,11 @@ typedef Comment = {
 	 * This will show action `extension.deleteComment` only for comments with `contextValue` is `editable`.
 	 */
 	@:optional var contextValue:String;
+
+	/**
+	 * Optional reactions of the [comment](#Comment)
+	 */
+	@:optional var reactions:Array<CommentReaction>;
 
 	/**
 	 * Optional label describing the [Comment](#Comment)

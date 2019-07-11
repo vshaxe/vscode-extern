@@ -186,6 +186,17 @@ extern class VscodeEnv {
 	var sessionId(default, null):String;
 
 	/**
+	 * The name of a remote. Defined by extensions, popular samples are `wsl` for the Windows
+	 * Subsystem for Linux or `ssh-remote` for remotes using a secure shell.
+	 *
+	 * *Note* that the value is `undefined` when there is no remote extension host but that the
+	 * value is defined in all extension hosts (local and remote) in case a remote extension host
+	 * exists. Use [`Extension#extensionKind`](#Extension.extensionKind) to know if
+	 * a specific extension runs remote or not.
+	 */
+	var remoteName(default, null):Null<String>;
+
+	/**
 	 * Opens an *external* item, e.g. a http(s) or mailto-link, using the
 	 * default application.
 	 *
@@ -642,7 +653,7 @@ extern class VscodeWindow {
 	 * the following rules:
 	 *
 	 * - The uri-scheme must be `vscode.env.uriScheme`;
-	 * - The uri-authority must be the extension id (eg. `my.extension`);
+	 * - The uri-authority must be the extension id (e.g. `my.extension`);
 	 * - The uri-path, -query and -fragment parts are arbitrary.
 	 *
 	 * For example, if the `my.extension` extension registers a uri handler, it will only
@@ -683,7 +694,7 @@ extern class VscodeExtensions {
 	/**
 	 * All extensions currently known to the system.
 	 */
-	var all(default, null):Array<Extension<Any>>;
+	var all(default, null):ReadonlyArray<Extension<Any>>;
 
 	/**
 	 * An event which fires when `extensions.all` changes. This can happen when extensions are
@@ -705,9 +716,9 @@ extern class VscodeScm {
 	/**
 	 * Creates a new [source control](#SourceControl) instance.
 	 *
-	 * @param id An `id` for the source control. Something short, eg: `git`.
-	 * @param label A human-readable string for the source control. Eg: `Git`.
-	 * @param rootUri An optional Uri of the root of the source control. Eg: `Uri.parse(workspaceRoot)`.
+	 * @param id An `id` for the source control. Something short, e.g.: `git`.
+	 * @param label A human-readable string for the source control. E.g.: `Git`.
+	 * @param rootUri An optional Uri of the root of the source control. E.g.: `Uri.parse(workspaceRoot)`.
 	 * @return An instance of [source control](#SourceControl).
 	 */
 	function createSourceControl(id:String, label:String, ?rootUri:Uri):SourceControl;

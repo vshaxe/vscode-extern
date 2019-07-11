@@ -8,10 +8,10 @@ typedef TaskProcessEndEvent = {
 	/**
 	 * The task execution for which the process got started.
 	 */
-	var execution:TaskExecution;
+	var execution(default, null):TaskExecution;
 
 	/**
 	 * The process's exit code.
 	 */
-	var exitCode:Int;
+	var exitCode(default, null):Int;
 }

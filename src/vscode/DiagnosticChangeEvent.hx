@@ -7,5 +7,5 @@ typedef DiagnosticChangeEvent = {
 	/**
 	 * An array of resources for which diagnostics have changed.
 	 */
-	var uris(default, null):Array<Uri>;
+	var uris(default, null):ReadonlyArray<Uri>;
 }

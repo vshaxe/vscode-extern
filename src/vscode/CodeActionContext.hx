@@ -8,7 +8,7 @@ typedef CodeActionContext = {
 	/**
 	 * An array of diagnostics.
 	 */
-	var diagnostics(default, null):Array<Diagnostic>;
+	var diagnostics(default, null):ReadonlyArray<Diagnostic>;
 
 	/**
 	 * Requested kind of actions to return.

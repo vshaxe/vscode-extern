@@ -32,7 +32,7 @@ typedef TextEditor = {
 
 	/**
 	 * The column in which this editor shows. Will be `undefined` in case this
-	 * isn't one of the main editors, e.g an embedded editor, or when the editor
+	 * isn't one of the main editors, e.g. an embedded editor, or when the editor
 	 * column is larger than three.
 	 */
 	@:optional var viewColumn:ViewColumn;
@@ -61,7 +61,8 @@ typedef TextEditor = {
 	 * @return A promise that resolves with a value indicating if the snippet could be inserted. Note that the promise does not signal
 	 * that the snippet is completely filled-in or accepted.
 	 */
-	function insertSnippet(snippet:SnippetString, ?location:EitherType<Position, EitherType<Range, EitherType<Array<Position>, Array<Range>>>>,
+	function insertSnippet(snippet:SnippetString,
+		?location:EitherType<Position, EitherType<Range, EitherType<ReadonlyArray<Position>, ReadonlyArray<Range>>>>,
 		?options:{undoStopBefore:Bool, undoStopAfter:Bool}):Thenable<Bool>;
 
 	/**

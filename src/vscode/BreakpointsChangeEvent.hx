@@ -7,15 +7,15 @@ typedef BreakpointsChangeEvent = {
 	/**
 	 * Added breakpoints.
 	 */
-	var added(default, never):Array<Breakpoint>;
+	var added(default, never):ReadonlyArray<Breakpoint>;
 
 	/**
 	 * Removed breakpoints.
 	 */
-	var removed(default, never):Array<Breakpoint>;
+	var removed(default, never):ReadonlyArray<Breakpoint>;
 
 	/**
 	 * Changed breakpoints.
 	 */
-	var changed(default, never):Array<Breakpoint>;
+	var changed(default, never):ReadonlyArray<Breakpoint>;
 }

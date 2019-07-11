@@ -7,10 +7,10 @@ typedef FileChangeEvent = {
 	/**
 	 * The type of change.
 	 */
-	var type:FileChangeType;
+	var type(default, null):FileChangeType;
 
 	/**
 	 * The uri of the file that has changed.
 	 */
-	var uri:Uri;
+	var uri(default, null):Uri;
 }

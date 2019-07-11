@@ -13,7 +13,7 @@ extern class DocumentSymbol {
 	var name:String;
 
 	/**
-	 * More detail for this symbol, e.g the signature of a function.
+	 * More detail for this symbol, e.g. the signature of a function.
 	 */
 	var detail:String;
 
@@ -23,12 +23,12 @@ extern class DocumentSymbol {
 	var kind:SymbolKind;
 
 	/**
-	 * The range enclosing this symbol not including leading/trailing whitespace but everything else, e.g comments and code.
+	 * The range enclosing this symbol not including leading/trailing whitespace but everything else, e.g. comments and code.
 	 */
 	var range:Range;
 
 	/**
-	 * The range that should be selected and reveal when this symbol is being picked, e.g the name of a function.
+	 * The range that should be selected and reveal when this symbol is being picked, e.g. the name of a function.
 	 * Must be contained by the [`range`](#DocumentSymbol.range).
 	 */
 	var selectionRange:Range;

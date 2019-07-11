@@ -8,10 +8,10 @@ typedef TaskProcessStartEvent = {
 	/**
 	 * The task execution for which the process got started.
 	 */
-	var execution:TaskExecution;
+	var execution(default, null):TaskExecution;
 
 	/**
 	 * The underlying process id.
 	 */
-	var processId:Int;
+	var processId(default, null):Int;
 }

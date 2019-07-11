@@ -7,10 +7,10 @@ typedef TextEditorVisibleRangesChangeEvent = {
 	/**
 	 * The [text editor](#TextEditor) for which the visible ranges have changed.
 	 */
-	var textEditor:TextEditor;
+	var textEditor(default,null):TextEditor;
 
 	/**
 	 * The new value for the [text editor's visible ranges](#TextEditor.visibleRanges).
 	 */
-	var visibleRanges:Array<Range>;
+	var visibleRanges(default,null):ReadonlyArray<Range>;
 }

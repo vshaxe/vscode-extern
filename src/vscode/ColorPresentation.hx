@@ -6,7 +6,7 @@ package vscode;
  *
  * For some languages one color can have multiple presentations, e.g. css can represent the color red with
  * the constant `Red`, the hex-value `#ff0000`, or in rgba and hsla forms. In csharp other representations
- * apply, e.g `System.Drawing.Color.Red`.
+ * apply, e.g. `System.Drawing.Color.Red`.
  */
 @:jsRequire("vscode", "ColorPresentation")
 extern class ColorPresentation {

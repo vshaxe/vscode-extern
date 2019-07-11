@@ -9,5 +9,5 @@ typedef TaskStartEvent = {
 	/**
 	 * The task item representing the task that got started.
 	 */
-	var execution:TaskExecution;
+	var execution(default, null):TaskExecution;
 }

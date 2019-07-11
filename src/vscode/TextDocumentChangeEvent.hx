@@ -7,10 +7,10 @@ typedef TextDocumentChangeEvent = {
 	/**
 	 * The affected document.
 	 */
-	var document:TextDocument;
+	var document(default, null):TextDocument;
 
 	/**
 	 * An array of content changes.
 	 */
-	var contentChanges:Array<TextDocumentContentChangeEvent>;
+	var contentChanges(default, null):ReadonlyArray<TextDocumentContentChangeEvent>;
 }

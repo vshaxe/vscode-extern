@@ -7,10 +7,10 @@ typedef TextEditorOptionsChangeEvent = {
 	/**
 	 * The [text editor](#TextEditor) for which the options have changed.
 	 */
-	var textEditor:TextEditor;
+	var textEditor(default, null):TextEditor;
 
 	/**
 	 * The new value for the [text editor's options](#TextEditor.options).
 	 */
-	var options:TextEditorOptions;
+	var options(default, null):TextEditorOptions;
 }

@@ -1,11 +1,11 @@
 #if haxe4
 import js.lib.Error;
 import js.lib.RegExp;
-import js.lib.Promise.Thenable;
+import js.lib.Promise;
 #else
 import js.Error;
 import js.RegExp;
-import js.Promise.Thenable;
+import js.Promise;
 #end
 import ts.ReadonlyArray;
 import haxe.Constraints.Function;

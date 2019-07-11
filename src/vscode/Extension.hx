@@ -27,6 +27,15 @@ typedef Extension<T> = {
 	var packageJSON(default, null):Any;
 
 	/**
+	 * The extension kind describes if an extension runs where the UI runs
+	 * or if an extension runs where the remote extension host runs. The extension kind
+	 * if defined in the `package.json` file of extensions but can also be refined
+	 * via the the `remote.extensionKind`-setting. When no remote extension host exists,
+	 * the value is [`ExtensionKind.UI`](#ExtensionKind.UI).
+	 */
+	var extensionKind:ExtensionKind;
+
+	/**
 	 * The public API exported by this extension. It is an invalid action
 	 * to access this field before this extension has been activated.
 	 */
