@@ -12,24 +12,24 @@ typedef ExtensionContext = {
 	 * An array to which disposables can be added. When this
 	 * extension is deactivated the disposables will be disposed.
 	 */
-	var subscriptions:Array<{function dispose():Void;}>;
+	var subscriptions(default, null):Array<{function dispose():Void;}>;
 
 	/**
 	 * A memento object that stores state in the context
 	 * of the currently opened [workspace](#workspace.workspaceFolders).
 	 */
-	var workspaceState:Memento;
+	var workspaceState(default, null):Memento;
 
 	/**
 	 * A memento object that stores state independent
 	 * of the current opened [workspace](#workspace.workspaceFolders).
 	 */
-	var globalState:Memento;
+	var globalState(default, null):Memento;
 
 	/**
 	 * The absolute file path of the directory containing the extension.
 	 */
-	var extensionPath:String;
+	var extensionPath(default, null):String;
 
 	/**
 	 * Get the absolute path of a resource contained in the extension.
@@ -47,7 +47,7 @@ typedef ExtensionContext = {
 	 * Use [`workspaceState`](#ExtensionContext.workspaceState) or
 	 * [`globalState`](#ExtensionContext.globalState) to store key value data.
 	 */
-	var storagePath:Null<String>;
+	var storagePath(default, null):Null<String>;
 
 	/**
 	 * An absolute file path in which the extension can store global state.
@@ -56,12 +56,12 @@ typedef ExtensionContext = {
 	 *
 	 * Use [`globalState`](#ExtensionContext.globalState) to store key value data.
 	 */
-	var globalStoragePath:String;
+	var globalStoragePath(default, null):String;
 
 	/**
 	 * An absolute file path of a directory in which the extension can create log files.
 	 * The directory might not exist on disk and creation is up to the extension. However,
 	 * the parent directory is guaranteed to be existent.
 	 */
-	var logPath:String;
+	var logPath(default, null):String;
 }

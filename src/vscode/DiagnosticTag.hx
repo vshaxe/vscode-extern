@@ -16,4 +16,11 @@ package vscode;
 	 * instead of fading it out.
 	 */
 	var Unnecessary;
+
+	/**
+	 * Deprecated or obsolete code.
+	 *
+	 * Diagnostics with this tag are rendered with a strike through.
+	 */
+	var Deprecated;
 }

@@ -197,6 +197,12 @@ extern class VscodeEnv {
 	var remoteName(default, null):Null<String>;
 
 	/**
+	 * The detected default shell for the extension host, this is overridden by the
+	 * `terminal.integrated.shell` setting for the extension host's platform.
+	 */
+	var shell(default, null):String;
+
+	/**
 	 * Opens an *external* item, e.g. a http(s) or mailto-link, using the
 	 * default application.
 	 *
@@ -1118,6 +1124,14 @@ extern class VscodeLanguages {
 
 extern class VscodeWorkspace {
 	/**
+	 * A [file system](#FileSystem) instance that allows to interact with local and remote
+	 * files, e.g. `vscode.workspace.fs.readDirectory(someUri)` allows to retrieve all entries
+	 * of a directory or `vscode.workspace.fs.stat(anotherUri)` returns the meta data for a
+	 * file.
+	 */
+	var fs(default, null):FileSystem;
+
+	/**
 	 * ~~The folder that is open in the editor. `undefined` when no folder
 	 * has been opened.~~
 	 *
@@ -1137,6 +1151,37 @@ extern class VscodeWorkspace {
 	 * has been opened.
 	 */
 	var name(default, null):Null<String>;
+
+	/**
+	 * The location of the workspace file, for example:
+	 *
+	 * `file:///Users/name/Development/myProject.code-workspace`
+	 *
+	 * or
+	 *
+	 * `untitled:1555503116870`
+	 *
+	 * for a workspace that is untitled and not yet saved.
+	 *
+	 * Depending on the workspace that is opened, the value will be:
+	 *  * `undefined` when no workspace or  a single folder is opened
+	 *  * the path of the workspace file as `Uri` otherwise. if the workspace
+	 * is untitled, the returned URI will use the `untitled:` scheme
+	 *
+	 * The location can e.g. be used with the `vscode.openFolder` command to
+	 * open the workspace again after it has been closed.
+	 *
+	 * **Example:**
+	 * ```typescript
+	 * vscode.commands.executeCommand('vscode.openFolder', uriOfWorkspace);
+	 * ```
+	 *
+	 * **Note:** it is not advised to use `workspace.workspaceFile` to write
+	 * configuration data into the file. You can use `workspace.getConfiguration().update()`
+	 * for that purpose which will work both when a single folder is opened as
+	 * well as an untitled or saved workspace.
+	 */
+	var workspaceFile(default, null):Null<Uri>;
 
 	/**
 	 * An event that is emitted when a workspace folder is added or removed.
@@ -1550,7 +1595,7 @@ extern class VscodeTasks {
 	 * from `tasks.json` files as well as tasks from task providers
 	 * contributed through extensions.
 	 *
-	 * @param filter a filter to filter the return tasks.
+	 * @param filter Optional filter to select tasks of a certain type or version.
 	 */
 	function fetchTasks(?filter:TaskFilter):Thenable<Array<Task>>;
 
