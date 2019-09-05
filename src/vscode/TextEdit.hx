@@ -56,7 +56,7 @@ extern class TextEdit {
 	 * *Note* that the eol-sequence will be applied to the
 	 * whole document.
 	 */
-	var newEol:EndOfLine;
+	var newEol:Null<EndOfLine>;
 
 	/**
 	 * Create a new TextEdit.
