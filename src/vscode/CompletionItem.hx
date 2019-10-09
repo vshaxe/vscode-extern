@@ -31,6 +31,11 @@ extern class CompletionItem {
 	var kind:Null<CompletionItemKind>;
 
 	/**
+	 * Tags for this completion item.
+	 */
+	var tags:Null<ReadonlyArray<CompletionItemTag>>;
+
+	/**
 	 * A human-readable string with additional information
 	 * about this item, like type or symbol information.
 	 */

@@ -40,6 +40,12 @@ typedef TreeView<T> = {
 	var onDidChangeVisibility(default, null):Event<TreeViewVisibilityChangeEvent>;
 
 	/**
+	 * An optional human-readable message that will be rendered in the view.
+	 * Setting the message to null, undefined, or empty string will remove the message from the view.
+	 */
+	@:optional var message:String;
+
+	/**
 	 * Reveals the given element in the tree view.
 	 * If the tree view is not visible then the tree view is shown and element is revealed.
 	 *

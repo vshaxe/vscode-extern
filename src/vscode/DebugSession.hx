@@ -10,14 +10,15 @@ typedef DebugSession = {
 	var id(default, null):String;
 
 	/**
-	 * The debug session's type from the [debug configuration](#DebugConfiguration).
+	 * The debug session's name is initially taken from the [debug configuration](#DebugConfiguration).
+	 * Any changes will be properly reflected in the UI.
 	 */
 	var type(default, null):String;
 
 	/**
 	 * The debug session's name from the [debug configuration](#DebugConfiguration).
 	 */
-	var name(default, null):String;
+	var name:String;
 
 	/**
 	 * The workspace folder of this session or `undefined` for a folderless setup.

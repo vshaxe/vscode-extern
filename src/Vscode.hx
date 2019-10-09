@@ -619,17 +619,21 @@ extern class VscodeWindow {
 	function createStatusBarItem(?alignment:StatusBarAlignment, ?priority:Float):StatusBarItem;
 
 	/**
-	 * Creates a [Terminal](#Terminal). The cwd of the terminal will be the workspace directory
-	 * if it exists, regardless of whether an explicit customStartPath setting exists.
+	 * Creates a [Terminal](#Terminal) with a backing shell process. The cwd of the terminal will be the workspace
+	 * directory if it exists.
 	 *
 	 * @param name Optional human-readable string which will be used to represent the terminal in the UI.
 	 * @param shellPath Optional path to a custom shell executable to be used in the terminal.
 	 * @param shellArgs Optional args for the custom shell executable. A string can be used on Windows only which
-	 * allows specifying shell args in [command-line format](https://msdn.microsoft.com/en-au/08dfcab2-eb6e-49a4-80eb-87d4076c98c6).
+	 * allows specifying shell args in
+	 * [command-line format](https://msdn.microsoft.com/en-au/08dfcab2-eb6e-49a4-80eb-87d4076c98c6).
 	 * @param options A TerminalOptions object describing the characteristics of the new terminal.
+	 * @param options An [ExtensionTerminalOptions](#ExtensionTerminalOptions) object describing
+	 * the characteristics of the new terminal.
 	 * @return A new Terminal.
 	 */
 	@:overload(function(options:TerminalOptions):Terminal {})
+	@:overload(function(options:ExtensionTerminalOptions):Terminal {})
 	function createTerminal(?name:String, ?shellPath:String, ?shellArgs:EitherType<Array<String>, String>):Terminal;
 
 	/**
@@ -1331,7 +1335,8 @@ extern class VscodeWorkspace {
 	 * * `file`-scheme: Open a file on disk, will be rejected if the file does not exist or cannot be loaded.
 	 * * `untitled`-scheme: A new file that should be saved on disk, e.g. `untitled:c:\frodo\new.js`. The language
 	 * will be derived from the file name.
-	 * * For all other schemes the registered text document content [providers](#TextDocumentContentProvider) are consulted.
+	 * * For all other schemes contributed [text document content providers](#TextDocumentContentProvider) and
+	 * [file system providers](#FileSystemProvider) are consulted.
 	 *
 	 * *Note* that the lifecycle of the returned document is owned by the editor and not by the extension. That means an
 	 * [`onDidClose`](#workspace.onDidCloseTextDocument)-event can occur at any time after opening it.
@@ -1460,7 +1465,8 @@ extern class VscodeWorkspace {
 	 * @param options Immutable metadata about the provider.
 	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
 	 */
-	function registerFileSystemProvider(scheme:String, provider:FileSystemProvider, options:{?isCaseSensitive:Bool, ?isReadonly:Bool}):Disposable;
+	function registerFileSystemProvider(scheme:String, provider:FileSystemProvider,
+		options:{@:optional var isCaseSensitive(default, null):Bool; @:optional var isReadonly(default, null):Bool;}):Disposable;
 }
 
 extern class VscodeDebug {

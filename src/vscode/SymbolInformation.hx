@@ -22,6 +22,11 @@ extern class SymbolInformation {
 	var kind:SymbolKind;
 
 	/**
+	 * Tags for this symbol.
+	 */
+	var tags:Null<ReadonlyArray<SymbolTag>>;
+
+	/**
 	 * The location of this symbol.
 	 */
 	var location:Location;

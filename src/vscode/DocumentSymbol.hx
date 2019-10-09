@@ -23,6 +23,11 @@ extern class DocumentSymbol {
 	var kind:SymbolKind;
 
 	/**
+	 * Tags for this symbol.
+	 */
+	var tags:Null<ReadonlyArray<SymbolTag>>;
+
+	/**
 	 * The range enclosing this symbol not including leading/trailing whitespace but everything else, e.g. comments and code.
 	 */
 	var range:Range;
