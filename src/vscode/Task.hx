@@ -20,7 +20,7 @@ extern class Task {
 	@:overload(function(taskDefinition:TaskDefinition, name:String, source:String, ?execution:EitherType<ProcessExecution, ShellExecution>,
 		?problemMatchers:EitherType<String, Array<String>>):Void {}) // deprecated
 	function new(taskDefinition:TaskDefinition, target:EitherType<WorkspaceFolder, TaskScope>, name:String, source:String,
-		?execution:EitherType<ProcessExecution, ShellExecution>, ?problemMatchers:EitherType<String, Array<String>>);
+		?execution:EitherType<ProcessExecution, EitherType<ShellExecution, CustomExecution>>, ?problemMatchers:EitherType<String, Array<String>>);
 
 	/**
 	 * The task's definition.
@@ -40,7 +40,7 @@ extern class Task {
 	/**
 	 * The task's execution engine
 	 */
-	var execution:Null<EitherType<ProcessExecution, ShellExecution>>;
+	var execution:Null<EitherType<ProcessExecution, EitherType<ShellExecution, CustomExecution>>>;
 
 	/**
 	 * Whether the task is a background task or not.

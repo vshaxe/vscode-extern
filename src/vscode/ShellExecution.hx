@@ -22,9 +22,9 @@ extern class ShellExecution {
 	function new(commandLine:String, ?options:ShellExecutionOptions);
 
 	/**
-	 * The shell command line
+	 * The shell command line. Is `undefined` if created with a command and arguments.
 	 */
-	var commandLine:String;
+	var commandLine:Null<String>;
 
 	/**
 	 * The shell command. Is `undefined` if created with a full command line.

@@ -203,8 +203,18 @@ extern class VscodeEnv {
 	var shell(default, null):String;
 
 	/**
-	 * Opens an *external* item, e.g. a http(s) or mailto-link, using the
-	 * default application.
+	 * The UI kind property indicates from which UI extensions
+	 * are accessed from. For example, extensions could be accessed
+	 * from a desktop application or a web browser.
+	 */
+	var uiKind(default, null):UIKind;
+
+	/**
+	 * Opens a link externally using the default application. Depending on the
+	 * used scheme this can be:
+	 * * a browser (`http:`, `https:`)
+	 * * a mail client (`mailto:`)
+	 * * VSCode itself (`vscode:` from `vscode.env.uriScheme`)
 	 *
 	 * *Note* that [`showTextDocument`](#window.showTextDocument) is the right
 	 * way to open a text document inside the editor, not this function.
@@ -213,6 +223,57 @@ extern class VscodeEnv {
 	 * @returns A promise indicating if open was successful.
 	 */
 	function openExternal(target:Uri):Thenable<Bool>;
+
+	/**
+	 * Resolves a uri to form that is accessible externally. Currently only supports `https:`, `http:` and
+	 * `vscode.env.uriScheme` uris.
+	 *
+	 * #### `http:` or `https:` scheme
+	 *
+	 * Resolves an *external* uri, such as a `http:` or `https:` link, from where the extension is running to a
+	 * uri to the same resource on the client machine.
+	 *
+	 * This is a no-op if the extension is running on the client machine.
+	 *
+	 * If the extension is running remotely, this function automatically establishes a port forwarding tunnel
+	 * from the local machine to `target` on the remote and returns a local uri to the tunnel. The lifetime of
+	 * the port fowarding tunnel is managed by VS Code and the tunnel can be closed by the user.
+	 *
+	 * *Note* that uris passed through `openExternal` are automatically resolved and you should not call `asExternalUri` on them.
+	 *
+	 * #### `vscode.env.uriScheme`
+	 *
+	 * Creates a uri that - if opened in a browser (e.g. via `openExternal`) - will result in a registered [UriHandler](#UriHandler)
+	 * to trigger.
+	 *
+	 * Extensions should not make any assumptions about the resulting uri and should not alter it in anyway.
+	 * Rather, extensions can e.g. use this uri in an authentication flow, by adding the uri as callback query
+	 * argument to the server to authenticate to.
+	 *
+	 * *Note* that if the server decides to add additional query parameters to the uri (e.g. a token or secret), it
+	 * will appear in the uri that is passed to the [UriHandler](#UriHandler).
+	 *
+	 * **Example** of an authentication flow:
+	 * ```typescript
+	 * vscode.window.registerUriHandler({
+	 *   handleUri(uri: vscode.Uri): vscode.ProviderResult<void> {
+	 *     if (uri.path === '/did-authenticate') {
+	 *       console.log(uri.toString());
+	 *     }
+	 *   }
+	 * });
+	 *
+	 * const callableUri = await vscode.env.asExternalUri(vscode.Uri.parse(`${vscode.env.uriScheme}://my.extension/did-authenticate`));
+	 * await vscode.env.openExternal(callableUri);
+	 * ```
+	 *
+	 * *Note* that extensions should not cache the result of `asExternalUri` as the resolved uri may become invalid due to
+	 * a system or user action — for example, in remote cases, a user may close a port forwarding tunnel that was opened by
+	 * `asExternalUri`.
+	 *
+	 * @return A uri that can be used on the client machine.
+	 */
+	function asExternalUri(target:Uri):Thenable<Uri>;
 }
 
 extern class VscodeCommands {
@@ -264,7 +325,7 @@ extern class VscodeCommands {
 	function executeCommand<T>(command:String, rest:Rest<Any>):Thenable<Null<T>>;
 
 	/**
-	 * Retrieve the list of all available commands. Commands starting an underscore are
+	 * Retrieve the list of all available commands. Commands starting with an underscore are
 	 * treated as internal commands.
 	 *
 	 * @param filterInternal Set `true` to not see internal commands (starting with an underscore)
@@ -1119,6 +1180,15 @@ extern class VscodeLanguages {
 	function registerSelectionRangeProvider(selector:DocumentSelector, provider:SelectionRangeProvider):Disposable;
 
 	/**
+	 * Register a call hierarchy provider.
+	 *
+	 * @param selector A selector that defines the documents this provider is applicable to.
+	 * @param provider A call hierarchy provider.
+	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+	 */
+	function registerCallHierarchyProvider(selector:DocumentSelector, provider:CallHierarchyProvider):Disposable;
+
+	/**
 	 * Set a [language configuration](#LanguageConfiguration) for a language.
 	 *
 	 * @param language A language identifier like `typescript`.
@@ -1553,11 +1623,11 @@ extern class VscodeDebug {
 	 * Folder specific variables used in the configuration (e.g. '${workspaceFolder}') are resolved against the given folder.
 	 * @param folder The [workspace folder](#WorkspaceFolder) for looking up named configurations and resolving variables or `undefined` for a non-folder setup.
 	 * @param nameOrConfiguration Either the name of a debug or compound configuration or a [DebugConfiguration](#DebugConfiguration) object.
-	 * @param parent If specified the newly created debug session is registered as a "child" session of a "parent" debug session.
+	 * @param parentSessionOrOptions Debug sesison options. When passed a parent [debug session](#DebugSession), assumes options with just this parent session.
 	 * @return A thenable that resolves when debugging could be successfully started.
 	 */
 	function startDebugging(folder:Null<WorkspaceFolder>, nameOrConfiguration:EitherType<String, DebugConfiguration>,
-		?parentSession:DebugSession):Thenable<Bool>;
+		?parentSessionOrOptions:EitherType<DebugSession, DebugSessionOptions>):Thenable<Bool>;
 
 	/**
 	 * Add breakpoints.
