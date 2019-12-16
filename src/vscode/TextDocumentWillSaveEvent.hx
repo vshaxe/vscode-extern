@@ -38,6 +38,6 @@ typedef TextDocumentWillSaveEvent = {
 	 *
 	 * @param thenable A thenable that resolves to [pre-save-edits](#TextEdit).
 	 */
-	@:overload(function(thenable:Thenable<Any>):Void {})
+	@:overload(function(thenable:Thenable<Dynamic>):Void {})
 	function waitUntil(thenable:Thenable<Array<TextEdit>>):Void;
 }

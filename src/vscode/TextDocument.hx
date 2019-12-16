@@ -52,7 +52,7 @@ typedef TextDocument = {
 	var isDirty(default, null):Bool;
 
 	/**
-	 * `true` if the document have been closed. A closed document isn't synchronized anymore
+	 * `true` if the document has been closed. A closed document isn't synchronized anymore
 	 * and won't be re-used when the same resource is opened again.
 	 */
 	var isClosed(default, null):Bool;

@@ -634,7 +634,7 @@ extern class VscodeWindow {
 	 * @return A disposable which hides the status bar message.
 	 */
 	@:overload(function(text:String, hideAfterTimeout:Float):Disposable {})
-	@:overload(function(text:String, hideWhenDone:Thenable<Any>):Disposable {})
+	@:overload(function(text:String, hideWhenDone:Thenable<Dynamic>):Disposable {})
 	function setStatusBarMessage(text:String):Disposable;
 
 	/**
@@ -1379,8 +1379,8 @@ extern class VscodeWorkspace {
 	 *
 	 * All changes of a workspace edit are applied in the same order in which they have been added. If
 	 * multiple textual inserts are made at the same position, these strings appear in the resulting text
-	 * in the order the 'inserts' were made. Invalid sequences like 'delete file a' -> 'insert text in file a'
-	 * cause failure of the operation.
+	 * in the order the 'inserts' were made, unless that are interleaved with resource edits. Invalid sequences
+	 * like 'delete file a' -> 'insert text in file a' cause failure of the operation.
 	 *
 	 * When applying a workspace edit that consists only of text edits an 'all-or-nothing'-strategy is used.
 	 * A workspace edit with resource creations or deletions aborts the operation, e.g. consecutive edits will
@@ -1491,6 +1491,76 @@ extern class VscodeWorkspace {
 	 * An event that is emitted when a [text document](#TextDocument) is saved to disk.
 	 */
 	var onDidSaveTextDocument(default, null):Event<TextDocument>;
+
+	/**
+	 * An event that is emitted when files are being created.
+	 *
+	 * *Note 1:* This event is triggered by user gestures, like creating a file from the
+	 * explorer, or from the [`workspace.applyEdit`](#workspace.applyEdit)-api. This event is *not* fired when
+	 * files change on disk, e.g triggered by another application, or when using the
+	 * [`workspace.fs`](#FileSystem)-api.
+	 *
+	 * *Note 2:* When this event is fired, edits to files thare are being created cannot be applied.
+	 */
+	var onWillCreateFiles(default, null):Event<FileWillCreateEvent>;
+
+	/**
+	 * An event that is emitted when files have been created.
+	 *
+	 * *Note:* This event is triggered by user gestures, like creating a file from the
+	 * explorer, or from the [`workspace.applyEdit`](#workspace.applyEdit)-api, but this event is *not* fired when
+	 * files change on disk, e.g triggered by another application, or when using the
+	 * [`workspace.fs`](#FileSystem)-api.
+	 */
+	var onDidCreateFiles(default, null):Event<FileCreateEvent>;
+
+	/**
+	 * An event that is emitted when files are being deleted.
+	 *
+	 * *Note 1:* This event is triggered by user gestures, like deleting a file from the
+	 * explorer, or from the [`workspace.applyEdit`](#workspace.applyEdit)-api, but this event is *not* fired when
+	 * files change on disk, e.g triggered by another application, or when using the
+	 * [`workspace.fs`](#FileSystem)-api.
+	 *
+	 * *Note 2:* When deleting a folder with children only one event is fired.
+	 */
+	var onWillDeleteFiles(default, null):Event<FileWillDeleteEvent>;
+
+	/**
+	 * An event that is emitted when files have been deleted.
+	 *
+	 * *Note 1:* This event is triggered by user gestures, like deleting a file from the
+	 * explorer, or from the [`workspace.applyEdit`](#workspace.applyEdit)-api, but this event is *not* fired when
+	 * files change on disk, e.g triggered by another application, or when using the
+	 * [`workspace.fs`](#FileSystem)-api.
+	 *
+	 * *Note 2:* When deleting a folder with children only one event is fired.
+	 */
+	var onDidDeleteFiles(default, null):Event<FileDeleteEvent>;
+
+	/**
+	 * An event that is emitted when files are being renamed.
+	 *
+	 * *Note 1:* This event is triggered by user gestures, like renaming a file from the
+	 * explorer, and from the [`workspace.applyEdit`](#workspace.applyEdit)-api, but this event is *not* fired when
+	 * files change on disk, e.g triggered by another application, or when using the
+	 * [`workspace.fs`](#FileSystem)-api.
+	 *
+	 * *Note 2:* When renaming a folder with children only one event is fired.
+	 */
+	var onWillRenameFiles(default, null):Event<FileWillRenameEvent>;
+
+	/**
+	 * An event that is emitted when files have been renamed.
+	 *
+	 * *Note 1:* This event is triggered by user gestures, like renaming a file from the
+	 * explorer, and from the [`workspace.applyEdit`](#workspace.applyEdit)-api, but this event is *not* fired when
+	 * files change on disk, e.g triggered by another application, or when using the
+	 * [`workspace.fs`](#FileSystem)-api.
+	 *
+	 * *Note 2:* When renaming a folder with children only one event is fired.
+	 */
+	var onDidRenameFiles(default, null):Event<FileRenameEvent>;
 
 	/**
 	 * Get a workspace configuration object.
@@ -1640,6 +1710,19 @@ extern class VscodeDebug {
 	 * @param breakpoints The breakpoints to remove.
 	 */
 	function removeBreakpoints(breakpoints:Array<Breakpoint>):Void;
+
+	/**
+	 * Converts a "Source" descriptor object received via the Debug Adapter Protocol into a Uri that can be used to load its contents.
+	 * If the source descriptor is based on a path, a file Uri is returned.
+	 * If the source descriptor uses a reference number, a specific debug Uri (scheme 'debug') is constructed that requires a corresponding VS Code ContentProvider and a running debug session
+	 *
+	 * If the "Source" descriptor has insufficient information for creating the Uri, an error is thrown.
+	 *
+	 * @param source An object conforming to the [Source](https://microsoft.github.io/debug-adapter-protocol/specification#Types_Source) type defined in the Debug Adapter Protocol.
+	 * @param session An optional debug session that will be used when the source descriptor uses a reference number to load the contents from an active debug session.
+	 * @return A uri that can be used to load the contents of the source.
+	 */
+	function asDebugSourceUri(source:DebugProtocolSource, ?session:DebugSession):Uri;
 }
 
 /**

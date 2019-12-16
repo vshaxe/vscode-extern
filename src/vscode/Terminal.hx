@@ -12,7 +12,7 @@ typedef Terminal = {
 	/**
 	 * The process ID of the shell process.
 	 */
-	var processId(default, null):Thenable<Int>;
+	var processId(default, null):Thenable<Null<Int>>;
 
 	/**
 	 * Send text to the terminal. The text is written to the stdin of the underlying pty process

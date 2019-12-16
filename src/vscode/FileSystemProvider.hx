@@ -23,6 +23,11 @@ typedef FileSystemProvider = {
 	 * An event to signal that a resource has been created, changed, or deleted. This
 	 * event should fire for resources that are being [watched](#FileSystemProvider.watch)
 	 * by clients of this provider.
+	 *
+	 * *Note:* It is important that the metadata of the file that changed provides an
+	 * updated `mtime` that advanced from the previous value in the [stat](#FileStat) and a
+	 * correct `size` value. Otherwise there may be optimizations in place that will not show
+	 * the change in an editor for example.
 	 */
 	var onDidChangeFile(default, null):Event<Array<FileChangeEvent>>;
 

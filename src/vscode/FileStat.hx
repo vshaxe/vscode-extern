@@ -17,11 +17,19 @@ typedef FileStat = {
 
 	/**
 	 * The modification timestamp in milliseconds elapsed since January 1, 1970 00:00:00 UTC.
+	 *
+	 * *Note:* If the file changed, it is important to provide an updated `mtime` that advanced
+	 * from the previous value. Otherwise there may be optimizations in place that will not show
+	 * the updated file contents in an editor for example.
 	 */
 	var mtime:Int;
 
 	/**
 	 * The size in bytes.
+	 *
+	 * *Note:* If the file changed, it is important to provide an updated `size`. Otherwise there
+	 * may be optimizations in place that will not show the updated file contents in an editor for
+	 * example.
 	 */
 	var size:Int;
 }

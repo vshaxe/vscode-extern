@@ -51,6 +51,17 @@ extern class SnippetString {
 	function appendPlaceholder(value:EitherType<String, SnippetString->Any>, ?number:Int):SnippetString;
 
 	/**
+	 * Builder-function that appends a choice (`${1|a,b,c}`) to
+	 * the [`value`](#SnippetString.value) of this snippet string.
+	 *
+	 * @param values The values for choices - the array of strings
+	 * @param number The number of this tabstop, defaults to an auto-increment
+	 * value starting at 1.
+	 * @return This snippet string.
+	 */
+	function appendChoice(values:Array<String>, ?number:Int):SnippetString;
+
+	/**
 	 * Builder-function that appends a variable (`${VAR}`) to
 	 * the [`value`](#SnippetString.value) of this snippet string.
 	 *
