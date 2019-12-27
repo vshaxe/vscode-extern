@@ -13,7 +13,7 @@ typedef ProgressOptions = {
 	 * A human-readable string which will be used to describe the
 	 * operation.
 	 */
-	@:optional var title:String;
+	var ?title:String;
 
 	/**
 	 * Controls if a cancel button should show to allow the user to
@@ -21,5 +21,5 @@ typedef ProgressOptions = {
 	 * `ProgressLocation.Notification` is supporting to show a cancel
 	 * button.
 	 */
-	@:optional var cancellable:Bool;
+	var ?cancellable:Bool;
 }

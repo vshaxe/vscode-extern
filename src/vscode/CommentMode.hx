@@ -4,7 +4,7 @@ package vscode;
  * Comment mode of a [comment](#Comment)
  */
 @:jsRequire("vscode", "CommentMode")
-@:enum extern abstract CommentMode(Int) {
+extern enum abstract CommentMode(Int) {
 	/**
 	 * Displays the comment editor
 	 */

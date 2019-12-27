@@ -9,10 +9,10 @@ typedef DebugAdapterExecutableOptions = {
 	 * the parent process' environment is used. If provided it is merged with
 	 * the parent process' environment.
 	 */
-	@:optional var env:DynamicAccess<String>;
+	var ?env:DynamicAccess<String>;
 
 	/**
 	 * The current working directory for the executed debug adapter.
 	 */
-	@:optional var cwd:String;
+	var ?cwd:String;
 }

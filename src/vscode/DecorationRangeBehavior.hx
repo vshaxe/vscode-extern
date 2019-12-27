@@ -4,7 +4,7 @@ package vscode;
  * Describes the behavior of decorations when typing/editing at their edges.
  */
 @:jsRequire("vscode", "DecorationRangeBehavior")
-@:enum extern abstract DecorationRangeBehavior(Int) {
+extern enum abstract DecorationRangeBehavior(Int) {
 	/**
 	 * The decoration's range will widen when edits occur at the start or end.
 	 */

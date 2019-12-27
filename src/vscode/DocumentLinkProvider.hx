@@ -25,5 +25,5 @@ typedef DocumentLinkProvider = {
 	 * @param link The link that is to be resolved.
 	 * @param token A cancellation token.
 	 */
-	@:optional var resolveDocumentLink:DocumentLink->CancellationToken->ProviderResult<DocumentLink>;
+	var ?resolveDocumentLink:DocumentLink->CancellationToken->ProviderResult<DocumentLink>;
 }

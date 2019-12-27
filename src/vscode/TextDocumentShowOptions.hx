@@ -11,21 +11,21 @@ typedef TextDocumentShowOptions = {
 	 * not adjusted. Use [`ViewColumn.Beside`](#ViewColumn.Beside) to open the
 	 * editor to the side of the currently active one.
 	 */
-	@:optional var viewColumn:ViewColumn;
+	var ?viewColumn:ViewColumn;
 
 	/**
 	 * An optional flag that when `true` will stop the [editor](#TextEditor) from taking focus.
 	 */
-	@:optional var preserveFocus:Bool;
+	var ?preserveFocus:Bool;
 
 	/**
 	 * An optional flag that controls if an [editor](#TextEditor)-tab will be replaced
 	 * with the next editor or if it will be kept.
 	 */
-	@:optional var preview:Bool;
+	var ?preview:Bool;
 
 	/**
 	 * An optional selection to apply for the document in the [editor](#TextEditor).
 	 */
-	@:optional var selection:Range;
+	var ?selection:Range;
 }

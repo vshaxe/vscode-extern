@@ -8,7 +8,7 @@ typedef CodeLensProvider = {
 	/**
 	 * An optional event to signal that the code lenses from this provider have changed.
 	 */
-	@:optional var onDidChangeCodeLenses:Event<Void>;
+	var ?onDidChangeCodeLenses:Event<Void>;
 
 	/**
 	 * Compute a list of [lenses](#CodeLens). This call should return as fast as possible and if

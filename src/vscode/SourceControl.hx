@@ -32,12 +32,12 @@ typedef SourceControl = {
 	 * Equals to the total number of [resource state](#SourceControlResourceState)
 	 * of this source control, if undefined.
 	 */
-	@:optional var count:Int;
+	var ?count:Int;
 
 	/**
 	 * An optional [quick diff provider](#QuickDiffProvider).
 	 */
-	@:optional var quickDiffProvider:QuickDiffProvider;
+	var ?quickDiffProvider:QuickDiffProvider;
 
 	/**
 	 * Optional commit template string.
@@ -45,7 +45,7 @@ typedef SourceControl = {
 	 * The Source Control viewlet will populate the Source Control
 	 * input with this value when appropriate.
 	 */
-	@:optional var commitTemplate:String;
+	var ?commitTemplate:String;
 
 	/**
 	 * Optional accept input command.
@@ -53,14 +53,14 @@ typedef SourceControl = {
 	 * This command will be invoked when the user accepts the value
 	 * in the Source Control input.
 	 */
-	@:optional var acceptInputCommand:Command;
+	var ?acceptInputCommand:Command;
 
 	/**
 	 * Optional status bar commands.
 	 *
 	 * These commands will be displayed in the editor's status bar.
 	 */
-	@:optional var statusBarCommands:Array<Command>;
+	var ?statusBarCommands:Array<Command>;
 
 	/**
 	 * Create a new [resource group](#SourceControlResourceGroup).

@@ -18,5 +18,5 @@ typedef TextEditorSelectionChangeEvent = {
 	 * The [change kind](#TextEditorSelectionChangeKind) which has triggered this
 	 * event. Can be `undefined`.
 	 */
-	@:optional var kind(default, null):TextEditorSelectionChangeKind;
+	var ?kind(default, null):TextEditorSelectionChangeKind;
 }

@@ -4,7 +4,7 @@ package vscode;
  * The configuration target
  */
 @:jsRequire("vscode", "ConfigurationTarget")
-@:enum extern abstract ConfigurationTarget(Int) {
+extern enum abstract ConfigurationTarget(Int) {
 	/**
 	 * Global configuration
 	 */

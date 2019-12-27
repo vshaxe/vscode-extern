@@ -12,5 +12,5 @@ typedef CommentAuthorInformation = {
 	/**
 	 * The optional icon path for the author
 	 */
-	@:optional var iconPath:Uri;
+	var ?iconPath:Uri;
 }

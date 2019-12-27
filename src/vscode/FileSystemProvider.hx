@@ -134,7 +134,7 @@ typedef FileSystemProvider = {
 	 * @throws [`FileExists`](#FileSystemError.FileExists) when `destination` exists and when the `overwrite` option is not `true`.
 	 * @throws [`NoPermissions`](#FileSystemError.NoPermissions) when permissions aren't sufficient.
 	 */
-	@:optional var copy:Uri->Uri->{overwrite:Bool}->EitherType<Void, Thenable<Void>>;
+	var ?copy:Uri->Uri->{overwrite:Bool}->EitherType<Void, Thenable<Void>>;
 
 	// TODO: use Haxe 4 function types whenever we drop Haxe 3.4 support for the externs (lets us have argument names)
 	// copy?(source: Uri, destination: Uri, options: { overwrite: boolean }): void | Thenable<void>;

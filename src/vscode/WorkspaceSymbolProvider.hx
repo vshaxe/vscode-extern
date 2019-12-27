@@ -36,5 +36,5 @@ typedef WorkspaceSymbolProvider = {
 	 * @return The resolved symbol or a thenable that resolves to that. When no result is returned,
 	 * the given `symbol` is used.
 	 */
-	@:optional var resolveWorkspaceSymbol:SymbolInformation->CancellationToken->ProviderResult<SymbolInformation>;
+	var ?resolveWorkspaceSymbol:SymbolInformation->CancellationToken->ProviderResult<SymbolInformation>;
 }

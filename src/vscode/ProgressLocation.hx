@@ -5,7 +5,7 @@ package vscode;
  * location how progress is visually represented.
  */
 @:jsRequire("vscode", "ProgressLocation")
-@:enum extern abstract ProgressLocation(Int) {
+extern enum abstract ProgressLocation(Int) {
 	/**
 	 * Show progress for the source control viewlet, as overlay for the icon and as progress bar
 	 * inside the viewlet (when visible). Neither supports cancellation nor discrete progress.

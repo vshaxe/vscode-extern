@@ -4,7 +4,7 @@ package vscode;
  * A document highlight kind.
  */
 @:jsRequire("vscode", "DocumentHighlightKind")
-@:enum extern abstract DocumentHighlightKind(Int) {
+extern enum abstract DocumentHighlightKind(Int) {
 	/**
 	 * A textual occurrence.
 	 */

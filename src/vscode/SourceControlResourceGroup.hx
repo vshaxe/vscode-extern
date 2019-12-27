@@ -19,7 +19,7 @@ typedef SourceControlResourceGroup = {
 	 * Whether this source control resource group is hidden when it contains
 	 * no [source control resource states](#SourceControlResourceState).
 	 */
-	@:optional var hideWhenEmpty:Bool;
+	var ?hideWhenEmpty:Bool;
 
 	/**
 	 * This group's collection of

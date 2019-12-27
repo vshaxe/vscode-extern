@@ -23,7 +23,7 @@ typedef DebugSession = {
 	/**
 	 * The workspace folder of this session or `undefined` for a folderless setup.
 	 */
-	@:optional var workspaceFolder(default, null):WorkspaceFolder;
+	var ?workspaceFolder(default, null):WorkspaceFolder;
 
 	/**
 	 * The "resolved" [debug configuration](#DebugConfiguration) of this session.

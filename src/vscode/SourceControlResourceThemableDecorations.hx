@@ -9,5 +9,5 @@ typedef SourceControlResourceThemableDecorations = {
 	 * The icon path for a specific
 	 * [source control resource state](#SourceControlResourceState).
 	 */
-	@:optional var iconPath(default, null):EitherType<String, Uri>;
+	var ?iconPath(default, null):EitherType<String, Uri>;
 }

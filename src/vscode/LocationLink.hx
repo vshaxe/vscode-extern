@@ -11,7 +11,7 @@ typedef LocationLink = {
 	 * Used as the underlined span for mouse definition hover. Defaults to the word range at
 	 * the definition position.
 	 */
-	@:optional var originSelectionRange:Range;
+	var ?originSelectionRange:Range;
 
 	/**
 	 * The target resource identifier of this link.
@@ -26,5 +26,5 @@ typedef LocationLink = {
 	/**
 	 * The span of this link.
 	 */
-	@:optional var targetSelectionRange:Range;
+	var ?targetSelectionRange:Range;
 }

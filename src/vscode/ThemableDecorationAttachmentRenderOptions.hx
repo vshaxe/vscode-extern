@@ -4,61 +4,61 @@ typedef ThemableDecorationAttachmentRenderOptions = {
 	/**
 	 * Defines a text content that is shown in the attachment. Either an icon or a text can be shown, but not both.
 	 */
-	@:optional var contentText:String;
+	var ?contentText:String;
 
 	/**
 	 * An **absolute path** or an URI to an image to be rendered in the attachment. Either an icon
 	 * or a text can be shown, but not both.
 	 */
-	@:optional var contentIconPath:EitherType<String, Uri>;
+	var ?contentIconPath:EitherType<String, Uri>;
 
 	/**
 	 * CSS styling property that will be applied to the decoration attachment.
 	 */
-	@:optional var border:String;
+	var ?border:String;
 
 	/**
 	 * CSS styling property that will be applied to text enclosed by a decoration.
 	 */
-	@:optional var borderColor:EitherType<String, ThemeColor>;
+	var ?borderColor:EitherType<String, ThemeColor>;
 
 	/**
 	 * CSS styling property that will be applied to the decoration attachment.
 	 */
-	@:optional var fontStyle:String;
+	var ?fontStyle:String;
 
 	/**
 	 * CSS styling property that will be applied to the decoration attachment.
 	 */
-	@:optional var fontWeight:String;
+	var ?fontWeight:String;
 
 	/**
 	 * CSS styling property that will be applied to the decoration attachment.
 	 */
-	@:optional var textDecoration:String;
+	var ?textDecoration:String;
 
 	/**
 	 * CSS styling property that will be applied to the decoration attachment.
 	 */
-	@:optional var color:EitherType<String, ThemeColor>;
+	var ?color:EitherType<String, ThemeColor>;
 
 	/**
 	 * CSS styling property that will be applied to the decoration attachment.
 	 */
-	@:optional var backgroundColor:EitherType<String, ThemeColor>;
+	var ?backgroundColor:EitherType<String, ThemeColor>;
 
 	/**
 	 * CSS styling property that will be applied to the decoration attachment.
 	 */
-	@:optional var margin:String;
+	var ?margin:String;
 
 	/**
 	 * CSS styling property that will be applied to the decoration attachment.
 	 */
-	@:optional var width:String;
+	var ?width:String;
 
 	/**
 	 * CSS styling property that will be applied to the decoration attachment.
 	 */
-	@:optional var height:String;
+	var ?height:String;
 }

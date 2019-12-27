@@ -4,7 +4,7 @@ package vscode;
  * Represents different [reveal](#TextEditor.revealRange) strategies in a text editor.
  */
 @:jsRequire("vscode", "TextEditorRevealType")
-@:enum extern abstract TextEditorRevealType(Int) {
+extern enum abstract TextEditorRevealType(Int) {
 	/**
 	 * The range will be revealed with as little scrolling as possible.
 	 */

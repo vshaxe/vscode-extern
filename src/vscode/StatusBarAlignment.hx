@@ -4,7 +4,7 @@ package vscode;
  * Represents the alignment of status bar items.
  */
 @:jsRequire("vscode", "StatusBarAlignment")
-@:enum extern abstract StatusBarAlignment(Int) {
+extern enum abstract StatusBarAlignment(Int) {
 	/**
 	 * Aligned to the left side.
 	 */

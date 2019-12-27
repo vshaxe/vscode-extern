@@ -44,12 +44,12 @@ typedef CommentThread = {
 	 * ```
 	 * This will show action `extension.deleteCommentThread` only for comment threads with `contextValue` is `editable`.
 	 */
-	@:optional var contextValue:String;
+	var ?contextValue:String;
 
 	/**
 	 * The optional human-readable label describing the [Comment Thread](#CommentThread)
 	 */
-	@:optional var label:String;
+	var ?label:String;
 
 	/**
 	 * Dispose this comment thread.

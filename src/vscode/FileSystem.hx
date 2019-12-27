@@ -89,9 +89,9 @@ abstract FileSystemReadDirectoryTuple(Array<Dynamic>) {
 	public var name(get, never):String;
 	public var type(get, never):FileType;
 
-	@:extern inline function get_name():String
+	extern inline function get_name():String
 		return this[0];
 
-	@:extern inline function get_type():FileType
+	extern inline function get_type():FileType
 		return this[1];
 }

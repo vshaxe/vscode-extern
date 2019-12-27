@@ -25,17 +25,17 @@ typedef QuickInput = {
 	/**
 	 * An optional title.
 	 */
-	@:optional var title:String;
+	var ?title:String;
 
 	/**
 	 * An optional current step count.
 	 */
-	@:optional var step:Int;
+	var ?step:Int;
 
 	/**
 	 * An optional total step count.
 	 */
-	@:optional var totalSteps:Int;
+	var ?totalSteps:Int;
 
 	/**
 	 * If the UI should allow for user input. Defaults to true.

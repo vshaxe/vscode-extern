@@ -528,7 +528,7 @@ extern class VscodeWindow {
 	 * @return A promise that resolves to the selected items or `undefined`.
 	 */
 	// see #13 for details on why this is needed
-	@:extern inline function showQuickPickMany<T:QuickPickItem>(items:EitherType<Array<T>, Thenable<Array<T>>>, ?options:QuickPickOptions,
+	extern inline function showQuickPickMany<T:QuickPickItem>(items:EitherType<Array<T>, Thenable<Array<T>>>, ?options:QuickPickOptions,
 			?token:CancellationToken):Thenable<Null<Array<T>>> {
 		if (options == null)
 			options = {canPickMany: true};
@@ -617,9 +617,8 @@ extern class VscodeWindow {
 	 *
 	 * @return New webview panel.
 	 */
-	function createWebviewPanel(viewType:String, title:String, showOptions:EitherType<ViewColumn, {viewColumn:ViewColumn, ?preserveFocus:Bool}>, ?options:{
-		> WebviewPanelOptions, > WebviewOptions,
-	}):WebviewPanel;
+	function createWebviewPanel(viewType:String, title:String, showOptions:EitherType<ViewColumn, {viewColumn:ViewColumn, ?preserveFocus:Bool}>,
+		?options:WebviewPanelOptions & WebviewOptions):WebviewPanel;
 
 	/**
 	 * Set a message to the status bar. This is a short hand for the more powerful
@@ -1606,7 +1605,7 @@ extern class VscodeWorkspace {
 	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
 	 */
 	function registerFileSystemProvider(scheme:String, provider:FileSystemProvider,
-		options:{@:optional var isCaseSensitive(default, null):Bool; @:optional var isReadonly(default, null):Bool;}):Disposable;
+		options:{var ?isCaseSensitive(default, null):Bool; var ?isReadonly(default, null):Bool;}):Disposable;
 }
 
 extern class VscodeDebug {

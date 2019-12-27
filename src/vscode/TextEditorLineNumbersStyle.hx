@@ -4,7 +4,7 @@ package vscode;
  * Rendering style of the line numbers.
  */
 @:jsRequire("vscode", "TextEditorLineNumbersStyle")
-@:enum extern abstract TextEditorLineNumbersStyle(Int) {
+extern enum abstract TextEditorLineNumbersStyle(Int) {
 	/**
 	 * Do not render the line numbers.
 	 */

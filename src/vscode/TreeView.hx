@@ -43,13 +43,13 @@ typedef TreeView<T> = {
 	 * An optional human-readable message that will be rendered in the view.
 	 * Setting the message to null, undefined, or empty string will remove the message from the view.
 	 */
-	@:optional var message:String;
+	var ?message:String;
 
 	/**
 	 * The tree view title is initially taken from the extension package.json
 	 * Changes to the title property will be properly reflected in the UI in the title of the view.
 	 */
-	@:optional var title:String;
+	var ?title:String;
 
 	/**
 	 * Reveals the given element in the tree view.

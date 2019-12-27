@@ -4,7 +4,7 @@ package vscode;
  * Additional metadata about the type of a diagnostic.
  */
 @:jsRequire("vscode", "DiagnosticTag")
-@:enum extern abstract DiagnosticTag(String) {
+extern enum abstract DiagnosticTag(String) {
 	/**
 	 * Unused or unnecessary code.
 	 *

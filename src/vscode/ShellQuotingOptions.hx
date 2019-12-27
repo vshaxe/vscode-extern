@@ -9,7 +9,7 @@ typedef ShellQuotingOptions = {
 	 * are escaped. If a `{ escapeChar, charsToEscape }` literal is provide all characters
 	 * in `charsToEscape` are escaped using the `escapeChar`.
 	 */
-	@:optional var escape:EitherType<String, {
+	var ?escape:EitherType<String, {
 		/**
 		 * The escape character.
 		 */
@@ -24,10 +24,10 @@ typedef ShellQuotingOptions = {
 	/**
 	 * The character used for strong quoting. The string's length must be 1.
 	 */
-	@:optional var strong:String;
+	var ?strong:String;
 
 	/**
 	 * The character used for weak quoting. The string's length must be 1.
 	 */
-	@:optional var weak:String;
+	var ?weak:String;
 }

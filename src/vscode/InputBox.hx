@@ -7,9 +7,7 @@ package vscode;
  * is easier to use. [window.createInputBox](#window.createInputBox) should be used
  * when [window.showInputBox](#window.showInputBox) does not offer the required flexibility.
  */
-typedef InputBox = {
-	> QuickInput,
-
+typedef InputBox = QuickInput & {
 	/**
 	 * Current input value.
 	 */
@@ -18,7 +16,7 @@ typedef InputBox = {
 	/**
 	 * Optional placeholder in the filter text.
 	 */
-	@:optional var placeholder:String;
+	var ?placeholder:String;
 
 	/**
 	 * If the input value should be hidden. Defaults to false.
@@ -48,10 +46,10 @@ typedef InputBox = {
 	/**
 	 * An optional prompt text providing some ask or explanation to the user.
 	 */
-	@:optional var prompt:String;
+	var ?prompt:String;
 
 	/**
 	 * An optional validation message indicating a problem with the current input value.
 	 */
-	@:optional var validationMessage:String;
+	var ?validationMessage:String;
 }

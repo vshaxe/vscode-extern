@@ -12,26 +12,26 @@ typedef TextEditorOptions = {
 	 * When getting a text editor's options, this property will always be a number (resolved).
 	 * When setting a text editor's options, this property is optional and it can be a number or `"auto"`.
 	 */
-	@:optional var tabSize:EitherType<Int, String>;
+	var ?tabSize:EitherType<Int, String>;
 
 	/**
 	 * When pressing Tab insert [n](#TextEditorOptions.tabSize) spaces.
 	 * When getting a text editor's options, this property will always be a boolean (resolved).
 	 * When setting a text editor's options, this property is optional and it can be a boolean or `"auto"`.
 	 */
-	@:optional var insertSpaces:EitherType<Bool, String>;
+	var ?insertSpaces:EitherType<Bool, String>;
 
 	/**
 	 * The rendering style of the cursor in this editor.
 	 * When getting a text editor's options, this property will always be present.
 	 * When setting a text editor's options, this property is optional.
 	 */
-	@:optional var cursorStyle:TextEditorCursorStyle;
+	var ?cursorStyle:TextEditorCursorStyle;
 
 	/**
 	 * Render relative line numbers w.r.t. the current line number.
 	 * When getting a text editor's options, this property will always be present.
 	 * When setting a text editor's options, this property is optional.
 	 */
-	@:optional var lineNumbers:TextEditorLineNumbersStyle;
+	var ?lineNumbers:TextEditorLineNumbersStyle;
 }

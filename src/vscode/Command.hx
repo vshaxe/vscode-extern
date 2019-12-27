@@ -21,11 +21,11 @@ typedef Command = {
 	/**
 	 * A tooltip for the command, when represented in the UI.
 	 */
-	@:optional var tooltip:String;
+	var ?tooltip:String;
 
 	/**
 	 * Arguments that the command handler should be
 	 * invoked with.
 	 */
-	@:optional var arguments:Array<Any>;
+	var ?arguments:Array<Any>;
 }

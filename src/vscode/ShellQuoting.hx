@@ -5,7 +5,7 @@ package vscode;
  * spaces or unsupported characters.
  */
 @:jsRequire("vscode", "ShellQuoting")
-@:enum extern abstract ShellQuoting(Int) {
+extern enum abstract ShellQuoting(Int) {
 	/**
 	 * Character escaping should be used. This for example
 	 * uses \ on bash and ` on PowerShell.

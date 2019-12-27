@@ -4,7 +4,7 @@ package vscode;
  * Rendering style of the cursor.
  */
 @:jsRequire("vscode", "TextEditorCursorStyle")
-@:enum extern abstract TextEditorCursorStyle(Int) {
+extern enum abstract TextEditorCursorStyle(Int) {
 	/**
 	 * Render the cursor as a vertical thick line.
 	 */

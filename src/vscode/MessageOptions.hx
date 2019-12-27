@@ -11,5 +11,5 @@ typedef MessageOptions = {
 	/**
 	 * Indicates that this message should be modal.
 	 */
-	@:optional var modal:Bool;
+	var ?modal:Bool;
 }

@@ -7,7 +7,7 @@ using [Haxe](https://haxe.org/).
 
 VS Code API version: **1.41**
 
-**NOTE**: Requires Haxe 3.4 or later
+**NOTE**: Requires Haxe 4 or later
 
 ## Usage
 

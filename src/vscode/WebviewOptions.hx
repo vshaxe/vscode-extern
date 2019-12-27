@@ -9,14 +9,14 @@ typedef WebviewOptions = {
 	 *
 	 * Defaults to false (scripts-disabled).
 	 */
-	@:optional var enableScripts(default, null):Bool;
+	var ?enableScripts(default, null):Bool;
 
 	/**
 	 * Controls whether command uris are enabled in webview content or not.
 	 *
 	 * Defaults to false.
 	 */
-	@:optional var enableCommandUris(default, null):Bool;
+	var ?enableCommandUris(default, null):Bool;
 
 	/**
 	 * Root paths from which the webview can load local (filesystem) resources using the `vscode-resource:` scheme.
@@ -25,7 +25,7 @@ typedef WebviewOptions = {
 	 *
 	 * Pass in an empty array to disallow access to any local resources.
 	 */
-	@:optional var localResourceRoots(default, null):ReadonlyArray<Uri>;
+	var ?localResourceRoots(default, null):ReadonlyArray<Uri>;
 
 	/**
 	 * Mappings of localhost ports used inside the webview.
@@ -40,5 +40,5 @@ typedef WebviewOptions = {
 	 * *Note* that port mappings only work for `http` or `https` urls. Websocket urls (e.g. `ws://localhost:3000`)
 	 * cannot be mapped to another port.
 	 */
-	@:optional var portMapping(default, null):ReadonlyArray<WebviewPortMapping>;
+	var ?portMapping(default, null):ReadonlyArray<WebviewPortMapping>;
 }

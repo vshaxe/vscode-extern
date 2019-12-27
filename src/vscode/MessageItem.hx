@@ -21,5 +21,5 @@ typedef MessageItem = {
 	 *
 	 * Note: this option is ignored for non-modal messages.
 	 */
-	@:optional var isCloseAffordance:Bool;
+	var ?isCloseAffordance:Bool;
 }

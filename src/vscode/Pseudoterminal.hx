@@ -54,7 +54,7 @@ typedef Pseudoterminal = {
 	 * vscode.window.createTerminal({ name: 'My terminal', pty });
 	 * ```
 	 */
-	@:optional var onDidOverrideDimensions:Event<Null<TerminalDimensions>>;
+	var ?onDidOverrideDimensions:Event<Null<TerminalDimensions>>;
 
 	/**
 	 * An event that when fired will signal that the pty is closed and dispose of the terminal.
@@ -82,7 +82,7 @@ typedef Pseudoterminal = {
 	 * };
 	 * vscode.window.createTerminal({ name: 'Exit example', pty });
 	 */
-	@:optional var onDidClose:Event<EitherType<Void, Int>>;
+	var ?onDidClose:Event<EitherType<Void, Int>>;
 
 	/**
 	 * Implement to handle when the pty is open and ready to start firing events.

@@ -17,5 +17,5 @@ typedef CompletionContext = {
 	 *
 	 * The trigger character is already in the document when the completion provider is triggered.
 	 */
-	@:optional var triggerCharacter(default, null):String;
+	var ?triggerCharacter(default, null):String;
 }

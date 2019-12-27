@@ -7,12 +7,12 @@ typedef SaveDialogOptions = {
 	/**
 	 * The resource the dialog shows when opened.
 	 */
-	@:optional var defaultUri:Uri;
+	var ?defaultUri:Uri;
 
 	/**
 	 * A human-readable string for the save button.
 	 */
-	@:optional var saveLabel:String;
+	var ?saveLabel:String;
 
 	/**
 	 * A set of file filters that are used by the dialog. Each entry is a human readable label,
@@ -24,5 +24,5 @@ typedef SaveDialogOptions = {
 	 * }
 	 * ```
 	 */
-	@:optional var filters:haxe.DynamicAccess<Array<String>>;
+	var ?filters:haxe.DynamicAccess<Array<String>>;
 }

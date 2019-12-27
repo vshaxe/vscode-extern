@@ -12,5 +12,5 @@ typedef QuickInputButton = {
 	/**
 	 * An optional tooltip.
 	 */
-	@:optional var tooltip(default, null):String;
+	var ?tooltip(default, null):String;
 }

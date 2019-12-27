@@ -12,10 +12,10 @@ typedef EnterAction = {
 	/**
 	 * Describes text to be appended after the new line and after the indentation.
 	 */
-	@:optional var appendText:String;
+	var ?appendText:String;
 
 	/**
 	 * Describes the number of characters to remove from the new line's indentation.
 	 */
-	@:optional var removeText:Int;
+	var ?removeText:Int;
 }

@@ -4,7 +4,7 @@ package vscode;
  * Describes what to do with the indentation when pressing Enter.
  */
 @:jsRequire("vscode", "IndentAction")
-@:enum extern abstract IndentAction(Int) {
+extern enum abstract IndentAction(Int) {
 	/**
 	 * Insert new line and copy the previous line's indentation.
 	 */

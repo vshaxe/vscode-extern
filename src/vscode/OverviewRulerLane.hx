@@ -5,7 +5,7 @@ package vscode;
  * The overview ruler supports three lanes.
  */
 @:jsRequire("vscode", "OverviewRulerLane")
-@:enum extern abstract OverviewRulerLane(Int) {
+extern enum abstract OverviewRulerLane(Int) {
 	var Left;
 	var Center;
 	var Right;

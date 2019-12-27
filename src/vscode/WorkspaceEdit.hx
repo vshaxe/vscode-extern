@@ -104,9 +104,9 @@ abstract WorkspaceEditEntriesTuple(Array<Any>) to Array<Any> {
 	public var uri(get, never):Uri;
 	public var edits(get, never):Array<TextEdit>;
 
-	@:extern inline function get_uri():Uri
+	extern inline function get_uri():Uri
 		return this[0];
 
-	@:extern inline function get_edits():Array<TextEdit>
+	extern inline function get_edits():Array<TextEdit>
 		return this[1];
 }

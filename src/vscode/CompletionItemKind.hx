@@ -4,7 +4,7 @@ package vscode;
  * Completion item kinds.
  */
 @:jsRequire("vscode", "CompletionItemKind")
-@:enum extern abstract CompletionItemKind(Int) {
+extern enum abstract CompletionItemKind(Int) {
 	var Text;
 	var Method;
 	var Function;

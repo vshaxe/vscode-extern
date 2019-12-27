@@ -9,7 +9,7 @@ typedef WebviewPanelOptions = {
 	 *
 	 * Defaults to false.
 	 */
-	@:optional var enableFindWidget(default, null):Bool;
+	var ?enableFindWidget(default, null):Bool;
 
 	/**
 	 * Controls if the webview panel's content (iframe) is kept around even when the panel
@@ -27,5 +27,5 @@ typedef WebviewPanelOptions = {
 	 * `retainContextWhenHidden` has a high memory overhead and should only be used if
 	 * your panel's context cannot be quickly saved and restored.
 	 */
-	@:optional var retainContextWhenHidden(default, null):Bool;
+	var ?retainContextWhenHidden(default, null):Bool;
 }

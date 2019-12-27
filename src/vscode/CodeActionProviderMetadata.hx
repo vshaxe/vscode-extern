@@ -10,5 +10,5 @@ typedef CodeActionProviderMetadata = {
 	 * The list of kinds may be generic, such as `CodeActionKind.Refactor`, or the provider
 	 * may list our every specific kind they provide, such as `CodeActionKind.Refactor.Extract.append('function`)`
 	 */
-	@:optional var providedCodeActionKinds:ReadonlyArray<CodeActionKind>;
+	var ?providedCodeActionKinds:ReadonlyArray<CodeActionKind>;
 }

@@ -15,5 +15,5 @@ typedef CodeActionContext = {
 	 *
 	 * Actions not of this kind are filtered out before being shown by the lightbulb.
 	 */
-	@:optional var only(default, null):CodeActionKind;
+	var ?only(default, null):CodeActionKind;
 }

@@ -5,7 +5,7 @@ package vscode;
  * item.
  */
 @:jsRequire("vscode", "CompletionItemTag")
-@:enum extern abstract CompletionItemTag(Int) {
+extern enum abstract CompletionItemTag(Int) {
 	/**
 	 * Render a completion as obsolete, usually using a strike-out.
 	 */

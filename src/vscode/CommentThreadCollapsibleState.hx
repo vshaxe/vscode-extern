@@ -4,7 +4,7 @@ package vscode;
  * Collapsible state of a [comment thread](#CommentThread)
  */
 @:jsRequire("vscode", "CommentThreadCollapsibleState")
-@:enum extern abstract CommentThreadCollapsibleState(Int) {
+extern enum abstract CommentThreadCollapsibleState(Int) {
 	/**
 	 * Determines an item is collapsed
 	 */

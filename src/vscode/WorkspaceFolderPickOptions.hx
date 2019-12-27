@@ -7,10 +7,10 @@ typedef WorkspaceFolderPickOptions = {
 	/**
 	 * An optional string to show as place holder in the input box to guide the user what to pick on.
 	 */
-	@:optional var placeHolder:String;
+	var ?placeHolder:String;
 
 	/**
 	 * Set to `true` to keep the picker open when focus moves to another part of the editor or to another window.
 	 */
-	@:optional var ignoreFocusOut:Bool;
+	var ?ignoreFocusOut:Bool;
 }

@@ -23,7 +23,7 @@ extern class DocumentLink {
 	 * trigger the link, such as `{0} (ctrl + click)`. The specific instructions vary depending on OS,
 	 * user settings, and localization.
 	 */
-	@:optional var tooltip:String;
+	var tooltip:Null<String>;
 
 	/**
 	 * Creates a new document link.

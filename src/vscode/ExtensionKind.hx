@@ -5,7 +5,7 @@ package vscode;
  * runs where the UI (window) runs or if an extension runs remotely.
  */
 @:jsRequire("vscode", "ExtensionKind")
-@:enum extern abstract ExtensionKind(Int) {
+extern enum abstract ExtensionKind(Int) {
 	/**
 	 * Extension runs where the UI runs.
 	 */

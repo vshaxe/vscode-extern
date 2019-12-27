@@ -4,7 +4,7 @@ package vscode;
  * The scope of a task.
  */
 @:jsRequire("vscode", "TaskScope")
-@:enum extern abstract TaskScope(Int) {
+extern enum abstract TaskScope(Int) {
 	/**
 	 * The task is a global task. Global tasks are currrently not supported.
 	 */

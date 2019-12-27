@@ -17,7 +17,7 @@ typedef WebviewPanel = {
 	/**
 	 * Icon for the panel shown in UI.
 	 */
-	@:optional var iconPath:EitherType<Uri, {light:Uri, dark:Uri}>;
+	var ?iconPath:EitherType<Uri, {light:Uri, dark:Uri}>;
 
 	/**
 	 * Webview belonging to the panel.
@@ -33,7 +33,7 @@ typedef WebviewPanel = {
 	 * Editor position of the panel. This property is only set if the webview is in
 	 * one of the editor view columns.
 	 */
-	@:optional var viewColumn(default, null):ViewColumn;
+	var ?viewColumn(default, null):ViewColumn;
 
 	/**
 	 * Whether the panel is active (focused by the user).

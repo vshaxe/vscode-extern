@@ -4,7 +4,7 @@ package vscode;
  * Collapsible state of the tree item
  */
 @:jsRequire("vscode", "TreeItemCollapsibleState")
-@:enum extern abstract TreeItemCollapsibleState(Int) {
+extern enum abstract TreeItemCollapsibleState(Int) {
 	/**
 	 * Determines an item can be neither collapsed nor expanded. Implies it has no children.
 	 */

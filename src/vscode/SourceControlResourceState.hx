@@ -14,11 +14,11 @@ typedef SourceControlResourceState = {
 	 * The [command](#Command) which should be run when the resource
 	 * state is open in the Source Control viewlet.
 	 */
-	@:optional var command(default, null):Command;
+	var ?command(default, null):Command;
 
 	/**
 	 * The [decorations](#SourceControlResourceDecorations) for this source control
 	 * resource state.
 	 */
-	@:optional var decorations(default, null):SourceControlResourceDecorations;
+	var ?decorations(default, null):SourceControlResourceDecorations;
 }

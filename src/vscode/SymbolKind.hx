@@ -4,7 +4,7 @@ package vscode;
  * A symbol kind.
  */
 @:jsRequire("vscode", "SymbolKind")
-@:enum extern abstract SymbolKind(Int) {
+extern enum abstract SymbolKind(Int) {
 	var File;
 	var Module;
 	var Namespace;

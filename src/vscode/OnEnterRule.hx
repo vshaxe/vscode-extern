@@ -12,7 +12,7 @@ typedef OnEnterRule = {
 	/**
 	 * This rule will only execute if the text after the cursor matches this regular expression.
 	 */
-	@:optional var afterText:RegExp;
+	var ?afterText:RegExp;
 
 	/**
 	 * The action to execute.

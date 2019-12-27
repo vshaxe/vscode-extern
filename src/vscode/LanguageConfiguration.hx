@@ -14,13 +14,13 @@ typedef LanguageConfiguration = {
 	/**
 	 * The language's comment settings.
 	 */
-	@:optional var comments:CommentRule;
+	var ?comments:CommentRule;
 
 	/**
 	 * The language's brackets.
 	 * This configuration implicitly affects pressing Enter around these brackets.
 	 */
-	@:optional var brackets:Array<CharacterPair>;
+	var ?brackets:Array<CharacterPair>;
 
 	/**
 	 * The language's word definition.
@@ -29,17 +29,17 @@ typedef LanguageConfiguration = {
 	 * e.g.: A regex that matches anything except known separators (and dot is allowed to occur in a floating point number):
 	 *   /(-?\d*\.\d\w*)|([^\`\~\!\@\#\%\^\&\*\(\)\-\=\+\[\{\]\}\\\|\;\:\'\"\,\.\<\>\/\?\s]+)/g
 	 */
-	@:optional var wordPattern:RegExp;
+	var ?wordPattern:RegExp;
 
 	/**
 	 * The language's indentation settings.
 	 */
-	@:optional var indentationRules:IndentationRule;
+	var ?indentationRules:IndentationRule;
 
 	/**
 	 * The language's rules to be evaluated when pressing Enter.
 	 */
-	@:optional var onEnterRules:Array<OnEnterRule>;
+	var ?onEnterRules:Array<OnEnterRule>;
 
 	/**
 	 * **Deprecated** Do not use.
@@ -47,13 +47,13 @@ typedef LanguageConfiguration = {
 	 * @deprecated Will be replaced by a better API soon.
 	 */
 	@:deprecated("Will be replaced by a better API soon.")
-	@:optional var __electricCharacterSupport:{
+	var ?__electricCharacterSupport:{
 		/**
 		 * This property is deprecated and will be **ignored** from
 		 * the editor.
 		 * @deprecated
 		 */
-		@:deprecated @:optional var brackets:Any;
+		@:deprecated var ?brackets:Any;
 
 		/**
 		 * This property is deprecated and not fully supported anymore by
@@ -61,11 +61,11 @@ typedef LanguageConfiguration = {
 		 * Use the autoClosingPairs property in the language configuration file instead.
 		 * @deprecated
 		 */
-		@:deprecated @:optional var docComment:{
+		@:deprecated var ?docComment:{
 			var scope:String;
 			var open:String;
 			var lineStart:String;
-			@:optional var close:String;
+			var ?close:String;
 		};
 	};
 
@@ -75,7 +75,7 @@ typedef LanguageConfiguration = {
 	 * @deprecated * Use the autoClosingPairs property in the language configuration file instead.
 	 */
 	@:deprecated("Use the autoClosingPairs property in the language configuration file instead.")
-	@:optional var __characterPairSupport:{
+	var ?__characterPairSupport:{
 		var autoClosingPairs:Array<{open:String, close:String, ?notIn:Array<String>}>;
 	};
 }

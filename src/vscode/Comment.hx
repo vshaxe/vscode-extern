@@ -37,16 +37,16 @@ typedef Comment = {
 	 * ```
 	 * This will show action `extension.deleteComment` only for comments with `contextValue` is `editable`.
 	 */
-	@:optional var contextValue:String;
+	var ?contextValue:String;
 
 	/**
 	 * Optional reactions of the [comment](#Comment)
 	 */
-	@:optional var reactions:Array<CommentReaction>;
+	var ?reactions:Array<CommentReaction>;
 
 	/**
 	 * Optional label describing the [Comment](#Comment)
 	 * Label will be rendered next to authorName if exists.
 	 */
-	@:optional var label:String;
+	var ?label:String;
 }

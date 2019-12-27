@@ -4,7 +4,7 @@ package vscode;
  * Controls how the task channel is used between tasks
  */
 @:jsRequire("vscode", "TaskPanelKind")
-@:enum extern abstract TaskPanelKind(Int) {
+extern enum abstract TaskPanelKind(Int) {
 	/**
 	 * Shares a panel with other tasks. This is the default.
 	 */

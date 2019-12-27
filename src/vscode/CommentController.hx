@@ -20,7 +20,7 @@ typedef CommentController = {
 	 *
 	 * If not provided, users can leave comments in any document opened in the editor.
 	 */
-	@:optional var commentingRangeProvider:CommentingRangeProvider;
+	var ?commentingRangeProvider:CommentingRangeProvider;
 
 	/**
 	 * Create a [comment thread](#CommentThread). The comment thread will be displayed in visible text editors (if the resource matches)
@@ -35,7 +35,7 @@ typedef CommentController = {
 	/**
 	 * Optional reaction handler for creating and deleting reactions on a [comment](#Comment).
 	 */
-	@:optional var reactionHandler:(comment:Comment, reaction:CommentReaction) -> Promise<Void>;
+	var ?reactionHandler:(comment:Comment, reaction:CommentReaction) -> Promise<Void>;
 
 	/**
 	 * Dispose this comment controller.
