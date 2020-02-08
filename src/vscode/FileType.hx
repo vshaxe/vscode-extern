@@ -26,4 +26,8 @@ extern enum abstract FileType(Int) {
 	 * A symbolic link to a file.
 	 */
 	var SymbolicLink;
+
+	@:op(A | B) function bitwiseOr(b:FileType):FileType;
+
+	@:op(A & B) function bitwiseAnd(b:FileType):FileType;
 }
