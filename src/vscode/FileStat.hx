@@ -7,6 +7,8 @@ typedef FileStat = {
 	/**
 	 * The type of the file, e.g. is a regular file, a directory, or symbolic link
 	 * to a file.
+	 *
+	 * *Note:* This value might be a bitmask, e.g. `FileType.File | FileType.SymbolicLink`.
 	 */
 	var type:FileType;
 

@@ -35,7 +35,7 @@ typedef OpenDialogOptions = {
 	var ?canSelectMany:Bool;
 
 	/**
-	 * A set of file filters that are used by the dialog. Each entry is a human readable label,
+	 * A set of file filters that are used by the dialog. Each entry is a human-readable label,
 	 * like "TypeScript", and an array of extensions, e.g.
 	 * ```ts
 	 * {

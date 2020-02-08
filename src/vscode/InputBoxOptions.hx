@@ -23,7 +23,7 @@ typedef InputBoxOptions = {
 	var ?prompt:String;
 
 	/**
-	 * An optional string to show as place holder in the input box to guide the user what to type.
+	 * An optional string to show as placeholder in the input box to guide the user what to type.
 	 */
 	var ?placeHolder:String;
 
@@ -42,7 +42,7 @@ typedef InputBoxOptions = {
 	 * to the user.
 	 *
 	 * @param value The current value of the input box.
-	 * @return A human readable string which is presented as diagnostic message.
+	 * @return A human-readable string which is presented as diagnostic message.
 	 * Return `undefined`, `null`, or the empty string when 'value' is valid.
 	 */
 	var ?validateInput:String->ProviderResult<Null<String>>;

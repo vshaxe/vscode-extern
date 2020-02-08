@@ -1,5 +1,7 @@
 package vscode;
 
+import vscode.CallHierarchyItem;
+
 /**
  * The call hierarchy provider interface describes the constract between extensions
  * and the call hierarchy feature which allows to browse calls and caller of function,
@@ -17,7 +19,8 @@ typedef CallHierarchyProvider = {
 	 * @returns A call hierarchy item or a thenable that resolves to such. The lack of a result can be
 	 * signaled by returning `undefined` or `null`.
 	 */
-	function prepareCallHierarchy(document:TextDocument, position:Position, token:CancellationToken):ProviderResult<Null<CallHierarchyItem>>;
+	function prepareCallHierarchy(document:TextDocument, position:Position,
+		token:CancellationToken):ProviderResult<Null<EitherType<CallHierarchyItem, Array<CallHierarchyItem>>>>;
 
 	/**
 	 * Provide all incoming calls for an item, e.g all callers for a method. In graph terms this describes directed

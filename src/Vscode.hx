@@ -1568,13 +1568,13 @@ extern class VscodeWorkspace {
 	 * is returned. Dots in the section-identifier are interpreted as child-access,
 	 * like `{ myExt: { setting: { doIt: true }}}` and `getConfiguration('myExt.setting').get('doIt') === true`.
 	 *
-	 * When a resource is provided, configuration scoped to that resource is returned.
+	 * When a scope is provided configuraiton confined to that scope is returned. Scope can be a resource or a language identifier or both.
 	 *
 	 * @param section A dot-separated identifier.
-	 * @param resource A resource for which the configuration is asked for
+	 * @param scope A scope for which the configuration is asked for.
 	 * @return The full configuration or a subset.
 	 */
-	function getConfiguration(?section:String, ?resource:Null<Uri>):WorkspaceConfiguration;
+	function getConfiguration(?section:String, ?scope:Null<ConfigurationScope>):WorkspaceConfiguration;
 
 	/**
 	 * An event that is emitted when the [configuration](#WorkspaceConfiguration) changed.

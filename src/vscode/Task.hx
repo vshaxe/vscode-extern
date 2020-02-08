@@ -48,8 +48,8 @@ extern class Task {
 	var isBackground:Bool;
 
 	/**
-	 * A human-readable string describing the source of this
-	 * shell task, e.g. 'gulp' or 'npm'.
+	 * A human-readable string describing the source of this shell task, e.g. 'gulp'
+	 * or 'npm'. Supports rendering of [theme icons](#ThemeIcon) via the `$(<name>)`-syntax.
 	 */
 	var source:String;
 

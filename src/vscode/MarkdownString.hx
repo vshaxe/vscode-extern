@@ -1,8 +1,11 @@
 package vscode;
 
 /**
- * The MarkdownString represents human readable text that supports formatting via the
+ * The MarkdownString represents human-readable text that supports formatting via the
  * markdown syntax. Standard markdown is supported, also tables, but no embedded html.
+ *
+ * When created with `supportThemeIcons` then rendering of [theme icons](#ThemeIcon) via
+ * the `$(<name>)`-syntax is supported.
  */
 @:jsRequire("vscode", "MarkdownString")
 extern class MarkdownString {
@@ -21,8 +24,9 @@ extern class MarkdownString {
 	 * Creates a new markdown string with the given value.
 	 *
 	 * @param value Optional, initial value.
+	 * @param supportThemeIcons Optional, Specifies whether [ThemeIcons](#ThemeIcon) are supported within the [`MarkdownString`](#MarkdownString).
 	 */
-	function new(?value:String);
+	function new(?value:String, ?supportThemeIcons:Bool);
 
 	/**
 	 * Appends and escapes the given string to this markdown string.
@@ -31,7 +35,7 @@ extern class MarkdownString {
 	function appendText(value:String):MarkdownString;
 
 	/**
-	 * Appends the given string 'as is' to this markdown string.
+	 * Appends the given string 'as is' to this markdown string. When [`supportThemeIcons`](#MarkdownString.supportThemeIcons) is `true`, [ThemeIcons](#ThemeIcon) in the `value` will be iconified.
 	 * @param value Markdown string.
 	 */
 	function appendMarkdown(value:String):MarkdownString;

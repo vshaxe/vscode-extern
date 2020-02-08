@@ -5,11 +5,11 @@ package vscode;
  */
 typedef ConfigurationChangeEvent = {
 	/**
-	 * Returns `true` if the given section for the given resource (if provided) is affected.
+	 * Returns `true` if the given section is affected in the provided scope.
 	 *
 	 * @param section Configuration name, supports _dotted_ names.
-	 * @param resource A resource Uri.
-	 * @return `true` if the given section for the given resource (if provided) is affected.
+	 * @param scope A scope in which to check.
+	 * @return `true` if the given section is affected in the provided scope.
 	 */
-	function affectsConfiguration(section:String, ?resource:Uri):Bool;
+	function affectsConfiguration(section:String, ?scope:ConfigurationScope):Bool;
 }

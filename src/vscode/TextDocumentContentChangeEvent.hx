@@ -7,20 +7,20 @@ typedef TextDocumentContentChangeEvent = {
 	/**
 	 * The range that got replaced.
 	 */
-	var range:Range;
+	var range(default, null):Range;
 
 	/**
 	 * The offset of the range that got replaced.
 	 */
-	var rangeOffset:Int;
+	var rangeOffset(default, null):Int;
 
 	/**
 	 * The length of the range that got replaced.
 	 */
-	var rangeLength:Int;
+	var rangeLength(default, null):Int;
 
 	/**
 	 * The new text for the range.
 	 */
-	var text:String;
+	var text(default, null):String;
 }

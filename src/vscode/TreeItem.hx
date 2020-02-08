@@ -22,7 +22,7 @@ extern class TreeItem {
 	var iconPath:Null<EitherType<String, EitherType<Uri, EitherType<{light:EitherType<String, Uri>, dark:EitherType<String, Uri>}, ThemeIcon>>>>;
 
 	/**
-	 * A human readable string which is rendered less prominent.
+	 * A human-readable string which is rendered less prominent.
 	 * When `true`, it is derived from [resourceUri](#TreeItem.resourceUri) and when `falsy`, it is not shown.
 	 */
 	var description:Null<EitherType<String, Bool>>;

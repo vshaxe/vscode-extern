@@ -4,7 +4,6 @@ package vscode;
  * A complex edit that will be applied in one transaction on a TextEditor.
  * This holds a description of the edits and if the edits are valid (i.e. no overlapping regions, document was not changed in the meantime, etc.)
  * they can be applied on a [document](#TextDocument) associated with a [text editor](#TextEditor).
- *
  */
 typedef TextEditorEdit = {
 	/**
