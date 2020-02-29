@@ -3,22 +3,22 @@ dist: xenial
 haxe:
  - development
 
-env:
-  global:
-   - ENCRYPTION_LABEL: "f500a97551ba"
-   - COMMIT_AUTHOR_EMAIL: "nadako@gmail.com"
-
-before_install:
- - openssl aes-256-cbc -K $encrypted_f500a97551ba_key -iv $encrypted_f500a97551ba_iv -in deploy_key.enc -out deploy_key -d
-
 install:
  - haxelib install hxnodejs
  - haxelib dev vscode .
+ - haxelib git dox https://github.com/HaxeFoundation/dox
 
 script:
  - haxe build.hxml
  - pushd example
  - haxe build.hxml
  - popd
- - haxelib git dox https://github.com/HaxeFoundation/dox
- - bash ./doc-deploy.sh
+ - haxe doc.hxml
+
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN
+  local-dir: out
+  on:
+    branch: master
