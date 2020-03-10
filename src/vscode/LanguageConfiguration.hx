@@ -1,10 +1,6 @@
 package vscode;
 
-#if haxe4
 import js.lib.RegExp;
-#else
-import js.RegExp;
-#end
 
 /**
  * The language configuration interfaces defines the contract between extensions

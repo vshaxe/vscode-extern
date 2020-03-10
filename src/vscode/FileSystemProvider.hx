@@ -1,10 +1,6 @@
 package vscode;
 
-#if haxe4
 import js.lib.Uint8Array;
-#else
-import js.html.Uint8Array;
-#end
 
 /**
  * The filesystem provider defines what the editor needs to read, write, discover,

@@ -1,10 +1,6 @@
 package vscode;
 
-#if haxe4
 import js.lib.Uint8Array;
-#else
-import js.html.Uint8Array;
-#end
 
 /**
  * The file system interface exposes the editor's built-in and contributed

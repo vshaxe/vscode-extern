@@ -1,10 +1,6 @@
 package vscode;
 
-#if haxe4
 import js.lib.RegExp;
-#else
-import js.RegExp;
-#end
 
 /**
  * Represents a text document, such as a source file. Text documents have
