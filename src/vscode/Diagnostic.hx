@@ -31,7 +31,18 @@ extern class Diagnostic {
 	 * A code or identifier for this diagnostic.
 	 * Should be used for later processing, e.g. when providing [code actions](#CodeActionContext).
 	 */
-	var code:Null<EitherType<String, Int>>;
+	var code:Null<EitherType<String, EitherType<Int, {
+		/**
+		 * A code or identifier for this diagnostic.
+		 * Should be used for later processing, e.g. when providing [code actions](#CodeActionContext).
+		 */
+		var value:EitherType<String, Int>;
+
+		/**
+		 * A target URI to open with more information about the diagnostic error.
+		 */
+		var target:Uri;
+	}>>>;
 
 	/**
 	 * An array of related diagnostic information, e.g. when symbol-names within

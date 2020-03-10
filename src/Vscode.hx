@@ -127,7 +127,7 @@ extern class Vscode {
 	 * }
 	 * ```
 	 *
-	 * When depending on the API of another extension add an `extensionDependency`-entry
+	 * When depending on the API of another extension add an `extensionDependencies`-entry
 	 * to `package.json`, and use the [getExtension](#extensions.getExtension)-function
 	 * and the [exports](#Extension.exports)-property, like below:
 	 *
@@ -996,6 +996,18 @@ extern class VscodeLanguages {
 	function registerHoverProvider(selector:DocumentSelector, provider:HoverProvider):Disposable;
 
 	/**
+	 * Register a provider that locates evaluatable expressions in text documents.
+	 * VS Code will evaluate the expression in the active debug session and will show the result in the debug hover.
+	 *
+	 * If multiple providers are registered for a language an arbitrary provider will be used.
+	 *
+	 * @param selector A selector that defines the documents this provider is applicable to.
+	 * @param provider An evaluatable expression provider.
+	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+	 */
+	function registerEvaluatableExpressionProvider(selector:DocumentSelector, provider:EvaluatableExpressionProvider):Disposable;
+
+	/**
 	 * Register a document highlight provider.
 	 *
 	 * Multiple providers can be registered for a language. In that case providers are sorted
@@ -1219,7 +1231,7 @@ extern class VscodeWorkspace {
 	 * List of workspace folders or `undefined` when no folder is open.
 	 * *Note* that the first entry corresponds to the value of `rootPath`.
 	 */
-	var workspaceFolders(default, null):Null<Array<WorkspaceFolder>>;
+	var workspaceFolders(default, null):Null<ReadonlyArray<WorkspaceFolder>>;
 
 	/**
 	 * The name of the workspace. `undefined` when no folder
@@ -1393,7 +1405,7 @@ extern class VscodeWorkspace {
 	/**
 	 * All text documents currently known to the system.
 	 */
-	var textDocuments(default, null):Array<TextDocument>;
+	var textDocuments(default, null):ReadonlyArray<TextDocument>;
 
 	/**
 	 * Opens a document. Will return early if this document is already open. Otherwise

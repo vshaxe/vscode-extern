@@ -2,7 +2,7 @@ package vscode;
 
 /**
  * The code action interface defines the contract between extensions and
- * the [light bulb](https://code.visualstudio.com/docs/editor/editingevolved#_code-action) feature.
+ * the [lightbulb](https://code.visualstudio.com/docs/editor/editingevolved#_code-action) feature.
  *
  * A code action can be any command that is [known](#commands.getCommands) to the system.
  */

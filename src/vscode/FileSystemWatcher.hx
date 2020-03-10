@@ -2,7 +2,7 @@ package vscode;
 
 /**
  * A file system watcher notifies about changes to files and folders
- * on disk.
+ * on disk or from other [FileSystemProviders](#FileSystemProvider).
  *
  * To get an instance of a `FileSystemWatcher` use
  * [createFileSystemWatcher](#workspace.createFileSystemWatcher).

@@ -21,8 +21,9 @@ extern class WorkspaceEdit {
 	 * @param uri A resource identifier.
 	 * @param range A range.
 	 * @param newText A string.
+	 * @param metadata Optional metadata for the entry.
 	 */
-	function replace(uri:Uri, range:Range, newText:String):Void;
+	function replace(uri:Uri, range:Range, newText:String, ?metadata:WorkspaceEditEntryMetadata):Void;
 
 	/**
 	 * Insert the given text at the given position.
@@ -30,16 +31,18 @@ extern class WorkspaceEdit {
 	 * @param uri A resource identifier.
 	 * @param position A position.
 	 * @param newText A string.
+	 * @param metadata Optional metadata for the entry.
 	 */
-	function insert(uri:Uri, position:Position, newText:String):Void;
+	function insert(uri:Uri, position:Position, newText:String, ?metadata:WorkspaceEditEntryMetadata):Void;
 
 	/**
 	 * Delete the text at the given range.
 	 *
 	 * @param uri A resource identifier.
 	 * @param range A range.
+	 * @param metadata Optional metadata for the entry.
 	 */
-	function delete(uri:Uri, range:Range):Void;
+	function delete(uri:Uri, range:Range, ?metadata:WorkspaceEditEntryMetadata):Void;
 
 	/**
 	 * Check if a text edit for a resource exists.
@@ -71,15 +74,17 @@ extern class WorkspaceEdit {
 	 * @param uri Uri of the new file..
 	 * @param options Defines if an existing file should be overwritten or be
 	 * ignored. When overwrite and ignoreIfExists are both set overwrite wins.
+	 * @param metadata Optional metadata for the entry.
 	 */
-	function createFile(uri:Uri, ?options:{?overwrite:Bool, ?ignoreIfExists:Bool}):Void;
+	function createFile(uri:Uri, ?options:{?overwrite:Bool, ?ignoreIfExists:Bool}, ?metadata:WorkspaceEditEntryMetadata):Void;
 
 	/**
 	 * Delete a file or folder.
 	 *
 	 * @param uri The uri of the file that is to be deleted.
+	 * @param metadata Optional metadata for the entry.
 	 */
-	function deleteFile(uri:Uri, ?options:{?recursive:Bool, ?ignoreIfNotExists:Bool}):Void;
+	function deleteFile(uri:Uri, ?options:{?recursive:Bool, ?ignoreIfNotExists:Bool}, ?metadata:WorkspaceEditEntryMetadata):Void;
 
 	/**
 	 * Rename a file or folder.
@@ -88,8 +93,9 @@ extern class WorkspaceEdit {
 	 * @param newUri The new location.
 	 * @param options Defines if existing files should be overwritten or be
 	 * ignored. When overwrite and ignoreIfExists are both set overwrite wins.
+	 * @param metadata Optional metadata for the entry.
 	 */
-	function renameFile(oldUri:Uri, newUri:Uri, ?options:{?overwrite:Bool, ?ignoreIfExists:Bool}):Void;
+	function renameFile(oldUri:Uri, newUri:Uri, ?options:{?overwrite:Bool, ?ignoreIfExists:Bool}, ?metadata:WorkspaceEditEntryMetadata):Void;
 
 	/**
 	 * Get all text edits grouped by resource.
