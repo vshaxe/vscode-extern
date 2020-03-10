@@ -36,7 +36,7 @@ typedef InputBox = QuickInput & {
 	/**
 	 * Buttons for actions in the UI.
 	 */
-	var buttons:ReadonlyArray<QuickInputButton>;
+	var buttons:ReadOnlyArray<QuickInputButton>;
 
 	/**
 	 * An event signaling when a button was triggered.

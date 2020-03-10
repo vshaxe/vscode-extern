@@ -12,5 +12,5 @@ typedef TextEditorVisibleRangesChangeEvent = {
 	/**
 	 * The new value for the [text editor's visible ranges](#TextEditor.visibleRanges).
 	 */
-	var visibleRanges(default, null):ReadonlyArray<Range>;
+	var visibleRanges(default, null):ReadOnlyArray<Range>;
 }

@@ -24,7 +24,7 @@ extern class SymbolInformation {
 	/**
 	 * Tags for this symbol.
 	 */
-	var tags:Null<ReadonlyArray<SymbolTag>>;
+	var tags:Null<ReadOnlyArray<SymbolTag>>;
 
 	/**
 	 * The location of this symbol.

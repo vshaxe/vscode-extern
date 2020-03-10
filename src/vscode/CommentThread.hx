@@ -18,7 +18,7 @@ typedef CommentThread = {
 	/**
 	 * The ordered comments of the thread.
 	 */
-	var comments:ReadonlyArray<Comment>;
+	var comments:ReadOnlyArray<Comment>;
 
 	/**
 	 * Whether the thread should be collapsed or expanded when opening the document.

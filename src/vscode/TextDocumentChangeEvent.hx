@@ -12,5 +12,5 @@ typedef TextDocumentChangeEvent = {
 	/**
 	 * An array of content changes.
 	 */
-	var contentChanges(default, null):ReadonlyArray<TextDocumentContentChangeEvent>;
+	var contentChanges(default, null):ReadOnlyArray<TextDocumentContentChangeEvent>;
 }

@@ -7,7 +7,7 @@ typedef SignatureHelpProviderMetadata = {
 	/**
 	 * List of characters that trigger signature help.
 	 */
-	var triggerCharacters(default, null):ReadonlyArray<String>;
+	var triggerCharacters(default, null):ReadOnlyArray<String>;
 
 	/**
 	 * List of characters that re-trigger signature help.
@@ -15,5 +15,5 @@ typedef SignatureHelpProviderMetadata = {
 	 * These trigger characters are only active when signature help is already showing. All trigger characters
 	 * are also counted as re-trigger characters.
 	 */
-	var retriggerCharacters(default, null):ReadonlyArray<String>;
+	var retriggerCharacters(default, null):ReadOnlyArray<String>;
 }

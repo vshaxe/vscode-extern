@@ -33,7 +33,7 @@ extern class CompletionItem {
 	/**
 	 * Tags for this completion item.
 	 */
-	var tags:Null<ReadonlyArray<CompletionItemTag>>;
+	var tags:Null<ReadOnlyArray<CompletionItemTag>>;
 
 	/**
 	 * A human-readable string with additional information

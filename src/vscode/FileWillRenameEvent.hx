@@ -11,7 +11,7 @@ typedef FileWillRenameEvent = {
 	/**
 	 * The files that are going to be renamed.
 	 */
-	var files(default, never):ReadonlyArray<{oldUri:Uri, newUri:Uri}>;
+	var files(default, never):ReadOnlyArray<{oldUri:Uri, newUri:Uri}>;
 
 	/**
 	 * Allows to pause the event and to apply a [workspace edit](#WorkspaceEdit).

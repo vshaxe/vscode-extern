@@ -7,5 +7,5 @@ typedef FileDeleteEvent = {
 	/**
 	 * The files that got deleted.
 	 */
-	var files(default, never):ReadonlyArray<Uri>;
+	var files(default, never):ReadOnlyArray<Uri>;
 }

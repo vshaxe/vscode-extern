@@ -25,7 +25,7 @@ typedef WebviewOptions = {
 	 *
 	 * Pass in an empty array to disallow access to any local resources.
 	 */
-	var ?localResourceRoots(default, null):ReadonlyArray<Uri>;
+	var ?localResourceRoots(default, null):ReadOnlyArray<Uri>;
 
 	/**
 	 * Mappings of localhost ports used inside the webview.
@@ -40,5 +40,5 @@ typedef WebviewOptions = {
 	 * *Note* that port mappings only work for `http` or `https` urls. Websocket urls (e.g. `ws://localhost:3000`)
 	 * cannot be mapped to another port.
 	 */
-	var ?portMapping(default, null):ReadonlyArray<WebviewPortMapping>;
+	var ?portMapping(default, null):ReadOnlyArray<WebviewPortMapping>;
 }

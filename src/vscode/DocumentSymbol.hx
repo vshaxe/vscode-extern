@@ -25,7 +25,7 @@ extern class DocumentSymbol {
 	/**
 	 * Tags for this symbol.
 	 */
-	var tags:Null<ReadonlyArray<SymbolTag>>;
+	var tags:Null<ReadOnlyArray<SymbolTag>>;
 
 	/**
 	 * The range enclosing this symbol not including leading/trailing whitespace but everything else, e.g. comments and code.

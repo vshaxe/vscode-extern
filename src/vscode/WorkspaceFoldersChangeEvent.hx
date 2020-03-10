@@ -7,10 +7,10 @@ typedef WorkspaceFoldersChangeEvent = {
 	/**
 	 * Added workspace folders.
 	 */
-	var added(default, null):ReadonlyArray<WorkspaceFolder>;
+	var added(default, null):ReadOnlyArray<WorkspaceFolder>;
 
 	/**
 	 * Removed workspace folders.
 	 */
-	var removed(default, null):ReadonlyArray<WorkspaceFolder>;
+	var removed(default, null):ReadOnlyArray<WorkspaceFolder>;
 }

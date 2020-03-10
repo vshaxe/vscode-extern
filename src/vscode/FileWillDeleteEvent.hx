@@ -11,7 +11,7 @@ typedef FileWillDeleteEvent = {
 	/**
 	 * The files that are going to be deleted.
 	 */
-	var files(default, never):ReadonlyArray<Uri>;
+	var files(default, never):ReadOnlyArray<Uri>;
 
 	/**
 	 * Allows to pause the event and to apply a [workspace edit](#WorkspaceEdit).

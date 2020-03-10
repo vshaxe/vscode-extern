@@ -7,5 +7,5 @@ typedef FileCreateEvent = {
 	/**
 	 * The files that got created.
 	 */
-	var files(default, never):ReadonlyArray<Uri>;
+	var files(default, never):ReadOnlyArray<Uri>;
 }

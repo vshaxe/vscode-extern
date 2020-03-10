@@ -383,7 +383,7 @@ extern class VscodeWindow {
 	/**
 	 * The currently opened terminals or an empty array.
 	 */
-	var terminals(default, null):ReadonlyArray<Terminal>;
+	var terminals(default, null):ReadOnlyArray<Terminal>;
 
 	/**
 	 * The currently active terminal or `undefined`. The active terminal is the one that
@@ -764,7 +764,7 @@ extern class VscodeExtensions {
 	/**
 	 * All extensions currently known to the system.
 	 */
-	var all(default, null):ReadonlyArray<Extension<Any>>;
+	var all(default, null):ReadOnlyArray<Extension<Any>>;
 
 	/**
 	 * An event which fires when `extensions.all` changes. This can happen when extensions are
@@ -1231,7 +1231,7 @@ extern class VscodeWorkspace {
 	 * List of workspace folders or `undefined` when no folder is open.
 	 * *Note* that the first entry corresponds to the value of `rootPath`.
 	 */
-	var workspaceFolders(default, null):Null<ReadonlyArray<WorkspaceFolder>>;
+	var workspaceFolders(default, null):Null<ReadOnlyArray<WorkspaceFolder>>;
 
 	/**
 	 * The name of the workspace. `undefined` when no folder
@@ -1405,7 +1405,7 @@ extern class VscodeWorkspace {
 	/**
 	 * All text documents currently known to the system.
 	 */
-	var textDocuments(default, null):ReadonlyArray<TextDocument>;
+	var textDocuments(default, null):ReadOnlyArray<TextDocument>;
 
 	/**
 	 * Opens a document. Will return early if this document is already open. Otherwise
@@ -1782,7 +1782,7 @@ extern class VscodeTasks {
 	/**
 	 * The currently active task executions or an empty array.
 	 */
-	var taskExecutions(default, null):ReadonlyArray<TaskExecution>;
+	var taskExecutions(default, null):ReadOnlyArray<TaskExecution>;
 
 	/**
 	 * Fires when a task starts.

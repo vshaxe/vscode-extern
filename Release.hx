@@ -1,9 +1,9 @@
 import haxe.crypto.Crc32;
 import haxe.zip.Entry;
-import haxe.zip.Writer;
 import haxe.zip.Tools;
-import sys.io.File;
+import haxe.zip.Writer;
 import sys.FileSystem;
+import sys.io.File;
 
 class Release {
 	static var outPath = "release.zip";

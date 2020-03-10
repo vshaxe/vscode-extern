@@ -12,7 +12,7 @@ typedef TextEditorSelectionChangeEvent = {
 	/**
 	 * The new value for the [text editor's selections](#TextEditor.selections).
 	 */
-	var selections(default, null):ReadonlyArray<Selection>;
+	var selections(default, null):ReadOnlyArray<Selection>;
 
 	/**
 	 * The [change kind](#TextEditorSelectionChangeKind) which has triggered this

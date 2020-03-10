@@ -34,8 +34,8 @@ typedef DiagnosticCollection = {
 	//  *
 	//  * @param entries An array of tuples, like `[[file1, [d1, d2]], [file2, [d3, d4, d5]]]`, or `undefined`.
 	//  */
-	@:overload(function(entries:ReadonlyArray<ReadonlyArray<Any>>):Void {})
-	function set(uri:Uri, diagnostics:Null<ReadonlyArray<Diagnostic>>):Void;
+	@:overload(function(entries:ReadOnlyArray<ReadOnlyArray<Any>>):Void {})
+	function set(uri:Uri, diagnostics:Null<ReadOnlyArray<Diagnostic>>):Void;
 
 	/**
 	 * Remove all diagnostics from this collection that belong
@@ -57,7 +57,7 @@ typedef DiagnosticCollection = {
 	 * @param callback Function to execute for each entry.
 	 * @param thisArg The `this` context used when invoking the handler function.
 	 */
-	function forEach(callback:Uri->ReadonlyArray<Diagnostic>->DiagnosticCollection->Void, ?thisArg:Any):Void;
+	function forEach(callback:Uri->ReadOnlyArray<Diagnostic>->DiagnosticCollection->Void, ?thisArg:Any):Void;
 
 	/**
 	 * Get the diagnostics for a given resource. *Note* that you cannot
@@ -66,7 +66,7 @@ typedef DiagnosticCollection = {
 	 * @param uri A resource identifier.
 	 * @returns An immutable array of [diagnostics](#Diagnostic) or `undefined`.
 	 */
-	function get(uri:Uri):Null<ReadonlyArray<Diagnostic>>;
+	function get(uri:Uri):Null<ReadOnlyArray<Diagnostic>>;
 
 	/**
 	 * Check if this collection contains diagnostics for a

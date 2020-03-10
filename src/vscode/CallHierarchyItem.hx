@@ -19,7 +19,7 @@ extern class CallHierarchyItem {
 	/**
 	 * Tags for this item.
 	 */
-	var tags:Null<ReadonlyArray<SymbolTag>>;
+	var tags:Null<ReadOnlyArray<SymbolTag>>;
 
 	/**
 	 * More detail for this item, e.g. the signature of a function.

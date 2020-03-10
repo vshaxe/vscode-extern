@@ -34,7 +34,7 @@ typedef QuickPick<T:QuickPickItem> = QuickInput & {
 	/**
 	 * Buttons for actions in the UI.
 	 */
-	var buttons:ReadonlyArray<QuickInputButton>;
+	var buttons:ReadOnlyArray<QuickInputButton>;
 
 	/**
 	 * An event signaling when a button was triggered.
@@ -44,7 +44,7 @@ typedef QuickPick<T:QuickPickItem> = QuickInput & {
 	/**
 	 * Items to pick from.
 	 */
-	var items:ReadonlyArray<T>;
+	var items:ReadOnlyArray<T>;
 
 	/**
 	 * If multiple items can be selected at the same time. Defaults to false.
@@ -64,7 +64,7 @@ typedef QuickPick<T:QuickPickItem> = QuickInput & {
 	/**
 	 * Active items. This can be read and updated by the extension.
 	 */
-	var activeItems:ReadonlyArray<T>;
+	var activeItems:ReadOnlyArray<T>;
 
 	/**
 	 * An event signaling when the active items have changed.
@@ -74,7 +74,7 @@ typedef QuickPick<T:QuickPickItem> = QuickInput & {
 	/**
 	 * Selected items. This can be read and updated by the extension.
 	 */
-	var selectedItems:ReadonlyArray<T>;
+	var selectedItems:ReadOnlyArray<T>;
 
 	/**
 	 * An event signaling when the selected items have changed.

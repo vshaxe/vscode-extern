@@ -62,7 +62,7 @@ typedef TextEditor = {
 	 * that the snippet is completely filled-in or accepted.
 	 */
 	function insertSnippet(snippet:SnippetString,
-		?location:EitherType<Position, EitherType<Range, EitherType<ReadonlyArray<Position>, ReadonlyArray<Range>>>>,
+		?location:EitherType<Position, EitherType<Range, EitherType<ReadOnlyArray<Position>, ReadOnlyArray<Range>>>>,
 		?options:{undoStopBefore:Bool, undoStopAfter:Bool}):Thenable<Bool>;
 
 	/**
