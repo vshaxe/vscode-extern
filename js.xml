@@ -1,6 +1,6 @@
 <!-- This file can be parsed by haxe.rtti.XmlParser -->
 <haxe>
-	<abstract path="Any" params="" file="/home/travis/haxe/std/Any.hx">
+	<abstract path="Any" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/Any.hx">
 		<from><icast field="__cast"><c path="__cast.T"/></icast></from>
 		<this><d/></this>
 		<to><icast field="__promote"><c path="__promote.T"/></icast></to>
@@ -13,22 +13,9 @@
 	support field access or operators and it's bound to monomorphs. So,
 	to work with the actual value, it needs to be explicitly promoted
 	to another type.</haxe_doc>
-		<impl><class path="_Any.Any_Impl_" params="" file="/home/travis/haxe/std/Any.hx" private="1" module="Any"><meta><m n=":keep"/></meta></class></impl>
+		<impl><class path="_Any.Any_Impl_" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/Any.hx" private="1" module="Any"><meta><m n=":keep"/></meta></class></impl>
 	</abstract>
-	<class path="Array" params="T" file="/home/travis/haxe/std/js/_std/Array.hx" extern="1">
-		<length public="1" set="null">
-			<x path="Int"/>
-			<haxe_doc>The length of `this` Array.</haxe_doc>
-		</length>
-		<iterator public="1" get="inline" set="null" line="85">
-			<f a=""><c path="haxe.iterators.ArrayIterator"><c path="Array.T"/></c></f>
-			<meta><m n=":runtime"/></meta>
-			<haxe_doc>Returns an iterator of the Array values.</haxe_doc>
-		</iterator>
-		<new public="1" set="method">
-			<f a=""><x path="Void"/></f>
-			<haxe_doc>Creates a new Array.</haxe_doc>
-		</new>
+	<class path="Array" params="T" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/_std/Array.hx" extern="1">
 		<haxe_doc>An Array is a storage for values. You can access it using indexes or
 	with its API.
 
@@ -40,7 +27,7 @@
 			<m n=":coreApi"/>
 		</meta>
 	</class>
-	<abstract path="Class" params="T" file="/home/travis/haxe/std/Class.hx">
+	<abstract path="Class" params="T" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/Class.hx">
 		<this><x path="Class"><c path="Class.T"/></x></this>
 		<haxe_doc>An abstract type that represents a Class.
 
@@ -52,7 +39,7 @@
 			<m n=":runtimeValue"/>
 		</meta>
 	</abstract>
-	<class path="Date" params="" file="/home/travis/haxe/std/js/_std/Date.hx" extern="1">
+	<class path="Date" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/_std/Date.hx" extern="1">
 		<now public="1" get="inline" set="null" line="46" static="1">
 			<f a=""><c path="Date"/></f>
 			<haxe_doc>Returns a Date representing the current local time.</haxe_doc>
@@ -206,7 +193,7 @@
 	timestamps outside the range on any target.</haxe_doc>
 		<meta><m n=":coreApi"/></meta>
 	</class>
-	<class path="js.lib.RegExp" params="" file="/home/travis/haxe/std/js/lib/RegExp.hx" extern="1">
+	<class path="js.lib.RegExp" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/RegExp.hx" extern="1">
 		<global public="1" set="null"><x path="Bool"/></global>
 		<ignoreCase public="1" set="null"><x path="Bool"/></ignoreCase>
 		<multiline public="1" set="null"><x path="Bool"/></multiline>
@@ -232,13 +219,13 @@
 	[regexp literals](https://haxe.org/manual/std-regex.html).</haxe_doc>
 		<meta><m n=":native"><e>"RegExp"</e></m></meta>
 	</class>
-	<class path="_EReg.HaxeRegExp" params="" file="/home/travis/haxe/std/js/_std/EReg.hx" private="1" module="EReg" extern="1">
+	<class path="_EReg.HaxeRegExp" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/_std/EReg.hx" private="1" module="EReg" extern="1">
 		<extends path="js.lib.RegExp"/>
 		<m public="1"><c path="js.lib.RegExpMatch"/></m>
 		<s public="1"><c path="String"/></s>
 		<meta><m n=":native"><e>"RegExp"</e></m></meta>
 	</class>
-	<abstract path="Enum" params="T" file="/home/travis/haxe/std/Enum.hx">
+	<abstract path="Enum" params="T" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/Enum.hx">
 		<this><x path="Enum"><c path="Enum.T"/></x></this>
 		<haxe_doc>An abstract type that represents an Enum type.
 
@@ -252,16 +239,20 @@
 			<m n=":runtimeValue"/>
 		</meta>
 	</abstract>
-	<abstract path="EnumValue" params="" file="/home/travis/haxe/std/EnumValue.hx">
+	<abstract path="EnumValue" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/EnumValue.hx">
 		<this><x path="EnumValue"/></this>
 		<haxe_doc>An abstract type that represents any enum value.
 	See `Type` for the Haxe Reflection API.
 
 	@see https://haxe.org/manual/types-enum-instance.html</haxe_doc>
 		<meta><m n=":coreType"/></meta>
-		<impl><class path="_EnumValue.EnumValue_Impl_" params="" file="/home/travis/haxe/std/EnumValue.hx" private="1" module="EnumValue"><meta><m n=":keep"/></meta></class></impl>
+		<impl><class path="_EnumValue.EnumValue_Impl_" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/EnumValue.hx" private="1" module="EnumValue"><meta><m n=":keep"/></meta></class></impl>
 	</abstract>
-	<class path="js.Syntax" params="" file="/home/travis/haxe/std/js/Syntax.hx" extern="1">
+	<class path="Math" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/_std/Math.hx" extern="1"><meta>
+	<m n=":keep"/>
+	<m n=":keepInit"/>
+</meta></class>
+	<class path="js.Syntax" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/Syntax.hx" extern="1">
 		<code public="1" set="method" static="1">
 			<f a="code:args">
 				<c path="String"/>
@@ -279,18 +270,8 @@
 		will generate
 		```haxe
 		console.log("hi", 42);
-		```
-
-		Emits a compilation error if the count of `args` does not match the count of placeholders in `code`.</haxe_doc>
+		```</haxe_doc>
 		</code>
-		<plainCode public="1" set="method" static="1">
-			<f a="code">
-				<c path="String"/>
-				<d/>
-			</f>
-			<haxe_doc>Inject `code` directly into generated source.
-		The same as `js.Syntax.code` except this one does not provide code interpolation.</haxe_doc>
-		</plainCode>
 		<construct public="1" params="T" set="method" static="1">
 			<f a="cl:args">
 				<x path="Class"><c path="construct.T"/></x>
@@ -370,336 +351,7 @@
 			<m n=":noClosure"/>
 		</meta>
 	</class>
-	<class path="js.lib.Date" params="" file="/home/travis/haxe/std/js/lib/Date.hx" extern="1">
-		<fromHaxeDate public="1" get="inline" set="null" line="40" static="1">
-			<f a="date">
-				<t path="_Date.HaxeDate"/>
-				<c path="js.lib.Date"/>
-			</f>
-			<haxe_doc>Cast Haxe's Date to js.lib.Date.</haxe_doc>
-		</fromHaxeDate>
-		<toHaxeDate public="1" get="inline" set="null" line="47" static="1">
-			<f a="date">
-				<c path="js.lib.Date"/>
-				<t path="_Date.HaxeDate"/>
-			</f>
-			<haxe_doc>Cast js.lib.Date to Haxe's Date.</haxe_doc>
-		</toHaxeDate>
-		<now public="1" set="method" static="1">
-			<f a=""><x path="Float"/></f>
-			<haxe_doc>Returns the numeric value corresponding to the current time - the number of milliseconds elapsed since January 1, 1970 00:00:00 UTC, with leap seconds ignored</haxe_doc>
-		</now>
-		<parse public="1" set="method" static="1">
-			<f a="str">
-				<c path="String"/>
-				<x path="Float"/>
-			</f>
-			<haxe_doc>Parses a string representation of a date and returns the number of milliseconds since 1 January, 1970, 00:00:00, UTC, with leap seconds ignored.</haxe_doc>
-		</parse>
-		<UTC public="1" set="method" static="1">
-			<f a="year:month:?day:?hours:?minutes:?seconds:?milliseconds">
-				<x path="Int"/>
-				<x path="Int"/>
-				<x path="Int"/>
-				<x path="Int"/>
-				<x path="Int"/>
-				<x path="Int"/>
-				<x path="Int"/>
-				<x path="Float"/>
-			</f>
-			<haxe_doc>Returns the number of milliseconds since January 1, 1970, 00:00:00 UTC, with leap seconds ignored.</haxe_doc>
-		</UTC>
-		<getDate public="1" set="method">
-			<f a=""><x path="Int"/></f>
-			<haxe_doc>Returns the day of the month (1-31) for the specified date according to local time.</haxe_doc>
-		</getDate>
-		<getDay public="1" set="method">
-			<f a=""><x path="Int"/></f>
-			<haxe_doc>Returns the day of the week (0-6) for the specified date according to local time.</haxe_doc>
-		</getDay>
-		<getFullYear public="1" set="method">
-			<f a=""><x path="Int"/></f>
-			<haxe_doc>Returns the year (4 digits for 4-digit years) of the specified date according to local time.</haxe_doc>
-		</getFullYear>
-		<getHours public="1" set="method">
-			<f a=""><x path="Int"/></f>
-			<haxe_doc>Returns the hour (0-23) in the specified date according to local time.</haxe_doc>
-		</getHours>
-		<getMilliseconds public="1" set="method">
-			<f a=""><x path="Int"/></f>
-			<haxe_doc>Returns the milliseconds (0-999) in the specified date according to local time.</haxe_doc>
-		</getMilliseconds>
-		<getMinutes public="1" set="method">
-			<f a=""><x path="Int"/></f>
-			<haxe_doc>Returns the minutes (0-59) in the specified date according to local time.</haxe_doc>
-		</getMinutes>
-		<getMonth public="1" set="method">
-			<f a=""><x path="Int"/></f>
-			<haxe_doc>Returns the month (0-11) in the specified date according to local time.</haxe_doc>
-		</getMonth>
-		<getSeconds public="1" set="method">
-			<f a=""><x path="Int"/></f>
-			<haxe_doc>Returns the seconds (0-59) in the specified date according to local time.</haxe_doc>
-		</getSeconds>
-		<getTime public="1" set="method">
-			<f a=""><x path="Float"/></f>
-			<haxe_doc>Returns the numeric value of the specified date as the number of milliseconds since January 1, 1970, 00:00:00 UTC (negative for prior times).</haxe_doc>
-		</getTime>
-		<getTimezoneOffset public="1" set="method">
-			<f a=""><x path="Int"/></f>
-			<haxe_doc>Returns the time-zone offset in minutes for the current locale.</haxe_doc>
-		</getTimezoneOffset>
-		<getUTCDate public="1" set="method">
-			<f a=""><x path="Int"/></f>
-			<haxe_doc>Returns the day (date) of the month (1-31) in the specified date according to universal time.</haxe_doc>
-		</getUTCDate>
-		<getUTCDay public="1" set="method">
-			<f a=""><x path="Int"/></f>
-			<haxe_doc>Returns the day of the week (0-6) in the specified date according to universal time.</haxe_doc>
-		</getUTCDay>
-		<getUTCFullYear public="1" set="method">
-			<f a=""><x path="Int"/></f>
-			<haxe_doc>Returns the year (4 digits for 4-digit years) in the specified date according to universal time.</haxe_doc>
-		</getUTCFullYear>
-		<getUTCHours public="1" set="method">
-			<f a=""><x path="Int"/></f>
-			<haxe_doc>Returns the hours (0-23) in the specified date according to universal time.</haxe_doc>
-		</getUTCHours>
-		<getUTCMilliseconds public="1" set="method">
-			<f a=""><x path="Int"/></f>
-			<haxe_doc>Returns the milliseconds (0-999) in the specified date according to universal time.</haxe_doc>
-		</getUTCMilliseconds>
-		<getUTCMinutes public="1" set="method">
-			<f a=""><x path="Int"/></f>
-			<haxe_doc>Returns the minutes (0-59) in the specified date according to universal time.</haxe_doc>
-		</getUTCMinutes>
-		<getUTCMonth public="1" set="method">
-			<f a=""><x path="Int"/></f>
-			<haxe_doc>Returns the month (0-11) in the specified date according to universal time.</haxe_doc>
-		</getUTCMonth>
-		<getUTCSeconds public="1" set="method">
-			<f a=""><x path="Int"/></f>
-			<haxe_doc>Returns the seconds (0-59) in the specified date according to universal time.</haxe_doc>
-		</getUTCSeconds>
-		<setDate public="1" set="method">
-			<f a="value">
-				<x path="Int"/>
-				<x path="Void"/>
-			</f>
-			<haxe_doc>Sets the day of the month for a specified date according to local time.</haxe_doc>
-		</setDate>
-		<setFullYear public="1" set="method">
-			<f a="value">
-				<x path="Int"/>
-				<x path="Void"/>
-			</f>
-			<haxe_doc>Sets the full year (e.g. 4 digits for 4-digit years) for a specified date according to local time.</haxe_doc>
-		</setFullYear>
-		<setHours public="1" set="method">
-			<f a="value">
-				<x path="Int"/>
-				<x path="Void"/>
-			</f>
-			<haxe_doc>Sets the hours for a specified date according to local time.</haxe_doc>
-		</setHours>
-		<setMilliseconds public="1" set="method">
-			<f a="value">
-				<x path="Int"/>
-				<x path="Void"/>
-			</f>
-			<haxe_doc>Sets the milliseconds for a specified date according to local time.</haxe_doc>
-		</setMilliseconds>
-		<setMinutes public="1" set="method">
-			<f a="value">
-				<x path="Int"/>
-				<x path="Void"/>
-			</f>
-			<haxe_doc>Sets the minutes for a specified date according to local time.</haxe_doc>
-		</setMinutes>
-		<setMonth public="1" set="method">
-			<f a="value">
-				<x path="Int"/>
-				<x path="Void"/>
-			</f>
-			<haxe_doc>Sets the month for a specified date according to local time.</haxe_doc>
-		</setMonth>
-		<setSeconds public="1" set="method">
-			<f a="value">
-				<x path="Int"/>
-				<x path="Void"/>
-			</f>
-			<haxe_doc>Sets the seconds for a specified date according to local time.</haxe_doc>
-		</setSeconds>
-		<setTime public="1" set="method">
-			<f a="value">
-				<x path="Float"/>
-				<x path="Void"/>
-			</f>
-			<haxe_doc>Sets the Date object to the time represented by a number of milliseconds since January 1, 1970, 00:00:00 UTC, allowing for negative numbers for times prior.</haxe_doc>
-		</setTime>
-		<setUTCDate public="1" set="method">
-			<f a="value">
-				<x path="Int"/>
-				<x path="Void"/>
-			</f>
-			<haxe_doc>Sets the day of the month for a specified date according to universal time.</haxe_doc>
-		</setUTCDate>
-		<setUTCFullYear public="1" set="method">
-			<f a="value">
-				<x path="Int"/>
-				<x path="Void"/>
-			</f>
-			<haxe_doc>Sets the full year (e.g. 4 digits for 4-digit years) for a specified date according to universal time.</haxe_doc>
-		</setUTCFullYear>
-		<setUTCHours public="1" set="method">
-			<f a="value">
-				<x path="Int"/>
-				<x path="Void"/>
-			</f>
-			<haxe_doc>Sets the hour for a specified date according to universal time.</haxe_doc>
-		</setUTCHours>
-		<setUTCMilliseconds public="1" set="method">
-			<f a="value">
-				<x path="Int"/>
-				<x path="Void"/>
-			</f>
-			<haxe_doc>Sets the milliseconds for a specified date according to universal time.</haxe_doc>
-		</setUTCMilliseconds>
-		<setUTCMinutes public="1" set="method">
-			<f a="value">
-				<x path="Int"/>
-				<x path="Void"/>
-			</f>
-			<haxe_doc>Sets the minutes for a specified date according to universal time.</haxe_doc>
-		</setUTCMinutes>
-		<setUTCMonth public="1" set="method">
-			<f a="value">
-				<x path="Int"/>
-				<x path="Void"/>
-			</f>
-			<haxe_doc>Sets the month for a specified date according to universal time.</haxe_doc>
-		</setUTCMonth>
-		<setUTCSeconds public="1" set="method">
-			<f a="value">
-				<x path="Int"/>
-				<x path="Void"/>
-			</f>
-			<haxe_doc>Sets the seconds for a specified date according to universal time.</haxe_doc>
-		</setUTCSeconds>
-		<toDateString public="1" set="method">
-			<f a=""><c path="String"/></f>
-			<haxe_doc>Returns the "date" portion of the Date as a human-readable string.</haxe_doc>
-		</toDateString>
-		<toISOString public="1" set="method">
-			<f a=""><c path="String"/></f>
-			<haxe_doc>Converts a date to a string following the ISO 8601 Extended Format.</haxe_doc>
-		</toISOString>
-		<toJSON public="1" set="method">
-			<f a=""><c path="String"/></f>
-			<haxe_doc>Returns a string representing the Date using toISOString(). Intended for use by JSON.stringify().</haxe_doc>
-		</toJSON>
-		<toLocaleDateString public="1" set="method">
-			<f a="?locales:?options">
-				<c path="String"/>
-				<d><d/></d>
-				<c path="String"/>
-			</f>
-			<haxe_doc>Returns a string with a locality sensitive representation of the date portion of this date based on system settings.</haxe_doc>
-			<overloads><toLocaleDateString public="1" set="method">
-	<f a="?locales:?options">
-		<c path="Array"><c path="String"/></c>
-		<d><d/></d>
-		<c path="String"/>
-	</f>
-	<haxe_doc>Returns a string with a locality sensitive representation of the date portion of this date based on system settings.</haxe_doc>
-</toLocaleDateString></overloads>
-		</toLocaleDateString>
-		<toLocaleFormat public="1" set="method">
-			<f a="format">
-				<c path="String"/>
-				<c path="String"/>
-			</f>
-			<haxe_doc>Converts a date to a string, using a format string.</haxe_doc>
-		</toLocaleFormat>
-		<toLocaleString public="1" set="method">
-			<f a="?locales:?options">
-				<c path="String"/>
-				<d><d/></d>
-				<c path="String"/>
-			</f>
-			<haxe_doc>Returns a string with a locality sensitive representation of this date. Overrides the Object.prototype.toLocaleString() method.</haxe_doc>
-			<overloads><toLocaleString public="1" set="method">
-	<f a="?locales:?options">
-		<c path="Array"><c path="String"/></c>
-		<d><d/></d>
-		<c path="String"/>
-	</f>
-	<haxe_doc>Returns a string with a locality sensitive representation of this date. Overrides the Object.prototype.toLocaleString() method.</haxe_doc>
-</toLocaleString></overloads>
-		</toLocaleString>
-		<toLocaleTimeString public="1" set="method">
-			<f a="?locales:?options">
-				<c path="String"/>
-				<d><d/></d>
-				<c path="String"/>
-			</f>
-			<haxe_doc>Returns a string with a locality sensitive representation of the time portion of this date based on system settings.</haxe_doc>
-			<overloads><toLocaleTimeString public="1" set="method">
-	<f a="?locales:?options">
-		<c path="Array"><c path="String"/></c>
-		<d><d/></d>
-		<c path="String"/>
-	</f>
-	<haxe_doc>Returns a string with a locality sensitive representation of the time portion of this date based on system settings.</haxe_doc>
-</toLocaleTimeString></overloads>
-		</toLocaleTimeString>
-		<toSource public="1" set="method">
-			<f a=""><c path="String"/></f>
-			<haxe_doc>Returns a string representing the source for an equivalent Date object; you can use this value to create a new object. Overrides the Object.prototype.toSource() method.</haxe_doc>
-		</toSource>
-		<toString public="1" set="method">
-			<f a=""><c path="String"/></f>
-			<haxe_doc>Returns a string representing the specified Date object. Overrides the Object.prototype.toString() method.</haxe_doc>
-		</toString>
-		<toTimeString public="1" set="method">
-			<f a=""><c path="String"/></f>
-			<haxe_doc>Returns the "time" portion of the Date as a human-readable string.</haxe_doc>
-		</toTimeString>
-		<toUTCString public="1" set="method">
-			<f a=""><c path="String"/></f>
-			<haxe_doc>Converts a date to a string using the UTC timezone.</haxe_doc>
-		</toUTCString>
-		<new public="1" set="method">
-			<f a=""><x path="Void"/></f>
-			<overloads>
-				<new public="1" set="method"><f a="value">
-	<x path="Float"/>
-	<x path="Void"/>
-</f></new>
-				<new public="1" set="method"><f a="dateString">
-	<c path="String"/>
-	<x path="Void"/>
-</f></new>
-				<new public="1" set="method"><f a="year:month:?day:?hours:?minutes:?seconds:?milliseconds">
-	<x path="Int"/>
-	<x path="Int"/>
-	<x path="Int"/>
-	<x path="Int"/>
-	<x path="Int"/>
-	<x path="Int"/>
-	<x path="Int"/>
-	<x path="Void"/>
-</f></new>
-			</overloads>
-		</new>
-		<haxe_doc>Creates a JavaScript Date instance that represents a single moment in time. Date objects are based on a time value that is the number of milliseconds since 1 January 1970 UTC.</haxe_doc>
-		<meta><m n=":native"><e>"Date"</e></m></meta>
-	</class>
-	<class path="Math" params="" file="/home/travis/haxe/std/js/_std/Math.hx" extern="1"><meta>
-	<m n=":keep"/>
-	<m n=":keepInit"/>
-</meta></class>
-	<class path="String" params="" file="/home/travis/haxe/std/js/_std/String.hx" extern="1">
+	<class path="String" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/_std/String.hx" extern="1">
 		<fromCharCode public="1" get="inline" set="null" line="43" static="1">
 			<f a="code">
 				<x path="Int"/>
@@ -871,7 +523,7 @@
 			<m n=":coreApi"/>
 		</meta>
 	</class>
-	<class path="Std" params="" file="/home/travis/haxe/std/js/_std/Std.hx">
+	<class path="Std" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/_std/Std.hx">
 		<haxe_doc>The Std class provides standard methods for manipulating basic types.</haxe_doc>
 		<meta>
 			<m n=":keep"/>
@@ -879,14 +531,14 @@
 			<m n=":coreApi"/>
 		</meta>
 	</class>
-	<abstract path="Void" params="" file="/home/travis/haxe/std/StdTypes.hx" module="StdTypes">
+	<abstract path="Void" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/StdTypes.hx" module="StdTypes">
 		<this><x path="Void"/></this>
 		<haxe_doc>The standard `Void` type. Only `null` values can be of the type `Void`.
 
 	@see https://haxe.org/manual/types-void.html</haxe_doc>
 		<meta><m n=":coreType"/></meta>
 	</abstract>
-	<abstract path="Float" params="" file="/home/travis/haxe/std/StdTypes.hx" module="StdTypes">
+	<abstract path="Float" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/StdTypes.hx" module="StdTypes">
 		<this><x path="Float"/></this>
 		<haxe_doc><![CDATA[The standard `Float` type, this is a double-precision IEEE 64bit float.
 
@@ -904,7 +556,7 @@
 			<m n=":runtimeValue"/>
 		</meta>
 	</abstract>
-	<abstract path="Int" params="" file="/home/travis/haxe/std/StdTypes.hx" module="StdTypes">
+	<abstract path="Int" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/StdTypes.hx" module="StdTypes">
 		<this><x path="Int"/></this>
 		<to><icast><x path="Float"/></icast></to>
 		<haxe_doc><![CDATA[The standard `Int` type. Its precision depends on the platform.
@@ -924,7 +576,7 @@
 			<m n=":runtimeValue"/>
 		</meta>
 	</abstract>
-	<abstract path="Null" params="T" file="/home/travis/haxe/std/StdTypes.hx" module="StdTypes">
+	<abstract path="Null" params="T" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/StdTypes.hx" module="StdTypes">
 		<from><icast><c path="Null.T"/></icast></from>
 		<this><x path="Null"><c path="Null.T"/></x></this>
 		<to><icast><c path="Null.T"/></icast></to>
@@ -942,7 +594,7 @@
 			<m n=":coreType"/>
 		</meta>
 	</abstract>
-	<abstract path="Bool" params="" file="/home/travis/haxe/std/StdTypes.hx" module="StdTypes">
+	<abstract path="Bool" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/StdTypes.hx" module="StdTypes">
 		<this><x path="Bool"/></this>
 		<haxe_doc><![CDATA[The standard Boolean type, which can either be `true` or `false`.
 
@@ -957,7 +609,7 @@
 			<m n=":runtimeValue"/>
 		</meta>
 	</abstract>
-	<abstract path="Dynamic" params="T" file="/home/travis/haxe/std/StdTypes.hx" module="StdTypes">
+	<abstract path="Dynamic" params="T" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/StdTypes.hx" module="StdTypes">
 		<this><x path="Dynamic"><c path="Dynamic.T"/></x></this>
 		<haxe_doc>`Dynamic` is a special type which is compatible with all other types.
 
@@ -971,7 +623,7 @@
 			<m n=":runtimeValue"/>
 		</meta>
 	</abstract>
-	<typedef path="Iterator" params="T" file="/home/travis/haxe/std/StdTypes.hx" module="StdTypes">
+	<typedef path="Iterator" params="T" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/StdTypes.hx" module="StdTypes">
 		<a>
 			<next set="method">
 				<f a=""><c path="Iterator.T"/></f>
@@ -1001,21 +653,21 @@
 
 	@see https://haxe.org/manual/lf-iterators.html</haxe_doc>
 	</typedef>
-	<typedef path="Iterable" params="T" file="/home/travis/haxe/std/StdTypes.hx" module="StdTypes">
+	<typedef path="Iterable" params="T" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/StdTypes.hx" module="StdTypes">
 		<a><iterator set="method"><f a=""><t path="Iterator"><c path="Iterable.T"/></t></f></iterator></a>
 		<haxe_doc>An `Iterable` is a data structure which has an `iterator()` method.
 	See `Lambda` for generic functions on iterable structures.
 
 	@see https://haxe.org/manual/lf-iterators.html</haxe_doc>
 	</typedef>
-	<typedef path="KeyValueIterator" params="K:V" file="/home/travis/haxe/std/StdTypes.hx" module="StdTypes">
+	<typedef path="KeyValueIterator" params="K:V" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/StdTypes.hx" module="StdTypes">
 		<t path="Iterator"><a>
 	<value><c path="KeyValueIterator.V"/></value>
 	<key><c path="KeyValueIterator.K"/></key>
 </a></t>
 		<haxe_doc>A `KeyValueIterator` is an `Iterator` that has a key and a value.</haxe_doc>
 	</typedef>
-	<typedef path="KeyValueIterable" params="K:V" file="/home/travis/haxe/std/StdTypes.hx" module="StdTypes">
+	<typedef path="KeyValueIterable" params="K:V" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/StdTypes.hx" module="StdTypes">
 		<a><keyValueIterator set="method"><f a=""><t path="KeyValueIterator">
 	<c path="KeyValueIterable.K"/>
 	<c path="KeyValueIterable.V"/>
@@ -1023,7 +675,7 @@
 		<haxe_doc>A `KeyValueIterable` is a data structure which has a `keyValueIterator()`
 	method to iterate over key-value-pairs.</haxe_doc>
 	</typedef>
-	<class path="ArrayAccess" params="T" file="/home/travis/haxe/std/StdTypes.hx" module="StdTypes" extern="1" interface="1"><haxe_doc>`ArrayAccess` is used to indicate a class that can be accessed using brackets.
+	<class path="ArrayAccess" params="T" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/StdTypes.hx" module="StdTypes" extern="1" interface="1"><haxe_doc>`ArrayAccess` is used to indicate a class that can be accessed using brackets.
 	The type parameter represents the type of the elements stored.
 
 	This interface should be used for externs only. Haxe does not support custom
@@ -3477,25 +3129,25 @@
 	 * @return An instance of [comment controller](#CommentController).</haxe_doc>
 </createCommentController></class>
 	<class path="VscodeProposed" params="" file="src/VscodeProposed.hx" extern="1"><meta><m n=":jsRequire"><e>"vscode"</e></m></meta></class>
-	<abstract path="haxe.Function" params="" file="/home/travis/haxe/std/haxe/Constraints.hx" module="haxe.Constraints">
+	<abstract path="haxe.Function" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/haxe/Constraints.hx" module="haxe.Constraints">
 		<this><d/></this>
 		<haxe_doc>This type unifies with any function type.
 
 	It is intended to be used as a type parameter constraint. If used as a real
 	type, the underlying type will be `Dynamic`.</haxe_doc>
 		<meta><m n=":callable"/></meta>
-		<impl><class path="haxe._Constraints.Function_Impl_" params="" file="/home/travis/haxe/std/haxe/Constraints.hx" private="1" module="haxe.Constraints"><meta><m n=":keep"/></meta></class></impl>
+		<impl><class path="haxe._Constraints.Function_Impl_" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/haxe/Constraints.hx" private="1" module="haxe.Constraints"><meta><m n=":keep"/></meta></class></impl>
 	</abstract>
-	<abstract path="haxe.FlatEnum" params="" file="/home/travis/haxe/std/haxe/Constraints.hx" module="haxe.Constraints">
+	<abstract path="haxe.FlatEnum" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/haxe/Constraints.hx" module="haxe.Constraints">
 		<this><d/></this>
 		<haxe_doc>This type unifies with an enum instance if all constructors of the enum
 	require no arguments.
 
 	It is intended to be used as a type parameter constraint. If used as a real
 	type, the underlying type will be `Dynamic`.</haxe_doc>
-		<impl><class path="haxe._Constraints.FlatEnum_Impl_" params="" file="/home/travis/haxe/std/haxe/Constraints.hx" private="1" module="haxe.Constraints"><meta><m n=":keep"/></meta></class></impl>
+		<impl><class path="haxe._Constraints.FlatEnum_Impl_" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/haxe/Constraints.hx" private="1" module="haxe.Constraints"><meta><m n=":keep"/></meta></class></impl>
 	</abstract>
-	<abstract path="haxe.Constructible" params="T" file="/home/travis/haxe/std/haxe/Constraints.hx" module="haxe.Constraints">
+	<abstract path="haxe.Constructible" params="T" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/haxe/Constraints.hx" module="haxe.Constraints">
 		<this><d/></this>
 		<haxe_doc><![CDATA[This type unifies with any instance of classes that have a constructor
 	which
@@ -3509,9 +3161,9 @@
 
 	It is intended to be used as a type parameter constraint. If used as a real
 	type, the underlying type will be `Dynamic`.]]></haxe_doc>
-		<impl><class path="haxe._Constraints.Constructible_Impl_" params="" file="/home/travis/haxe/std/haxe/Constraints.hx" private="1" module="haxe.Constraints"><meta><m n=":keep"/></meta></class></impl>
+		<impl><class path="haxe._Constraints.Constructible_Impl_" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/haxe/Constraints.hx" private="1" module="haxe.Constraints"><meta><m n=":keep"/></meta></class></impl>
 	</abstract>
-	<abstract path="haxe.DynamicAccess" params="T" file="/home/travis/haxe/std/haxe/DynamicAccess.hx">
+	<abstract path="haxe.DynamicAccess" params="T" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/haxe/DynamicAccess.hx">
 		<from><icast><d><c path="haxe.DynamicAccess.T"/></d></icast></from>
 		<this><d><c path="haxe.DynamicAccess.T"/></d></this>
 		<to><icast><d><c path="haxe.DynamicAccess.T"/></d></icast></to>
@@ -3521,9 +3173,9 @@
 	For example, these types of structures are often created from JSON.
 
 	Basically, it wraps `Reflect` calls in a `Map`-like interface.</haxe_doc>
-		<impl><class path="haxe._DynamicAccess.DynamicAccess_Impl_" params="" file="/home/travis/haxe/std/haxe/DynamicAccess.hx" private="1" module="haxe.DynamicAccess"><meta><m n=":keep"/></meta></class></impl>
+		<impl><class path="haxe._DynamicAccess.DynamicAccess_Impl_" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/haxe/DynamicAccess.hx" private="1" module="haxe.DynamicAccess"><meta><m n=":keep"/></meta></class></impl>
 	</abstract>
-	<class path="haxe.EnumTools" params="" file="/home/travis/haxe/std/haxe/EnumTools.hx" extern="1">
+	<class path="haxe.EnumTools" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/haxe/EnumTools.hx" extern="1">
 		<getName public="1" params="T" get="inline" set="null" line="52" static="1">
 			<f a="e">
 				<x path="Enum"><c path="getName.T"/></x>
@@ -3615,7 +3267,7 @@
 	If the first argument to any of the methods is `null`, the result is
 	unspecified.</haxe_doc>
 	</class>
-	<class path="haxe.EnumValueTools" params="" file="/home/travis/haxe/std/haxe/EnumTools.hx" module="haxe.EnumTools" extern="1">
+	<class path="haxe.EnumValueTools" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/haxe/EnumTools.hx" module="haxe.EnumTools" extern="1">
 		<equals public="1" params="T" get="inline" set="null" line="133" static="1">
 			<f a="a:b">
 				<c path="equals.T"/>
@@ -3674,10 +3326,9 @@
 	If the first argument to any of the methods is `null`, the result is
 	unspecified.</haxe_doc>
 	</class>
-	<abstract path="haxe.ds.ReadOnlyArray" params="T" file="/home/travis/haxe/std/haxe/ds/ReadOnlyArray.hx">
+	<abstract path="haxe.ds.ReadOnlyArray" params="T" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/haxe/ds/ReadOnlyArray.hx">
 		<from><icast><c path="Array"><c path="haxe.ds.ReadOnlyArray.T"/></c></icast></from>
 		<this><c path="Array"><c path="haxe.ds.ReadOnlyArray.T"/></c></this>
-		<to><icast><t path="Iterable"><c path="haxe.ds.ReadOnlyArray.T"/></t></icast></to>
 		<haxe_doc>`ReadOnlyArray` is an abstract over an ordinary `Array` which only exposes
 	APIs that don't modify the instance, hence "read-only".
 
@@ -3696,7 +3347,7 @@
 	<e>slice</e>
 	<e>toString</e>
 </m></meta>
-		<impl><class path="haxe.ds._ReadOnlyArray.ReadOnlyArray_Impl_" params="" file="/home/travis/haxe/std/haxe/ds/ReadOnlyArray.hx" private="1" module="haxe.ds.ReadOnlyArray">
+		<impl><class path="haxe.ds._ReadOnlyArray.ReadOnlyArray_Impl_" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/haxe/ds/ReadOnlyArray.hx" private="1" module="haxe.ds.ReadOnlyArray">
 	<length public="1" get="accessor" set="null" static="1">
 		<x path="Int"/>
 		<meta><m n=":impl"/></meta>
@@ -3705,7 +3356,7 @@
 	<meta><m n=":keep"/></meta>
 </class></impl>
 	</abstract>
-	<abstract path="haxe.extern.EitherType" params="T1:T2" file="/home/travis/haxe/std/haxe/extern/EitherType.hx">
+	<abstract path="haxe.extern.EitherType" params="T1:T2" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/haxe/extern/EitherType.hx">
 		<from>
 			<icast><c path="haxe.extern.EitherType.T2"/></icast>
 			<icast><c path="haxe.extern.EitherType.T1"/></icast>
@@ -3724,9 +3375,9 @@
 	Otherwise, use of this type is discouraged.
 
 	@see <https://haxe.org/manual/lf-externs.html>]]></haxe_doc>
-		<impl><class path="haxe.extern._EitherType.EitherType_Impl_" params="" file="/home/travis/haxe/std/haxe/extern/EitherType.hx" private="1" module="haxe.extern.EitherType"><meta><m n=":keep"/></meta></class></impl>
+		<impl><class path="haxe.extern._EitherType.EitherType_Impl_" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/haxe/extern/EitherType.hx" private="1" module="haxe.extern.EitherType"><meta><m n=":keep"/></meta></class></impl>
 	</abstract>
-	<abstract path="haxe.extern.Rest" params="T" file="/home/travis/haxe/std/haxe/extern/Rest.hx">
+	<abstract path="haxe.extern.Rest" params="T" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/haxe/extern/Rest.hx">
 		<this><c path="Array"><c path="haxe.extern.Rest.T"/></c></this>
 		<haxe_doc><![CDATA[A special abstract type that represents "rest" function argument.
 
@@ -3735,36 +3386,9 @@
 	passed to that method.
 
 	@see <https://haxe.org/manual/lf-externs.html>]]></haxe_doc>
-		<impl><class path="haxe.extern._Rest.Rest_Impl_" params="" file="/home/travis/haxe/std/haxe/extern/Rest.hx" private="1" module="haxe.extern.Rest"><meta><m n=":keep"/></meta></class></impl>
+		<impl><class path="haxe.extern._Rest.Rest_Impl_" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/haxe/extern/Rest.hx" private="1" module="haxe.extern.Rest"><meta><m n=":keep"/></meta></class></impl>
 	</abstract>
-	<class path="haxe.iterators.ArrayIterator" params="T" file="/home/travis/haxe/std/haxe/iterators/ArrayIterator.hx">
-		<array final="1"><c path="Array"><c path="haxe.iterators.ArrayIterator.T"/></c></array>
-		<current expr="0">
-			<x path="Int"/>
-			<meta><m n=":value"><e>0</e></m></meta>
-		</current>
-		<hasNext public="1" get="inline" set="null" line="43">
-			<f a=""><x path="Bool"/></f>
-			<haxe_doc>See `Iterator.hasNext`</haxe_doc>
-		</hasNext>
-		<next public="1" get="inline" set="null" line="51">
-			<f a=""><c path="haxe.iterators.ArrayIterator.T"/></f>
-			<haxe_doc>See `Iterator.next`</haxe_doc>
-		</next>
-		<new public="1" get="inline" set="null" line="35">
-			<f a="array">
-				<c path="Array"><c path="haxe.iterators.ArrayIterator.T"/></c>
-				<x path="Void"/>
-			</f>
-			<haxe_doc>Create a new `ArrayIterator`.</haxe_doc>
-		</new>
-		<haxe_doc><![CDATA[This iterator is used only when `Array<T>` is passed to `Iterable<T>`]]></haxe_doc>
-		<meta>
-			<m n=":keep"/>
-			<m n=":directlyUsed"/>
-		</meta>
-	</class>
-	<class path="js.lib.Error" params="" file="/home/travis/haxe/std/js/lib/Error.hx" extern="1">
+	<class path="js.lib.Error" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/Error.hx" extern="1">
 		<message public="1"><c path="String"/></message>
 		<name public="1"><c path="String"/></name>
 		<stack public="1" set="null"><c path="String"/></stack>
@@ -3774,7 +3398,180 @@
 </f></new>
 		<meta><m n=":native"><e>"Error"</e></m></meta>
 	</class>
-	<class path="js.lib.ArrayBuffer" params="" file="/home/travis/haxe/std/js/lib/ArrayBuffer.hx" extern="1">
+	<class path="js.lib.Object" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/Object.hx" extern="1">
+		<assign public="1" params="T" set="method" static="1">
+			<f a="target:sources">
+				<c path="assign.T"/>
+				<x path="haxe.extern.Rest"><a/></x>
+				<c path="assign.T"/>
+			</f>
+			<haxe_doc>Copies the values of all enumerable own properties from one or more
+		source objects to a target object.</haxe_doc>
+		</assign>
+		<create public="1" params="T" set="method" static="1">
+			<f a="proto:?propertiesObject">
+				<a/>
+				<x path="haxe.DynamicAccess"><t path="js.lib.ObjectPropertyDescriptor"/></x>
+				<c path="create.T"/>
+			</f>
+			<haxe_doc>Creates a new object with the specified prototype object and properties.</haxe_doc>
+		</create>
+		<defineProperties public="1" params="T" set="method" static="1">
+			<f a="obj:props">
+				<c path="defineProperties.T"/>
+				<x path="haxe.DynamicAccess"><t path="js.lib.ObjectPropertyDescriptor"/></x>
+				<c path="defineProperties.T"/>
+			</f>
+			<haxe_doc>Adds the named properties described by the given descriptors to an object.</haxe_doc>
+		</defineProperties>
+		<defineProperty public="1" params="T" set="method" static="1">
+			<f a="obj:prop:descriptor">
+				<c path="defineProperty.T"/>
+				<c path="String"/>
+				<t path="js.lib.ObjectPropertyDescriptor"/>
+				<c path="defineProperty.T"/>
+			</f>
+			<haxe_doc>Adds the named property described by a given descriptor to an object.</haxe_doc>
+		</defineProperty>
+		<entries public="1" set="method" static="1">
+			<f a="obj">
+				<a/>
+				<c path="Array"><x path="js.lib.ObjectEntry"/></c>
+			</f>
+			<haxe_doc>Returns an array containing all of the [key, value] pairs of a given
+		object's own enumerable string properties.</haxe_doc>
+		</entries>
+		<freeze public="1" params="T" set="method" static="1">
+			<f a="obj">
+				<c path="freeze.T"/>
+				<c path="freeze.T"/>
+			</f>
+			<haxe_doc>Freezes an object: other code can't delete or change any properties.</haxe_doc>
+		</freeze>
+		<fromEntries public="1" params="T" set="method" static="1">
+			<f a="iterable">
+				<x path="Any"/>
+				<c path="fromEntries.T"/>
+			</f>
+			<haxe_doc>Returns a new object from an iterable of key-value pairs
+		(reverses Object.entries).</haxe_doc>
+		</fromEntries>
+		<getOwnPropertyDescriptor public="1" set="method" static="1">
+			<f a="obj:prop">
+				<a/>
+				<c path="String"/>
+				<x path="Null"><t path="js.lib.ObjectPropertyDescriptor"/></x>
+			</f>
+			<haxe_doc>Returns a property descriptor for a named property on an object.</haxe_doc>
+		</getOwnPropertyDescriptor>
+		<getOwnPropertyNames public="1" set="method" static="1">
+			<f a="obj">
+				<a/>
+				<c path="Array"><c path="String"/></c>
+			</f>
+			<haxe_doc>Returns an array containing the names of all of the given object's own
+		enumerable and non-enumerable properties.</haxe_doc>
+		</getOwnPropertyNames>
+		<getOwnPropertySymbols public="1" set="method" static="1">
+			<f a="obj">
+				<a/>
+				<c path="Array"><c path="js.lib.Symbol"/></c>
+			</f>
+			<haxe_doc>Returns an array of all symbol properties found directly upon a given object.</haxe_doc>
+		</getOwnPropertySymbols>
+		<getPrototypeOf public="1" params="TProto" set="method" static="1">
+			<f a="obj">
+				<a/>
+				<x path="Null"><c path="getPrototypeOf.TProto"/></x>
+			</f>
+			<haxe_doc>Returns the prototype of the specified object.</haxe_doc>
+		</getPrototypeOf>
+		<is public="1" params="T" set="method" static="1">
+			<f a="value1:value2">
+				<c path="is.T"/>
+				<c path="is.T"/>
+				<x path="Bool"/>
+			</f>
+			<haxe_doc>Compares if two values are the same value. Equates all NaN values
+		(which differs from both Abstract Equality Comparison and
+		Strict Equality Comparison).</haxe_doc>
+		</is>
+		<isExtensible public="1" set="method" static="1">
+			<f a="obj">
+				<a/>
+				<x path="Bool"/>
+			</f>
+			<haxe_doc>Determines if extending of an object is allowed.</haxe_doc>
+		</isExtensible>
+		<isFrozen public="1" set="method" static="1">
+			<f a="obj">
+				<a/>
+				<x path="Bool"/>
+			</f>
+			<haxe_doc>Determines if an object was frozen.</haxe_doc>
+		</isFrozen>
+		<isSealed public="1" set="method" static="1">
+			<f a="obj">
+				<a/>
+				<x path="Bool"/>
+			</f>
+			<haxe_doc>Determines if an object is sealed.</haxe_doc>
+		</isSealed>
+		<keys public="1" set="method" static="1">
+			<f a="obj">
+				<a/>
+				<c path="Array"><c path="String"/></c>
+			</f>
+			<haxe_doc>Returns an array containing the names of all of the given object's own
+		enumerable string properties.</haxe_doc>
+		</keys>
+		<preventExtensions public="1" params="T" set="method" static="1">
+			<f a="obj">
+				<c path="preventExtensions.T"/>
+				<c path="preventExtensions.T"/>
+			</f>
+			<haxe_doc>Prevents any extensions of an object.</haxe_doc>
+		</preventExtensions>
+		<seal public="1" params="T" set="method" static="1">
+			<f a="obj">
+				<c path="seal.T"/>
+				<c path="seal.T"/>
+			</f>
+			<haxe_doc>Prevents other code from deleting properties of an object.</haxe_doc>
+		</seal>
+		<setPrototypeOf public="1" params="T" set="method" static="1">
+			<f a="obj:prototype">
+				<c path="setPrototypeOf.T"/>
+				<x path="Null"><a/></x>
+				<c path="setPrototypeOf.T"/>
+			</f>
+			<haxe_doc>Sets the prototype (i.e., the internal Prototype property).</haxe_doc>
+		</setPrototypeOf>
+		<values public="1" set="method" static="1">
+			<f a="obj">
+				<a/>
+				<c path="Array"><x path="Any"/></c>
+			</f>
+			<haxe_doc>Returns an array containing the values that correspond to all of
+		a given object's own enumerable string properties.</haxe_doc>
+		</values>
+		<prototype public="1" set="null" static="1">
+			<t path="js.lib.ObjectPrototype"/>
+			<haxe_doc>Allows the addition of properties to all objects of type Object.</haxe_doc>
+		</prototype>
+		<new public="1" set="method">
+			<f a="?value">
+				<x path="Any"/>
+				<x path="Void"/>
+			</f>
+			<haxe_doc>The Object constructor creates an object wrapper.</haxe_doc>
+		</new>
+		<haxe_doc>The `js.lib.Object` constructor creates an object wrapper.
+
+	Documentation [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object) by [Mozilla Contributors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object$history), licensed under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/).</haxe_doc>
+		<meta><m n=":native"><e>"Object"</e></m></meta>
+	</class>
+	<class path="js.lib.ArrayBuffer" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/ArrayBuffer.hx" extern="1">
 		<isView public="1" set="method" static="1"><f a="value">
 	<d/>
 	<x path="Bool"/>
@@ -3794,7 +3591,7 @@
 		</new>
 		<meta><m n=":native"><e>"ArrayBuffer"</e></m></meta>
 	</class>
-	<class path="js.lib.ArrayBufferView" params="" file="/home/travis/haxe/std/js/lib/ArrayBufferView.hx" extern="1" interface="1">
+	<class path="js.lib.ArrayBufferView" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/ArrayBufferView.hx" extern="1" interface="1">
 		<buffer final="1" public="1"><c path="js.lib.ArrayBuffer"/></buffer>
 		<byteOffset final="1" public="1"><x path="Int"/></byteOffset>
 		<byteLength final="1" public="1"><x path="Int"/></byteLength>
@@ -3804,7 +3601,7 @@
 
 	@see <https://developer.mozilla.org/en-US/docs/Web/API/ArrayBufferView>]]></haxe_doc>
 	</class>
-	<class path="js.lib.Uint8Array" params="" file="/home/travis/haxe/std/js/lib/Uint8Array.hx" extern="1">
+	<class path="js.lib.Uint8Array" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/Uint8Array.hx" extern="1">
 		<implements path="js.lib.ArrayBufferView"/>
 		<BYTES_PER_ELEMENT final="1" public="1" set="null" static="1">
 			<x path="Int"/>
@@ -3874,10 +3671,7 @@
 		See also [Array.prototype.copyWithin()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/copyWithin).</haxe_doc>
 		</copyWithin>
 		<entries public="1" set="method">
-			<f a=""><t path="js.lib.Iterator"><x path="js.lib.KeyValue">
-	<x path="Int"/>
-	<x path="Int"/>
-</x></t></f>
+			<f a=""><t path="Iterator"><x path="Int"/></t></f>
 			<haxe_doc>Returns a new Array Iterator object that contains the key/value pairs for each index in the array.
 		See also [Array.prototype.entries()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries).</haxe_doc>
 		</entries>
@@ -4123,7 +3917,7 @@
 		See also [Array.prototype.join()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join).</haxe_doc>
 		</join>
 		<keys public="1" set="method">
-			<f a=""><t path="js.lib.Iterator"><x path="Int"/></t></f>
+			<f a=""><t path="Iterator"><x path="Int"/></t></f>
 			<haxe_doc>Returns a new Array Iterator that contains the keys for each index in the array.
 		See also [Array.prototype.keys()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/keys).</haxe_doc>
 		</keys>
@@ -4501,7 +4295,7 @@
 			<haxe_doc>Returns a new TypedArray from the given start and end element index.</haxe_doc>
 		</subarray>
 		<values public="1" set="method">
-			<f a=""><t path="js.lib.Iterator"><x path="Int"/></t></f>
+			<f a=""><t path="Iterator"><x path="Int"/></t></f>
 			<haxe_doc>Returns a new Array Iterator object that contains the values for each index in the array.
 		See also [Array.prototype.values()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/values).</haxe_doc>
 		</values>
@@ -4551,7 +4345,7 @@
 	Documentation [Uint8Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array) by [Mozilla Contributors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array$history), licensed under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/).</haxe_doc>
 		<meta><m n=":native"><e>"Uint8Array"</e></m></meta>
 	</class>
-	<class path="js.lib.EvalError" params="" file="/home/travis/haxe/std/js/lib/Error.hx" module="js.lib.Error" extern="1">
+	<class path="js.lib.EvalError" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/Error.hx" module="js.lib.Error" extern="1">
 		<extends path="js.lib.Error"/>
 		<new public="1" set="method"><f a="?message">
 	<c path="String"/>
@@ -4559,7 +4353,7 @@
 </f></new>
 		<meta><m n=":native"><e>"EvalError"</e></m></meta>
 	</class>
-	<class path="js.lib.RangeError" params="" file="/home/travis/haxe/std/js/lib/Error.hx" module="js.lib.Error" extern="1">
+	<class path="js.lib.RangeError" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/Error.hx" module="js.lib.Error" extern="1">
 		<extends path="js.lib.Error"/>
 		<new public="1" set="method"><f a="?message">
 	<c path="String"/>
@@ -4567,7 +4361,7 @@
 </f></new>
 		<meta><m n=":native"><e>"RangeError"</e></m></meta>
 	</class>
-	<class path="js.lib.ReferenceError" params="" file="/home/travis/haxe/std/js/lib/Error.hx" module="js.lib.Error" extern="1">
+	<class path="js.lib.ReferenceError" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/Error.hx" module="js.lib.Error" extern="1">
 		<extends path="js.lib.Error"/>
 		<new public="1" set="method"><f a="?message">
 	<c path="String"/>
@@ -4575,7 +4369,7 @@
 </f></new>
 		<meta><m n=":native"><e>"ReferenceError"</e></m></meta>
 	</class>
-	<class path="js.lib.SyntaxError" params="" file="/home/travis/haxe/std/js/lib/Error.hx" module="js.lib.Error" extern="1">
+	<class path="js.lib.SyntaxError" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/Error.hx" module="js.lib.Error" extern="1">
 		<extends path="js.lib.Error"/>
 		<new public="1" set="method"><f a="?message">
 	<c path="String"/>
@@ -4583,7 +4377,7 @@
 </f></new>
 		<meta><m n=":native"><e>"SyntaxError"</e></m></meta>
 	</class>
-	<class path="js.lib.TypeError" params="" file="/home/travis/haxe/std/js/lib/Error.hx" module="js.lib.Error" extern="1">
+	<class path="js.lib.TypeError" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/Error.hx" module="js.lib.Error" extern="1">
 		<extends path="js.lib.Error"/>
 		<new public="1" set="method"><f a="?message">
 	<c path="String"/>
@@ -4591,7 +4385,7 @@
 </f></new>
 		<meta><m n=":native"><e>"TypeError"</e></m></meta>
 	</class>
-	<class path="js.lib.URIError" params="" file="/home/travis/haxe/std/js/lib/Error.hx" module="js.lib.Error" extern="1">
+	<class path="js.lib.URIError" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/Error.hx" module="js.lib.Error" extern="1">
 		<extends path="js.lib.Error"/>
 		<new public="1" set="method"><f a="?message">
 	<c path="String"/>
@@ -4599,7 +4393,7 @@
 </f></new>
 		<meta><m n=":native"><e>"URIError"</e></m></meta>
 	</class>
-	<class path="js.lib.Float32Array" params="" file="/home/travis/haxe/std/js/lib/Float32Array.hx" extern="1">
+	<class path="js.lib.Float32Array" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/Float32Array.hx" extern="1">
 		<implements path="js.lib.ArrayBufferView"/>
 		<BYTES_PER_ELEMENT final="1" public="1" set="null" static="1">
 			<x path="Int"/>
@@ -4669,10 +4463,7 @@
 		See also [Array.prototype.copyWithin()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/copyWithin).</haxe_doc>
 		</copyWithin>
 		<entries public="1" set="method">
-			<f a=""><t path="js.lib.Iterator"><x path="js.lib.KeyValue">
-	<x path="Int"/>
-	<x path="Float"/>
-</x></t></f>
+			<f a=""><t path="Iterator"><x path="Int"/></t></f>
 			<haxe_doc>Returns a new Array Iterator object that contains the key/value pairs for each index in the array.
 		See also [Array.prototype.entries()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries).</haxe_doc>
 		</entries>
@@ -4918,7 +4709,7 @@
 		See also [Array.prototype.join()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join).</haxe_doc>
 		</join>
 		<keys public="1" set="method">
-			<f a=""><t path="js.lib.Iterator"><x path="Int"/></t></f>
+			<f a=""><t path="Iterator"><x path="Int"/></t></f>
 			<haxe_doc>Returns a new Array Iterator that contains the keys for each index in the array.
 		See also [Array.prototype.keys()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/keys).</haxe_doc>
 		</keys>
@@ -5304,7 +5095,7 @@
 			<haxe_doc>Returns a new TypedArray from the given start and end element index.</haxe_doc>
 		</subarray>
 		<values public="1" set="method">
-			<f a=""><t path="js.lib.Iterator"><x path="Float"/></t></f>
+			<f a=""><t path="Iterator"><x path="Float"/></t></f>
 			<haxe_doc>Returns a new Array Iterator object that contains the values for each index in the array.
 		See also [Array.prototype.values()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/values).</haxe_doc>
 		</values>
@@ -5356,7 +5147,7 @@
 	Documentation [Float32Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array) by [Mozilla Contributors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array$history), licensed under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/).</haxe_doc>
 		<meta><m n=":native"><e>"Float32Array"</e></m></meta>
 	</class>
-	<class path="js.lib.Float64Array" params="" file="/home/travis/haxe/std/js/lib/Float64Array.hx" extern="1">
+	<class path="js.lib.Float64Array" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/Float64Array.hx" extern="1">
 		<implements path="js.lib.ArrayBufferView"/>
 		<BYTES_PER_ELEMENT final="1" public="1" set="null" static="1">
 			<x path="Int"/>
@@ -5426,10 +5217,7 @@
 		See also [Array.prototype.copyWithin()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/copyWithin).</haxe_doc>
 		</copyWithin>
 		<entries public="1" set="method">
-			<f a=""><t path="js.lib.Iterator"><x path="js.lib.KeyValue">
-	<x path="Int"/>
-	<x path="Float"/>
-</x></t></f>
+			<f a=""><t path="Iterator"><x path="Int"/></t></f>
 			<haxe_doc>Returns a new Array Iterator object that contains the key/value pairs for each index in the array.
 		See also [Array.prototype.entries()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries).</haxe_doc>
 		</entries>
@@ -5675,7 +5463,7 @@
 		See also [Array.prototype.join()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join).</haxe_doc>
 		</join>
 		<keys public="1" set="method">
-			<f a=""><t path="js.lib.Iterator"><x path="Int"/></t></f>
+			<f a=""><t path="Iterator"><x path="Int"/></t></f>
 			<haxe_doc>Returns a new Array Iterator that contains the keys for each index in the array.
 		See also [Array.prototype.keys()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/keys).</haxe_doc>
 		</keys>
@@ -6061,7 +5849,7 @@
 			<haxe_doc>Returns a new TypedArray from the given start and end element index.</haxe_doc>
 		</subarray>
 		<values public="1" set="method">
-			<f a=""><t path="js.lib.Iterator"><x path="Float"/></t></f>
+			<f a=""><t path="Iterator"><x path="Float"/></t></f>
 			<haxe_doc>Returns a new Array Iterator object that contains the values for each index in the array.
 		See also [Array.prototype.values()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/values).</haxe_doc>
 		</values>
@@ -6113,7 +5901,7 @@
 	Documentation [Float64Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array) by [Mozilla Contributors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array$history), licensed under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/).</haxe_doc>
 		<meta><m n=":native"><e>"Float64Array"</e></m></meta>
 	</class>
-	<class path="js.lib.Function" params="" file="/home/travis/haxe/std/js/lib/Function.hx" extern="1">
+	<class path="js.lib.Function" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/Function.hx" extern="1">
 		<length public="1" set="null">
 			<x path="Int"/>
 			<haxe_doc>Specifies the number of arguments expected by the function.</haxe_doc>
@@ -6161,7 +5949,7 @@
 		</new>
 		<meta><m n=":native"><e>"Function"</e></m></meta>
 	</class>
-	<class path="js.lib.Int16Array" params="" file="/home/travis/haxe/std/js/lib/Int16Array.hx" extern="1">
+	<class path="js.lib.Int16Array" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/Int16Array.hx" extern="1">
 		<implements path="js.lib.ArrayBufferView"/>
 		<BYTES_PER_ELEMENT final="1" public="1" set="null" static="1">
 			<x path="Int"/>
@@ -6231,10 +6019,7 @@
 		See also [Array.prototype.copyWithin()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/copyWithin).</haxe_doc>
 		</copyWithin>
 		<entries public="1" set="method">
-			<f a=""><t path="js.lib.Iterator"><x path="js.lib.KeyValue">
-	<x path="Int"/>
-	<x path="Int"/>
-</x></t></f>
+			<f a=""><t path="Iterator"><x path="Int"/></t></f>
 			<haxe_doc>Returns a new Array Iterator object that contains the key/value pairs for each index in the array.
 		See also [Array.prototype.entries()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries).</haxe_doc>
 		</entries>
@@ -6480,7 +6265,7 @@
 		See also [Array.prototype.join()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join).</haxe_doc>
 		</join>
 		<keys public="1" set="method">
-			<f a=""><t path="js.lib.Iterator"><x path="Int"/></t></f>
+			<f a=""><t path="Iterator"><x path="Int"/></t></f>
 			<haxe_doc>Returns a new Array Iterator that contains the keys for each index in the array.
 		See also [Array.prototype.keys()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/keys).</haxe_doc>
 		</keys>
@@ -6858,7 +6643,7 @@
 			<haxe_doc>Returns a new TypedArray from the given start and end element index.</haxe_doc>
 		</subarray>
 		<values public="1" set="method">
-			<f a=""><t path="js.lib.Iterator"><x path="Int"/></t></f>
+			<f a=""><t path="Iterator"><x path="Int"/></t></f>
 			<haxe_doc>Returns a new Array Iterator object that contains the values for each index in the array.
 		See also [Array.prototype.values()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/values).</haxe_doc>
 		</values>
@@ -6909,7 +6694,7 @@
 	Documentation [Int16Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array) by [Mozilla Contributors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array$history), licensed under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/).</haxe_doc>
 		<meta><m n=":native"><e>"Int16Array"</e></m></meta>
 	</class>
-	<class path="js.lib.Int32Array" params="" file="/home/travis/haxe/std/js/lib/Int32Array.hx" extern="1">
+	<class path="js.lib.Int32Array" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/Int32Array.hx" extern="1">
 		<implements path="js.lib.ArrayBufferView"/>
 		<BYTES_PER_ELEMENT final="1" public="1" set="null" static="1">
 			<x path="Int"/>
@@ -6979,10 +6764,7 @@
 		See also [Array.prototype.copyWithin()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/copyWithin).</haxe_doc>
 		</copyWithin>
 		<entries public="1" set="method">
-			<f a=""><t path="js.lib.Iterator"><x path="js.lib.KeyValue">
-	<x path="Int"/>
-	<x path="Int"/>
-</x></t></f>
+			<f a=""><t path="Iterator"><x path="Int"/></t></f>
 			<haxe_doc>Returns a new Array Iterator object that contains the key/value pairs for each index in the array.
 		See also [Array.prototype.entries()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries).</haxe_doc>
 		</entries>
@@ -7228,7 +7010,7 @@
 		See also [Array.prototype.join()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join).</haxe_doc>
 		</join>
 		<keys public="1" set="method">
-			<f a=""><t path="js.lib.Iterator"><x path="Int"/></t></f>
+			<f a=""><t path="Iterator"><x path="Int"/></t></f>
 			<haxe_doc>Returns a new Array Iterator that contains the keys for each index in the array.
 		See also [Array.prototype.keys()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/keys).</haxe_doc>
 		</keys>
@@ -7606,7 +7388,7 @@
 			<haxe_doc>Returns a new TypedArray from the given start and end element index.</haxe_doc>
 		</subarray>
 		<values public="1" set="method">
-			<f a=""><t path="js.lib.Iterator"><x path="Int"/></t></f>
+			<f a=""><t path="Iterator"><x path="Int"/></t></f>
 			<haxe_doc>Returns a new Array Iterator object that contains the values for each index in the array.
 		See also [Array.prototype.values()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/values).</haxe_doc>
 		</values>
@@ -7657,7 +7439,7 @@
 	Documentation [Int32Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array) by [Mozilla Contributors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array$history), licensed under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/).</haxe_doc>
 		<meta><m n=":native"><e>"Int32Array"</e></m></meta>
 	</class>
-	<class path="js.lib.Int8Array" params="" file="/home/travis/haxe/std/js/lib/Int8Array.hx" extern="1">
+	<class path="js.lib.Int8Array" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/Int8Array.hx" extern="1">
 		<implements path="js.lib.ArrayBufferView"/>
 		<BYTES_PER_ELEMENT final="1" public="1" set="null" static="1">
 			<x path="Int"/>
@@ -7727,10 +7509,7 @@
 		See also [Array.prototype.copyWithin()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/copyWithin).</haxe_doc>
 		</copyWithin>
 		<entries public="1" set="method">
-			<f a=""><t path="js.lib.Iterator"><x path="js.lib.KeyValue">
-	<x path="Int"/>
-	<x path="Int"/>
-</x></t></f>
+			<f a=""><t path="Iterator"><x path="Int"/></t></f>
 			<haxe_doc>Returns a new Array Iterator object that contains the key/value pairs for each index in the array.
 		See also [Array.prototype.entries()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries).</haxe_doc>
 		</entries>
@@ -7976,7 +7755,7 @@
 		See also [Array.prototype.join()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join).</haxe_doc>
 		</join>
 		<keys public="1" set="method">
-			<f a=""><t path="js.lib.Iterator"><x path="Int"/></t></f>
+			<f a=""><t path="Iterator"><x path="Int"/></t></f>
 			<haxe_doc>Returns a new Array Iterator that contains the keys for each index in the array.
 		See also [Array.prototype.keys()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/keys).</haxe_doc>
 		</keys>
@@ -8354,7 +8133,7 @@
 			<haxe_doc>Returns a new TypedArray from the given start and end element index.</haxe_doc>
 		</subarray>
 		<values public="1" set="method">
-			<f a=""><t path="js.lib.Iterator"><x path="Int"/></t></f>
+			<f a=""><t path="Iterator"><x path="Int"/></t></f>
 			<haxe_doc>Returns a new Array Iterator object that contains the values for each index in the array.
 		See also [Array.prototype.values()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/values).</haxe_doc>
 		</values>
@@ -8404,214 +8183,7 @@
 	Documentation [Int8Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array) by [Mozilla Contributors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array$history), licensed under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/).</haxe_doc>
 		<meta><m n=":native"><e>"Int8Array"</e></m></meta>
 	</class>
-	<typedef path="js.lib.Iterator" params="T" file="/home/travis/haxe/std/js/lib/Iterator.hx">
-		<a><next set="method"><f a=""><t path="js.lib.IteratorStep"><c path="js.lib.Iterator.T"/></t></f></next></a>
-		<haxe_doc>Native JavaScript iterator structure. To enable haxe for-in iteration, use `js.lib.HaxeIterator`, for example `for (v in new js.lib.HaxeIterator(jsIterator))` or add `using js.lib.HaxeIterator;` to your module
-
-	See [Iteration Protocols](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols)</haxe_doc>
-	</typedef>
-	<typedef path="js.lib.AsyncIterator" params="T" file="/home/travis/haxe/std/js/lib/Iterator.hx" module="js.lib.Iterator">
-		<a><next set="method"><f a=""><c path="js.lib.Promise"><t path="js.lib.IteratorStep"><c path="js.lib.AsyncIterator.T"/></t></c></f></next></a>
-		<haxe_doc>Native JavaScript async iterator structure. 
-
-	See [for await...of](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/for-await...of)</haxe_doc>
-	</typedef>
-	<typedef path="js.lib.IteratorStep" params="T" file="/home/travis/haxe/std/js/lib/Iterator.hx" module="js.lib.Iterator"><a>
-	<value>
-		<x path="Null"><c path="js.lib.IteratorStep.T"/></x>
-		<meta><m n=":optional"/></meta>
-	</value>
-	<done><x path="Bool"/></done>
-</a></typedef>
-	<abstract path="js.lib.KeyValue" params="K:V" file="/home/travis/haxe/std/js/lib/KeyValue.hx">
-		<this><c path="Array"><x path="Any"/></c></this>
-		<haxe_doc>Key/value access helper.</haxe_doc>
-		<impl><class path="js.lib._KeyValue.KeyValue_Impl_" params="" file="/home/travis/haxe/std/js/lib/KeyValue.hx" private="1" module="js.lib.KeyValue">
-	<key public="1" get="accessor" set="null" static="1">
-		<c path="js.lib.KeyValue.K"/>
-		<meta><m n=":impl"/></meta>
-	</key>
-	<value public="1" get="accessor" set="null" static="1">
-		<c path="js.lib.KeyValue.V"/>
-		<meta><m n=":impl"/></meta>
-	</value>
-	<meta><m n=":keep"/></meta>
-</class></impl>
-	</abstract>
-	<class path="js.lib.Object" params="" file="/home/travis/haxe/std/js/lib/Object.hx" extern="1">
-		<assign public="1" params="T" set="method" static="1">
-			<f a="target:sources">
-				<c path="assign.T"/>
-				<x path="haxe.extern.Rest"><a/></x>
-				<c path="assign.T"/>
-			</f>
-			<haxe_doc>Copies the values of all enumerable own properties from one or more
-		source objects to a target object.</haxe_doc>
-		</assign>
-		<create public="1" params="T" set="method" static="1">
-			<f a="proto:?propertiesObject">
-				<a/>
-				<x path="haxe.DynamicAccess"><t path="js.lib.ObjectPropertyDescriptor"/></x>
-				<c path="create.T"/>
-			</f>
-			<haxe_doc>Creates a new object with the specified prototype object and properties.</haxe_doc>
-		</create>
-		<defineProperties public="1" params="T" set="method" static="1">
-			<f a="obj:props">
-				<c path="defineProperties.T"/>
-				<x path="haxe.DynamicAccess"><t path="js.lib.ObjectPropertyDescriptor"/></x>
-				<c path="defineProperties.T"/>
-			</f>
-			<haxe_doc>Adds the named properties described by the given descriptors to an object.</haxe_doc>
-		</defineProperties>
-		<defineProperty public="1" params="T" set="method" static="1">
-			<f a="obj:prop:descriptor">
-				<c path="defineProperty.T"/>
-				<c path="String"/>
-				<t path="js.lib.ObjectPropertyDescriptor"/>
-				<c path="defineProperty.T"/>
-			</f>
-			<haxe_doc>Adds the named property described by a given descriptor to an object.</haxe_doc>
-		</defineProperty>
-		<entries public="1" set="method" static="1">
-			<f a="obj">
-				<a/>
-				<c path="Array"><x path="js.lib.ObjectEntry"/></c>
-			</f>
-			<haxe_doc>Returns an array containing all of the [key, value] pairs of a given
-		object's own enumerable string properties.</haxe_doc>
-		</entries>
-		<freeze public="1" params="T" set="method" static="1">
-			<f a="obj">
-				<c path="freeze.T"/>
-				<c path="freeze.T"/>
-			</f>
-			<haxe_doc>Freezes an object: other code can't delete or change any properties.</haxe_doc>
-		</freeze>
-		<fromEntries public="1" params="T" set="method" static="1">
-			<f a="iterable">
-				<x path="Any"/>
-				<c path="fromEntries.T"/>
-			</f>
-			<haxe_doc>Returns a new object from an iterable of key-value pairs
-		(reverses Object.entries).</haxe_doc>
-		</fromEntries>
-		<getOwnPropertyDescriptor public="1" set="method" static="1">
-			<f a="obj:prop">
-				<a/>
-				<c path="String"/>
-				<x path="Null"><t path="js.lib.ObjectPropertyDescriptor"/></x>
-			</f>
-			<haxe_doc>Returns a property descriptor for a named property on an object.</haxe_doc>
-		</getOwnPropertyDescriptor>
-		<getOwnPropertyNames public="1" set="method" static="1">
-			<f a="obj">
-				<a/>
-				<c path="Array"><c path="String"/></c>
-			</f>
-			<haxe_doc>Returns an array containing the names of all of the given object's own
-		enumerable and non-enumerable properties.</haxe_doc>
-		</getOwnPropertyNames>
-		<getOwnPropertySymbols public="1" set="method" static="1">
-			<f a="obj">
-				<a/>
-				<c path="Array"><c path="js.lib.Symbol"/></c>
-			</f>
-			<haxe_doc>Returns an array of all symbol properties found directly upon a given object.</haxe_doc>
-		</getOwnPropertySymbols>
-		<getPrototypeOf public="1" params="TProto" set="method" static="1">
-			<f a="obj">
-				<a/>
-				<x path="Null"><c path="getPrototypeOf.TProto"/></x>
-			</f>
-			<haxe_doc>Returns the prototype of the specified object.</haxe_doc>
-		</getPrototypeOf>
-		<is public="1" params="T" set="method" static="1">
-			<f a="value1:value2">
-				<c path="is.T"/>
-				<c path="is.T"/>
-				<x path="Bool"/>
-			</f>
-			<haxe_doc>Compares if two values are the same value. Equates all NaN values
-		(which differs from both Abstract Equality Comparison and
-		Strict Equality Comparison).</haxe_doc>
-		</is>
-		<isExtensible public="1" set="method" static="1">
-			<f a="obj">
-				<a/>
-				<x path="Bool"/>
-			</f>
-			<haxe_doc>Determines if extending of an object is allowed.</haxe_doc>
-		</isExtensible>
-		<isFrozen public="1" set="method" static="1">
-			<f a="obj">
-				<a/>
-				<x path="Bool"/>
-			</f>
-			<haxe_doc>Determines if an object was frozen.</haxe_doc>
-		</isFrozen>
-		<isSealed public="1" set="method" static="1">
-			<f a="obj">
-				<a/>
-				<x path="Bool"/>
-			</f>
-			<haxe_doc>Determines if an object is sealed.</haxe_doc>
-		</isSealed>
-		<keys public="1" set="method" static="1">
-			<f a="obj">
-				<a/>
-				<c path="Array"><c path="String"/></c>
-			</f>
-			<haxe_doc>Returns an array containing the names of all of the given object's own
-		enumerable string properties.</haxe_doc>
-		</keys>
-		<preventExtensions public="1" params="T" set="method" static="1">
-			<f a="obj">
-				<c path="preventExtensions.T"/>
-				<c path="preventExtensions.T"/>
-			</f>
-			<haxe_doc>Prevents any extensions of an object.</haxe_doc>
-		</preventExtensions>
-		<seal public="1" params="T" set="method" static="1">
-			<f a="obj">
-				<c path="seal.T"/>
-				<c path="seal.T"/>
-			</f>
-			<haxe_doc>Prevents other code from deleting properties of an object.</haxe_doc>
-		</seal>
-		<setPrototypeOf public="1" params="T" set="method" static="1">
-			<f a="obj:prototype">
-				<c path="setPrototypeOf.T"/>
-				<x path="Null"><a/></x>
-				<c path="setPrototypeOf.T"/>
-			</f>
-			<haxe_doc>Sets the prototype (i.e., the internal Prototype property).</haxe_doc>
-		</setPrototypeOf>
-		<values public="1" set="method" static="1">
-			<f a="obj">
-				<a/>
-				<c path="Array"><x path="Any"/></c>
-			</f>
-			<haxe_doc>Returns an array containing the values that correspond to all of
-		a given object's own enumerable string properties.</haxe_doc>
-		</values>
-		<prototype public="1" set="null" static="1">
-			<t path="js.lib.ObjectPrototype"/>
-			<haxe_doc>Allows the addition of properties to all objects of type Object.</haxe_doc>
-		</prototype>
-		<new public="1" set="method">
-			<f a="?value">
-				<x path="Any"/>
-				<x path="Void"/>
-			</f>
-			<haxe_doc>The Object constructor creates an object wrapper.</haxe_doc>
-		</new>
-		<haxe_doc>The `js.lib.Object` constructor creates an object wrapper.
-
-	Documentation [Object](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object) by [Mozilla Contributors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object$history), licensed under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/).</haxe_doc>
-		<meta><m n=":native"><e>"Object"</e></m></meta>
-	</class>
-	<typedef path="js.lib.ObjectPrototype" params="" file="/home/travis/haxe/std/js/lib/Object.hx" module="js.lib.Object">
+	<typedef path="js.lib.ObjectPrototype" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/Object.hx" module="js.lib.Object">
 		<a>
 			<valueOf set="null">
 				<c path="js.lib.Function"/>
@@ -8644,7 +8216,7 @@
 		<haxe_doc><![CDATA[Type for
 	@see <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object>]]></haxe_doc>
 	</typedef>
-	<typedef path="js.lib.ObjectPropertyDescriptor" params="" file="/home/travis/haxe/std/js/lib/Object.hx" module="js.lib.Object">
+	<typedef path="js.lib.ObjectPropertyDescriptor" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/Object.hx" module="js.lib.Object">
 		<a>
 			<writable>
 				<x path="Null"><x path="Bool"/></x>
@@ -8700,10 +8272,10 @@
 		</a>
 		<haxe_doc><![CDATA[@see <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/defineProperty>]]></haxe_doc>
 	</typedef>
-	<abstract path="js.lib.ObjectEntry" params="" file="/home/travis/haxe/std/js/lib/Object.hx" module="js.lib.Object">
+	<abstract path="js.lib.ObjectEntry" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/Object.hx" module="js.lib.Object">
 		<this><c path="Array"><x path="Any"/></c></this>
 		<haxe_doc>Key/value access helper for `js.lib.Object.entries()`.</haxe_doc>
-		<impl><class path="js.lib._Object.ObjectEntry_Impl_" params="" file="/home/travis/haxe/std/js/lib/Object.hx" private="1" module="js.lib.Object">
+		<impl><class path="js.lib._Object.ObjectEntry_Impl_" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/Object.hx" private="1" module="js.lib.Object">
 	<key public="1" get="accessor" set="null" static="1">
 		<c path="String"/>
 		<meta><m n=":impl"/></meta>
@@ -8715,7 +8287,7 @@
 	<meta><m n=":keep"/></meta>
 </class></impl>
 	</abstract>
-	<class path="js.lib.Promise" params="T" file="/home/travis/haxe/std/js/lib/Promise.hx" extern="1">
+	<class path="js.lib.Promise" params="T" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/Promise.hx" extern="1">
 		<resolve public="1" params="T" set="method" static="1">
 			<f a="thenable">
 				<x path="js.lib.Thenable"><c path="resolve.T"/></x>
@@ -8825,7 +8397,7 @@
 	Documentation [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise) by [Mozilla Contributors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise$history), licensed under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/).</haxe_doc>
 		<meta><m n=":native"><e>"Promise"</e></m></meta>
 	</class>
-	<abstract path="js.lib.PromiseHandler" params="T:TOut" file="/home/travis/haxe/std/js/lib/Promise.hx" module="js.lib.Promise">
+	<abstract path="js.lib.PromiseHandler" params="T:TOut" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/Promise.hx" module="js.lib.Promise">
 		<from>
 			<icast><f a="">
 	<c path="js.lib.PromiseHandler.T"/>
@@ -8845,16 +8417,16 @@
 	<d/>
 </f></this>
 		<haxe_doc>Handler type for the Promise object.</haxe_doc>
-		<impl><class path="js.lib._Promise.PromiseHandler_Impl_" params="" file="/home/travis/haxe/std/js/lib/Promise.hx" private="1" module="js.lib.Promise"><meta><m n=":keep"/></meta></class></impl>
+		<impl><class path="js.lib._Promise.PromiseHandler_Impl_" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/Promise.hx" private="1" module="js.lib.Promise"><meta><m n=":keep"/></meta></class></impl>
 	</abstract>
-	<abstract path="js.lib.Thenable" params="T" file="/home/travis/haxe/std/js/lib/Promise.hx" module="js.lib.Promise">
+	<abstract path="js.lib.Thenable" params="T" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/Promise.hx" module="js.lib.Promise">
 		<from><icast><t path="js.lib.ThenableStruct"><c path="js.lib.Thenable.T"/></t></icast></from>
 		<this><t path="js.lib.ThenableStruct"><c path="js.lib.Thenable.T"/></t></this>
 		<haxe_doc>A value with a `then` method.</haxe_doc>
 		<meta><m n=":forward"/></meta>
-		<impl><class path="js.lib._Promise.Thenable_Impl_" params="" file="/home/travis/haxe/std/js/lib/Promise.hx" private="1" module="js.lib.Promise"><meta><m n=":keep"/></meta></class></impl>
+		<impl><class path="js.lib._Promise.Thenable_Impl_" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/Promise.hx" private="1" module="js.lib.Promise"><meta><m n=":keep"/></meta></class></impl>
 	</abstract>
-	<typedef path="js.lib.ThenableStruct" params="T" file="/home/travis/haxe/std/js/lib/Promise.hx" module="js.lib.Promise"><a><then params="TOut" set="method"><f a="onFulfilled:?onRejected">
+	<typedef path="js.lib.ThenableStruct" params="T" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/Promise.hx" module="js.lib.Promise"><a><then params="TOut" set="method"><f a="onFulfilled:?onRejected">
 	<x path="Null"><x path="js.lib.PromiseHandler">
 	<c path="js.lib.ThenableStruct.T"/>
 	<c path="then.TOut"/>
@@ -8865,12 +8437,12 @@
 	</x>
 	<x path="js.lib.Thenable"><c path="then.TOut"/></x>
 </f></then></a></typedef>
-	<class path="js.lib.RegExpMatch" params="" file="/home/travis/haxe/std/js/lib/RegExp.hx" module="js.lib.RegExp" extern="1">
+	<class path="js.lib.RegExpMatch" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/RegExp.hx" module="js.lib.RegExp" extern="1">
 		<extends path="Array"><c path="String"/></extends>
 		<index public="1"><x path="Int"/></index>
 		<input public="1"><c path="String"/></input>
 	</class>
-	<class path="js.lib.Symbol" params="" file="/home/travis/haxe/std/js/lib/Symbol.hx" extern="1">
+	<class path="js.lib.Symbol" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/Symbol.hx" extern="1">
 		<for_ public="1" set="method" static="1">
 			<f a="key">
 				<c path="String"/>
@@ -8891,15 +8463,11 @@
 			<c path="js.lib.Symbol"/>
 			<haxe_doc>A method returning the default iterator for an object.</haxe_doc>
 		</iterator>
-		<asyncIterator public="1" set="null" static="1">
-			<c path="js.lib.Symbol"/>
-			<haxe_doc>A method that returns the default AsyncIterator for an object.</haxe_doc>
-		</asyncIterator>
 		<toString public="1" set="method">
 			<f a=""><c path="String"/></f>
 			<haxe_doc>Returns a string containing the description of the Symbol.</haxe_doc>
 		</toString>
-		<ofObject public="1" params="T" get="inline" set="null" line="66">
+		<ofObject public="1" params="T" get="inline" set="null" line="61">
 			<f a="object">
 				<a/>
 				<x path="Null"><c path="ofObject.T"/></x>
@@ -8921,7 +8489,7 @@
 		</new>
 		<meta><m n=":native"><e>"Symbol"</e></m></meta>
 	</class>
-	<class path="js.lib.Uint16Array" params="" file="/home/travis/haxe/std/js/lib/Uint16Array.hx" extern="1">
+	<class path="js.lib.Uint16Array" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/Uint16Array.hx" extern="1">
 		<implements path="js.lib.ArrayBufferView"/>
 		<BYTES_PER_ELEMENT final="1" public="1" set="null" static="1">
 			<x path="Int"/>
@@ -8991,10 +8559,7 @@
 		See also [Array.prototype.copyWithin()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/copyWithin).</haxe_doc>
 		</copyWithin>
 		<entries public="1" set="method">
-			<f a=""><t path="js.lib.Iterator"><x path="js.lib.KeyValue">
-	<x path="Int"/>
-	<x path="Int"/>
-</x></t></f>
+			<f a=""><t path="Iterator"><x path="Int"/></t></f>
 			<haxe_doc>Returns a new Array Iterator object that contains the key/value pairs for each index in the array.
 		See also [Array.prototype.entries()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries).</haxe_doc>
 		</entries>
@@ -9240,7 +8805,7 @@
 		See also [Array.prototype.join()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join).</haxe_doc>
 		</join>
 		<keys public="1" set="method">
-			<f a=""><t path="js.lib.Iterator"><x path="Int"/></t></f>
+			<f a=""><t path="Iterator"><x path="Int"/></t></f>
 			<haxe_doc>Returns a new Array Iterator that contains the keys for each index in the array.
 		See also [Array.prototype.keys()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/keys).</haxe_doc>
 		</keys>
@@ -9618,7 +9183,7 @@
 			<haxe_doc>Returns a new TypedArray from the given start and end element index.</haxe_doc>
 		</subarray>
 		<values public="1" set="method">
-			<f a=""><t path="js.lib.Iterator"><x path="Int"/></t></f>
+			<f a=""><t path="Iterator"><x path="Int"/></t></f>
 			<haxe_doc>Returns a new Array Iterator object that contains the values for each index in the array.
 		See also [Array.prototype.values()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/values).</haxe_doc>
 		</values>
@@ -9669,7 +9234,7 @@
 	Documentation [Uint16Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array) by [Mozilla Contributors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array$history), licensed under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/).</haxe_doc>
 		<meta><m n=":native"><e>"Uint16Array"</e></m></meta>
 	</class>
-	<class path="js.lib.Uint32Array" params="" file="/home/travis/haxe/std/js/lib/Uint32Array.hx" extern="1">
+	<class path="js.lib.Uint32Array" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/Uint32Array.hx" extern="1">
 		<implements path="js.lib.ArrayBufferView"/>
 		<BYTES_PER_ELEMENT final="1" public="1" set="null" static="1">
 			<x path="Int"/>
@@ -9739,10 +9304,7 @@
 		See also [Array.prototype.copyWithin()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/copyWithin).</haxe_doc>
 		</copyWithin>
 		<entries public="1" set="method">
-			<f a=""><t path="js.lib.Iterator"><x path="js.lib.KeyValue">
-	<x path="Int"/>
-	<x path="Int"/>
-</x></t></f>
+			<f a=""><t path="Iterator"><x path="Int"/></t></f>
 			<haxe_doc>Returns a new Array Iterator object that contains the key/value pairs for each index in the array.
 		See also [Array.prototype.entries()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries).</haxe_doc>
 		</entries>
@@ -9988,7 +9550,7 @@
 		See also [Array.prototype.join()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join).</haxe_doc>
 		</join>
 		<keys public="1" set="method">
-			<f a=""><t path="js.lib.Iterator"><x path="Int"/></t></f>
+			<f a=""><t path="Iterator"><x path="Int"/></t></f>
 			<haxe_doc>Returns a new Array Iterator that contains the keys for each index in the array.
 		See also [Array.prototype.keys()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/keys).</haxe_doc>
 		</keys>
@@ -10366,7 +9928,7 @@
 			<haxe_doc>Returns a new TypedArray from the given start and end element index.</haxe_doc>
 		</subarray>
 		<values public="1" set="method">
-			<f a=""><t path="js.lib.Iterator"><x path="Int"/></t></f>
+			<f a=""><t path="Iterator"><x path="Int"/></t></f>
 			<haxe_doc>Returns a new Array Iterator object that contains the values for each index in the array.
 		See also [Array.prototype.values()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/values).</haxe_doc>
 		</values>
@@ -10417,7 +9979,7 @@
 	Documentation [Uint32Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array) by [Mozilla Contributors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array$history), licensed under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/).</haxe_doc>
 		<meta><m n=":native"><e>"Uint32Array"</e></m></meta>
 	</class>
-	<class path="js.lib.Uint8ClampedArray" params="" file="/home/travis/haxe/std/js/lib/Uint8ClampedArray.hx" extern="1">
+	<class path="js.lib.Uint8ClampedArray" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/Uint8ClampedArray.hx" extern="1">
 		<implements path="js.lib.ArrayBufferView"/>
 		<BYTES_PER_ELEMENT final="1" public="1" set="null" static="1">
 			<x path="Int"/>
@@ -10487,10 +10049,7 @@
 		See also [Array.prototype.copyWithin()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/copyWithin).</haxe_doc>
 		</copyWithin>
 		<entries public="1" set="method">
-			<f a=""><t path="js.lib.Iterator"><x path="js.lib.KeyValue">
-	<x path="Int"/>
-	<x path="Int"/>
-</x></t></f>
+			<f a=""><t path="Iterator"><x path="Int"/></t></f>
 			<haxe_doc>Returns a new Array Iterator object that contains the key/value pairs for each index in the array.
 		See also [Array.prototype.entries()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/entries).</haxe_doc>
 		</entries>
@@ -10736,7 +10295,7 @@
 		See also [Array.prototype.join()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/join).</haxe_doc>
 		</join>
 		<keys public="1" set="method">
-			<f a=""><t path="js.lib.Iterator"><x path="Int"/></t></f>
+			<f a=""><t path="Iterator"><x path="Int"/></t></f>
 			<haxe_doc>Returns a new Array Iterator that contains the keys for each index in the array.
 		See also [Array.prototype.keys()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/keys).</haxe_doc>
 		</keys>
@@ -11114,7 +10673,7 @@
 			<haxe_doc>Returns a new TypedArray from the given start and end element index.</haxe_doc>
 		</subarray>
 		<values public="1" set="method">
-			<f a=""><t path="js.lib.Iterator"><x path="Int"/></t></f>
+			<f a=""><t path="Iterator"><x path="Int"/></t></f>
 			<haxe_doc>Returns a new Array Iterator object that contains the values for each index in the array.
 		See also [Array.prototype.values()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/values).</haxe_doc>
 		</values>
@@ -11166,15 +10725,15 @@
 	Documentation [Uint8ClampedArray](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray) by [Mozilla Contributors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray$history), licensed under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/).</haxe_doc>
 		<meta><m n=":native"><e>"Uint8ClampedArray"</e></m></meta>
 	</class>
-	<abstract path="js.lib.intl.LocaleMatcher" params="" file="/home/travis/haxe/std/js/lib/intl/LocaleMatcher.hx">
+	<abstract path="js.lib.intl.LocaleMatcher" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/intl/LocaleMatcher.hx">
 		<this><c path="String"/></this>
 		<meta><m n=":enum"/></meta>
-		<impl><class path="js.lib.intl._LocaleMatcher.LocaleMatcher_Impl_" params="" file="/home/travis/haxe/std/js/lib/intl/LocaleMatcher.hx" private="1" module="js.lib.intl.LocaleMatcher"><meta>
+		<impl><class path="js.lib.intl._LocaleMatcher.LocaleMatcher_Impl_" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/intl/LocaleMatcher.hx" private="1" module="js.lib.intl.LocaleMatcher"><meta>
 	<m n=":keep"/>
 	<m n=":enum"/>
 </meta></class></impl>
 	</abstract>
-	<class path="js.lib.intl.NumberFormat" params="" file="/home/travis/haxe/std/js/lib/intl/NumberFormat.hx" extern="1">
+	<class path="js.lib.intl.NumberFormat" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/intl/NumberFormat.hx" extern="1">
 		<supportedLocalesOf public="1" set="method" static="1">
 			<f a="locales:?options">
 				<c path="String"/>
@@ -11231,7 +10790,7 @@
 	Documentation [NumberFormat](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat) by [Mozilla Contributors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NumberFormat$history), licensed under [CC-BY-SA 2.5](https://creativecommons.org/licenses/by-sa/2.5/).</haxe_doc>
 		<meta><m n=":native"><e>"Intl.NumberFormat"</e></m></meta>
 	</class>
-	<typedef path="js.lib.intl.NumberFormatOptions" params="" file="/home/travis/haxe/std/js/lib/intl/NumberFormat.hx" module="js.lib.intl.NumberFormat"><a>
+	<typedef path="js.lib.intl.NumberFormatOptions" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/intl/NumberFormat.hx" module="js.lib.intl.NumberFormat"><a>
 	<useGrouping>
 		<x path="Null"><x path="Bool"/></x>
 		<meta><m n=":optional"/></meta>
@@ -11303,7 +10862,7 @@
 		There is no default value; if the style is "currency", the currency property must be provided.]]></haxe_doc>
 	</currency>
 </a></typedef>
-	<typedef path="js.lib.intl.NumberFormatResolvedOption" params="" file="/home/travis/haxe/std/js/lib/intl/NumberFormat.hx" module="js.lib.intl.NumberFormat"><a>
+	<typedef path="js.lib.intl.NumberFormatResolvedOption" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/intl/NumberFormat.hx" module="js.lib.intl.NumberFormat"><a>
 	<useGrouping final="1" set="null">
 		<c path="String"/>
 		<haxe_doc>The values provided for these properties in the `options` argument or filled in as defaults.</haxe_doc>
@@ -11340,35 +10899,35 @@
 	</currencyDisplay>
 	<currency final="1" set="null"><c path="String"/></currency>
 </a></typedef>
-	<abstract path="js.lib.intl.NumberFormatStyle" params="" file="/home/travis/haxe/std/js/lib/intl/NumberFormat.hx" module="js.lib.intl.NumberFormat">
+	<abstract path="js.lib.intl.NumberFormatStyle" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/intl/NumberFormat.hx" module="js.lib.intl.NumberFormat">
 		<this><c path="String"/></this>
 		<meta><m n=":enum"/></meta>
-		<impl><class path="js.lib.intl._NumberFormat.NumberFormatStyle_Impl_" params="" file="/home/travis/haxe/std/js/lib/intl/NumberFormat.hx" private="1" module="js.lib.intl.NumberFormat"><meta>
+		<impl><class path="js.lib.intl._NumberFormat.NumberFormatStyle_Impl_" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/intl/NumberFormat.hx" private="1" module="js.lib.intl.NumberFormat"><meta>
 	<m n=":keep"/>
 	<m n=":enum"/>
 </meta></class></impl>
 	</abstract>
-	<abstract path="js.lib.intl.CurrencyDisplay" params="" file="/home/travis/haxe/std/js/lib/intl/NumberFormat.hx" module="js.lib.intl.NumberFormat">
+	<abstract path="js.lib.intl.CurrencyDisplay" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/intl/NumberFormat.hx" module="js.lib.intl.NumberFormat">
 		<this><c path="String"/></this>
 		<meta><m n=":enum"/></meta>
-		<impl><class path="js.lib.intl._NumberFormat.CurrencyDisplay_Impl_" params="" file="/home/travis/haxe/std/js/lib/intl/NumberFormat.hx" private="1" module="js.lib.intl.NumberFormat"><meta>
+		<impl><class path="js.lib.intl._NumberFormat.CurrencyDisplay_Impl_" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/intl/NumberFormat.hx" private="1" module="js.lib.intl.NumberFormat"><meta>
 	<m n=":keep"/>
 	<m n=":enum"/>
 </meta></class></impl>
 	</abstract>
-	<typedef path="js.lib.intl.NumberFormatPart" params="" file="/home/travis/haxe/std/js/lib/intl/NumberFormat.hx" module="js.lib.intl.NumberFormat"><a>
+	<typedef path="js.lib.intl.NumberFormatPart" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/intl/NumberFormat.hx" module="js.lib.intl.NumberFormat"><a>
 	<value final="1" set="null"><c path="String"/></value>
 	<type final="1" set="null"><x path="js.lib.intl.NumberFormatPartType"/></type>
 </a></typedef>
-	<abstract path="js.lib.intl.NumberFormatPartType" params="" file="/home/travis/haxe/std/js/lib/intl/NumberFormat.hx" module="js.lib.intl.NumberFormat">
+	<abstract path="js.lib.intl.NumberFormatPartType" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/intl/NumberFormat.hx" module="js.lib.intl.NumberFormat">
 		<this><c path="String"/></this>
 		<meta><m n=":enum"/></meta>
-		<impl><class path="js.lib.intl._NumberFormat.NumberFormatPartType_Impl_" params="" file="/home/travis/haxe/std/js/lib/intl/NumberFormat.hx" private="1" module="js.lib.intl.NumberFormat"><meta>
+		<impl><class path="js.lib.intl._NumberFormat.NumberFormatPartType_Impl_" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/intl/NumberFormat.hx" private="1" module="js.lib.intl.NumberFormat"><meta>
 	<m n=":keep"/>
 	<m n=":enum"/>
 </meta></class></impl>
 	</abstract>
-	<typedef path="js.lib.intl.NumberFormatSupportedLocalesOfOptions" params="" file="/home/travis/haxe/std/js/lib/intl/NumberFormat.hx" module="js.lib.intl.NumberFormat"><a><localeMatcher>
+	<typedef path="js.lib.intl.NumberFormatSupportedLocalesOfOptions" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/js/lib/intl/NumberFormat.hx" module="js.lib.intl.NumberFormat"><a><localeMatcher>
 	<x path="Null"><x path="js.lib.intl.LocaleMatcher"/></x>
 	<meta><m n=":optional"/></meta>
 	<haxe_doc>The locale matching algorithm to use.
