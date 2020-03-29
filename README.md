@@ -1,6 +1,6 @@
 # Visual Studio Code API externs for Haxe
 
-[![Build Status](https://travis-ci.org/vshaxe/vscode-extern.svg?branch=master)](https://travis-ci.org/vshaxe/vscode-extern)
+[![CI](https://img.shields.io/github/workflow/status/vshaxe/vscode-extern/CI.svg?logo=github)](https://github.com/vshaxe/vscode-extern/actions?query=workflow%3ACI)
 
 This extern library makes it possible to write extensions for [Visual Studio Code](https://code.visualstudio.com/)
 using [Haxe](https://haxe.org/).
