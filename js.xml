@@ -1805,6 +1805,28 @@
 	 * @param viewType Type of the webview panel that can be serialized.
 	 * @param serializer Webview serializer.</haxe_doc>
 		</registerWebviewPanelSerializer>
+		<registerCustomEditorProvider public="1" set="method">
+			<f a="viewType:provider:?options">
+				<c path="String"/>
+				<t path="vscode.CustomTextEditorProvider"/>
+				<a><webviewOptions final="1" set="null">
+	<x path="Null"><t path="vscode.WebviewPanelOptions"/></x>
+	<meta><m n=":optional"/></meta>
+</webviewOptions></a>
+				<c path="vscode.Disposable"/>
+			</f>
+			<haxe_doc>* Register a provider for custom editors for the `viewType` contributed by the `customEditors` extension point.
+	 *
+	 * When a custom editor is opened, VS Code fires an `onCustomEditor:viewType` activation event. Your extension
+	 * must register a [`CustomTextEditorProvider`](#CustomTextEditorProvider) for `viewType` as part of activation.
+	 *
+	 * @param viewType Unique identifier for the custom editor provider. This should match the `viewType` from the
+	 *   `customEditors` contribution point.
+	 * @param provider Provider that resolves custom editors.
+	 * @param options Options for the provider.
+	 *
+	 * @return Disposable that unregisters the provider.</haxe_doc>
+		</registerCustomEditorProvider>
 	</class>
 	<class path="VscodeExtensions" params="" file="src/Vscode.hx" module="Vscode" extern="1">
 		<getExtension public="1" params="T" set="method">
@@ -2193,6 +2215,46 @@
 	 * @param provider A rename provider.
 	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.</haxe_doc>
 		</registerRenameProvider>
+		<registerDocumentSemanticTokensProvider public="1" set="method">
+			<f a="selector:provider:legend">
+				<t path="vscode.DocumentSelector"/>
+				<t path="vscode.DocumentSemanticTokensProvider"/>
+				<c path="vscode.SemanticTokensLegend"/>
+				<c path="vscode.Disposable"/>
+			</f>
+			<haxe_doc>* Register a semantic tokens provider for a whole document.
+	 *
+	 * Multiple providers can be registered for a language. In that case providers are sorted
+	 * by their [score](#languages.match) and the best-matching provider is used. Failure
+	 * of the selected provider will cause a failure of the whole operation.
+	 *
+	 * @param selector A selector that defines the documents this provider is applicable to.
+	 * @param provider A document semantic tokens provider.
+	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.</haxe_doc>
+		</registerDocumentSemanticTokensProvider>
+		<registerDocumentRangeSemanticTokensProvider public="1" set="method">
+			<f a="selector:provider:legend">
+				<t path="vscode.DocumentSelector"/>
+				<t path="vscode.DocumentRangeSemanticTokensProvider"/>
+				<c path="vscode.SemanticTokensLegend"/>
+				<c path="vscode.Disposable"/>
+			</f>
+			<haxe_doc>* Register a semantic tokens provider for a document range.
+	 *
+	 * *Note:* If a document has both a `DocumentSemanticTokensProvider` and a `DocumentRangeSemanticTokensProvider`,
+	 * the range provider will be invoked only initially, for the time in which the full document provider takes
+	 * to resolve the first request. Once the full document provider resolves the first request, the semantic tokens
+	 * provided via the range provider will be discarded and from that point forward, only the document provider
+	 * will be used.
+	 *
+	 * Multiple providers can be registered for a language. In that case providers are sorted
+	 * by their [score](#languages.match) and the best-matching provider is used. Failure
+	 * of the selected provider will cause a failure of the whole operation.
+	 *
+	 * @param selector A selector that defines the documents this provider is applicable to.
+	 * @param provider A document range semantic tokens provider.
+	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.</haxe_doc>
+		</registerDocumentRangeSemanticTokensProvider>
 		<registerDocumentFormattingEditProvider public="1" set="method">
 			<f a="selector:provider">
 				<t path="vscode.DocumentSelector"/>
@@ -12906,6 +12968,38 @@
 	<e>"CustomExecution"</e>
 </m></meta>
 	</class>
+	<typedef path="vscode.CustomTextEditorProvider" params="" file="src/vscode/CustomTextEditorProvider.hx">
+		<a><resolveCustomTextEditor set="method">
+	<f a="document:webviewPanel:token">
+		<t path="vscode.TextDocument"/>
+		<t path="vscode.WebviewPanel"/>
+		<t path="vscode.CancellationToken"/>
+		<x path="haxe.extern.EitherType">
+			<x path="js.lib.Thenable"><x path="Void"/></x>
+			<x path="Void"/>
+		</x>
+	</f>
+	<haxe_doc>* Resolve a custom editor for a given text resource.
+	 *
+	 * This is called when a user first opens a resource for a `CustomTextEditorProvider`, or if they reopen an
+	 * existing editor using this `CustomTextEditorProvider`.
+	 *
+	 * To resolve a custom editor, the provider must fill in its initial html content and hook up all
+	 * the event listeners it is interested it. The provider can also hold onto the `WebviewPanel` to use later,
+	 * for example in a command. See [`WebviewPanel`](#WebviewPanel) for additional details.
+	 *
+	 * @param document Document for the resource to resolve.
+	 * @param webviewPanel Webview to resolve.
+	 * @param token A cancellation token that indicates the result is no longer needed.
+	 *
+	 * @return Thenable indicating that the custom editor has been resolved.</haxe_doc>
+</resolveCustomTextEditor></a>
+		<haxe_doc>* Provider for text based custom editors.
+ *
+ * Text based custom editors use a [`TextDocument`](#TextDocument) as their data model. This considerably simplifies
+ * implementing a custom editor as it allows VS Code to handle many common operations such as
+ * undo and backup. The provider is responsible for synchronizing text changes between the webview and the `TextDocument`.</haxe_doc>
+	</typedef>
 	<typedef path="vscode.DebugAdapter" params="" file="src/vscode/DebugAdapter.hx">
 		<a>
 			<onDidSendMessage set="null">
@@ -14444,6 +14538,19 @@
 		<haxe_doc>* The document formatting provider interface defines the contract between extensions and
  * the formatting-feature.</haxe_doc>
 	</typedef>
+	<typedef path="vscode.DocumentRangeSemanticTokensProvider" params="" file="src/vscode/DocumentRangeSemanticTokensProvider.hx">
+		<a><provideDocumentRangeSemanticTokens set="method">
+	<f a="document:range:token">
+		<t path="vscode.TextDocument"/>
+		<c path="vscode.Range"/>
+		<t path="vscode.CancellationToken"/>
+		<t path="vscode.ProviderResult"><c path="vscode.SemanticTokens"/></t>
+	</f>
+	<haxe_doc>* @see [provideDocumentSemanticTokens](#DocumentSemanticTokensProvider.provideDocumentSemanticTokens).</haxe_doc>
+</provideDocumentRangeSemanticTokens></a>
+		<haxe_doc>* The document range semantic tokens provider interface defines the contract between extensions and
+ * semantic tokens.</haxe_doc>
+	</typedef>
 	<typedef path="vscode.DocumentSelector" params="" file="src/vscode/DocumentSelector.hx">
 		<x path="haxe.extern.EitherType">
 			<t path="vscode.DocumentSelectorSimple"/>
@@ -14463,6 +14570,120 @@
 	<t path="vscode.DocumentFilter"/>
 	<c path="String"/>
 </x></typedef>
+	<typedef path="vscode.DocumentSemanticTokensProvider" params="" file="src/vscode/DocumentSemanticTokensProvider.hx">
+		<a>
+			<provideDocumentSemanticTokensEdits set="method">
+				<x path="Null"><f a="document:previousResultId:token">
+	<t path="vscode.TextDocument"/>
+	<c path="String"/>
+	<t path="vscode.CancellationToken"/>
+	<t path="vscode.ProviderResult"><x path="haxe.extern.EitherType">
+	<c path="vscode.SemanticTokens"/>
+	<c path="vscode.SemanticTokensEdits"/>
+</x></t>
+</f></x>
+				<meta><m n=":optional"/></meta>
+				<haxe_doc>* Instead of always returning all the tokens in a file, it is possible for a `DocumentSemanticTokensProvider` to implement
+	 * this method (`provideDocumentSemanticTokensEdits`) and then return incremental updates to the previously provided semantic tokens.
+	 *
+	 * ---
+	 * ### How tokens change when the document changes
+	 *
+	 * Suppose that `provideDocumentSemanticTokens` has previously returned the following semantic tokens:
+	 * ```
+	 *    // 1st token,  2nd token,  3rd token
+	 *    [  2,5,3,0,3,  0,5,4,1,0,  3,2,7,2,0 ]
+	 * ```
+	 *
+	 * Also suppose that after some edits, the new semantic tokens in a file are:
+	 * ```
+	 *    // 1st token,  2nd token,  3rd token
+	 *    [  3,5,3,0,3,  0,5,4,1,0,  3,2,7,2,0 ]
+	 * ```
+	 * It is possible to express these new tokens in terms of an edit applied to the previous tokens:
+	 * ```
+	 *    [  2,5,3,0,3,  0,5,4,1,0,  3,2,7,2,0 ] // old tokens
+	 *    [  3,5,3,0,3,  0,5,4,1,0,  3,2,7,2,0 ] // new tokens
+	 *
+	 *    edit: { start:  0, deleteCount: 1, data: [3] } // replace integer at offset 0 with 3
+	 * ```
+	 *
+	 * *NOTE*: If the provider cannot compute `SemanticTokensEdits`, it can "give up" and return all the tokens in the document again.
+	 * *NOTE*: All edits in `SemanticTokensEdits` contain indices in the old integers array, so they all refer to the previous result state.</haxe_doc>
+			</provideDocumentSemanticTokensEdits>
+			<provideDocumentSemanticTokens set="method">
+				<f a="document:token">
+					<t path="vscode.TextDocument"/>
+					<t path="vscode.CancellationToken"/>
+					<t path="vscode.ProviderResult"><c path="vscode.SemanticTokens"/></t>
+				</f>
+				<haxe_doc><![CDATA[* Tokens in a file are represented as an array of integers. The position of each token is expressed relative to
+	 * the token before it, because most tokens remain stable relative to each other when edits are made in a file.
+	 *
+	 * ---
+	 * In short, each token takes 5 integers to represent, so a specific token `i` in the file consists of the following array indices:
+	 *  - at index `5*i`   - `deltaLine`: token line number, relative to the previous token
+	 *  - at index `5*i+1` - `deltaStart`: token start character, relative to the previous token (relative to 0 or the previous token's start if they are on the same line)
+	 *  - at index `5*i+2` - `length`: the length of the token. A token cannot be multiline.
+	 *  - at index `5*i+3` - `tokenType`: will be looked up in `SemanticTokensLegend.tokenTypes`. We currently ask that `tokenType` < 65536.
+	 *  - at index `5*i+4` - `tokenModifiers`: each set bit will be looked up in `SemanticTokensLegend.tokenModifiers`
+	 *
+	 * ---
+	 * ### How to encode tokens
+	 *
+	 * Here is an example for encoding a file with 3 tokens in a uint32 array:
+	 * ```
+	 *    { line: 2, startChar:  5, length: 3, tokenType: "property",  tokenModifiers: ["private", "static"] },
+	 *    { line: 2, startChar: 10, length: 4, tokenType: "type",      tokenModifiers: [] },
+	 *    { line: 5, startChar:  2, length: 7, tokenType: "class",     tokenModifiers: [] }
+	 * ```
+	 *
+	 * 1. First of all, a legend must be devised. This legend must be provided up-front and capture all possible token types.
+	 * For this example, we will choose the following legend which must be passed in when registering the provider:
+	 * ```
+	 *    tokenTypes: ['property', 'type', 'class'],
+	 *    tokenModifiers: ['private', 'static']
+	 * ```
+	 *
+	 * 2. The first transformation step is to encode `tokenType` and `tokenModifiers` as integers using the legend. Token types are looked
+	 * up by index, so a `tokenType` value of `1` means `tokenTypes[1]`. Multiple token modifiers can be set by using bit flags,
+	 * so a `tokenModifier` value of `3` is first viewed as binary `0b00000011`, which means `[tokenModifiers[0], tokenModifiers[1]]` because
+	 * bits 0 and 1 are set. Using this legend, the tokens now are:
+	 * ```
+	 *    { line: 2, startChar:  5, length: 3, tokenType: 0, tokenModifiers: 3 },
+	 *    { line: 2, startChar: 10, length: 4, tokenType: 1, tokenModifiers: 0 },
+	 *    { line: 5, startChar:  2, length: 7, tokenType: 2, tokenModifiers: 0 }
+	 * ```
+	 *
+	 * 3. The next step is to represent each token relative to the previous token in the file. In this case, the second token
+	 * is on the same line as the first token, so the `startChar` of the second token is made relative to the `startChar`
+	 * of the first token, so it will be `10 - 5`. The third token is on a different line than the second token, so the
+	 * `startChar` of the third token will not be altered:
+	 * ```
+	 *    { deltaLine: 2, deltaStartChar: 5, length: 3, tokenType: 0, tokenModifiers: 3 },
+	 *    { deltaLine: 0, deltaStartChar: 5, length: 4, tokenType: 1, tokenModifiers: 0 },
+	 *    { deltaLine: 3, deltaStartChar: 2, length: 7, tokenType: 2, tokenModifiers: 0 }
+	 * ```
+	 *
+	 * 4. Finally, the last step is to inline each of the 5 fields for a token in a single array, which is a memory friendly representation:
+	 * ```
+	 *    // 1st token,  2nd token,  3rd token
+	 *    [  2,5,3,0,3,  0,5,4,1,0,  3,2,7,2,0 ]
+	 * ```
+	 *
+	 * @see [SemanticTokensBuilder](#SemanticTokensBuilder) for a helper to encode tokens as integers.
+	 * *NOTE*: When doing edits, it is possible that multiple edits occur until VS Code decides to invoke the semantic tokens provider.
+	 * *NOTE*: If the provider cannot temporarily compute semantic tokens, it can indicate this by throwing an error with the message 'Busy'.]]></haxe_doc>
+			</provideDocumentSemanticTokens>
+			<onDidChangeSemanticTokens>
+				<x path="Null"><t path="vscode.Event"><x path="Void"/></t></x>
+				<meta><m n=":optional"/></meta>
+				<haxe_doc>* An optional event to signal that the semantic tokens from this provider have changed.</haxe_doc>
+			</onDidChangeSemanticTokens>
+		</a>
+		<haxe_doc>* The document semantic tokens provider interface defines the contract between extensions and
+ * semantic tokens.</haxe_doc>
+	</typedef>
 	<class path="vscode.DocumentSymbol" params="" file="src/vscode/DocumentSymbol.hx" extern="1">
 		<name public="1">
 			<c path="String"/>
@@ -15254,6 +15475,13 @@
 	 * complete a request.
 	 * @param messageOrUri Message or uri.</haxe_doc>
 		</Unavailable>
+		<code public="1" set="null">
+			<c path="String"/>
+			<haxe_doc>* A code that identifies this error.
+	 *
+	 * Possible values are names of errors, like [`FileNotFound`](#FileSystemError.FileNotFound),
+	 * or `Unknown` for unspecified errors.</haxe_doc>
+		</code>
 		<new public="1" set="method">
 			<f a="?messageOrUri">
 				<x path="haxe.extern.EitherType">
@@ -17225,7 +17453,10 @@
 	 * operation.</haxe_doc>
 			</title>
 			<location>
-				<x path="vscode.ProgressLocation"/>
+				<x path="haxe.extern.EitherType">
+					<x path="vscode.ProgressLocation"/>
+					<a><viewId><c path="String"/></viewId></a>
+				</x>
 				<haxe_doc>* The location at which progress should show.</haxe_doc>
 			</location>
 			<cancellable>
@@ -18136,6 +18367,153 @@
 	 * @return Selection ranges or a thenable that resolves to such. The lack of a result can be
 	 * signaled by returning `undefined` or `null`.</haxe_doc>
 </provideSelectionRanges></a></typedef>
+	<class path="vscode.SemanticTokens" params="" file="src/vscode/SemanticTokens.hx" extern="1">
+		<resultId public="1" set="null">
+			<x path="Null"><c path="String"/></x>
+			<haxe_doc>* The result id of the tokens.
+	 *
+	 * This is the id that will be passed to `DocumentSemanticTokensProvider.provideDocumentSemanticTokensEdits` (if implemented).</haxe_doc>
+		</resultId>
+		<data public="1" set="null">
+			<c path="js.lib.Uint32Array"/>
+			<haxe_doc>* The actual tokens data.
+	 * @see [provideDocumentSemanticTokens](#DocumentSemanticTokensProvider.provideDocumentSemanticTokens) for an explanation of the format.</haxe_doc>
+		</data>
+		<new public="1" set="method"><f a="data:?resultId">
+	<c path="js.lib.Uint32Array"/>
+	<c path="String"/>
+	<x path="Void"/>
+</f></new>
+		<haxe_doc>* Represents semantic tokens, either in a range or in an entire document.
+ * @see [provideDocumentSemanticTokens](#DocumentSemanticTokensProvider.provideDocumentSemanticTokens) for an explanation of the format.
+ * @see [SemanticTokensBuilder](#SemanticTokensBuilder) for a helper to create an instance.</haxe_doc>
+		<meta><m n=":jsRequire">
+	<e>"vscode"</e>
+	<e>"SemanticTokens"</e>
+</m></meta>
+	</class>
+	<class path="vscode.SemanticTokensBuilder" params="" file="src/vscode/SemanticTokensBuilder.hx" extern="1">
+		<push public="1" set="method">
+			<f a="line:char:length:tokenType:?tokenModifiers">
+				<x path="Int"/>
+				<x path="Int"/>
+				<x path="Int"/>
+				<x path="Int"/>
+				<x path="Int"/>
+				<x path="Void"/>
+			</f>
+			<haxe_doc>* Add another token.
+	 *
+	 * @param line The token start line number (absolute value).
+	 * @param char The token start character (absolute value).
+	 * @param length The token length in characters.
+	 * @param tokenType The encoded token type.
+	 * @param tokenModifiers The encoded token modifiers.</haxe_doc>
+			<overloads><push public="1" set="method">
+	<f a="range:tokenType:?tokenModifiers">
+		<c path="vscode.Range"/>
+		<c path="String"/>
+		<c path="Array"><c path="String"/></c>
+		<x path="Void"/>
+	</f>
+	<haxe_doc>* Add another token.
+	 *
+	 * @param line The token start line number (absolute value).
+	 * @param char The token start character (absolute value).
+	 * @param length The token length in characters.
+	 * @param tokenType The encoded token type.
+	 * @param tokenModifiers The encoded token modifiers.</haxe_doc>
+</push></overloads>
+		</push>
+		<build public="1" set="method">
+			<f a="?resultId">
+				<c path="String"/>
+				<c path="vscode.SemanticTokens"/>
+			</f>
+			<haxe_doc>* Finish and create a `SemanticTokens` instance.</haxe_doc>
+		</build>
+		<new public="1" set="method"><f a="?legend">
+	<c path="vscode.SemanticTokensLegend"/>
+	<x path="Void"/>
+</f></new>
+		<haxe_doc>* A semantic tokens builder can help with creating a `SemanticTokens` instance
+ * which contains delta encoded semantic tokens.</haxe_doc>
+		<meta><m n=":jsRequire">
+	<e>"vscode"</e>
+	<e>"SemanticTokensBuilder"</e>
+</m></meta>
+	</class>
+	<class path="vscode.SemanticTokensEdit" params="" file="src/vscode/SemanticTokensEdit.hx" extern="1">
+		<start public="1" set="null">
+			<x path="Int"/>
+			<haxe_doc>* The start offset of the edit.</haxe_doc>
+		</start>
+		<deleteCount public="1" set="null">
+			<x path="Int"/>
+			<haxe_doc>* The count of elements to remove.</haxe_doc>
+		</deleteCount>
+		<data public="1" set="null">
+			<x path="Null"><c path="js.lib.Uint32Array"/></x>
+			<haxe_doc>* The elements to insert.</haxe_doc>
+		</data>
+		<new public="1" set="method"><f a="start:deleteCount:?data">
+	<x path="Int"/>
+	<x path="Int"/>
+	<c path="js.lib.Uint32Array"/>
+	<x path="Void"/>
+</f></new>
+		<haxe_doc>* Represents an edit to semantic tokens.
+ * @see [provideDocumentSemanticTokensEdits](#DocumentSemanticTokensProvider.provideDocumentSemanticTokensEdits) for an explanation of the format.</haxe_doc>
+		<meta><m n=":jsRequire">
+	<e>"vscode"</e>
+	<e>"SemanticTokensEdit"</e>
+</m></meta>
+	</class>
+	<class path="vscode.SemanticTokensEdits" params="" file="src/vscode/SemanticTokensEdits.hx" extern="1">
+		<resultId public="1" set="null">
+			<x path="Null"><c path="String"/></x>
+			<haxe_doc>* The result id of the tokens.
+	 *
+	 * This is the id that will be passed to `DocumentSemanticTokensProvider.provideDocumentSemanticTokensEdits` (if implemented).</haxe_doc>
+		</resultId>
+		<edits public="1" set="null">
+			<c path="Array"><c path="vscode.SemanticTokensEdit"/></c>
+			<haxe_doc>* The edits to the tokens data.
+	 * All edits refer to the initial data state.</haxe_doc>
+		</edits>
+		<new public="1" set="method"><f a="edits:?resultId">
+	<c path="Array"><c path="vscode.SemanticTokensEdit"/></c>
+	<c path="String"/>
+	<x path="Void"/>
+</f></new>
+		<haxe_doc>* Represents edits to semantic tokens.
+ * @see [provideDocumentSemanticTokensEdits](#DocumentSemanticTokensProvider.provideDocumentSemanticTokensEdits) for an explanation of the format.</haxe_doc>
+		<meta><m n=":jsRequire">
+	<e>"vscode"</e>
+	<e>"SemanticTokensEdits"</e>
+</m></meta>
+	</class>
+	<class path="vscode.SemanticTokensLegend" params="" file="src/vscode/SemanticTokensLegend.hx" extern="1">
+		<tokenTypes public="1" set="null">
+			<c path="Array"><c path="String"/></c>
+			<haxe_doc>* The possible token types.</haxe_doc>
+		</tokenTypes>
+		<tokenModifiers public="1" set="null">
+			<c path="Array"><c path="String"/></c>
+			<haxe_doc>* The possible token modifiers.</haxe_doc>
+		</tokenModifiers>
+		<new public="1" set="method"><f a="tokenTypes:?tokenModifiers">
+	<c path="Array"><c path="String"/></c>
+	<c path="Array"><c path="String"/></c>
+	<x path="Void"/>
+</f></new>
+		<haxe_doc>* A semantic tokens legend contains the needed information to decipher
+ * the integer encoded representation of semantic tokens.</haxe_doc>
+		<meta><m n=":jsRequire">
+	<e>"vscode"</e>
+	<e>"SemanticTokensLegend"</e>
+</m></meta>
+	</class>
 	<class path="vscode.ShellExecution" params="" file="src/vscode/ShellExecution.hx" extern="1">
 		<commandLine public="1">
 			<x path="Null"><c path="String"/></x>
@@ -19011,9 +19389,16 @@
 	 * [hide](#StatusBarItem.hide).</haxe_doc>
 			</dispose>
 			<command>
-				<x path="Null"><c path="String"/></x>
-				<haxe_doc>* The identifier of a command to run on click. The command must be
-	 * [known](#commands.getCommands).</haxe_doc>
+				<x path="Null"><x path="haxe.extern.EitherType">
+	<c path="String"/>
+	<t path="vscode.Command"/>
+</x></x>
+				<haxe_doc>* [`Command`](#Command) or identifier of a command to run on click.
+	 *
+	 * The command must be [known](#commands.getCommands).
+	 *
+	 * Note that if this is a [`Command`](#Command) object, only the [`command`](#Command.command) and [`arguments`](#Command.arguments)
+	 * are used by VS Code.</haxe_doc>
 			</command>
 			<color>
 				<x path="Null"><x path="haxe.extern.EitherType">
@@ -22554,9 +22939,29 @@
 			</onDidReceiveMessage>
 			<html>
 				<c path="String"/>
-				<haxe_doc>* Contents of the webview.
+				<haxe_doc><![CDATA[* HTML contents of the webview.
 	 *
-	 * Should be a complete html document.</haxe_doc>
+	 * This should be a complete, valid html document. Changing this property causes the webview to be reloaded.
+	 *
+	 * Webviews are sandboxed from normal extension process, so all communication with the webview must use
+	 * message passing. To send a message from the extension to the webview, use [`postMessage`](#Webview.postMessage).
+	 * To send message from the webview back to an extension, use the `acquireVsCodeApi` function inside the webview
+	 * to get a handle to VS Code's api and then call `.postMessage()`:
+	 *
+	 * ```html
+	 * <script>
+	 *     const vscode = acquireVsCodeApi(); // acquireVsCodeApi can only be invoked once
+	 *     vscode.postMessage({ message: 'hello!' });
+	 * </script>
+	 * ```
+	 *
+	 * To load a resources from the workspace inside a webview, use the `[asWebviewUri](#Webview.asWebviewUri)` method
+	 * and ensure the resource's directory is listed in [`WebviewOptions.localResourceRoots`](#WebviewOptions.localResourceRoots).
+	 *
+	 * Keep in mind that even though webviews are sandboxed, they still allow running scripts and loading arbitrary content,
+	 * so extensions must follow all standard web security best practices when working with webviews. This includes
+	 * properly sanitizing all untrusted input (including content from the workspace) and
+	 * setting a [content security policy](https://aka.ms/vscode-api-webview-csp).]]></haxe_doc>
 			</html>
 			<cspSource set="null">
 				<c path="String"/>
@@ -22584,7 +22989,7 @@
 	 * ```]]></haxe_doc>
 			</asWebviewUri>
 		</a>
-		<haxe_doc>* A webview displays html content, like an iframe.</haxe_doc>
+		<haxe_doc>* Displays html content, similarly to an iframe.</haxe_doc>
 	</typedef>
 	<typedef path="vscode.WebviewOptions" params="" file="src/vscode/WebviewOptions.hx">
 		<a>
@@ -22633,7 +23038,7 @@
 		<a>
 			<webview set="null">
 				<t path="vscode.Webview"/>
-				<haxe_doc>* Webview belonging to the panel.</haxe_doc>
+				<haxe_doc>* [`Webview`](#Webview) belonging to the panel.</haxe_doc>
 			</webview>
 			<visible set="null">
 				<x path="Bool"/>
