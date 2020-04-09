@@ -7,7 +7,7 @@ typedef ProgressOptions = {
 	/**
 	 * The location at which progress should show.
 	 */
-	var location:ProgressLocation;
+	var location:EitherType<ProgressLocation, {viewId:String}>;
 
 	/**
 	 * A human-readable string which will be used to describe the

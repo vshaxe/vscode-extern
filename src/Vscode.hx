@@ -750,6 +750,22 @@ extern class VscodeWindow {
 	 * @param serializer Webview serializer.
 	 */
 	function registerWebviewPanelSerializer(viewType:String, serializer:WebviewPanelSerializer):Disposable;
+
+	/**
+	 * Register a provider for custom editors for the `viewType` contributed by the `customEditors` extension point.
+	 *
+	 * When a custom editor is opened, VS Code fires an `onCustomEditor:viewType` activation event. Your extension
+	 * must register a [`CustomTextEditorProvider`](#CustomTextEditorProvider) for `viewType` as part of activation.
+	 *
+	 * @param viewType Unique identifier for the custom editor provider. This should match the `viewType` from the
+	 *   `customEditors` contribution point.
+	 * @param provider Provider that resolves custom editors.
+	 * @param options Options for the provider.
+	 *
+	 * @return Disposable that unregisters the provider.
+	 */
+	function registerCustomEditorProvider(viewType:String, provider:CustomTextEditorProvider,
+		?options:{final ?webviewOptions:WebviewPanelOptions;}):Disposable;
 }
 
 extern class VscodeExtensions {
@@ -1071,6 +1087,40 @@ extern class VscodeLanguages {
 	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
 	 */
 	function registerRenameProvider(selector:DocumentSelector, provider:RenameProvider):Disposable;
+
+	/**
+	 * Register a semantic tokens provider for a whole document.
+	 *
+	 * Multiple providers can be registered for a language. In that case providers are sorted
+	 * by their [score](#languages.match) and the best-matching provider is used. Failure
+	 * of the selected provider will cause a failure of the whole operation.
+	 *
+	 * @param selector A selector that defines the documents this provider is applicable to.
+	 * @param provider A document semantic tokens provider.
+	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+	 */
+	function registerDocumentSemanticTokensProvider(selector:DocumentSelector, provider:DocumentSemanticTokensProvider,
+		legend:SemanticTokensLegend):Disposable;
+
+	/**
+	 * Register a semantic tokens provider for a document range.
+	 *
+	 * *Note:* If a document has both a `DocumentSemanticTokensProvider` and a `DocumentRangeSemanticTokensProvider`,
+	 * the range provider will be invoked only initially, for the time in which the full document provider takes
+	 * to resolve the first request. Once the full document provider resolves the first request, the semantic tokens
+	 * provided via the range provider will be discarded and from that point forward, only the document provider
+	 * will be used.
+	 *
+	 * Multiple providers can be registered for a language. In that case providers are sorted
+	 * by their [score](#languages.match) and the best-matching provider is used. Failure
+	 * of the selected provider will cause a failure of the whole operation.
+	 *
+	 * @param selector A selector that defines the documents this provider is applicable to.
+	 * @param provider A document range semantic tokens provider.
+	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+	 */
+	function registerDocumentRangeSemanticTokensProvider(selector:DocumentSelector, provider:DocumentRangeSemanticTokensProvider,
+		legend:SemanticTokensLegend):Disposable;
 
 	/**
 	 * Register a formatting provider for a document.

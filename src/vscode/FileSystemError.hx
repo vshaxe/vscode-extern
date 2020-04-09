@@ -52,4 +52,12 @@ extern class FileSystemError extends Error {
 	 * @param messageOrUri Message or uri.
 	 */
 	function new(?messageOrUri:EitherType<String, Uri>);
+
+	/**
+	 * A code that identifies this error.
+	 *
+	 * Possible values are names of errors, like [`FileNotFound`](#FileSystemError.FileNotFound),
+	 * or `Unknown` for unspecified errors.
+	 */
+	var code(default, null):String;
 }

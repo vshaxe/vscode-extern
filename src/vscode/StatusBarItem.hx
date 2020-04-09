@@ -37,10 +37,14 @@ typedef StatusBarItem = {
 	var color:Null<EitherType<String, ThemeColor>>;
 
 	/**
-	 * The identifier of a command to run on click. The command must be
-	 * [known](#commands.getCommands).
+	 * [`Command`](#Command) or identifier of a command to run on click.
+	 *
+	 * The command must be [known](#commands.getCommands).
+	 *
+	 * Note that if this is a [`Command`](#Command) object, only the [`command`](#Command.command) and [`arguments`](#Command.arguments)
+	 * are used by VS Code.
 	 */
-	var command:Null<String>;
+	var command:Null<EitherType<String, Command>>;
 
 	/**
 	 * Shows the entry in the status bar.
