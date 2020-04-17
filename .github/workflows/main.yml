@@ -1,6 +1,6 @@
 name: CI
 
-on: [push, pull_request]
+on: [push, pull_request, repository_dispatch]
 
 jobs:
   build:
@@ -8,8 +8,17 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: krdlab/setup-haxe@v1.1.2
-    - run: haxelib install hxnodejs
-    - run: haxelib dev vscode .
+    - run: |
+        haxelib install hxnodejs
+        haxelib git dox https://github.com/HaxeFoundation/dox
+        haxelib dev vscode .
     - run: haxe build.hxml
     - run: haxe build.hxml
       working-directory: example
+    - run: haxe doc.hxml
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{secrets.GITHUB_TOKEN}}
+        publish_dir: out
+      if: github.ref == 'refs/heads/master'
