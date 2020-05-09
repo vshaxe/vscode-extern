@@ -1,9 +1,9 @@
 # Visual Studio Code API externs for Haxe
 
 [![CI](https://img.shields.io/github/workflow/status/vshaxe/vscode-extern/CI.svg?logo=github)](https://github.com/vshaxe/vscode-extern/actions?query=workflow%3ACI)
-[![Haxelib Version](https://badgen.net/haxelib/v/vscode)](https://lib.haxe.org/p/hxnodejs)
-[![Haxelib Downloads](https://badgen.net/haxelib/d/vscode?color=blue)](https://lib.haxe.org/p/hxnodejs)
-[![Haxelib License](https://badgen.net/haxelib/license/vscode)](LICENSE)
+[![Haxelib Version](https://badgen.net/haxelib/v/vscode)](https://lib.haxe.org/p/vscode)
+[![Haxelib Downloads](https://badgen.net/haxelib/d/vscode?color=blue)](https://lib.haxe.org/p/vscode)
+[![Haxelib License](https://badgen.net/haxelib/license/vscode)](LICENSE.md)
 
 This extern library makes it possible to write extensions for [Visual Studio Code](https://code.visualstudio.com/)
 using [Haxe](https://haxe.org/).
