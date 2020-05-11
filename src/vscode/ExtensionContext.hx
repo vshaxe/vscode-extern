@@ -27,6 +27,11 @@ typedef ExtensionContext = {
 	var globalState(default, null):Memento;
 
 	/**
+	 * The uri of the directory containing the extension.
+	 */
+	var extensionUri(default, null):String;
+
+	/**
 	 * The absolute file path of the directory containing the extension.
 	 */
 	var extensionPath(default, null):String;

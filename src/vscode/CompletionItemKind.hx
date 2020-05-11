@@ -30,4 +30,6 @@ extern enum abstract CompletionItemKind(Int) {
 	var Event;
 	var Operator;
 	var TypeParameter;
+	var User;
+	var Issue;
 }

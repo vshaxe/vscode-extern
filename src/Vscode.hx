@@ -766,6 +766,17 @@ extern class VscodeWindow {
 	 */
 	function registerCustomEditorProvider(viewType:String, provider:CustomTextEditorProvider,
 		?options:{final ?webviewOptions:WebviewPanelOptions;}):Disposable;
+
+	/**
+	 * The currently active color theme as configured in the settings. The active
+	 * theme can be changed via the `workbench.colorTheme` setting.
+	 */
+	var activeColorTheme:ColorTheme;
+
+	/**
+	 * An [event](#Event) which fires when the active color theme is changed or has changes.
+	 */
+	var onDidChangeActiveColorTheme(default, null):Event<ColorTheme>;
 }
 
 extern class VscodeExtensions {

@@ -22,7 +22,7 @@ extern class ThemeIcon {
 
 	/**
 	 * Creates a reference to a theme icon.
-	 * @param id id of the icon. The avaiable icons are listed in https://microsoft.github.io/vscode-codicons/dist/codicon.html.
+	 * @param id id of the icon. The available icons are listed in https://microsoft.github.io/vscode-codicons/dist/codicon.html.
 	 */
 	function new(id:String);
 }

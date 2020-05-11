@@ -12,6 +12,11 @@ typedef Extension<T> = {
 	var id(default, null):String;
 
 	/**
+	 * The uri of the directory containing the extension.
+	 */
+	var extensionUri(default, null):String;
+
+	/**
 	 * The absolute file path of the directory containing this extension.
 	 */
 	var extensionPath(default, null):String;

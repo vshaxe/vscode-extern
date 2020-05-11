@@ -25,6 +25,13 @@ extern class SignatureInformation {
 	var parameters:Array<ParameterInformation>;
 
 	/**
+	 * The index of the active parameter.
+	 *
+	 * If provided, this is used in place of [`SignatureHelp.activeSignature`](#SignatureHelp.activeSignature).
+	 */
+	var activeParameter:Null<Int>;
+
+	/**
 	 * Creates a new signature information object.
 	 *
 	 * @param label A label string.

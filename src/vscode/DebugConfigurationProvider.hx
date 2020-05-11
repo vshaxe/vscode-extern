@@ -1,13 +1,13 @@
 package vscode;
 
 /**
- * A debug configuration provider allows to add the initial debug configurations to a newly created launch.json
- * and to resolve a launch configuration before it is used to start a new debug session.
+ * A debug configuration provider allows to add debug configurations to the debug service
+ * and to resolve launch configurations before they are used to start a debug session.
  * A debug configuration provider is registered via #debug.registerDebugConfigurationProvider.
  */
 typedef DebugConfigurationProvider = {
 	/**
-	 * Provides initial [debug configuration](#DebugConfiguration). If more than one debug configuration provider is
+	 * Provides [debug configuration](#DebugConfiguration) to the debug service. If more than one debug configuration provider is
 	 * registered for the same type, debug configurations are concatenated in arbitrary order.
 	 *
 	 * @param folder The workspace folder for which the configurations are used or `undefined` for a folderless setup.

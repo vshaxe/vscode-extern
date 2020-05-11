@@ -13,4 +13,9 @@ typedef SourceControlInputBox = {
 	 * A string to show as placeholder in the input box to guide the user.
 	 */
 	var placeholder:String;
+
+	/**
+	 * Controls whether the input box is visible (default is `true`).
+	 */
+	var visible:Bool;
 }

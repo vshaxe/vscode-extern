@@ -81,6 +81,7 @@ typedef Pseudoterminal = {
 	 *   }
 	 * };
 	 * vscode.window.createTerminal({ name: 'Exit example', pty });
+	 * ```
 	 */
 	var ?onDidClose:Event<EitherType<Void, Int>>;
 

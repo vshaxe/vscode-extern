@@ -17,7 +17,7 @@ extern class TreeItem {
 	/**
 	 * The icon path or [ThemeIcon](#ThemeIcon) for the tree item.
 	 * When `falsy`, [Folder Theme Icon](#ThemeIcon.Folder) is assigned, if item is collapsible otherwise [File Theme Icon](#ThemeIcon.File).
-	 * When a [ThemeIcon](#ThemeIcon) is specified, icon is derived from the current file icon theme for the specified theme icon using [resourceUri](#TreeItem.resourceUri) (if provided).
+	 * When a file or folder [ThemeIcon](#ThemeIcon) is specified, icon is derived from the current file icon theme for the specified theme icon using [resourceUri](#TreeItem.resourceUri) (if provided).
 	 */
 	var iconPath:Null<EitherType<String, EitherType<Uri, EitherType<{light:EitherType<String, Uri>, dark:EitherType<String, Uri>}, ThemeIcon>>>>;
 
@@ -31,7 +31,7 @@ extern class TreeItem {
 	 * The [uri](#Uri) of the resource representing this item.
 	 *
 	 * Will be used to derive the [label](#TreeItem.label), when it is not provided.
-	 * Will be used to derive the icon from current icon theme, when [iconPath](#TreeItem.iconPath) has [ThemeIcon](#ThemeIcon) value.
+	 * Will be used to derive the icon from current file icon theme, when [iconPath](#TreeItem.iconPath) has [ThemeIcon](#ThemeIcon) value.
 	 */
 	var resourceUri:Null<Uri>;
 
