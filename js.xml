@@ -1827,6 +1827,15 @@
 	 *
 	 * @return Disposable that unregisters the provider.</haxe_doc>
 		</registerCustomEditorProvider>
+		<activeColorTheme public="1">
+			<t path="vscode.ColorTheme"/>
+			<haxe_doc>* The currently active color theme as configured in the settings. The active
+	 * theme can be changed via the `workbench.colorTheme` setting.</haxe_doc>
+		</activeColorTheme>
+		<onDidChangeActiveColorTheme public="1" set="null">
+			<t path="vscode.Event"><t path="vscode.ColorTheme"/></t>
+			<haxe_doc>* An [event](#Event) which fires when the active color theme is changed or has changes.</haxe_doc>
+		</onDidChangeActiveColorTheme>
 	</class>
 	<class path="VscodeExtensions" params="" file="src/Vscode.hx" module="Vscode" extern="1">
 		<getExtension public="1" params="T" set="method">
@@ -11705,6 +11714,84 @@
 	<e>"ColorPresentation"</e>
 </m></meta>
 	</class>
+	<typedef path="vscode.ColorTheme" params="" file="src/vscode/ColorTheme.hx">
+		<a><kind set="null">
+	<x path="vscode.ColorThemeKind"/>
+	<haxe_doc>* The kind of this color theme: light, dark or high contrast.</haxe_doc>
+</kind></a>
+		<haxe_doc>* Represents a color theme.</haxe_doc>
+	</typedef>
+	<abstract path="vscode.ColorThemeKind" params="" file="src/vscode/ColorThemeKind.hx">
+		<this><x path="Int"/></this>
+		<haxe_doc>* Represents a color theme kind.</haxe_doc>
+		<meta>
+			<m n=":enum"/>
+			<m n=":jsRequire">
+				<e>"vscode"</e>
+				<e>"ColorThemeKind"</e>
+			</m>
+		</meta>
+		<impl><class path="vscode._ColorThemeKind.ColorThemeKind_Impl_" params="" file="src/vscode/ColorThemeKind.hx" private="1" module="vscode.ColorThemeKind" extern="1">
+	<Light public="1" set="null" static="1">
+		<x path="vscode.ColorThemeKind"/>
+		<meta>
+			<m n=":enum"/>
+			<m n=":impl"/>
+		</meta>
+	</Light>
+	<Dark public="1" set="null" static="1">
+		<x path="vscode.ColorThemeKind"/>
+		<meta>
+			<m n=":enum"/>
+			<m n=":impl"/>
+		</meta>
+	</Dark>
+	<HighContrast public="1" set="null" static="1">
+		<x path="vscode.ColorThemeKind"/>
+		<meta>
+			<m n=":enum"/>
+			<m n=":impl"/>
+		</meta>
+	</HighContrast>
+	<meta>
+		<m n=":jsRequire">
+			<e>"vscode"</e>
+			<e>"ColorThemeKind"</e>
+		</m>
+		<m n=":enum"/>
+	</meta>
+</class></impl>
+	</abstract>
+	<class path="vscode._ColorThemeKind.ColorThemeKind_Impl_" params="" file="src/vscode/ColorThemeKind.hx" private="1" module="vscode.ColorThemeKind" extern="1">
+		<Light public="1" set="null" static="1">
+			<x path="vscode.ColorThemeKind"/>
+			<meta>
+				<m n=":enum"/>
+				<m n=":impl"/>
+			</meta>
+		</Light>
+		<Dark public="1" set="null" static="1">
+			<x path="vscode.ColorThemeKind"/>
+			<meta>
+				<m n=":enum"/>
+				<m n=":impl"/>
+			</meta>
+		</Dark>
+		<HighContrast public="1" set="null" static="1">
+			<x path="vscode.ColorThemeKind"/>
+			<meta>
+				<m n=":enum"/>
+				<m n=":impl"/>
+			</meta>
+		</HighContrast>
+		<meta>
+			<m n=":jsRequire">
+				<e>"vscode"</e>
+				<e>"ColorThemeKind"</e>
+			</m>
+			<m n=":enum"/>
+		</meta>
+	</class>
 	<typedef path="vscode.Command" params="" file="src/vscode/Command.hx">
 		<a>
 			<tooltip>
@@ -12434,6 +12521,20 @@
 			<m n=":impl"/>
 		</meta>
 	</TypeParameter>
+	<User public="1" set="null" static="1">
+		<x path="vscode.CompletionItemKind"/>
+		<meta>
+			<m n=":enum"/>
+			<m n=":impl"/>
+		</meta>
+	</User>
+	<Issue public="1" set="null" static="1">
+		<x path="vscode.CompletionItemKind"/>
+		<meta>
+			<m n=":enum"/>
+			<m n=":impl"/>
+		</meta>
+	</Issue>
 	<meta>
 		<m n=":jsRequire">
 			<e>"vscode"</e>
@@ -12619,6 +12720,20 @@
 				<m n=":impl"/>
 			</meta>
 		</TypeParameter>
+		<User public="1" set="null" static="1">
+			<x path="vscode.CompletionItemKind"/>
+			<meta>
+				<m n=":enum"/>
+				<m n=":impl"/>
+			</meta>
+		</User>
+		<Issue public="1" set="null" static="1">
+			<x path="vscode.CompletionItemKind"/>
+			<meta>
+				<m n=":enum"/>
+				<m n=":impl"/>
+			</meta>
+		</Issue>
 		<meta>
 			<m n=":jsRequire">
 				<e>"vscode"</e>
@@ -13262,7 +13377,7 @@
 	<t path="vscode.ProviderResult"><c path="Array"><t path="vscode.DebugConfiguration"/></c></t>
 </f></x>
 				<meta><m n=":optional"/></meta>
-				<haxe_doc>* Provides initial [debug configuration](#DebugConfiguration). If more than one debug configuration provider is
+				<haxe_doc>* Provides [debug configuration](#DebugConfiguration) to the debug service. If more than one debug configuration provider is
 	 * registered for the same type, debug configurations are concatenated in arbitrary order.
 	 *
 	 * @param folder The workspace folder for which the configurations are used or `undefined` for a folderless setup.
@@ -13270,8 +13385,8 @@
 	 * @return An array of [debug configurations](#DebugConfiguration).</haxe_doc>
 			</provideDebugConfigurations>
 		</a>
-		<haxe_doc>* A debug configuration provider allows to add the initial debug configurations to a newly created launch.json
- * and to resolve a launch configuration before it is used to start a new debug session.
+		<haxe_doc>* A debug configuration provider allows to add debug configurations to the debug service
+ * and to resolve launch configurations before they are used to start a debug session.
  * A debug configuration provider is registered via #debug.registerDebugConfigurationProvider.</haxe_doc>
 	</typedef>
 	<typedef path="vscode.DebugConsole" params="" file="src/vscode/DebugConsole.hx">
@@ -14921,7 +15036,7 @@
 			<haxe_doc>* The event listeners can subscribe to.</haxe_doc>
 		</event>
 		<fire public="1" set="method">
-			<f a="?data">
+			<f a="data">
 				<c path="vscode.EventEmitter.T"/>
 				<x path="Void"/>
 			</f>
@@ -14960,6 +15075,10 @@
 				<c path="String"/>
 				<haxe_doc>* The canonical extension identifier in the form of: `publisher.name`.</haxe_doc>
 			</id>
+			<extensionUri set="null">
+				<c path="String"/>
+				<haxe_doc>* The uri of the directory containing the extension.</haxe_doc>
+			</extensionUri>
 			<extensionPath set="null">
 				<c path="String"/>
 				<haxe_doc>* The absolute file path of the directory containing this extension.</haxe_doc>
@@ -15028,6 +15147,10 @@
 				<haxe_doc>* A memento object that stores state independent
 	 * of the current opened [workspace](#workspace.workspaceFolders).</haxe_doc>
 			</globalState>
+			<extensionUri set="null">
+				<c path="String"/>
+				<haxe_doc>* The uri of the directory containing the extension.</haxe_doc>
+			</extensionUri>
 			<extensionPath set="null">
 				<c path="String"/>
 				<haxe_doc>* The absolute file path of the directory containing the extension.</haxe_doc>
@@ -15384,7 +15507,7 @@
  * with files from the local disk as well as files from remote places, like the
  * remote extension host or ftp-servers.
  *
- * *Note* that an instance of this interface is avaiable as [`workspace.fs`](#workspace.fs).</haxe_doc>
+ * *Note* that an instance of this interface is available as [`workspace.fs`](#workspace.fs).</haxe_doc>
 	</typedef>
 	<abstract path="vscode.FileSystemReadDirectoryTuple" params="" file="src/vscode/FileSystem.hx" module="vscode.FileSystem">
 		<this><c path="Array"><d/></c></this>
@@ -17614,7 +17737,8 @@
 	 *     closeEmitter.fire();
 	 *   }
 	 * };
-	 * vscode.window.createTerminal({ name: 'Exit example', pty });]]></haxe_doc>
+	 * vscode.window.createTerminal({ name: 'Exit example', pty });
+	 * ```]]></haxe_doc>
 			</onDidClose>
 			<handleInput set="method">
 				<x path="Null"><f a="data">
@@ -18957,6 +19081,12 @@
 			<c path="Array"><c path="vscode.ParameterInformation"/></c>
 			<haxe_doc>* The parameters of this signature.</haxe_doc>
 		</parameters>
+		<activeParameter public="1">
+			<x path="Null"><x path="Int"/></x>
+			<haxe_doc>* The index of the active parameter.
+	 *
+	 * If provided, this is used in place of [`SignatureHelp.activeSignature`](#SignatureHelp.activeSignature).</haxe_doc>
+		</activeParameter>
 		<new public="1" set="method">
 			<f a="label:?documentation">
 				<c path="String"/>
@@ -19175,6 +19305,10 @@
 	</typedef>
 	<typedef path="vscode.SourceControlInputBox" params="" file="src/vscode/SourceControlInputBox.hx">
 		<a>
+			<visible>
+				<x path="Bool"/>
+				<haxe_doc>* Controls whether the input box is visible (default is `true`).</haxe_doc>
+			</visible>
 			<value>
 				<c path="String"/>
 				<haxe_doc>* Setter and getter for the contents of the input box.</haxe_doc>
@@ -22062,7 +22196,7 @@
 				<x path="Void"/>
 			</f>
 			<haxe_doc>* Creates a reference to a theme icon.
-	 * @param id id of the icon. The avaiable icons are listed in https://microsoft.github.io/vscode-codicons/dist/codicon.html.</haxe_doc>
+	 * @param id id of the icon. The available icons are listed in https://microsoft.github.io/vscode-codicons/dist/codicon.html.</haxe_doc>
 		</new>
 		<haxe_doc><![CDATA[* A reference to a named icon. Currently, [File](#ThemeIcon.File), [Folder](#ThemeIcon.Folder),
  * and [codicons](https://microsoft.github.io/vscode-codicons/dist/codicon.html) are supported.
@@ -22157,7 +22291,7 @@
 </x></x>
 			<haxe_doc>* The icon path or [ThemeIcon](#ThemeIcon) for the tree item.
 	 * When `falsy`, [Folder Theme Icon](#ThemeIcon.Folder) is assigned, if item is collapsible otherwise [File Theme Icon](#ThemeIcon.File).
-	 * When a [ThemeIcon](#ThemeIcon) is specified, icon is derived from the current file icon theme for the specified theme icon using [resourceUri](#TreeItem.resourceUri) (if provided).</haxe_doc>
+	 * When a file or folder [ThemeIcon](#ThemeIcon) is specified, icon is derived from the current file icon theme for the specified theme icon using [resourceUri](#TreeItem.resourceUri) (if provided).</haxe_doc>
 		</iconPath>
 		<description public="1">
 			<x path="Null"><x path="haxe.extern.EitherType">
@@ -22172,7 +22306,7 @@
 			<haxe_doc>* The [uri](#Uri) of the resource representing this item.
 	 *
 	 * Will be used to derive the [label](#TreeItem.label), when it is not provided.
-	 * Will be used to derive the icon from current icon theme, when [iconPath](#TreeItem.iconPath) has [ThemeIcon](#ThemeIcon) value.</haxe_doc>
+	 * Will be used to derive the icon from current file icon theme, when [iconPath](#TreeItem.iconPath) has [ThemeIcon](#ThemeIcon) value.</haxe_doc>
 		</resourceUri>
 		<tooltip public="1">
 			<x path="Null"><c path="String"/></x>
@@ -22555,6 +22689,31 @@
 	 * @param path A file system or UNC path.
 	 * @return A new Uri instance.</haxe_doc>
 		</file>
+		<joinPath public="1" set="method" static="1">
+			<f a="base:pathSegments">
+				<c path="vscode.Uri"/>
+				<x path="haxe.extern.Rest"><c path="String"/></x>
+				<c path="vscode.Uri"/>
+			</f>
+			<haxe_doc>* Create a new uri which path is the result of joining
+	 * the path of the base uri with the provided path segments.
+	 *
+	 * - Note 1: `joinPath` only affects the path component
+	 * and all other components (scheme, authority, query, and fragment) are
+	 * left as they are.
+	 * - Note 2: The base uri must have a path; an error is thrown otherwise.
+	 *
+	 * The path segments are normalized in the following ways:
+	 * - sequences of path separators (`/` or `\`) are replaced with a single separator
+	 * - for `file`-uris on windows, the backslash-character (`\`) is considered a path-separator
+	 * - the `..`-segment denotes the parent segment, the `.` denotes the current segement
+	 * - paths have a root which always remains, for instance on windows drive-letters are roots
+	 * so that is true: `joinPath(Uri.file('file:///c:/root'), '../../other').fsPath === 'c:/other'`
+	 *
+	 * @param base An uri. Must have a path.
+	 * @param pathSegments One more more path fragments
+	 * @returns A new uri which path is joined with the given fragments</haxe_doc>
+		</joinPath>
 		<scheme public="1" set="null">
 			<c path="String"/>
 			<haxe_doc>* Scheme is the `http` part of `http://www.msft.com/some/path?query#fragment`.
