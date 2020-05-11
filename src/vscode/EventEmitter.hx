@@ -23,7 +23,7 @@ extern class EventEmitter<T> {
 	 *
 	 * @param data The event object.
 	 */
-	function fire(data:T):Void;
+	function fire(?data:T):Void;
 
 	/**
 	 * Dispose this object and free resources.
