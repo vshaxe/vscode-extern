@@ -15036,7 +15036,7 @@
 			<haxe_doc>* The event listeners can subscribe to.</haxe_doc>
 		</event>
 		<fire public="1" set="method">
-			<f a="data">
+			<f a="?data">
 				<c path="vscode.EventEmitter.T"/>
 				<x path="Void"/>
 			</f>
