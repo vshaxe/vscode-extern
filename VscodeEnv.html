@@ -23,7 +23,7 @@ uri to the same resource on the client machine.</p>
 <p>This is a no-op if the extension is running on the client machine.</p>
 <p>If the extension is running remotely, this function automatically establishes a port forwarding tunnel
 from the local machine to <code>target</code> on the remote and returns a local uri to the tunnel. The lifetime of
-the port fowarding tunnel is managed by VS Code and the tunnel can be closed by the user.</p>
+the port forwarding tunnel is managed by VS Code and the tunnel can be closed by the user.</p>
 <p><em>Note</em> that uris passed through <code>openExternal</code> are automatically resolved and you should not call <code>asExternalUri</code> on them.</p>
 <h4><code>vscode.env.uriScheme</code></h4>
 <p>Creates a uri that - if opened in a browser (e.g. via <code>openExternal</code>) - will result in a registered <a href="#UriHandler">UriHandler</a>
@@ -52,4 +52,4 @@ used scheme this can be:
 </em> a mail client (<code>mailto:</code>)
 * VSCode itself (<code>vscode:</code> from <code>vscode.env.uriScheme</code>)</p>
 <p><em>Note</em> that <a href="#window.showTextDocument"><code>showTextDocument</code></a> is the right
-way to open a text document inside the editor, not this function.</p><p class="javadoc">Parameters:</p><table class="table table-bordered params"><tr><th style="width:25%;"><code>target</code></th><td><p>The uri that should be opened.</p></td></tr></table><p class="javadoc">Returns:</p><div class="indent inline-content"><p>A promise indicating if open was successful.</p></div></div></div></div></div></div></div></div><footer class="section site-footer" style="background:#141419"><div class="container"><div class="copyright"><p style="color:#FFFFFF">This documentation is generated for version 1.45.0</p><p style="color:#FFFFFF">&copy; 2020 &nbsp;<a style="color:#FFFFFF" href="https://github.com/vshaxe/">https://github.com/vshaxe/</a></p></div></div></footer><script src=".//highlighter.js"></script><link href="./highlighter.css" rel="stylesheet"/></body></html>
+way to open a text document inside the editor, not this function.</p><p class="javadoc">Parameters:</p><table class="table table-bordered params"><tr><th style="width:25%;"><code>target</code></th><td><p>The uri that should be opened.</p></td></tr></table><p class="javadoc">Returns:</p><div class="indent inline-content"><p>A promise indicating if open was successful.</p></div></div></div></div></div></div></div></div><footer class="section site-footer" style="background:#141419"><div class="container"><div class="copyright"><p style="color:#FFFFFF">This documentation is generated for version 1.46.0</p><p style="color:#FFFFFF">&copy; 2020 &nbsp;<a style="color:#FFFFFF" href="https://github.com/vshaxe/">https://github.com/vshaxe/</a></p></div></div></footer><script src=".//highlighter.js"></script><link href="./highlighter.css" rel="stylesheet"/></body></html>

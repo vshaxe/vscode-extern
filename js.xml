@@ -905,7 +905,7 @@
 	 *
 	 * If the extension is running remotely, this function automatically establishes a port forwarding tunnel
 	 * from the local machine to `target` on the remote and returns a local uri to the tunnel. The lifetime of
-	 * the port fowarding tunnel is managed by VS Code and the tunnel can be closed by the user.
+	 * the port forwarding tunnel is managed by VS Code and the tunnel can be closed by the user.
 	 *
 	 * *Note* that uris passed through `openExternal` are automatically resolved and you should not call `asExternalUri` on them.
 	 *
@@ -1805,20 +1805,46 @@
 	 * @param viewType Type of the webview panel that can be serialized.
 	 * @param serializer Webview serializer.</haxe_doc>
 		</registerWebviewPanelSerializer>
-		<registerCustomEditorProvider public="1" set="method">
+		<registerCustomEditorProvider public="1" params="T" set="method">
 			<f a="viewType:provider:?options">
 				<c path="String"/>
-				<t path="vscode.CustomTextEditorProvider"/>
-				<a><webviewOptions final="1" set="null">
-	<x path="Null"><t path="vscode.WebviewPanelOptions"/></x>
-	<meta><m n=":optional"/></meta>
-</webviewOptions></a>
+				<x path="haxe.extern.EitherType">
+					<t path="vscode.CustomTextEditorProvider"/>
+					<x path="haxe.extern.EitherType">
+						<t path="vscode.CustomReadonlyEditorProvider"><c path="registerCustomEditorProvider.T"/></t>
+						<t path="vscode.CustomEditorProvider"><c path="registerCustomEditorProvider.T"/></t>
+					</x>
+				</x>
+				<a>
+					<webviewOptions final="1" set="null">
+						<x path="Null"><t path="vscode.WebviewPanelOptions"/></x>
+						<meta><m n=":optional"/></meta>
+						<haxe_doc>* Content settings for the webview panels created for this custom editor.</haxe_doc>
+					</webviewOptions>
+					<supportsMultipleEditorsPerDocument final="1" set="null">
+						<x path="Null"><x path="Bool"/></x>
+						<meta><m n=":optional"/></meta>
+						<haxe_doc>* Only applies to `CustomReadonlyEditorProvider | CustomEditorProvider`.
+		 *
+		 * Indicates that the provider allows multiple editor instances to be open at the same time for
+		 * the same resource.
+		 *
+		 * By default, VS Code only allows one editor instance to be open at a time for each resource. If the
+		 * user tries to open a second editor instance for the resource, the first one is instead moved to where
+		 * the second one was to be opened.
+		 *
+		 * When `supportsMultipleEditorsPerDocument` is enabled, users can split and create copies of the custom
+		 * editor. In this case, the custom editor must make sure it can properly synchronize the states of all
+		 * editor instances for a resource so that they are consistent.</haxe_doc>
+					</supportsMultipleEditorsPerDocument>
+				</a>
 				<c path="vscode.Disposable"/>
 			</f>
 			<haxe_doc>* Register a provider for custom editors for the `viewType` contributed by the `customEditors` extension point.
 	 *
 	 * When a custom editor is opened, VS Code fires an `onCustomEditor:viewType` activation event. Your extension
-	 * must register a [`CustomTextEditorProvider`](#CustomTextEditorProvider) for `viewType` as part of activation.
+	 * must register a [`CustomTextEditorProvider`](#CustomTextEditorProvider), [`CustomReadonlyEditorProvider`](#CustomReadonlyEditorProvider),
+	 * [`CustomEditorProvider`](#CustomEditorProvider)for `viewType` as part of activation.
 	 *
 	 * @param viewType Unique identifier for the custom editor provider. This should match the `viewType` from the
 	 *   `customEditors` contribution point.
@@ -1990,10 +2016,10 @@
 	 * @param name The [name](#DiagnosticCollection.name) of the collection.
 	 * @return A new diagnostic collection.</haxe_doc>
 		</createDiagnosticCollection>
-		<registerCompletionItemProvider public="1" set="method">
+		<registerCompletionItemProvider public="1" params="T" set="method">
 			<f a="selector:provider:triggerCharacters">
 				<t path="vscode.DocumentSelector"/>
-				<t path="vscode.CompletionItemProvider"/>
+				<t path="vscode.CompletionItemProvider"><c path="registerCompletionItemProvider.T"/></t>
 				<x path="haxe.extern.Rest"><c path="String"/></x>
 				<c path="vscode.Disposable"/>
 			</f>
@@ -2030,13 +2056,13 @@
 	 *
 	 * @param selector A selector that defines the documents this provider is applicable to.
 	 * @param provider A code action provider.
-	 * @param metadata Metadata about the kind of code actions the provider providers.
+	 * @param metadata Metadata about the kind of code actions the provider provides.
 	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.</haxe_doc>
 		</registerCodeActionsProvider>
-		<registerCodeLensProvider public="1" set="method">
+		<registerCodeLensProvider public="1" params="T" set="method">
 			<f a="selector:provider">
 				<t path="vscode.DocumentSelector"/>
-				<t path="vscode.CodeLensProvider"/>
+				<t path="vscode.CodeLensProvider"><c path="registerCodeLensProvider.T"/></t>
 				<c path="vscode.Disposable"/>
 			</f>
 			<haxe_doc>* Register a code lens provider.
@@ -2178,9 +2204,9 @@
 	 * @param metaData metadata about the provider
 	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.</haxe_doc>
 		</registerDocumentSymbolProvider>
-		<registerWorkspaceSymbolProvider public="1" set="method">
+		<registerWorkspaceSymbolProvider public="1" params="T" set="method">
 			<f a="provider">
-				<t path="vscode.WorkspaceSymbolProvider"/>
+				<t path="vscode.WorkspaceSymbolProvider"><c path="registerWorkspaceSymbolProvider.T"/></t>
 				<c path="vscode.Disposable"/>
 			</f>
 			<haxe_doc>* Register a workspace symbol provider.
@@ -2217,8 +2243,8 @@
 			<haxe_doc>* Register a rename provider.
 	 *
 	 * Multiple providers can be registered for a language. In that case providers are sorted
-	 * by their [score](#languages.match) and the best-matching provider is used. Failure
-	 * of the selected provider will cause a failure of the whole operation.
+	 * by their [score](#languages.match) and asked in sequence. The first provider producing a result
+	 * defines the result of the whole operation.
 	 *
 	 * @param selector A selector that defines the documents this provider is applicable to.
 	 * @param provider A rename provider.
@@ -2358,10 +2384,10 @@
 	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.</haxe_doc>
 </registerSignatureHelpProvider></overloads>
 		</registerSignatureHelpProvider>
-		<registerDocumentLinkProvider public="1" set="method">
+		<registerDocumentLinkProvider public="1" params="T" set="method">
 			<f a="selector:provider">
 				<t path="vscode.DocumentSelector"/>
-				<t path="vscode.DocumentLinkProvider"/>
+				<t path="vscode.DocumentLinkProvider"><c path="registerDocumentLinkProvider.T"/></t>
 				<c path="vscode.Disposable"/>
 			</f>
 			<haxe_doc>* Register a document link provider.
@@ -2819,9 +2845,11 @@
 			<haxe_doc>* An event that is emitted when a [text document](#TextDocument) is disposed or when the language id
 	 * of a text document [has been changed](#languages.setTextDocumentLanguage).
 	 *
-	 * To add an event listener when a visible text document is closed, use the [TextEditor](#TextEditor) events in the
-	 * [window](#window) namespace. Note that this event is not emitted when a [TextEditor](#TextEditor) is closed
-	 * but the document remains open in another [visible text editor](#window.visibleTextEditors).</haxe_doc>
+	 * *Note 1:* There is no guarantee that this event fires when an editor tab is closed, use the
+	 * [`onDidChangeVisibleTextEditors`](#window.onDidChangeVisibleTextEditors)-event to know when editors change.
+	 *
+	 * *Note 2:* A document can be open but not shown in an editor which means this event can fire
+	 * for a document that has not been shown in an editor.</haxe_doc>
 		</onDidCloseTextDocument>
 		<onDidChangeTextDocument public="1" set="null">
 			<t path="vscode.Event"><t path="vscode.TextDocumentChangeEvent"/></t>
@@ -2856,7 +2884,7 @@
 	 * files change on disk, e.g triggered by another application, or when using the
 	 * [`workspace.fs`](#FileSystem)-api.
 	 *
-	 * *Note 2:* When this event is fired, edits to files thare are being created cannot be applied.</haxe_doc>
+	 * *Note 2:* When this event is fired, edits to files that are are being created cannot be applied.</haxe_doc>
 		</onWillCreateFiles>
 		<onDidCreateFiles public="1" set="null">
 			<t path="vscode.Event"><t path="vscode.FileCreateEvent"/></t>
@@ -2923,7 +2951,7 @@
 	 * is returned. Dots in the section-identifier are interpreted as child-access,
 	 * like `{ myExt: { setting: { doIt: true }}}` and `getConfiguration('myExt.setting').get('doIt') === true`.
 	 *
-	 * When a scope is provided configuraiton confined to that scope is returned. Scope can be a resource or a language identifier or both.
+	 * When a scope is provided configuration confined to that scope is returned. Scope can be a resource or a language identifier or both.
 	 *
 	 * @param section A dot-separated identifier.
 	 * @param scope A scope for which the configuration is asked for.
@@ -2933,10 +2961,10 @@
 			<t path="vscode.Event"><t path="vscode.ConfigurationChangeEvent"/></t>
 			<haxe_doc>* An event that is emitted when the [configuration](#WorkspaceConfiguration) changed.</haxe_doc>
 		</onDidChangeConfiguration>
-		<registerTaskProvider public="1" set="method">
+		<registerTaskProvider public="1" params="T" set="method">
 			<f a="type:provider">
 				<c path="String"/>
-				<t path="vscode.TaskProvider"/>
+				<t path="vscode.TaskProvider"><c path="registerTaskProvider.T"/></t>
 				<c path="vscode.Disposable"/>
 			</f>
 			<meta><m n=":deprecated"><e>"Use the corresponding function on the `tasks` namespace instead"</e></m></meta>
@@ -3014,16 +3042,23 @@
 			<haxe_doc>* An [event](#Event) that is emitted when the set of breakpoints is added, removed, or changed.</haxe_doc>
 		</onDidChangeBreakpoints>
 		<registerDebugConfigurationProvider public="1" set="method">
-			<f a="debugType:provider">
+			<f a="debugType:provider:?triggerKind">
 				<c path="String"/>
 				<t path="vscode.DebugConfigurationProvider"/>
+				<x path="vscode.DebugConfigurationProviderTriggerKind"/>
 				<c path="vscode.Disposable"/>
 			</f>
 			<haxe_doc>* Register a [debug configuration provider](#DebugConfigurationProvider) for a specific debug type.
+	 * The optional [triggerKind](#DebugConfigurationProviderTriggerKind) can be used to specify when the `provideDebugConfigurations` method of the provider is triggered.
+	 * Currently two trigger kinds are possible: with the value `Initial` (or if no trigger kind argument is given) the `provideDebugConfigurations` method is used to provide the initial debug configurations to be copied into a newly created launch.json.
+	 * With the trigger kind `Dynamic` the `provideDebugConfigurations` method is used to dynamically determine debug configurations to be presented to the user (in addition to the static configurations from the launch.json).
+	 * Please note that the `triggerKind` argument only applies to the `provideDebugConfigurations` method: so the `resolveDebugConfiguration` methods are not affected at all.
+	 * Registering a single provider with resolve methods for different trigger kinds, results in the same resolve methods called multiple times.
 	 * More than one provider can be registered for the same type.
 	 *
 	 * @param type The debug type for which the provider is registered.
 	 * @param provider The [debug configuration provider](#DebugConfigurationProvider) to register.
+	 * @param triggerKind The [trigger](#DebugConfigurationProviderTrigger) for which the 'provideDebugConfiguration' method of the provider is registered. If `triggerKind` is missing, the value `DebugConfigurationProviderTriggerKind.Initial` is assumed.
 	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.</haxe_doc>
 		</registerDebugConfigurationProvider>
 		<registerDebugAdapterDescriptorFactory public="1" set="method">
@@ -3072,7 +3107,7 @@
 	 * Folder specific variables used in the configuration (e.g. '${workspaceFolder}') are resolved against the given folder.
 	 * @param folder The [workspace folder](#WorkspaceFolder) for looking up named configurations and resolving variables or `undefined` for a non-folder setup.
 	 * @param nameOrConfiguration Either the name of a debug or compound configuration or a [DebugConfiguration](#DebugConfiguration) object.
-	 * @param parentSessionOrOptions Debug sesison options. When passed a parent [debug session](#DebugSession), assumes options with just this parent session.
+	 * @param parentSessionOrOptions Debug session options. When passed a parent [debug session](#DebugSession), assumes options with just this parent session.
 	 * @return A thenable that resolves when debugging could be successfully started.</haxe_doc>
 		</startDebugging>
 		<addBreakpoints public="1" set="method">
@@ -3129,10 +3164,10 @@
 </class></impl>
 	</abstract>
 	<class path="VscodeTasks" params="" file="src/Vscode.hx" module="Vscode" extern="1">
-		<registerTaskProvider public="1" set="method">
+		<registerTaskProvider public="1" params="T" set="method">
 			<f a="type:provider">
 				<c path="String"/>
-				<t path="vscode.TaskProvider"/>
+				<t path="vscode.TaskProvider"><c path="registerTaskProvider.T"/></t>
 				<c path="vscode.Disposable"/>
 			</f>
 			<haxe_doc>* Register a task provider.
@@ -11212,7 +11247,7 @@
 	 * signaled by returning `undefined` or `null`.</haxe_doc>
 			</prepareCallHierarchy>
 		</a>
-		<haxe_doc>* The call hierarchy provider interface describes the constract between extensions
+		<haxe_doc>* The call hierarchy provider interface describes the contract between extensions
  * and the call hierarchy feature which allows to browse calls and caller of function,
  * methods, constructor etc.</haxe_doc>
 	</typedef>
@@ -11532,7 +11567,7 @@
 	 * list of kinds may either be generic, such as `[CodeActionKind.Refactor]`, or list out every kind provided,
 	 * such as `[CodeActionKind.Refactor.Extract.append('function'), CodeActionKind.Refactor.Extract.append('constant'), ...]`.</haxe_doc>
 </providedCodeActionKinds></a>
-		<haxe_doc>* Metadata about the type of code actions that a [CodeActionProvider](#CodeActionProvider) providers.</haxe_doc>
+		<haxe_doc>* Metadata about the type of code actions that a [CodeActionProvider](#CodeActionProvider) provides.</haxe_doc>
 	</typedef>
 	<class path="vscode.CodeLens" params="" file="src/vscode/CodeLens.hx" extern="1">
 		<range public="1">
@@ -11571,19 +11606,19 @@
 	<e>"CodeLens"</e>
 </m></meta>
 	</class>
-	<typedef path="vscode.CodeLensProvider" params="" file="src/vscode/CodeLensProvider.hx">
+	<typedef path="vscode.CodeLensProvider" params="T" file="src/vscode/CodeLensProvider.hx">
 		<a>
 			<resolveCodeLens set="method">
 				<x path="Null"><f a="codeLens:token">
-	<c path="vscode.CodeLens"/>
+	<c path="vscode.CodeLensProvider.T"/>
 	<t path="vscode.CancellationToken"/>
-	<t path="vscode.ProviderResult"><c path="vscode.CodeLens"/></t>
+	<t path="vscode.ProviderResult"><c path="vscode.CodeLensProvider.T"/></t>
 </f></x>
 				<meta><m n=":optional"/></meta>
 				<haxe_doc>* This function will be called for each visible code lens, usually when scrolling and after
 	 * calls to [compute](#CodeLensProvider.provideCodeLenses)-lenses.
 	 *
-	 * @param codeLens code lens that must be resolved.
+	 * @param codeLens Code lens that must be resolved.
 	 * @param token A cancellation token.
 	 * @return The given, resolved code lens or thenable that resolves to such.</haxe_doc>
 			</resolveCodeLens>
@@ -11591,7 +11626,7 @@
 				<f a="document:token">
 					<t path="vscode.TextDocument"/>
 					<t path="vscode.CancellationToken"/>
-					<t path="vscode.ProviderResult"><c path="Array"><c path="vscode.CodeLens"/></c></t>
+					<t path="vscode.ProviderResult"><c path="Array"><c path="vscode.CodeLensProvider.T"/></c></t>
 				</f>
 				<haxe_doc>* Compute a list of [lenses](#CodeLens). This call should return as fast as possible and if
 	 * computing the commands is expensive implementors should only return code lens objects with the
@@ -11896,6 +11931,11 @@
 				<meta><m n=":optional"/></meta>
 				<haxe_doc>* Optional reaction handler for creating and deleting reactions on a [comment](#Comment).</haxe_doc>
 			</reactionHandler>
+			<options>
+				<x path="Null"><t path="vscode.CommentOptions"/></x>
+				<meta><m n=":optional"/></meta>
+				<haxe_doc>* Comment controller options</haxe_doc>
+			</options>
 			<label set="null">
 				<c path="String"/>
 				<haxe_doc>* The human-readable label of this comment controller.</haxe_doc>
@@ -11997,6 +12037,21 @@
 			<m n=":enum"/>
 		</meta>
 	</class>
+	<typedef path="vscode.CommentOptions" params="" file="src/vscode/CommentOptions.hx">
+		<a>
+			<prompt>
+				<x path="Null"><c path="String"/></x>
+				<meta><m n=":optional"/></meta>
+				<haxe_doc>* An optional string to show on the comment input box when it's collapsed.</haxe_doc>
+			</prompt>
+			<placeHolder>
+				<x path="Null"><c path="String"/></x>
+				<meta><m n=":optional"/></meta>
+				<haxe_doc>* An optional string to show as placeholder in the comment input box when it's focused.</haxe_doc>
+			</placeHolder>
+		</a>
+		<haxe_doc>* Represents a [comment controller](#CommentController)'s [options](#CommentController.options).</haxe_doc>
+	</typedef>
 	<typedef path="vscode.CommentReaction" params="" file="src/vscode/CommentReaction.hx">
 		<a>
 			<label set="null">
@@ -12069,7 +12124,7 @@
 				<f a=""><x path="Void"/></f>
 				<haxe_doc>* Dispose this comment thread.
 	 *
-	 * Once disposed, this comment thread will be removed from visible editors and Comment Panel when approriate.</haxe_doc>
+	 * Once disposed, this comment thread will be removed from visible editors and Comment Panel when appropriate.</haxe_doc>
 			</dispose>
 			<contextValue>
 				<x path="Null"><c path="String"/></x>
@@ -12742,13 +12797,13 @@
 			<m n=":enum"/>
 		</meta>
 	</class>
-	<typedef path="vscode.CompletionItemProvider" params="" file="src/vscode/CompletionItemProvider.hx">
+	<typedef path="vscode.CompletionItemProvider" params="T" file="src/vscode/CompletionItemProvider.hx">
 		<a>
 			<resolveCompletionItem set="method">
 				<x path="Null"><f a="item:token">
-	<c path="vscode.CompletionItem"/>
+	<c path="vscode.CompletionItemProvider.T"/>
 	<t path="vscode.CancellationToken"/>
-	<t path="vscode.ProviderResult"><c path="vscode.CompletionItem"/></t>
+	<t path="vscode.ProviderResult"><c path="vscode.CompletionItemProvider.T"/></t>
 </f></x>
 				<meta><m n=":optional"/></meta>
 				<haxe_doc>* Given a completion item fill in more data, like [doc-comment](#CompletionItem.documentation)
@@ -12756,9 +12811,13 @@
 	 *
 	 * The editor will only resolve a completion item once.
 	 *
-	 * *Note* that accepting a completion item will not wait for it to be resolved. Because of that [`insertText`](#CompletionItem.insertText),
-	 * [`additionalTextEdits`](#CompletionItem.additionalTextEdits), and [`command`](#CompletionItem.command) should not
-	 * be changed when resolving an item.
+	 * *Note* that this function is called when completion items are already showing in the UI or when an item has been
+	 * selected for insertion. Because of that, no property that changes the presentation (label, sorting, filtering etc)
+	 * or the (primary) insert behaviour ([insertText](#CompletionItem.insertText)) can be changed.
+	 *
+	 * This function may fill in [additionalTextEdits](#CompletionItem.additionalTextEdits). However, that means an item might be
+	 * inserted *before* resolving is done and in that case the editor will do a best effort to still apply those additional
+	 * text edits.
 	 *
 	 * @param item A completion item currently active in the UI.
 	 * @param token A cancellation token.
@@ -12772,8 +12831,8 @@
 					<t path="vscode.CancellationToken"/>
 					<t path="vscode.CompletionContext"/>
 					<t path="vscode.ProviderResult"><x path="haxe.extern.EitherType">
-	<c path="Array"><c path="vscode.CompletionItem"/></c>
-	<c path="vscode.CompletionList"/>
+	<c path="Array"><c path="vscode.CompletionItemProvider.T"/></c>
+	<c path="vscode.CompletionList"><c path="vscode.CompletionItemProvider.T"/></c>
 </x></t>
 				</f>
 				<haxe_doc>* Provide completion items for the given position and document.
@@ -12844,19 +12903,19 @@
 			<m n=":enum"/>
 		</meta>
 	</class>
-	<class path="vscode.CompletionList" params="" file="src/vscode/CompletionList.hx" extern="1">
+	<class path="vscode.CompletionList" params="T" file="src/vscode/CompletionList.hx" extern="1">
 		<isIncomplete public="1">
 			<x path="Null"><x path="Bool"/></x>
 			<haxe_doc>* This list is not complete. Further typing should result in recomputing
 	 * this list.</haxe_doc>
 		</isIncomplete>
 		<items public="1">
-			<c path="Array"><c path="vscode.CompletionItem"/></c>
+			<c path="Array"><c path="vscode.CompletionList.T"/></c>
 			<haxe_doc>* The completion items.</haxe_doc>
 		</items>
 		<new public="1" set="method">
 			<f a="?items:?isIncomplete">
-				<c path="Array"><c path="vscode.CompletionItem"/></c>
+				<c path="Array"><c path="vscode.CompletionList.T"/></c>
 				<x path="Bool"/>
 				<x path="Void"/>
 			</f>
@@ -13063,6 +13122,292 @@
 			<m n=":enum"/>
 		</meta>
 	</class>
+	<typedef path="vscode.CustomDocument" params="" file="src/vscode/CustomDocument.hx">
+		<a>
+			<uri final="1" set="null">
+				<c path="vscode.Uri"/>
+				<haxe_doc>* The associated uri for this document.</haxe_doc>
+			</uri>
+			<dispose set="method">
+				<f a=""><x path="Void"/></f>
+				<haxe_doc>* Dispose of the custom document.
+	 *
+	 * This is invoked by VS Code when there are no more references to a given `CustomDocument` (for example when
+	 * all editors associated with the document have been closed.)</haxe_doc>
+			</dispose>
+		</a>
+		<haxe_doc>* Represents a custom document used by a [`CustomEditorProvider`](#CustomEditorProvider).
+ *
+ * Custom documents are only used within a given `CustomEditorProvider`. The lifecycle of a `CustomDocument` is
+ * managed by VS Code. When no more references remain to a `CustomDocument`, it is disposed of.</haxe_doc>
+	</typedef>
+	<typedef path="vscode.CustomDocumentBackup" params="" file="src/vscode/CustomDocumentBackup.hx">
+		<a>
+			<id set="null">
+				<c path="String"/>
+				<haxe_doc>* Unique identifier for the backup.
+	 *
+	 * This id is passed back to your extension in `openCustomDocument` when opening a custom editor from a backup.</haxe_doc>
+			</id>
+			<delete set="method">
+				<f a=""><x path="Void"/></f>
+				<haxe_doc>* Delete the current backup.
+	 *
+	 * This is called by VS Code when it is clear the current backup is no longer needed, such as when a new backup
+	 * is made or when the file is saved.</haxe_doc>
+			</delete>
+		</a>
+		<haxe_doc>* A backup for an [`CustomDocument`](#CustomDocument).</haxe_doc>
+	</typedef>
+	<typedef path="vscode.CustomDocumentBackupContext" params="" file="src/vscode/CustomDocumentBackupContext.hx">
+		<a><destination final="1" set="null">
+	<c path="vscode.Uri"/>
+	<haxe_doc>* Suggested file location to write the new backup.
+	 *
+	 * Note that your extension is free to ignore this and use its own strategy for backup.
+	 *
+	 * If the editor is for a resource from the current workspace, `destination` will point to a file inside
+	 * `ExtensionContext.storagePath`. The parent folder of `destination` may not exist, so make sure to created it
+	 * before writing the backup to this location.</haxe_doc>
+</destination></a>
+		<haxe_doc>* Additional information used to implement [`CustomEditableDocument.backup`](#CustomEditableDocument.backup).</haxe_doc>
+	</typedef>
+	<typedef path="vscode.CustomDocumentContentChangeEvent" params="T" file="src/vscode/CustomDocumentContentChangeEvent.hx">
+		<a><document final="1" set="null">
+	<c path="vscode.CustomDocumentContentChangeEvent.T"/>
+	<haxe_doc>* The document that the change is for.</haxe_doc>
+</document></a>
+		<haxe_doc>* Event triggered by extensions to signal to VS Code that the content of a [`CustomDocument`](#CustomDocument)
+ * has changed.
+ *
+ * @see [`CustomDocumentProvider.onDidChangeCustomDocument`](#CustomDocumentProvider.onDidChangeCustomDocument).</haxe_doc>
+	</typedef>
+	<typedef path="vscode.CustomDocumentEditEvent" params="T" file="src/vscode/CustomDocumentEditEvent.hx">
+		<a>
+			<undo set="method">
+				<f a=""><x path="haxe.extern.EitherType">
+	<x path="js.lib.Thenable"><x path="Void"/></x>
+	<x path="Void"/>
+</x></f>
+				<haxe_doc>* Undo the edit operation.
+	 *
+	 * This is invoked by VS Code when the user undoes this edit. To implement `undo`, your
+	 * extension should restore the document and editor to the state they were in just before this
+	 * edit was added to VS Code's internal edit stack by `onDidChangeCustomDocument`.</haxe_doc>
+			</undo>
+			<redo set="method">
+				<f a=""><x path="haxe.extern.EitherType">
+	<x path="js.lib.Thenable"><x path="Void"/></x>
+	<x path="Void"/>
+</x></f>
+				<haxe_doc>* Redo the edit operation.
+	 *
+	 * This is invoked by VS Code when the user redoes this edit. To implement `redo`, your
+	 * extension should restore the document and editor to the state they were in just after this
+	 * edit was added to VS Code's internal edit stack by `onDidChangeCustomDocument`.</haxe_doc>
+			</redo>
+			<label final="1" set="null">
+				<x path="Null"><c path="String"/></x>
+				<meta><m n=":optional"/></meta>
+				<haxe_doc>* Display name describing the edit.
+	 *
+	 * This will be shown to users in the UI for undo/redo operations.</haxe_doc>
+			</label>
+			<document final="1" set="null">
+				<c path="vscode.CustomDocumentEditEvent.T"/>
+				<haxe_doc>* The document that the edit is for.</haxe_doc>
+			</document>
+		</a>
+		<haxe_doc>* Event triggered by extensions to signal to VS Code that an edit has occurred on an [`CustomDocument`](#CustomDocument).
+ *
+ * @see [`CustomDocumentProvider.onDidChangeCustomDocument`](#CustomDocumentProvider.onDidChangeCustomDocument).</haxe_doc>
+	</typedef>
+	<typedef path="vscode.CustomDocumentOpenContext" params="" file="src/vscode/CustomDocumentOpenContext.hx">
+		<a><backupId final="1" set="null">
+	<x path="Null"><c path="String"/></x>
+	<meta><m n=":optional"/></meta>
+	<haxe_doc>* The id of the backup to restore the document from or `undefined` if there is no backup.
+	 *
+	 * If this is provided, your extension should restore the editor from the backup instead of reading the file
+	 * from the user's workspace.</haxe_doc>
+</backupId></a>
+		<haxe_doc>* Additional information about the opening custom document.</haxe_doc>
+	</typedef>
+	<typedef path="vscode.CustomEditorProvider" params="T" file="src/vscode/CustomEditorProvider.hx">
+		<a>
+			<saveCustomDocumentAs set="method">
+				<f a="document:destination:cancellation">
+					<c path="vscode.CustomEditorProvider.T"/>
+					<c path="vscode.Uri"/>
+					<t path="vscode.CancellationToken"/>
+					<x path="js.lib.Thenable"><x path="Void"/></x>
+				</f>
+				<haxe_doc>* Save a custom document to a different location.
+	 *
+	 * This method is invoked by VS Code when the user triggers 'save as' on a custom editor. The implementer must
+	 * persist the custom editor to `destination`.
+	 *
+	 * When the user accepts save as, the current editor is be replaced by an non-dirty editor for the newly saved file.
+	 *
+	 * @param document Document to save.
+	 * @param destination Location to save to.
+	 * @param cancellation Token that signals the save is no longer required.
+	 *
+	 * @return Thenable signaling that saving has completed.</haxe_doc>
+			</saveCustomDocumentAs>
+			<saveCustomDocument set="method">
+				<f a="document:cancellation">
+					<c path="vscode.CustomEditorProvider.T"/>
+					<t path="vscode.CancellationToken"/>
+					<x path="js.lib.Thenable"><x path="Void"/></x>
+				</f>
+				<haxe_doc>* Save a custom document.
+	 *
+	 * This method is invoked by VS Code when the user saves a custom editor. This can happen when the user
+	 * triggers save while the custom editor is active, by commands such as `save all`, or by auto save if enabled.
+	 *
+	 * To implement `save`, the implementer must persist the custom editor. This usually means writing the
+	 * file data for the custom document to disk. After `save` completes, any associated editor instances will
+	 * no longer be marked as dirty.
+	 *
+	 * @param document Document to save.
+	 * @param cancellation Token that signals the save is no longer required (for example, if another save was triggered).
+	 *
+	 * @return Thenable signaling that saving has completed.</haxe_doc>
+			</saveCustomDocument>
+			<revertCustomDocument set="method">
+				<f a="document:cancellation">
+					<c path="vscode.CustomEditorProvider.T"/>
+					<t path="vscode.CancellationToken"/>
+					<x path="js.lib.Thenable"><x path="Void"/></x>
+				</f>
+				<haxe_doc>* Revert a custom document to its last saved state.
+	 *
+	 * This method is invoked by VS Code when the user triggers `File: Revert File` in a custom editor. (Note that
+	 * this is only used using VS Code's `File: Revert File` command and not on a `git revert` of the file).
+	 *
+	 * To implement `revert`, the implementer must make sure all editor instances (webviews) for `document`
+	 * are displaying the document in the same state is saved in. This usually means reloading the file from the
+	 * workspace.
+	 *
+	 * @param document Document to revert.
+	 * @param cancellation Token that signals the revert is no longer required.
+	 *
+	 * @return Thenable signaling that the change has completed.</haxe_doc>
+			</revertCustomDocument>
+			<resolveCustomEditor set="method">
+				<f a="document:webviewPanel:token">
+					<c path="vscode.CustomEditorProvider.T"/>
+					<t path="vscode.WebviewPanel"/>
+					<t path="vscode.CancellationToken"/>
+					<x path="haxe.extern.EitherType">
+						<x path="js.lib.Thenable"><x path="Void"/></x>
+						<x path="Void"/>
+					</x>
+				</f>
+				<haxe_doc>* Resolve a custom editor for a given resource.
+	 *
+	 * This is called whenever the user opens a new editor for this `CustomEditorProvider`.
+	 *
+	 * @param document Document for the resource being resolved.
+	 *
+	 * @param webviewPanel The webview panel used to display the editor UI for this resource.
+	 *
+	 * During resolve, the provider must fill in the initial html for the content webview panel and hook up all
+	 * the event listeners on it that it is interested in. The provider can also hold onto the `WebviewPanel` to
+	 * use later for example in a command. See [`WebviewPanel`](#WebviewPanel) for additional details.
+	 *
+	 * @param token A cancellation token that indicates the result is no longer needed.
+	 *
+	 * @return Optional thenable indicating that the custom editor has been resolved.</haxe_doc>
+			</resolveCustomEditor>
+			<openCustomDocument set="method">
+				<f a="uri:openContext:token">
+					<c path="vscode.Uri"/>
+					<t path="vscode.CustomDocumentOpenContext"/>
+					<t path="vscode.CancellationToken"/>
+					<x path="haxe.extern.EitherType">
+						<x path="js.lib.Thenable"><c path="vscode.CustomEditorProvider.T"/></x>
+						<c path="vscode.CustomEditorProvider.T"/>
+					</x>
+				</f>
+				<haxe_doc>* Create a new document for a given resource.
+	 *
+	 * `openCustomDocument` is called when the first time an editor for a given resource is opened. The opened
+	 * document is then passed to `resolveCustomEditor` so that the editor can be shown to the user.
+	 *
+	 * Already opened `CustomDocument` are re-used if the user opened additional editors. When all editors for a
+	 * given resource are closed, the `CustomDocument` is disposed of. Opening an editor at this point will
+	 * trigger another call to `openCustomDocument`.
+	 *
+	 * @param uri Uri of the document to open.
+	 * @param openContext Additional information about the opening custom document.
+	 * @param token A cancellation token that indicates the result is no longer needed.
+	 *
+	 * @return The custom document.</haxe_doc>
+			</openCustomDocument>
+			<onDidChangeCustomDocument final="1" set="null">
+				<x path="haxe.extern.EitherType">
+					<t path="vscode.Event"><t path="vscode.CustomDocumentEditEvent"><c path="vscode.CustomEditorProvider.T"/></t></t>
+					<t path="vscode.Event"><t path="vscode.CustomDocumentContentChangeEvent"><c path="vscode.CustomEditorProvider.T"/></t></t>
+				</x>
+				<haxe_doc>* Signal that an edit has occurred inside a custom editor.
+	 *
+	 * This event must be fired by your extension whenever an edit happens in a custom editor. An edit can be
+	 * anything from changing some text, to cropping an image, to reordering a list. Your extension is free to
+	 * define what an edit is and what data is stored on each edit.
+	 *
+	 * Firing `onDidChange` causes VS Code to mark the editors as being dirty. This is cleared when the user either
+	 * saves or reverts the file.
+	 *
+	 * Editors that support undo/redo must fire a `CustomDocumentEditEvent` whenever an edit happens. This allows
+	 * users to undo and redo the edit using VS Code's standard VS Code keyboard shortcuts. VS Code will also mark
+	 * the editor as no longer being dirty if the user undoes all edits to the last saved state.
+	 *
+	 * Editors that support editing but cannot use VS Code's standard undo/redo mechanism must fire a `CustomDocumentContentChangeEvent`.
+	 * The only way for a user to clear the dirty state of an editor that does not support undo/redo is to either
+	 * `save` or `revert` the file.
+	 *
+	 * An editor should only ever fire `CustomDocumentEditEvent` events, or only ever fire `CustomDocumentContentChangeEvent` events.</haxe_doc>
+			</onDidChangeCustomDocument>
+			<backupCustomDocument set="method">
+				<f a="document:context:cancellation">
+					<c path="vscode.CustomEditorProvider.T"/>
+					<t path="vscode.CustomDocumentBackupContext"/>
+					<t path="vscode.CancellationToken"/>
+					<x path="js.lib.Thenable"><t path="vscode.CustomDocumentBackup"/></x>
+				</f>
+				<haxe_doc>* Back up a dirty custom document.
+	 *
+	 * Backups are used for hot exit and to prevent data loss. Your `backup` method should persist the resource in
+	 * its current state, i.e. with the edits applied. Most commonly this means saving the resource to disk in
+	 * the `ExtensionContext.storagePath`. When VS Code reloads and your custom editor is opened for a resource,
+	 * your extension should first check to see if any backups exist for the resource. If there is a backup, your
+	 * extension should load the file contents from there instead of from the resource in the workspace.
+	 *
+	 * `backup` is triggered approximately one second after the the user stops editing the document. If the user
+	 * rapidly edits the document, `backup` will not be invoked until the editing stops.
+	 *
+	 * `backup` is not invoked when `auto save` is enabled (since auto save already persists the resource).
+	 *
+	 * @param document Document to backup.
+	 * @param context Information that can be used to backup the document.
+	 * @param cancellation Token that signals the current backup since a new backup is coming in. It is up to your
+	 * extension to decided how to respond to cancellation. If for example your extension is backing up a large file
+	 * in an operation that takes time to complete, your extension may decide to finish the ongoing backup rather
+	 * than cancelling it to ensure that VS Code has some valid backup.</haxe_doc>
+			</backupCustomDocument>
+		</a>
+		<haxe_doc>* Provider for editable custom editors that use a custom document model.
+ *
+ * Custom editors use [`CustomDocument`](#CustomDocument) as their document model instead of a [`TextDocument`](#TextDocument).
+ * This gives extensions full control over actions such as edit, save, and backup.
+ *
+ * You should use this type of custom editor when dealing with binary files or more complex scenarios. For simple
+ * text based documents, use [`CustomTextEditorProvider`](#CustomTextEditorProvider) instead.
+ *
+ * @param T Type of the custom document returned by this provider.</haxe_doc>
+	</typedef>
 	<class path="vscode.CustomExecution" params="" file="src/vscode/CustomExecution.hx" extern="1">
 		<new public="1" set="method">
 			<f a="callback">
@@ -13083,6 +13428,69 @@
 	<e>"CustomExecution"</e>
 </m></meta>
 	</class>
+	<typedef path="vscode.CustomReadonlyEditorProvider" params="T" file="src/vscode/CustomReadonlyEditorProvider.hx">
+		<a>
+			<resolveCustomEditor set="method">
+				<f a="document:webviewPanel:token">
+					<c path="vscode.CustomReadonlyEditorProvider.T"/>
+					<t path="vscode.WebviewPanel"/>
+					<t path="vscode.CancellationToken"/>
+					<x path="haxe.extern.EitherType">
+						<x path="js.lib.Thenable"><x path="Void"/></x>
+						<x path="Void"/>
+					</x>
+				</f>
+				<haxe_doc>* Resolve a custom editor for a given resource.
+	 *
+	 * This is called whenever the user opens a new editor for this `CustomEditorProvider`.
+	 *
+	 * @param document Document for the resource being resolved.
+	 *
+	 * @param webviewPanel The webview panel used to display the editor UI for this resource.
+	 *
+	 * During resolve, the provider must fill in the initial html for the content webview panel and hook up all
+	 * the event listeners on it that it is interested in. The provider can also hold onto the `WebviewPanel` to
+	 * use later for example in a command. See [`WebviewPanel`](#WebviewPanel) for additional details.
+	 *
+	 * @param token A cancellation token that indicates the result is no longer needed.
+	 *
+	 * @return Optional thenable indicating that the custom editor has been resolved.</haxe_doc>
+			</resolveCustomEditor>
+			<openCustomDocument set="method">
+				<f a="uri:openContext:token">
+					<c path="vscode.Uri"/>
+					<t path="vscode.CustomDocumentOpenContext"/>
+					<t path="vscode.CancellationToken"/>
+					<x path="haxe.extern.EitherType">
+						<x path="js.lib.Thenable"><c path="vscode.CustomReadonlyEditorProvider.T"/></x>
+						<c path="vscode.CustomReadonlyEditorProvider.T"/>
+					</x>
+				</f>
+				<haxe_doc>* Create a new document for a given resource.
+	 *
+	 * `openCustomDocument` is called when the first time an editor for a given resource is opened. The opened
+	 * document is then passed to `resolveCustomEditor` so that the editor can be shown to the user.
+	 *
+	 * Already opened `CustomDocument` are re-used if the user opened additional editors. When all editors for a
+	 * given resource are closed, the `CustomDocument` is disposed of. Opening an editor at this point will
+	 * trigger another call to `openCustomDocument`.
+	 *
+	 * @param uri Uri of the document to open.
+	 * @param openContext Additional information about the opening custom document.
+	 * @param token A cancellation token that indicates the result is no longer needed.
+	 *
+	 * @return The custom document.</haxe_doc>
+			</openCustomDocument>
+		</a>
+		<haxe_doc>* Provider for readonly custom editors that use a custom document model.
+ *
+ * Custom editors use [`CustomDocument`](#CustomDocument) as their document model instead of a [`TextDocument`](#TextDocument).
+ *
+ * You should use this type of custom editor when dealing with binary files or more complex scenarios. For simple
+ * text based documents, use [`CustomTextEditorProvider`](#CustomTextEditorProvider) instead.
+ *
+ * @param T Type of the custom document returned by this provider.</haxe_doc>
+	</typedef>
 	<typedef path="vscode.CustomTextEditorProvider" params="" file="src/vscode/CustomTextEditorProvider.hx">
 		<a><resolveCustomTextEditor set="method">
 	<f a="document:webviewPanel:token">
@@ -13099,12 +13507,13 @@
 	 * This is called when a user first opens a resource for a `CustomTextEditorProvider`, or if they reopen an
 	 * existing editor using this `CustomTextEditorProvider`.
 	 *
-	 * To resolve a custom editor, the provider must fill in its initial html content and hook up all
-	 * the event listeners it is interested it. The provider can also hold onto the `WebviewPanel` to use later,
-	 * for example in a command. See [`WebviewPanel`](#WebviewPanel) for additional details.
-	 *
 	 * @param document Document for the resource to resolve.
-	 * @param webviewPanel Webview to resolve.
+	 * @param webviewPanel The webview panel used to display the editor UI for this resource.
+	 *
+	 * During resolve, the provider must fill in the initial html for the content webview panel and hook up all
+	 * the event listeners on it that it is interested in. The provider can also hold onto the `WebviewPanel` to
+	 * use later for example in a command. See [`WebviewPanel`](#WebviewPanel) for additional details.
+	 * 
 	 * @param token A cancellation token that indicates the result is no longer needed.
 	 *
 	 * @return Thenable indicating that the custom editor has been resolved.</haxe_doc>
@@ -13389,6 +13798,70 @@
  * and to resolve launch configurations before they are used to start a debug session.
  * A debug configuration provider is registered via #debug.registerDebugConfigurationProvider.</haxe_doc>
 	</typedef>
+	<abstract path="vscode.DebugConfigurationProviderTriggerKind" params="" file="src/vscode/DebugConfigurationProviderTriggerKind.hx">
+		<this><x path="Int"/></this>
+		<haxe_doc>* A DebugConfigurationProviderTriggerKind specifies when the `provideDebugConfigurations` method of a `DebugConfigurationProvider` is triggered.
+ * Currently there are two situations: to provide the initial debug configurations for a newly created launch.json or
+ * to provide dynamically generated debug configurations when the user asks for them through the UI (e.g. via the "Select and Start Debugging" command).
+ * A trigger kind is used when registering a `DebugConfigurationProvider` with #debug.registerDebugConfigurationProvider.</haxe_doc>
+		<meta>
+			<m n=":enum"/>
+			<m n=":jsRequire">
+				<e>"vscode"</e>
+				<e>"DebugConfigurationProviderTriggerKind"</e>
+			</m>
+		</meta>
+		<impl><class path="vscode._DebugConfigurationProviderTriggerKind.DebugConfigurationProviderTriggerKind_Impl_" params="" file="src/vscode/DebugConfigurationProviderTriggerKind.hx" private="1" module="vscode.DebugConfigurationProviderTriggerKind" extern="1">
+	<Initial public="1" set="null" static="1">
+		<x path="vscode.DebugConfigurationProviderTriggerKind"/>
+		<meta>
+			<m n=":enum"/>
+			<m n=":impl"/>
+		</meta>
+		<haxe_doc>*	`DebugConfigurationProvider.provideDebugConfigurations` is called to provide the initial debug configurations for a newly created launch.json.</haxe_doc>
+	</Initial>
+	<Dynamic public="1" set="null" static="1">
+		<x path="vscode.DebugConfigurationProviderTriggerKind"/>
+		<meta>
+			<m n=":enum"/>
+			<m n=":impl"/>
+		</meta>
+		<haxe_doc>* `DebugConfigurationProvider.provideDebugConfigurations` is called to provide dynamically generated debug configurations when the user asks for them through the UI (e.g. via the "Select and Start Debugging" command).</haxe_doc>
+	</Dynamic>
+	<meta>
+		<m n=":jsRequire">
+			<e>"vscode"</e>
+			<e>"DebugConfigurationProviderTriggerKind"</e>
+		</m>
+		<m n=":enum"/>
+	</meta>
+</class></impl>
+	</abstract>
+	<class path="vscode._DebugConfigurationProviderTriggerKind.DebugConfigurationProviderTriggerKind_Impl_" params="" file="src/vscode/DebugConfigurationProviderTriggerKind.hx" private="1" module="vscode.DebugConfigurationProviderTriggerKind" extern="1">
+		<Initial public="1" set="null" static="1">
+			<x path="vscode.DebugConfigurationProviderTriggerKind"/>
+			<meta>
+				<m n=":enum"/>
+				<m n=":impl"/>
+			</meta>
+			<haxe_doc>*	`DebugConfigurationProvider.provideDebugConfigurations` is called to provide the initial debug configurations for a newly created launch.json.</haxe_doc>
+		</Initial>
+		<Dynamic public="1" set="null" static="1">
+			<x path="vscode.DebugConfigurationProviderTriggerKind"/>
+			<meta>
+				<m n=":enum"/>
+				<m n=":impl"/>
+			</meta>
+			<haxe_doc>* `DebugConfigurationProvider.provideDebugConfigurations` is called to provide dynamically generated debug configurations when the user asks for them through the UI (e.g. via the "Select and Start Debugging" command).</haxe_doc>
+		</Dynamic>
+		<meta>
+			<m n=":jsRequire">
+				<e>"vscode"</e>
+				<e>"DebugConfigurationProviderTriggerKind"</e>
+			</m>
+			<m n=":enum"/>
+		</meta>
+	</class>
 	<typedef path="vscode.DebugConsole" params="" file="src/vscode/DebugConsole.hx">
 		<a>
 			<appendLine set="method">
@@ -14593,13 +15066,13 @@
 	<e>"DocumentLink"</e>
 </m></meta>
 	</class>
-	<typedef path="vscode.DocumentLinkProvider" params="" file="src/vscode/DocumentLinkProvider.hx">
+	<typedef path="vscode.DocumentLinkProvider" params="T" file="src/vscode/DocumentLinkProvider.hx">
 		<a>
 			<resolveDocumentLink>
-				<x path="Null"><f a=":">
-	<c path="vscode.DocumentLink"/>
+				<x path="Null"><f a="link:token">
+	<c path="vscode.DocumentLinkProvider.T"/>
 	<t path="vscode.CancellationToken"/>
-	<t path="vscode.ProviderResult"><c path="vscode.DocumentLink"/></t>
+	<t path="vscode.ProviderResult"><c path="vscode.DocumentLinkProvider.T"/></t>
 </f></x>
 				<meta><m n=":optional"/></meta>
 				<haxe_doc>* Given a link fill in its [target](#DocumentLink.target). This method is called when an incomplete
@@ -14614,7 +15087,7 @@
 				<f a="document:token">
 					<t path="vscode.TextDocument"/>
 					<t path="vscode.CancellationToken"/>
-					<t path="vscode.ProviderResult"><c path="Array"><c path="vscode.DocumentLink"/></c></t>
+					<t path="vscode.ProviderResult"><c path="Array"><c path="vscode.DocumentLinkProvider.T"/></c></t>
 				</f>
 				<haxe_doc>* Provide links for the given document. Note that the editor ships with a default provider that detects
 	 * `http(s)` and `file` links.
@@ -14962,6 +15435,189 @@
 		</a>
 		<haxe_doc>* Describes what to do when pressing Enter.</haxe_doc>
 	</typedef>
+	<typedef path="vscode.EnvironmentVariableCollection" params="" file="src/vscode/EnvironmentVariableCollection.hx">
+		<a>
+			<replace set="method">
+				<f a="variable:value">
+					<c path="String"/>
+					<c path="String"/>
+					<x path="Void"/>
+				</f>
+				<haxe_doc>* Replace an environment variable with a value.
+	 *
+	 * Note that an extension can only make a single change to any one variable, so this will
+	 * overwrite any previous calls to replace, append or prepend.
+	 *
+	 * @param variable The variable to replace.
+	 * @param value The value to replace the variable with.</haxe_doc>
+			</replace>
+			<prepend set="method">
+				<f a="variable:value">
+					<c path="String"/>
+					<c path="String"/>
+					<x path="Void"/>
+				</f>
+				<haxe_doc>* Prepend a value to an environment variable.
+	 *
+	 * Note that an extension can only make a single change to any one variable, so this will
+	 * overwrite any previous calls to replace, append or prepend.
+	 *
+	 * @param variable The variable to prepend.
+	 * @param value The value to prepend to the variable.</haxe_doc>
+			</prepend>
+			<persistent>
+				<x path="Bool"/>
+				<haxe_doc>* Whether the collection should be cached for the workspace and applied to the terminal
+	 * across window reloads. When true the collection will be active immediately such when the
+	 * window reloads. Additionally, this API will return the cached version if it exists. The
+	 * collection will be invalidated when the extension is uninstalled or when the collection
+	 * is cleared. Defaults to true.</haxe_doc>
+			</persistent>
+			<get set="method">
+				<f a="variable">
+					<c path="String"/>
+					<x path="Null"><t path="vscode.EnvironmentVariableMutator"/></x>
+				</f>
+				<haxe_doc>* Gets the mutator that this collection applies to a variable, if any.
+	 *
+	 * @param variable The variable to get the mutator for.</haxe_doc>
+			</get>
+			<forEach set="method">
+				<f a="callback:?thisArg">
+					<f a="variable:mutator:collection">
+						<c path="String"/>
+						<t path="vscode.EnvironmentVariableMutator"/>
+						<t path="vscode.EnvironmentVariableCollection"/>
+						<x path="Any"/>
+					</f>
+					<x path="Any"/>
+					<x path="Void"/>
+				</f>
+				<haxe_doc>* Iterate over each mutator in this collection.
+	 *
+	 * @param callback Function to execute for each entry.
+	 * @param thisArg The `this` context used when invoking the handler function.</haxe_doc>
+			</forEach>
+			<delete set="method">
+				<f a="variable">
+					<c path="String"/>
+					<x path="Void"/>
+				</f>
+				<haxe_doc>* Deletes this collection's mutator for a variable.
+	 *
+	 * @param variable The variable to delete the mutator for.</haxe_doc>
+			</delete>
+			<clear set="method">
+				<f a=""><x path="Void"/></f>
+				<haxe_doc>* Clears all mutators from this collection.</haxe_doc>
+			</clear>
+			<append set="method">
+				<f a="variable:value">
+					<c path="String"/>
+					<c path="String"/>
+					<x path="Void"/>
+				</f>
+				<haxe_doc>* Append a value to an environment variable.
+	 *
+	 * Note that an extension can only make a single change to any one variable, so this will
+	 * overwrite any previous calls to replace, append or prepend.
+	 *
+	 * @param variable The variable to append to.
+	 * @param value The value to append to the variable.</haxe_doc>
+			</append>
+		</a>
+		<haxe_doc>* A collection of mutations that an extension can apply to a process environment.</haxe_doc>
+	</typedef>
+	<typedef path="vscode.EnvironmentVariableMutator" params="" file="src/vscode/EnvironmentVariableMutator.hx">
+		<a>
+			<value final="1" set="null">
+				<c path="String"/>
+				<haxe_doc>* The value to use for the variable.</haxe_doc>
+			</value>
+			<type final="1" set="null">
+				<x path="vscode.EnvironmentVariableMutatorType"/>
+				<haxe_doc>* The type of mutation that will occur to the variable.</haxe_doc>
+			</type>
+		</a>
+		<haxe_doc>* A type of mutation and its value to be applied to an environment variable.</haxe_doc>
+	</typedef>
+	<abstract path="vscode.EnvironmentVariableMutatorType" params="" file="src/vscode/EnvironmentVariableMutatorType.hx">
+		<this><x path="Int"/></this>
+		<haxe_doc>* A type of mutation that can be applied to an environment variable.</haxe_doc>
+		<meta>
+			<m n=":enum"/>
+			<m n=":jsRequire">
+				<e>"vscode"</e>
+				<e>"EnvironmentVariableMutatorType"</e>
+			</m>
+		</meta>
+		<impl><class path="vscode._EnvironmentVariableMutatorType.EnvironmentVariableMutatorType_Impl_" params="" file="src/vscode/EnvironmentVariableMutatorType.hx" private="1" module="vscode.EnvironmentVariableMutatorType" extern="1">
+	<Replace public="1" set="null" static="1">
+		<x path="vscode.EnvironmentVariableMutatorType"/>
+		<meta>
+			<m n=":enum"/>
+			<m n=":impl"/>
+		</meta>
+		<haxe_doc>* Replace the variable's existing value.</haxe_doc>
+	</Replace>
+	<Append public="1" set="null" static="1">
+		<x path="vscode.EnvironmentVariableMutatorType"/>
+		<meta>
+			<m n=":enum"/>
+			<m n=":impl"/>
+		</meta>
+		<haxe_doc>* Append to the end of the variable's existing value.</haxe_doc>
+	</Append>
+	<Prepend public="1" set="null" static="1">
+		<x path="vscode.EnvironmentVariableMutatorType"/>
+		<meta>
+			<m n=":enum"/>
+			<m n=":impl"/>
+		</meta>
+		<haxe_doc>* Prepend to the start of the variable's existing value.</haxe_doc>
+	</Prepend>
+	<meta>
+		<m n=":jsRequire">
+			<e>"vscode"</e>
+			<e>"EnvironmentVariableMutatorType"</e>
+		</m>
+		<m n=":enum"/>
+	</meta>
+</class></impl>
+	</abstract>
+	<class path="vscode._EnvironmentVariableMutatorType.EnvironmentVariableMutatorType_Impl_" params="" file="src/vscode/EnvironmentVariableMutatorType.hx" private="1" module="vscode.EnvironmentVariableMutatorType" extern="1">
+		<Replace public="1" set="null" static="1">
+			<x path="vscode.EnvironmentVariableMutatorType"/>
+			<meta>
+				<m n=":enum"/>
+				<m n=":impl"/>
+			</meta>
+			<haxe_doc>* Replace the variable's existing value.</haxe_doc>
+		</Replace>
+		<Append public="1" set="null" static="1">
+			<x path="vscode.EnvironmentVariableMutatorType"/>
+			<meta>
+				<m n=":enum"/>
+				<m n=":impl"/>
+			</meta>
+			<haxe_doc>* Append to the end of the variable's existing value.</haxe_doc>
+		</Append>
+		<Prepend public="1" set="null" static="1">
+			<x path="vscode.EnvironmentVariableMutatorType"/>
+			<meta>
+				<m n=":enum"/>
+				<m n=":impl"/>
+			</meta>
+			<haxe_doc>* Prepend to the start of the variable's existing value.</haxe_doc>
+		</Prepend>
+		<meta>
+			<m n=":jsRequire">
+				<e>"vscode"</e>
+				<e>"EnvironmentVariableMutatorType"</e>
+			</m>
+			<m n=":enum"/>
+		</meta>
+	</class>
 	<class path="vscode.EvaluatableExpression" params="" file="src/vscode/EvaluatableExpression.hx" extern="1">
 		<range public="1" set="null"><c path="vscode.Range"/></range>
 		<expression public="1" set="null"><x path="Null"><c path="String"/></x></expression>
@@ -15155,6 +15811,11 @@
 				<c path="String"/>
 				<haxe_doc>* The absolute file path of the directory containing the extension.</haxe_doc>
 			</extensionPath>
+			<environmentVariableCollection set="null">
+				<t path="vscode.EnvironmentVariableCollection"/>
+				<haxe_doc>* Gets the extension's environment variable collection for this workspace, enabling changes
+	 * to be applied to terminal environment variables.</haxe_doc>
+			</environmentVariableCollection>
 			<asAbsolutePath set="method">
 				<f a="relativePath">
 					<c path="String"/>
@@ -20399,13 +21060,13 @@
 		<haxe_doc>* An event signaling the start of a process execution
  * triggered through a task</haxe_doc>
 	</typedef>
-	<typedef path="vscode.TaskProvider" params="" file="src/vscode/TaskProvider.hx">
+	<typedef path="vscode.TaskProvider" params="T" file="src/vscode/TaskProvider.hx">
 		<a>
 			<resolveTask set="method">
 				<f a="task:?token">
-					<c path="vscode.Task"/>
+					<c path="vscode.TaskProvider.T"/>
 					<t path="vscode.CancellationToken"/>
-					<t path="vscode.ProviderResult"><c path="vscode.Task"/></t>
+					<t path="vscode.ProviderResult"><c path="vscode.TaskProvider.T"/></t>
 				</f>
 				<haxe_doc>* Resolves a task that has no [`execution`](#Task.execution) set. Tasks are
 	 * often created from information found in the `tasks.json`-file. Such tasks miss
@@ -20422,7 +21083,7 @@
 			<provideTasks set="method">
 				<f a="?token">
 					<t path="vscode.CancellationToken"/>
-					<t path="vscode.ProviderResult"><c path="Array"><c path="vscode.Task"/></c></t>
+					<t path="vscode.ProviderResult"><c path="Array"><c path="vscode.TaskProvider.T"/></c></t>
 				</f>
 				<haxe_doc>* Provides tasks.
 	 * @param token A cancellation token.
@@ -20528,7 +21189,7 @@
 			<m n=":enum"/>
 			<m n=":impl"/>
 		</meta>
-		<haxe_doc>* The task is a global task. Global tasks are currrently not supported.</haxe_doc>
+		<haxe_doc>* The task is a global task. Global tasks are currently not supported.</haxe_doc>
 	</Global>
 	<Workspace public="1" set="null" static="1">
 		<x path="vscode.TaskScope"/>
@@ -20554,7 +21215,7 @@
 				<m n=":enum"/>
 				<m n=":impl"/>
 			</meta>
-			<haxe_doc>* The task is a global task. Global tasks are currrently not supported.</haxe_doc>
+			<haxe_doc>* The task is a global task. Global tasks are currently not supported.</haxe_doc>
 		</Global>
 		<Workspace public="1" set="null" static="1">
 			<x path="vscode.TaskScope"/>
@@ -22488,7 +23149,7 @@
 	 * In order to expand the revealed element, set the option `expand` to `true`. To expand recursively set `expand` to the number of levels to expand.
 	 * **NOTE:** You can expand only to 3 levels maximum.
 	 *
-	 * **NOTE:** [TreeDataProvider](#TreeDataProvider) is required to implement [getParent](#TreeDataProvider.getParent) method to access this API.</haxe_doc>
+	 * **NOTE:** The [TreeDataProvider](#TreeDataProvider) that the `TreeView` [is registered with](#window.createTreeView) with must implement [getParent](#TreeDataProvider.getParent) method to access this API.</haxe_doc>
 			</reveal>
 			<onDidExpandElement set="null">
 				<t path="vscode.Event"><t path="vscode.TreeViewExpansionEvent"><c path="vscode.TreeView.T"/></t></t>
@@ -22706,7 +23367,7 @@
 	 * The path segments are normalized in the following ways:
 	 * - sequences of path separators (`/` or `\`) are replaced with a single separator
 	 * - for `file`-uris on windows, the backslash-character (`\`) is considered a path-separator
-	 * - the `..`-segment denotes the parent segment, the `.` denotes the current segement
+	 * - the `..`-segment denotes the parent segment, the `.` denotes the current segment
 	 * - paths have a root which always remains, for instance on windows drive-letters are roots
 	 * so that is true: `joinPath(Uri.file('file:///c:/root'), '../../other').fsPath === 'c:/other'`
 	 *
@@ -23838,13 +24499,13 @@
 		</a>
 		<haxe_doc>* An event describing a change to the set of [workspace folders](#workspace.workspaceFolders).</haxe_doc>
 	</typedef>
-	<typedef path="vscode.WorkspaceSymbolProvider" params="" file="src/vscode/WorkspaceSymbolProvider.hx">
+	<typedef path="vscode.WorkspaceSymbolProvider" params="T" file="src/vscode/WorkspaceSymbolProvider.hx">
 		<a>
 			<resolveWorkspaceSymbol>
-				<x path="Null"><f a=":">
-	<c path="vscode.SymbolInformation"/>
+				<x path="Null"><f a="symbol:token">
+	<c path="vscode.WorkspaceSymbolProvider.T"/>
 	<t path="vscode.CancellationToken"/>
-	<t path="vscode.ProviderResult"><c path="vscode.SymbolInformation"/></t>
+	<t path="vscode.ProviderResult"><c path="vscode.WorkspaceSymbolProvider.T"/></t>
 </f></x>
 				<meta><m n=":optional"/></meta>
 				<haxe_doc>* Given a symbol fill in its [location](#SymbolInformation.location). This method is called whenever a symbol
@@ -23862,7 +24523,7 @@
 				<f a="query:token">
 					<c path="String"/>
 					<t path="vscode.CancellationToken"/>
-					<t path="vscode.ProviderResult"><c path="Array"><c path="vscode.SymbolInformation"/></c></t>
+					<t path="vscode.ProviderResult"><c path="Array"><c path="vscode.WorkspaceSymbolProvider.T"/></c></t>
 				</f>
 				<haxe_doc>* Project-wide search for a symbol matching the given query string.
 	 *
