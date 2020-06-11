@@ -4,13 +4,13 @@ package vscode;
  * A task provider allows to add tasks to the task service.
  * A task provider is registered via #tasks.registerTaskProvider.
  */
-typedef TaskProvider = {
+typedef TaskProvider<T:Task> = {
 	/**
 	 * Provides tasks.
 	 * @param token A cancellation token.
 	 * @return an array of tasks
 	 */
-	function provideTasks(?token:CancellationToken):ProviderResult<Array<Task>>;
+	function provideTasks(?token:CancellationToken):ProviderResult<Array<T>>;
 
 	/**
 	 * Resolves a task that has no [`execution`](#Task.execution) set. Tasks are
@@ -25,5 +25,5 @@ typedef TaskProvider = {
 	 * @param token A cancellation token.
 	 * @return The resolved task
 	 */
-	function resolveTask(task:Task, ?token:CancellationToken):ProviderResult<Task>;
+	function resolveTask(task:T, ?token:CancellationToken):ProviderResult<T>;
 }

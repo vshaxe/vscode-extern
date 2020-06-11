@@ -54,7 +54,7 @@ typedef CommentThread = {
 	/**
 	 * Dispose this comment thread.
 	 *
-	 * Once disposed, this comment thread will be removed from visible editors and Comment Panel when approriate.
+	 * Once disposed, this comment thread will be removed from visible editors and Comment Panel when appropriate.
 	 */
 	function dispose():Void;
 }

@@ -3,7 +3,7 @@ package vscode;
 import vscode.CallHierarchyItem;
 
 /**
- * The call hierarchy provider interface describes the constract between extensions
+ * The call hierarchy provider interface describes the contract between extensions
  * and the call hierarchy feature which allows to browse calls and caller of function,
  * methods, constructor etc.
  */

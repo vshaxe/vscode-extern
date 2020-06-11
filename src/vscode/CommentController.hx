@@ -1,5 +1,7 @@
 package vscode;
 
+import vscode.CommentOptions;
+
 /**
  * A comment controller is able to provide [comments](#CommentThread) support to the editor and
  * provide users various ways to interact with comments.
@@ -14,6 +16,11 @@ typedef CommentController = {
 	 * The human-readable label of this comment controller.
 	 */
 	var label(default, never):String;
+
+	/**
+	 * Comment controller options
+	 */
+	var ?options:CommentOptions;
 
 	/**
 	 * Optional commenting range provider. Provide a list [ranges](#Range) which support commenting to any given resource uri.

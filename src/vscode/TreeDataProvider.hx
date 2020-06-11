@@ -9,7 +9,7 @@ typedef TreeDataProvider<T> = {
 	 * This will trigger the view to update the changed element/root and its children recursively (if shown).
 	 * To signal that root has changed, do not pass any argument or pass `undefined` or `null`.
 	 */
-	var ?onDidChangeTreeData:Event<Null<T>>;
+	var ?onDidChangeTreeData:Event<Null<T> /* | Void */>;
 
 	/**
 	 * Get [TreeItem](#TreeItem) representation of the `element`

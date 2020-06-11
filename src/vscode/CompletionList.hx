@@ -5,7 +5,7 @@ package vscode;
  * in the editor.
  */
 @:jsRequire("vscode", "CompletionList")
-extern class CompletionList {
+extern class CompletionList<T:CompletionItem> {
 	/**
 	 * This list is not complete. Further typing should result in recomputing
 	 * this list.
@@ -15,7 +15,7 @@ extern class CompletionList {
 	/**
 	 * The completion items.
 	 */
-	var items:Array<CompletionItem>;
+	var items:Array<T>;
 
 	/**
 	 * Creates a new completion list.
@@ -23,5 +23,5 @@ extern class CompletionList {
 	 * @param items The completion items.
 	 * @param isIncomplete The list is not complete.
 	 */
-	function new(?items:Array<CompletionItem>, ?isIncomplete:Bool);
+	function new(?items:Array<T>, ?isIncomplete:Bool);
 }

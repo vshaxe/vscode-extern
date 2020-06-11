@@ -237,7 +237,7 @@ extern class VscodeEnv {
 	 *
 	 * If the extension is running remotely, this function automatically establishes a port forwarding tunnel
 	 * from the local machine to `target` on the remote and returns a local uri to the tunnel. The lifetime of
-	 * the port fowarding tunnel is managed by VS Code and the tunnel can be closed by the user.
+	 * the port forwarding tunnel is managed by VS Code and the tunnel can be closed by the user.
 	 *
 	 * *Note* that uris passed through `openExternal` are automatically resolved and you should not call `asExternalUri` on them.
 	 *
@@ -755,7 +755,8 @@ extern class VscodeWindow {
 	 * Register a provider for custom editors for the `viewType` contributed by the `customEditors` extension point.
 	 *
 	 * When a custom editor is opened, VS Code fires an `onCustomEditor:viewType` activation event. Your extension
-	 * must register a [`CustomTextEditorProvider`](#CustomTextEditorProvider) for `viewType` as part of activation.
+	 * must register a [`CustomTextEditorProvider`](#CustomTextEditorProvider), [`CustomReadonlyEditorProvider`](#CustomReadonlyEditorProvider),
+	 * [`CustomEditorProvider`](#CustomEditorProvider)for `viewType` as part of activation.
 	 *
 	 * @param viewType Unique identifier for the custom editor provider. This should match the `viewType` from the
 	 *   `customEditors` contribution point.
@@ -764,8 +765,29 @@ extern class VscodeWindow {
 	 *
 	 * @return Disposable that unregisters the provider.
 	 */
-	function registerCustomEditorProvider(viewType:String, provider:CustomTextEditorProvider,
-		?options:{final ?webviewOptions:WebviewPanelOptions;}):Disposable;
+	function registerCustomEditorProvider<T:CustomDocument>(viewType:String,
+		provider:EitherType<CustomTextEditorProvider, EitherType<CustomReadonlyEditorProvider<T>, CustomEditorProvider<T>>>, ?options:{
+		/**
+		 * Content settings for the webview panels created for this custom editor.
+		 */
+		final ?webviewOptions:WebviewPanelOptions;
+
+		/**
+		 * Only applies to `CustomReadonlyEditorProvider | CustomEditorProvider`.
+		 *
+		 * Indicates that the provider allows multiple editor instances to be open at the same time for
+		 * the same resource.
+		 *
+		 * By default, VS Code only allows one editor instance to be open at a time for each resource. If the
+		 * user tries to open a second editor instance for the resource, the first one is instead moved to where
+		 * the second one was to be opened.
+		 *
+		 * When `supportsMultipleEditorsPerDocument` is enabled, users can split and create copies of the custom
+		 * editor. In this case, the custom editor must make sure it can properly synchronize the states of all
+		 * editor instances for a resource so that they are consistent.
+		 */
+		final ?supportsMultipleEditorsPerDocument:Bool;
+	}):Disposable;
 
 	/**
 	 * The currently active color theme as configured in the settings. The active
@@ -928,7 +950,8 @@ extern class VscodeLanguages {
 	 * @param triggerCharacters Trigger completion when the user types one of the characters.
 	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
 	 */
-	function registerCompletionItemProvider(selector:DocumentSelector, provider:CompletionItemProvider, triggerCharacters:Rest<String>):Disposable;
+	function registerCompletionItemProvider<T:CompletionItem>(selector:DocumentSelector, provider:CompletionItemProvider<T>,
+		triggerCharacters:Rest<String>):Disposable;
 
 	/**
 	 * Register a code action provider.
@@ -939,7 +962,7 @@ extern class VscodeLanguages {
 	 *
 	 * @param selector A selector that defines the documents this provider is applicable to.
 	 * @param provider A code action provider.
-	 * @param metadata Metadata about the kind of code actions the provider providers.
+	 * @param metadata Metadata about the kind of code actions the provider provides.
 	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
 	 */
 	function registerCodeActionsProvider(selector:DocumentSelector, provider:CodeActionProvider, ?metadata:CodeActionProviderMetadata):Disposable;
@@ -955,7 +978,7 @@ extern class VscodeLanguages {
 	 * @param provider A code lens provider.
 	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
 	 */
-	function registerCodeLensProvider(selector:DocumentSelector, provider:CodeLensProvider):Disposable;
+	function registerCodeLensProvider<T:CodeLens>(selector:DocumentSelector, provider:CodeLensProvider<T>):Disposable;
 
 	/**
 	 * Register a definition provider.
@@ -1071,7 +1094,7 @@ extern class VscodeLanguages {
 	 * @param provider A workspace symbol provider.
 	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
 	 */
-	function registerWorkspaceSymbolProvider(provider:WorkspaceSymbolProvider):Disposable;
+	function registerWorkspaceSymbolProvider<T:SymbolInformation>(provider:WorkspaceSymbolProvider<T>):Disposable;
 
 	/**
 	 * Register a reference provider.
@@ -1090,8 +1113,8 @@ extern class VscodeLanguages {
 	 * Register a rename provider.
 	 *
 	 * Multiple providers can be registered for a language. In that case providers are sorted
-	 * by their [score](#languages.match) and the best-matching provider is used. Failure
-	 * of the selected provider will cause a failure of the whole operation.
+	 * by their [score](#languages.match) and asked in sequence. The first provider producing a result
+	 * defines the result of the whole operation.
 	 *
 	 * @param selector A selector that defines the documents this provider is applicable to.
 	 * @param provider A rename provider.
@@ -1206,7 +1229,7 @@ extern class VscodeLanguages {
 	 * @param provider A document link provider.
 	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
 	 */
-	function registerDocumentLinkProvider(selector:DocumentSelector, provider:DocumentLinkProvider):Disposable;
+	function registerDocumentLinkProvider<T:DocumentLink>(selector:DocumentSelector, provider:DocumentLinkProvider<T>):Disposable;
 
 	/**
 	 * Register a color provider.
@@ -1531,9 +1554,11 @@ extern class VscodeWorkspace {
 	 * An event that is emitted when a [text document](#TextDocument) is disposed or when the language id
 	 * of a text document [has been changed](#languages.setTextDocumentLanguage).
 	 *
-	 * To add an event listener when a visible text document is closed, use the [TextEditor](#TextEditor) events in the
-	 * [window](#window) namespace. Note that this event is not emitted when a [TextEditor](#TextEditor) is closed
-	 * but the document remains open in another [visible text editor](#window.visibleTextEditors).
+	 * *Note 1:* There is no guarantee that this event fires when an editor tab is closed, use the
+	 * [`onDidChangeVisibleTextEditors`](#window.onDidChangeVisibleTextEditors)-event to know when editors change.
+	 *
+	 * *Note 2:* A document can be open but not shown in an editor which means this event can fire
+	 * for a document that has not been shown in an editor.
 	 */
 	var onDidCloseTextDocument(default, null):Event<TextDocument>;
 
@@ -1572,7 +1597,7 @@ extern class VscodeWorkspace {
 	 * files change on disk, e.g triggered by another application, or when using the
 	 * [`workspace.fs`](#FileSystem)-api.
 	 *
-	 * *Note 2:* When this event is fired, edits to files thare are being created cannot be applied.
+	 * *Note 2:* When this event is fired, edits to files that are are being created cannot be applied.
 	 */
 	var onWillCreateFiles(default, null):Event<FileWillCreateEvent>;
 
@@ -1641,7 +1666,7 @@ extern class VscodeWorkspace {
 	 * is returned. Dots in the section-identifier are interpreted as child-access,
 	 * like `{ myExt: { setting: { doIt: true }}}` and `getConfiguration('myExt.setting').get('doIt') === true`.
 	 *
-	 * When a scope is provided configuraiton confined to that scope is returned. Scope can be a resource or a language identifier or both.
+	 * When a scope is provided configuration confined to that scope is returned. Scope can be a resource or a language identifier or both.
 	 *
 	 * @param section A dot-separated identifier.
 	 * @param scope A scope for which the configuration is asked for.
@@ -1664,7 +1689,7 @@ extern class VscodeWorkspace {
 	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
 	 */
 	@:deprecated("Use the corresponding function on the `tasks` namespace instead")
-	function registerTaskProvider(type:String, provider:TaskProvider):Disposable;
+	function registerTaskProvider<T:Task>(type:String, provider:TaskProvider<T>):Disposable;
 
 	/**
 	 * Register a filesystem provider for a given scheme, e.g. `ftp`.
@@ -1729,13 +1754,20 @@ extern class VscodeDebug {
 
 	/**
 	 * Register a [debug configuration provider](#DebugConfigurationProvider) for a specific debug type.
+	 * The optional [triggerKind](#DebugConfigurationProviderTriggerKind) can be used to specify when the `provideDebugConfigurations` method of the provider is triggered.
+	 * Currently two trigger kinds are possible: with the value `Initial` (or if no trigger kind argument is given) the `provideDebugConfigurations` method is used to provide the initial debug configurations to be copied into a newly created launch.json.
+	 * With the trigger kind `Dynamic` the `provideDebugConfigurations` method is used to dynamically determine debug configurations to be presented to the user (in addition to the static configurations from the launch.json).
+	 * Please note that the `triggerKind` argument only applies to the `provideDebugConfigurations` method: so the `resolveDebugConfiguration` methods are not affected at all.
+	 * Registering a single provider with resolve methods for different trigger kinds, results in the same resolve methods called multiple times.
 	 * More than one provider can be registered for the same type.
 	 *
 	 * @param type The debug type for which the provider is registered.
 	 * @param provider The [debug configuration provider](#DebugConfigurationProvider) to register.
+	 * @param triggerKind The [trigger](#DebugConfigurationProviderTrigger) for which the 'provideDebugConfiguration' method of the provider is registered. If `triggerKind` is missing, the value `DebugConfigurationProviderTriggerKind.Initial` is assumed.
 	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
 	 */
-	function registerDebugConfigurationProvider(debugType:String, provider:DebugConfigurationProvider):Disposable;
+	function registerDebugConfigurationProvider(debugType:String, provider:DebugConfigurationProvider,
+		?triggerKind:DebugConfigurationProviderTriggerKind):Disposable;
 
 	/**
 	 * Register a [debug adapter descriptor factory](#DebugAdapterDescriptorFactory) for a specific debug type.
@@ -1765,7 +1797,7 @@ extern class VscodeDebug {
 	 * Folder specific variables used in the configuration (e.g. '${workspaceFolder}') are resolved against the given folder.
 	 * @param folder The [workspace folder](#WorkspaceFolder) for looking up named configurations and resolving variables or `undefined` for a non-folder setup.
 	 * @param nameOrConfiguration Either the name of a debug or compound configuration or a [DebugConfiguration](#DebugConfiguration) object.
-	 * @param parentSessionOrOptions Debug sesison options. When passed a parent [debug session](#DebugSession), assumes options with just this parent session.
+	 * @param parentSessionOrOptions Debug session options. When passed a parent [debug session](#DebugSession), assumes options with just this parent session.
 	 * @return A thenable that resolves when debugging could be successfully started.
 	 */
 	function startDebugging(folder:Null<WorkspaceFolder>, nameOrConfiguration:EitherType<String, DebugConfiguration>,
@@ -1821,7 +1853,7 @@ extern class VscodeTasks {
 	 * @param provider A task provider.
 	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
 	 */
-	function registerTaskProvider(type:String, provider:TaskProvider):Disposable;
+	function registerTaskProvider<T:Task>(type:String, provider:TaskProvider<T>):Disposable;
 
 	/**
 	 * Fetches all tasks available in the systems. This includes tasks

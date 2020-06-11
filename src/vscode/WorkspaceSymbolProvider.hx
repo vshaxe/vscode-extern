@@ -4,7 +4,7 @@ package vscode;
  * The workspace symbol provider interface defines the contract between extensions and
  * the [symbol search](https://code.visualstudio.com/docs/editor/editingevolved#_open-symbol-by-name)-feature.
  */
-typedef WorkspaceSymbolProvider = {
+typedef WorkspaceSymbolProvider<T:SymbolInformation> = {
 	/**
 	 * Project-wide search for a symbol matching the given query string.
 	 *
@@ -22,7 +22,7 @@ typedef WorkspaceSymbolProvider = {
 	 * @return An array of document highlights or a thenable that resolves to such. The lack of a result can be
 	 * signaled by returning `undefined`, `null`, or an empty array.
 	 */
-	function provideWorkspaceSymbols(query:String, token:CancellationToken):ProviderResult<Array<SymbolInformation>>;
+	function provideWorkspaceSymbols(query:String, token:CancellationToken):ProviderResult<Array<T>>;
 
 	/**
 	 * Given a symbol fill in its [location](#SymbolInformation.location). This method is called whenever a symbol
@@ -36,5 +36,5 @@ typedef WorkspaceSymbolProvider = {
 	 * @return The resolved symbol or a thenable that resolves to that. When no result is returned,
 	 * the given `symbol` is used.
 	 */
-	var ?resolveWorkspaceSymbol:SymbolInformation->CancellationToken->ProviderResult<SymbolInformation>;
+	var ?resolveWorkspaceSymbol:(symbol:T, token:CancellationToken) -> ProviderResult<T>;
 }

@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * Metadata about the type of code actions that a [CodeActionProvider](#CodeActionProvider) providers.
+ * Metadata about the type of code actions that a [CodeActionProvider](#CodeActionProvider) provides.
  */
 typedef CodeActionProviderMetadata = {
 	/**

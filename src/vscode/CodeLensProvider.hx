@@ -4,7 +4,7 @@ package vscode;
  * A code lens provider adds [commands](#Command) to source text. The commands will be shown
  * as dedicated horizontal lines in between the source text.
  */
-typedef CodeLensProvider = {
+typedef CodeLensProvider<T:CodeLens> = {
 	/**
 	 * An optional event to signal that the code lenses from this provider have changed.
 	 */
@@ -20,16 +20,16 @@ typedef CodeLensProvider = {
 	 * @return An array of code lenses or a thenable that resolves to such. The lack of a result can be
 	 * signaled by returning `undefined`, `null`, or an empty array.
 	 */
-	function provideCodeLenses(document:TextDocument, token:CancellationToken):ProviderResult<Array<CodeLens>>;
+	function provideCodeLenses(document:TextDocument, token:CancellationToken):ProviderResult<Array<T>>;
 
 	/**
 	 * This function will be called for each visible code lens, usually when scrolling and after
 	 * calls to [compute](#CodeLensProvider.provideCodeLenses)-lenses.
 	 *
-	 * @param codeLens code lens that must be resolved.
+	 * @param codeLens Code lens that must be resolved.
 	 * @param token A cancellation token.
 	 * @return The given, resolved code lens or thenable that resolves to such.
 	 */
 	@:optional // TODO: will this work?
-	function resolveCodeLens(codeLens:CodeLens, token:CancellationToken):ProviderResult<CodeLens>;
+	function resolveCodeLens(codeLens:T, token:CancellationToken):ProviderResult<T>;
 }
