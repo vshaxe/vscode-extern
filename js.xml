@@ -11039,6 +11039,23 @@
 	<haxe_doc>The locale matching algorithm to use.
 		The default is `BestFit`.</haxe_doc>
 </localeMatcher></a></typedef>
+	<typedef path="vscode.AccessibilityInformation" params="" file="src/vscode/AccessibilityInformation.hx">
+		<a>
+			<role>
+				<x path="Null"><c path="String"/></x>
+				<meta><m n=":optional"/></meta>
+				<haxe_doc>* Role of the widget which defines how a screen reader interacts with it.
+	 * The role should be set in special cases when for example a tree-like element behaves like a checkbox.
+	 * If role is not specified VS Code will pick the appropriate role automatically.
+	 * More about aria roles can be found here https://w3c.github.io/aria/#widget_roles</haxe_doc>
+			</role>
+			<label>
+				<c path="String"/>
+				<haxe_doc>* Label to be read out by a screen reader once the item has focus.</haxe_doc>
+			</label>
+		</a>
+		<haxe_doc>* Accessibility information which controls screen reader behavior.</haxe_doc>
+	</typedef>
 	<class path="vscode.Breakpoint" params="" file="src/vscode/Breakpoint.hx" extern="1">
 		<id public="1" set="null">
 			<c path="String"/>
@@ -11557,16 +11574,51 @@
  * A code action can be any command that is [known](#commands.getCommands) to the system.</haxe_doc>
 	</typedef>
 	<typedef path="vscode.CodeActionProviderMetadata" params="" file="src/vscode/CodeActionProviderMetadata.hx">
-		<a><providedCodeActionKinds>
-	<x path="Null"><x path="haxe.ds.ReadOnlyArray"><c path="vscode.CodeActionKind"/></x></x>
-	<meta><m n=":optional"/></meta>
-	<haxe_doc>* List of [CodeActionKinds](#CodeActionKind) that a [CodeActionProvider](#CodeActionProvider) may return.
+		<a>
+			<providedCodeActionKinds final="1" set="null">
+				<x path="Null"><x path="haxe.ds.ReadOnlyArray"><c path="vscode.CodeActionKind"/></x></x>
+				<meta><m n=":optional"/></meta>
+				<haxe_doc>* List of [CodeActionKinds](#CodeActionKind) that a [CodeActionProvider](#CodeActionProvider) may return.
 	 *
 	 * This list is used to determine if a given `CodeActionProvider` should be invoked or not.
 	 * To avoid unnecessary computation, every `CodeActionProvider` should list use `providedCodeActionKinds`. The
 	 * list of kinds may either be generic, such as `[CodeActionKind.Refactor]`, or list out every kind provided,
 	 * such as `[CodeActionKind.Refactor.Extract.append('function'), CodeActionKind.Refactor.Extract.append('constant'), ...]`.</haxe_doc>
-</providedCodeActionKinds></a>
+			</providedCodeActionKinds>
+			<documentation final="1" set="null">
+				<x path="Null"><x path="haxe.ds.ReadOnlyArray"><a>
+	<kind final="1" set="null">
+		<c path="vscode.CodeActionKind"/>
+		<haxe_doc>* The kind of the code action being documented.
+		 *
+		 * If the kind is generic, such as `CodeActionKind.Refactor`, the documentation will be shown whenever any
+		 * refactorings are returned. If the kind if more specific, such as `CodeActionKind.RefactorExtract`, the
+		 * documentation will only be shown when extract refactoring code actions are returned.</haxe_doc>
+	</kind>
+	<command final="1" set="null">
+		<t path="vscode.Command"/>
+		<haxe_doc>* Command that displays the documentation to the user.
+		 *
+		 * This can display the documentation directly in VS Code or open a website using [`env.openExternal`](#env.openExternal);
+		 *
+		 * The title of this documentation code action is taken from [`Command.title`](#Command.title)</haxe_doc>
+	</command>
+</a></x></x>
+				<meta><m n=":optional"/></meta>
+				<haxe_doc>* Static documentation for a class of code actions.
+	 *
+	 * Documentation from the provider is shown in the code actions menu if either:
+	 *
+	 * - Code actions of `kind` are requested by VS Code. In this case, VS Code will show the documentation that
+	 *   most closely matches the requested code action kind. For example, if a provider has documentation for
+	 *   both `Refactor` and `RefactorExtract`, when the user requests code actions for `RefactorExtract`,
+	 *   VS Code will use the documentation for `RefactorExtract` instead of the documentation for `Refactor`.
+	 *
+	 * - Any code actions of `kind` are returned by the provider.
+	 *
+	 * At most one documentation entry will be shown per provider.</haxe_doc>
+			</documentation>
+		</a>
 		<haxe_doc>* Metadata about the type of code actions that a [CodeActionProvider](#CodeActionProvider) provides.</haxe_doc>
 	</typedef>
 	<class path="vscode.CodeLens" params="" file="src/vscode/CodeLens.hx" extern="1">
@@ -15811,6 +15863,12 @@
 				<c path="String"/>
 				<haxe_doc>* The absolute file path of the directory containing the extension.</haxe_doc>
 			</extensionPath>
+			<extensionMode set="null">
+				<x path="vscode.ExtensionMode"/>
+				<haxe_doc>* The mode the extension is running in. This is specific to the current
+	 * extension. One extension may be in `ExtensionMode.Development` while
+	 * other extensions in the host run in `ExtensionMode.Release`.</haxe_doc>
+			</extensionMode>
 			<environmentVariableCollection set="null">
 				<t path="vscode.EnvironmentVariableCollection"/>
 				<haxe_doc>* Gets the extension's environment variable collection for this workspace, enabling changes
@@ -15891,6 +15949,90 @@
 			<m n=":jsRequire">
 				<e>"vscode"</e>
 				<e>"ExtensionKind"</e>
+			</m>
+			<m n=":enum"/>
+		</meta>
+	</class>
+	<abstract path="vscode.ExtensionMode" params="" file="src/vscode/ExtensionMode.hx">
+		<this><x path="Int"/></this>
+		<haxe_doc>* The ExtensionMode is provided on the `ExtensionContext` and indicates the
+ * mode the specific extension is running in.</haxe_doc>
+		<meta>
+			<m n=":enum"/>
+			<m n=":jsRequire">
+				<e>"vscode"</e>
+				<e>"ExtensionMode"</e>
+			</m>
+		</meta>
+		<impl><class path="vscode._ExtensionMode.ExtensionMode_Impl_" params="" file="src/vscode/ExtensionMode.hx" private="1" module="vscode.ExtensionMode" extern="1">
+	<Production public="1" set="null" static="1">
+		<x path="vscode.ExtensionMode"/>
+		<meta>
+			<m n=":enum"/>
+			<m n=":impl"/>
+		</meta>
+		<haxe_doc>* The extension is installed normally (for example, from the marketplace
+	 * or VSIX) in VS Code.</haxe_doc>
+	</Production>
+	<Development public="1" set="null" static="1">
+		<x path="vscode.ExtensionMode"/>
+		<meta>
+			<m n=":enum"/>
+			<m n=":impl"/>
+		</meta>
+		<haxe_doc>* The extension is running from an `--extensionDevelopmentPath` provided
+	 * when launching VS Code.</haxe_doc>
+	</Development>
+	<Test public="1" set="null" static="1">
+		<x path="vscode.ExtensionMode"/>
+		<meta>
+			<m n=":enum"/>
+			<m n=":impl"/>
+		</meta>
+		<haxe_doc>* The extension is running from an `--extensionTestsPath` and
+	 * the extension host is running unit tests.</haxe_doc>
+	</Test>
+	<meta>
+		<m n=":jsRequire">
+			<e>"vscode"</e>
+			<e>"ExtensionMode"</e>
+		</m>
+		<m n=":enum"/>
+	</meta>
+</class></impl>
+	</abstract>
+	<class path="vscode._ExtensionMode.ExtensionMode_Impl_" params="" file="src/vscode/ExtensionMode.hx" private="1" module="vscode.ExtensionMode" extern="1">
+		<Production public="1" set="null" static="1">
+			<x path="vscode.ExtensionMode"/>
+			<meta>
+				<m n=":enum"/>
+				<m n=":impl"/>
+			</meta>
+			<haxe_doc>* The extension is installed normally (for example, from the marketplace
+	 * or VSIX) in VS Code.</haxe_doc>
+		</Production>
+		<Development public="1" set="null" static="1">
+			<x path="vscode.ExtensionMode"/>
+			<meta>
+				<m n=":enum"/>
+				<m n=":impl"/>
+			</meta>
+			<haxe_doc>* The extension is running from an `--extensionDevelopmentPath` provided
+	 * when launching VS Code.</haxe_doc>
+		</Development>
+		<Test public="1" set="null" static="1">
+			<x path="vscode.ExtensionMode"/>
+			<meta>
+				<m n=":enum"/>
+				<m n=":impl"/>
+			</meta>
+			<haxe_doc>* The extension is running from an `--extensionTestsPath` and
+	 * the extension host is running unit tests.</haxe_doc>
+		</Test>
+		<meta>
+			<m n=":jsRequire">
+				<e>"vscode"</e>
+				<e>"ExtensionMode"</e>
 			</m>
 			<m n=":enum"/>
 		</meta>
@@ -17483,6 +17625,10 @@
 			<haxe_doc>* Indicates that this markdown string is from a trusted source. Only *trusted*
 	 * markdown supports links that execute commands, e.g. `[Run it](command:myCommandId)`.</haxe_doc>
 		</isTrusted>
+		<supportThemeIcons public="1" set="null">
+			<x path="Null"><x path="Bool"/></x>
+			<haxe_doc>* Indicates that this markdown string can contain [ThemeIcons](#ThemeIcon), e.g. `$(zap)`.</haxe_doc>
+		</supportThemeIcons>
 		<appendText public="1" set="method">
 			<f a="value">
 				<c path="String"/>
@@ -17671,6 +17817,14 @@
 	</typedef>
 	<typedef path="vscode.OpenDialogOptions" params="" file="src/vscode/OpenDialogOptions.hx">
 		<a>
+			<title>
+				<x path="Null"><c path="String"/></x>
+				<meta><m n=":optional"/></meta>
+				<haxe_doc>* Dialog title.
+	 *
+	 * This parameter might be ignored, as not all operating systems display a title on open dialogs
+	 * (for example, macOS).</haxe_doc>
+			</title>
 			<openLabel>
 				<x path="Null"><c path="String"/></x>
 				<meta><m n=":optional"/></meta>
@@ -18321,8 +18475,9 @@
 			<onDidWrite>
 				<t path="vscode.Event"><c path="String"/></t>
 				<haxe_doc><![CDATA[* An event that when fired will write data to the terminal. Unlike
-	 * [Terminal.sendText](#Terminal.sendText) which sends text to the underlying _process_
-	 * (the pty "slave"), this will write the text to the terminal itself (the pty "master").
+	 * [Terminal.sendText](#Terminal.sendText) which sends text to the underlying child
+	 * pseudo-device (the child), this will write the text to parent pseudo-device (the
+	 * _terminal_ itself).
 	 *
 	 * Note writing `\n` will just move the cursor down 1 row, you need to write `\r` as well
 	 * to move the cursor to the left-most cell.
@@ -19035,6 +19190,14 @@
 	</typedef>
 	<typedef path="vscode.SaveDialogOptions" params="" file="src/vscode/SaveDialogOptions.hx">
 		<a>
+			<title>
+				<x path="Null"><c path="String"/></x>
+				<meta><m n=":optional"/></meta>
+				<haxe_doc>* Dialog title.
+	 *
+	 * This parameter might be ignored, as not all operating systems display a title on save dialogs
+	 * (for example, macOS).</haxe_doc>
+			</title>
 			<saveLabel>
 				<x path="Null"><c path="String"/></x>
 				<meta><m n=":optional"/></meta>
@@ -20206,6 +20369,11 @@
 				<x path="vscode.StatusBarAlignment"/>
 				<haxe_doc>* The alignment of this item.</haxe_doc>
 			</alignment>
+			<accessibilityInformation>
+				<x path="Null"><t path="vscode.AccessibilityInformation"/></x>
+				<meta><m n=":optional"/></meta>
+				<haxe_doc>* Accessibility information used when screen reader interacts with this StatusBar item</haxe_doc>
+			</accessibilityInformation>
 		</a>
 		<haxe_doc>* A status bar item is a status bar contribution that can
  * show text and icons and run a command on click.</haxe_doc>
@@ -23000,6 +23168,12 @@
 	 * ```
 	 * This will show action `extension.deleteFolder` only for items with `contextValue` is `folder`.</haxe_doc>
 		</contextValue>
+		<accessibilityInformation public="1">
+			<x path="Null"><t path="vscode.AccessibilityInformation"/></x>
+			<haxe_doc>* Accessibility information used when screen reader interacts with this tree item.
+	 * Generally, a TreeItem has no need to set the `role` of the accessibilityInformation;
+	 * however, there are cases where a TreeItem is not displayed in a tree-like way where setting the `role` may make sense.</haxe_doc>
+		</accessibilityInformation>
 		<new public="1" set="method">
 			<f a="label:?collapsibleState">
 				<c path="String"/>
@@ -24469,7 +24643,7 @@
 			</index>
 		</a>
 		<haxe_doc>* A workspace folder is one of potentially many roots opened by the editor. All workspace folders
- * are equal which means there is no notion of an active or master workspace folder.</haxe_doc>
+ * are equal which means there is no notion of an active or primary workspace folder.</haxe_doc>
 	</typedef>
 	<typedef path="vscode.WorkspaceFolderPickOptions" params="" file="src/vscode/WorkspaceFolderPickOptions.hx">
 		<a>
