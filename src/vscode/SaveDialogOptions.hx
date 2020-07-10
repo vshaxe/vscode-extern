@@ -24,5 +24,13 @@ typedef SaveDialogOptions = {
 	 * }
 	 * ```
 	 */
-	var ?filters:haxe.DynamicAccess<Array<String>>;
+	var ?filters:DynamicAccess<Array<String>>;
+
+	/**
+	 * Dialog title.
+	 *
+	 * This parameter might be ignored, as not all operating systems display a title on save dialogs
+	 * (for example, macOS).
+	 */
+	var ?title:String;
 }

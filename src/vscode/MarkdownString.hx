@@ -21,6 +21,11 @@ extern class MarkdownString {
 	var isTrusted:Null<Bool>;
 
 	/**
+	 * Indicates that this markdown string can contain [ThemeIcons](#ThemeIcon), e.g. `$(zap)`.
+	 */
+	var supportThemeIcons(default, null):Null<Bool>;
+
+	/**
 	 * Creates a new markdown string with the given value.
 	 *
 	 * @param value Optional, initial value.

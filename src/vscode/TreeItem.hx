@@ -71,6 +71,13 @@ extern class TreeItem {
 	var contextValue:Null<String>;
 
 	/**
+	 * Accessibility information used when screen reader interacts with this tree item.
+	 * Generally, a TreeItem has no need to set the `role` of the accessibilityInformation;
+	 * however, there are cases where a TreeItem is not displayed in a tree-like way where setting the `role` may make sense.
+	 */
+	var accessibilityInformation:Null<AccessibilityInformation>;
+
+	/**
 	 * @param label A human-readable string describing this item
 	 * @param resourceUri The [uri](#Uri) of the resource representing this item.
 	 * @param collapsibleState [TreeItemCollapsibleState](#TreeItemCollapsibleState) of the tree item. Default is [TreeItemCollapsibleState.None](#TreeItemCollapsibleState.None)

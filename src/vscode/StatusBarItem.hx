@@ -47,6 +47,11 @@ typedef StatusBarItem = {
 	var command:Null<EitherType<String, Command>>;
 
 	/**
+	 * Accessibility information used when screen reader interacts with this StatusBar item
+	 */
+	var ?accessibilityInformation:AccessibilityInformation;
+
+	/**
 	 * Shows the entry in the status bar.
 	 */
 	function show():Void;

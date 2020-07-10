@@ -75,4 +75,11 @@ typedef ExtensionContext = {
 	 * the parent directory is guaranteed to be existent.
 	 */
 	var logPath(default, null):String;
+
+	/**
+	 * The mode the extension is running in. This is specific to the current
+	 * extension. One extension may be in `ExtensionMode.Development` while
+	 * other extensions in the host run in `ExtensionMode.Release`.
+	 */
+	var extensionMode(default, null):ExtensionMode;
 }
