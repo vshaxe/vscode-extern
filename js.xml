@@ -818,6 +818,10 @@
 			<haxe_doc>* Namespace for tasks functionality.</haxe_doc>
 		</tasks>
 		<comments public="1" set="null" static="1"><c path="VscodeComments"/></comments>
+		<authentication public="1" set="null" static="1">
+			<c path="VscodeAuthentication"/>
+			<haxe_doc>* Namespace for authentication.</haxe_doc>
+		</authentication>
 		<meta><m n=":jsRequire"><e>"vscode"</e></m></meta>
 	</class>
 	<class path="VscodeEnv" params="" file="src/Vscode.hx" module="Vscode" extern="1">
@@ -827,7 +831,10 @@
 		</appName>
 		<appRoot public="1" set="null">
 			<c path="String"/>
-			<haxe_doc>* The application root folder from which the editor is running.</haxe_doc>
+			<haxe_doc>* The application root folder from which the editor is running.
+	 *
+	 * *Note* that the value is the empty string when running in an
+	 * environment that has no representation of an application root folder.</haxe_doc>
 		</appRoot>
 		<uriScheme public="1" set="null">
 			<c path="String"/>
@@ -863,7 +870,8 @@
 		<shell public="1" set="null">
 			<c path="String"/>
 			<haxe_doc>* The detected default shell for the extension host, this is overridden by the
-	 * `terminal.integrated.shell` setting for the extension host's platform.</haxe_doc>
+	 * `terminal.integrated.shell` setting for the extension host's platform. Note that in
+	 * environments that do not support a shell the value is the empty string.</haxe_doc>
 		</shell>
 		<uiKind public="1" set="null">
 			<x path="vscode.UIKind"/>
@@ -1374,7 +1382,7 @@
 	 * @return A promise that resolves to the selection or `undefined`.</haxe_doc>
 </showQuickPick></overloads>
 		</showQuickPick>
-		<showQuickPickMany public="1" params="T" get="inline" set="null" line="531">
+		<showQuickPickMany public="1" params="T" get="inline" set="null" line="540">
 			<f a="items:?options:?token">
 				<x path="haxe.extern.EitherType">
 					<c path="Array"><c path="showQuickPickMany.T"/></c>
@@ -1403,7 +1411,7 @@
 	 * @return A promise that resolves to the workspace folder or `undefined`.</haxe_doc>
 		</showWorkspaceFolderPick>
 		<showOpenDialog public="1" set="method">
-			<f a="options">
+			<f a="?options">
 				<t path="vscode.OpenDialogOptions"/>
 				<x path="js.lib.Thenable"><x path="Null"><c path="Array"><c path="vscode.Uri"/></c></x></x>
 			</f>
@@ -1414,7 +1422,7 @@
 	 * @returns A promise that resolves to the selected resources or `undefined`.</haxe_doc>
 		</showOpenDialog>
 		<showSaveDialog public="1" set="method">
-			<f a="options">
+			<f a="?options">
 				<t path="vscode.SaveDialogOptions"/>
 				<x path="js.lib.Thenable"><x path="Null"><c path="vscode.Uri"/></x></x>
 			</f>
@@ -1699,7 +1707,8 @@
 	 * @param options A TerminalOptions object describing the characteristics of the new terminal.
 	 * @param options An [ExtensionTerminalOptions](#ExtensionTerminalOptions) object describing
 	 * the characteristics of the new terminal.
-	 * @return A new Terminal.</haxe_doc>
+	 * @return A new Terminal.
+	 * @throws When running in an environment where a new process cannot be started.</haxe_doc>
 			<overloads>
 				<createTerminal public="1" set="method">
 					<f a="options">
@@ -1717,7 +1726,8 @@
 	 * @param options A TerminalOptions object describing the characteristics of the new terminal.
 	 * @param options An [ExtensionTerminalOptions](#ExtensionTerminalOptions) object describing
 	 * the characteristics of the new terminal.
-	 * @return A new Terminal.</haxe_doc>
+	 * @return A new Terminal.
+	 * @throws When running in an environment where a new process cannot be started.</haxe_doc>
 				</createTerminal>
 				<createTerminal public="1" set="method">
 					<f a="options">
@@ -1735,7 +1745,8 @@
 	 * @param options A TerminalOptions object describing the characteristics of the new terminal.
 	 * @param options An [ExtensionTerminalOptions](#ExtensionTerminalOptions) object describing
 	 * the characteristics of the new terminal.
-	 * @return A new Terminal.</haxe_doc>
+	 * @return A new Terminal.
+	 * @throws When running in an environment where a new process cannot be started.</haxe_doc>
 				</createTerminal>
 			</overloads>
 		</createTerminal>
@@ -3195,6 +3206,10 @@
 			<haxe_doc>* Executes a task that is managed by VS Code. The returned
 	 * task execution can be used to terminate the task.
 	 *
+	 * @throws When running a ShellExecution or a ProcessExecution
+	 * task in an environment where a new process cannot be started.
+	 * In such an environment, only CustomExecution tasks can be run.
+	 *
 	 * @param task the task to execute</haxe_doc>
 		</executeTask>
 		<taskExecutions public="1" set="null">
@@ -3234,6 +3249,74 @@
 	 * @param label A human-readable string for the comment controller.
 	 * @return An instance of [comment controller](#CommentController).</haxe_doc>
 </createCommentController></class>
+	<class path="VscodeAuthentication" params="" file="src/Vscode.hx" module="Vscode" extern="1">
+		<getSession public="1" set="method">
+			<f a="providerId:scopes:options">
+				<c path="String"/>
+				<c path="Array"><c path="String"/></c>
+				<a>
+					<createIfNone>
+						<x path="Null"><x path="Bool"/></x>
+						<meta><m n=":optional"/></meta>
+						<haxe_doc>* Whether login should be performed if there is no matching session.
+	 *
+	 * If true, a modal dialog will be shown asking the user to sign in. If false, a numbered badge will be shown
+	 * on the accounts activity bar icon. An entry for the extension will be added under the menu to sign in. This
+	 * allows quietly prompting the user to sign in.
+	 *
+	 * Defaults to false.</haxe_doc>
+					</createIfNone>
+					<clearSessionPreference>
+						<x path="Null"><x path="Bool"/></x>
+						<meta><m n=":optional"/></meta>
+						<haxe_doc>* Whether the existing user session preference should be cleared.
+	 *
+	 * For authentication providers that support being signed into multiple accounts at once, the user will be
+	 * prompted to select an account to use when [getSession](#authentication.getSession) is called. This preference
+	 * is remembered until [getSession](#authentication.getSession) is called with this flag.
+	 *
+	 * Defaults to false.</haxe_doc>
+					</clearSessionPreference>
+				</a>
+				<x path="js.lib.Thenable"><t path="vscode.AuthenticationSession"/></x>
+			</f>
+			<haxe_doc>* Get an authentication session matching the desired scopes. Rejects if a provider with providerId is not
+	 * registered, or if the user does not consent to sharing authentication information with
+	 * the extension. If there are multiple sessions with the same scopes, the user will be shown a
+	 * quickpick to select which account they would like to use.
+	 *
+	 * Currently, there are only two authentication providers that are contributed from built in extensions
+	 * to VS Code that implement GitHub and Microsoft authentication: their providerId's are 'github' and 'microsoft'.
+	 * @param providerId The id of the provider to use
+	 * @param scopes A list of scopes representing the permissions requested. These are dependent on the authentication provider
+	 * @param options The [getSessionOptions](#GetSessionOptions) to use
+	 * @returns A thenable that resolves to an authentication session</haxe_doc>
+			<overloads><getSession public="1" set="method">
+	<f a="providerId:scopes:?options">
+		<c path="String"/>
+		<c path="Array"><c path="String"/></c>
+		<t path="vscode.AuthenticationGetSessionOptions"/>
+		<x path="js.lib.Thenable"><x path="Null"><t path="vscode.AuthenticationSession"/></x></x>
+	</f>
+	<haxe_doc>* Get an authentication session matching the desired scopes. Rejects if a provider with providerId is not
+	 * registered, or if the user does not consent to sharing authentication information with
+	 * the extension. If there are multiple sessions with the same scopes, the user will be shown a
+	 * quickpick to select which account they would like to use.
+	 *
+	 * Currently, there are only two authentication providers that are contributed from built in extensions
+	 * to VS Code that implement GitHub and Microsoft authentication: their providerId's are 'github' and 'microsoft'.
+	 * @param providerId The id of the provider to use
+	 * @param scopes A list of scopes representing the permissions requested. These are dependent on the authentication provider
+	 * @param options The [getSessionOptions](#GetSessionOptions) to use
+	 * @returns A thenable that resolves to an authentication session</haxe_doc>
+</getSession></overloads>
+		</getSession>
+		<onDidChangeSessions public="1" set="null">
+			<t path="vscode.Event"><t path="vscode.AuthenticationSessionsChangeEvent"/></t>
+			<haxe_doc>* An [event](#Event) which fires when the authentication sessions of an authentication provider have
+	 * been added, removed, or changed.</haxe_doc>
+		</onDidChangeSessions>
+	</class>
 	<class path="VscodeProposed" params="" file="src/VscodeProposed.hx" extern="1"><meta><m n=":jsRequire"><e>"vscode"</e></m></meta></class>
 	<abstract path="haxe.Function" params="" file="/opt/hostedtoolcache/haxe/4.0.5/x64/std/haxe/Constraints.hx" module="haxe.Constraints">
 		<this><d/></this>
@@ -11056,6 +11139,88 @@
 		</a>
 		<haxe_doc>* Accessibility information which controls screen reader behavior.</haxe_doc>
 	</typedef>
+	<typedef path="vscode.AuthenticationGetSessionOptions" params="" file="src/vscode/AuthenticationGetSessionOptions.hx">
+		<a>
+			<createIfNone>
+				<x path="Null"><x path="Bool"/></x>
+				<meta><m n=":optional"/></meta>
+				<haxe_doc>* Whether login should be performed if there is no matching session.
+	 *
+	 * If true, a modal dialog will be shown asking the user to sign in. If false, a numbered badge will be shown
+	 * on the accounts activity bar icon. An entry for the extension will be added under the menu to sign in. This
+	 * allows quietly prompting the user to sign in.
+	 *
+	 * Defaults to false.</haxe_doc>
+			</createIfNone>
+			<clearSessionPreference>
+				<x path="Null"><x path="Bool"/></x>
+				<meta><m n=":optional"/></meta>
+				<haxe_doc>* Whether the existing user session preference should be cleared.
+	 *
+	 * For authentication providers that support being signed into multiple accounts at once, the user will be
+	 * prompted to select an account to use when [getSession](#authentication.getSession) is called. This preference
+	 * is remembered until [getSession](#authentication.getSession) is called with this flag.
+	 *
+	 * Defaults to false.</haxe_doc>
+			</clearSessionPreference>
+		</a>
+		<haxe_doc>* Options to be used when getting an [AuthenticationSession](#AuthenticationSession) from an [AuthenticationProvider](#AuthenticationProvider).</haxe_doc>
+	</typedef>
+	<typedef path="vscode.AuthenticationProviderInformation" params="" file="src/vscode/AuthenticationProviderInformation.hx">
+		<a>
+			<label final="1" set="null">
+				<c path="String"/>
+				<haxe_doc>* The human-readable name of the authentication provider.</haxe_doc>
+			</label>
+			<id final="1" set="null">
+				<c path="String"/>
+				<haxe_doc>* The unique identifier of the authentication provider.</haxe_doc>
+			</id>
+		</a>
+		<haxe_doc>* Basic information about an [authenticationProvider](#AuthenticationProvider)</haxe_doc>
+	</typedef>
+	<typedef path="vscode.AuthenticationSession" params="" file="src/vscode/AuthenticationSession.hx">
+		<a>
+			<scopes final="1" set="null">
+				<x path="haxe.ds.ReadOnlyArray"><c path="String"/></x>
+				<haxe_doc>* The permissions granted by the session's access token. Available scopes
+	 * are defined by the [AuthenticationProvider](#AuthenticationProvider).</haxe_doc>
+			</scopes>
+			<id final="1" set="null">
+				<c path="String"/>
+				<haxe_doc>* The identifier of the authentication session.</haxe_doc>
+			</id>
+			<account final="1" set="null">
+				<t path="vscode.AuthenticationSessionAccountInformation"/>
+				<haxe_doc>* The account associated with the session.</haxe_doc>
+			</account>
+			<accessToken final="1" set="null">
+				<c path="String"/>
+				<haxe_doc>* The access token.</haxe_doc>
+			</accessToken>
+		</a>
+		<haxe_doc>* Represents a session of a currently logged in user.</haxe_doc>
+	</typedef>
+	<typedef path="vscode.AuthenticationSessionAccountInformation" params="" file="src/vscode/AuthenticationSessionAccountInformation.hx">
+		<a>
+			<label final="1" set="null">
+				<c path="String"/>
+				<haxe_doc>* The human-readable name of the account.</haxe_doc>
+			</label>
+			<id final="1" set="null">
+				<c path="String"/>
+				<haxe_doc>* The unique identifier of the account.</haxe_doc>
+			</id>
+		</a>
+		<haxe_doc>* The information of an account associated with an [AuthenticationSession](#AuthenticationSession).</haxe_doc>
+	</typedef>
+	<typedef path="vscode.AuthenticationSessionsChangeEvent" params="" file="src/vscode/AuthenticationSessionsChangeEvent.hx">
+		<a><provider final="1" set="null">
+	<t path="vscode.AuthenticationProviderInformation"/>
+	<haxe_doc>* The [authenticationProvider](#AuthenticationProvider) that has had its sessions change.</haxe_doc>
+</provider></a>
+		<haxe_doc>* An [event](#Event) which fires when an [AuthenticationSession](#AuthenticationSession) is added, removed, or changed.</haxe_doc>
+	</typedef>
 	<class path="vscode.Breakpoint" params="" file="src/vscode/Breakpoint.hx" extern="1">
 		<id public="1" set="null">
 			<c path="String"/>
@@ -13067,11 +13232,12 @@
 		<t path="vscode.ConfigurationScope"/>
 		<x path="Bool"/>
 	</f>
-	<haxe_doc>* Returns `true` if the given section is affected in the provided scope.
+	<haxe_doc>* Checks if the given section has changed.
+	 * If scope is provided, checks if the section has changed for resources under the given scope.
 	 *
 	 * @param section Configuration name, supports _dotted_ names.
 	 * @param scope A scope in which to check.
-	 * @return `true` if the given section is affected in the provided scope.</haxe_doc>
+	 * @return `true` if the given section has changed.</haxe_doc>
 </affectsConfiguration></a>
 		<haxe_doc>* An event describing the change in Configuration</haxe_doc>
 	</typedef>
