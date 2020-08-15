@@ -146,6 +146,11 @@ extern class Vscode {
 	static var tasks(default, null):VscodeTasks;
 
 	static var comments(default, null):VscodeComments;
+
+	/**
+	 * Namespace for authentication.
+	 */
+	static var authentication(default, null):VscodeAuthentication;
 }
 
 extern class VscodeEnv {
@@ -156,6 +161,9 @@ extern class VscodeEnv {
 
 	/**
 	 * The application root folder from which the editor is running.
+	 *
+	 * *Note* that the value is the empty string when running in an
+	 * environment that has no representation of an application root folder.
 	 */
 	var appRoot(default, null):String;
 
@@ -198,7 +206,8 @@ extern class VscodeEnv {
 
 	/**
 	 * The detected default shell for the extension host, this is overridden by the
-	 * `terminal.integrated.shell` setting for the extension host's platform.
+	 * `terminal.integrated.shell` setting for the extension host's platform. Note that in
+	 * environments that do not support a shell the value is the empty string.
 	 */
 	var shell(default, null):String;
 
@@ -553,7 +562,7 @@ extern class VscodeWindow {
 	 * @param options Options that control the dialog.
 	 * @returns A promise that resolves to the selected resources or `undefined`.
 	 */
-	function showOpenDialog(options:OpenDialogOptions):Thenable<Null<Array<Uri>>>;
+	function showOpenDialog(?options:OpenDialogOptions):Thenable<Null<Array<Uri>>>;
 
 	/**
 	 * Shows a file save dialog to the user which allows to select a file
@@ -562,7 +571,7 @@ extern class VscodeWindow {
 	 * @param options Options that control the dialog.
 	 * @returns A promise that resolves to the selected resource or `undefined`.
 	 */
-	function showSaveDialog(options:SaveDialogOptions):Thenable<Null<Uri>>;
+	function showSaveDialog(?options:SaveDialogOptions):Thenable<Null<Uri>>;
 
 	/**
 	 * Opens an input box to ask the user for input.
@@ -691,6 +700,7 @@ extern class VscodeWindow {
 	 * @param options An [ExtensionTerminalOptions](#ExtensionTerminalOptions) object describing
 	 * the characteristics of the new terminal.
 	 * @return A new Terminal.
+	 * @throws When running in an environment where a new process cannot be started.
 	 */
 	@:overload(function(options:TerminalOptions):Terminal {})
 	@:overload(function(options:ExtensionTerminalOptions):Terminal {})
@@ -1868,6 +1878,10 @@ extern class VscodeTasks {
 	 * Executes a task that is managed by VS Code. The returned
 	 * task execution can be used to terminate the task.
 	 *
+	 * @throws When running a ShellExecution or a ProcessExecution
+	 * task in an environment where a new process cannot be started.
+	 * In such an environment, only CustomExecution tasks can be run.
+	 *
 	 * @param task the task to execute
 	 */
 	function executeTask(task:Task):Thenable<TaskExecution>;
@@ -1911,4 +1925,29 @@ extern class VscodeComments {
 	 * @return An instance of [comment controller](#CommentController).
 	 */
 	function createCommentController(id:String, label:String):CommentController;
+}
+
+extern class VscodeAuthentication {
+	/**
+	 * Get an authentication session matching the desired scopes. Rejects if a provider with providerId is not
+	 * registered, or if the user does not consent to sharing authentication information with
+	 * the extension. If there are multiple sessions with the same scopes, the user will be shown a
+	 * quickpick to select which account they would like to use.
+	 *
+	 * Currently, there are only two authentication providers that are contributed from built in extensions
+	 * to VS Code that implement GitHub and Microsoft authentication: their providerId's are 'github' and 'microsoft'.
+	 * @param providerId The id of the provider to use
+	 * @param scopes A list of scopes representing the permissions requested. These are dependent on the authentication provider
+	 * @param options The [getSessionOptions](#GetSessionOptions) to use
+	 * @returns A thenable that resolves to an authentication session
+	 */
+	@:overload(function(providerId:String, scopes:Array<String>, ?options:AuthenticationGetSessionOptions):Thenable<Null<AuthenticationSession>> {})
+	function getSession(providerId:String, scopes:Array<String>,
+		options:AuthenticationGetSessionOptions & {createIfNone:Bool}):Thenable<AuthenticationSession>;
+
+	/**
+	 * An [event](#Event) which fires when the authentication sessions of an authentication provider have
+	 * been added, removed, or changed.
+	 */
+	var onDidChangeSessions(default, null):Event<AuthenticationSessionsChangeEvent>;
 }
