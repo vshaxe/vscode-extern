@@ -1864,6 +1864,15 @@
 	 *
 	 * @return Disposable that unregisters the provider.</haxe_doc>
 		</registerCustomEditorProvider>
+		<registerTerminalLinkProvider public="1" params="T" set="method">
+			<f a="provider">
+				<t path="vscode.TerminalLinkProvider"><c path="registerTerminalLinkProvider.T"/></t>
+				<c path="vscode.Disposable"/>
+			</f>
+			<haxe_doc>* Register provider that enables the detection and handling of links within the terminal.
+	 * @param provider The provider that provides the terminal links.
+	 * @return Disposable that unregisters the provider.</haxe_doc>
+		</registerTerminalLinkProvider>
 		<activeColorTheme public="1">
 			<t path="vscode.ColorTheme"/>
 			<haxe_doc>* The currently active color theme as configured in the settings. The active
@@ -3121,6 +3130,14 @@
 	 * @param parentSessionOrOptions Debug session options. When passed a parent [debug session](#DebugSession), assumes options with just this parent session.
 	 * @return A thenable that resolves when debugging could be successfully started.</haxe_doc>
 		</startDebugging>
+		<stopDebugging public="1" set="method">
+			<f a="?session">
+				<t path="vscode.DebugSession"/>
+				<x path="js.lib.Thenable"><x path="Void"/></x>
+			</f>
+			<haxe_doc>* Stop the given debug session or stop all debug sessions if session is omitted.
+	 * @param session The [debug session](#DebugSession) to stop; if omitted all sessions are stopped.</haxe_doc>
+		</stopDebugging>
 		<addBreakpoints public="1" set="method">
 			<f a="breakpoints">
 				<c path="Array"><c path="vscode.Breakpoint"/></c>
@@ -13629,7 +13646,10 @@
 	<class path="vscode.CustomExecution" params="" file="src/vscode/CustomExecution.hx" extern="1">
 		<new public="1" set="method">
 			<f a="callback">
-				<f a=""><x path="js.lib.Thenable"><t path="vscode.Pseudoterminal"/></x></f>
+				<f a="resolvedDefinition">
+					<t path="vscode.TaskDefinition"/>
+					<x path="js.lib.Thenable"><t path="vscode.Pseudoterminal"/></x>
+				</f>
 				<x path="Void"/>
 			</f>
 			<haxe_doc>* Constructs a CustomExecution task object. The callback will be executed the task is run, at which point the
@@ -13638,7 +13658,8 @@
 	 * [Pseudoterminal.close](#Pseudoterminal.close). When the task is complete fire
 	 * [Pseudoterminal.onDidClose](#Pseudoterminal.onDidClose).
 	 * @param process The [Pseudoterminal](#Pseudoterminal) to be used by the task to display output.
-	 * @param callback The callback that will be called when the task is started by a user.</haxe_doc>
+	 * @param callback The callback that will be called when the task is started by a user. Any ${} style variables that
+	 * were in the task definition will be resolved and passed into the callback.</haxe_doc>
 		</new>
 		<haxe_doc>* Class used to execute an extension callback as a task.</haxe_doc>
 		<meta><m n=":jsRequire">
@@ -13766,7 +13787,10 @@
 	<c path="vscode.DebugAdapterExecutable"/>
 	<x path="haxe.extern.EitherType">
 		<c path="vscode.DebugAdapterServer"/>
-		<c path="vscode.DebugAdapterInlineImplementation"/>
+		<x path="haxe.extern.EitherType">
+			<c path="vscode.DebugAdapterNamedPipeServer"/>
+			<c path="vscode.DebugAdapterInlineImplementation"/>
+		</x>
 	</x>
 </x></typedef>
 	<typedef path="vscode.DebugAdapterDescriptorFactory" params="" file="src/vscode/DebugAdapterDescriptorFactory.hx"><a><createDebugAdapterDescriptor set="method">
@@ -13855,6 +13879,24 @@
 		<meta><m n=":jsRequire">
 	<e>"vscode"</e>
 	<e>"DebugAdapterInlineImplementation"</e>
+</m></meta>
+	</class>
+	<class path="vscode.DebugAdapterNamedPipeServer" params="" file="src/vscode/DebugAdapterNamedPipeServer.hx" extern="1">
+		<path public="1" set="null">
+			<c path="String"/>
+			<haxe_doc>* The path to the NamedPipe/UNIX Domain Socket.</haxe_doc>
+		</path>
+		<new public="1" set="method">
+			<f a="path">
+				<c path="String"/>
+				<x path="Void"/>
+			</f>
+			<haxe_doc>* Create a description for a debug adapter running as a socket based server.</haxe_doc>
+		</new>
+		<haxe_doc>* Represents a debug adapter running as a Named Pipe (on Windows)/UNIX Domain Socket (on non-Windows) based server.</haxe_doc>
+		<meta><m n=":jsRequire">
+	<e>"vscode"</e>
+	<e>"DebugAdapterNamedPipeServer"</e>
 </m></meta>
 	</class>
 	<class path="vscode.DebugAdapterServer" params="" file="src/vscode/DebugAdapterServer.hx" extern="1">
@@ -14167,6 +14209,10 @@
 			<m n=":enum"/>
 		</meta>
 	</class>
+	<typedef path="vscode.DebugProtocolBreakpoint" params="" file="src/vscode/DebugProtocolBreakpoint.hx">
+		<a/>
+		<haxe_doc>* A DebugProtocolBreakpoint is an opaque stand-in type for the [Breakpoint](https://microsoft.github.io/debug-adapter-protocol/specification#Types_Breakpoint) type defined in the Debug Adapter Protocol.</haxe_doc>
+	</typedef>
 	<typedef path="vscode.DebugProtocolMessage" params="" file="src/vscode/DebugProtocolMessage.hx">
 		<a/>
 		<haxe_doc>* A DebugProtocolMessage is an opaque stand-in type for the [ProtocolMessage](https://microsoft.github.io/debug-adapter-protocol/specification#Base_Protocol_ProtocolMessage) type defined in the Debug Adapter Protocol.</haxe_doc>
@@ -14195,6 +14241,17 @@
 				<c path="String"/>
 				<haxe_doc>* The unique ID of this debug session.</haxe_doc>
 			</id>
+			<getDebugProtocolBreakpoint set="method">
+				<f a="breakpoint">
+					<c path="vscode.Breakpoint"/>
+					<x path="js.lib.Thenable"><x path="Null"><t path="vscode.DebugProtocolBreakpoint"/></x></x>
+				</f>
+				<haxe_doc>* Maps a VS Code breakpoint to the corresponding Debug Adapter Protocol (DAP) breakpoint that is managed by the debug adapter of the debug session.
+	 * If no DAP breakpoint exists (either because the VS Code breakpoint was not yet registered or because the debug adapter is not interested in the breakpoint), the value `undefined` is returned.
+	 *
+	 * @param breakpoint A VS Code [breakpoint](#Breakpoint).
+	 * @return A promise that resolves to the Debug Adapter Protocol breakpoint or `undefined`.</haxe_doc>
+			</getDebugProtocolBreakpoint>
 			<customRequest set="method">
 				<f a="command:?args">
 					<c path="String"/>
@@ -14239,6 +14296,12 @@
 				<haxe_doc>* When specified the newly created debug session is registered as a "child" session of this
 	 * "parent" debug session.</haxe_doc>
 			</parentSession>
+			<noDebug>
+				<x path="Null"><x path="Bool"/></x>
+				<meta><m n=":optional"/></meta>
+				<haxe_doc>* Controls whether this session should run without debugging, thus ignoring breakpoints.
+	 * When this property is not specified, the value from the parent session (if there is one) is used.</haxe_doc>
+			</noDebug>
 			<consoleMode>
 				<x path="Null"><x path="vscode.DebugConsoleMode"/></x>
 				<meta><m n=":optional"/></meta>
@@ -14246,6 +14309,13 @@
 	 * with the parent session. Has no effect for sessions which do not have a parent session.
 	 * Defaults to Separate.</haxe_doc>
 			</consoleMode>
+			<compact>
+				<x path="Null"><x path="Bool"/></x>
+				<meta><m n=":optional"/></meta>
+				<haxe_doc>* Controls if the debug session's parent session is shown in the CALL STACK view even if it has only a single child.
+	 * By default, the debug session will never hide its parent.
+	 * If compact is true, debug sessions with a single child are hidden in the CALL STACK view to make the tree more compact.</haxe_doc>
+			</compact>
 		</a>
 		<haxe_doc>* Options for [starting a debug session](#debug.startDebugging).</haxe_doc>
 	</typedef>
@@ -15993,8 +16063,22 @@
 				<haxe_doc>* An array to which disposables can be added. When this
 	 * extension is deactivated the disposables will be disposed.</haxe_doc>
 			</subscriptions>
+			<storageUri set="null">
+				<x path="Null"><c path="vscode.Uri"/></x>
+				<haxe_doc>* The uri of a workspace specific directory in which the extension
+	 * can store private state. The directory might not exist and creation is
+	 * up to the extension. However, the parent directory is guaranteed to be existent.
+	 * The value is `undefined` when no workspace nor folder has been opened.
+	 *
+	 * Use [`workspaceState`](#ExtensionContext.workspaceState) or
+	 * [`globalState`](#ExtensionContext.globalState) to store key value data.
+	 *
+	 * @see [`workspace.fs`](#FileSystem) for how to read and write files and folders from
+	 *  an uri.</haxe_doc>
+			</storageUri>
 			<storagePath set="null">
 				<x path="Null"><c path="String"/></x>
+				<meta><m n=":deprecated"><e>"Use [storagePath](#ExtensionContent.storageUri) instead."</e></m></meta>
 				<haxe_doc>* An absolute file path of a workspace specific directory in which the extension
 	 * can store private state. The directory might not exist on disk and creation is
 	 * up to the extension. However, the parent directory is guaranteed to be existent.
@@ -16002,14 +16086,36 @@
 	 * Use [`workspaceState`](#ExtensionContext.workspaceState) or
 	 * [`globalState`](#ExtensionContext.globalState) to store key value data.</haxe_doc>
 			</storagePath>
+			<logUri set="null">
+				<c path="vscode.Uri"/>
+				<haxe_doc>* The uri of a directory in which the extension can create log files.
+	 * The directory might not exist on disk and creation is up to the extension. However,
+	 * the parent directory is guaranteed to be existent.
+	 *
+	 * @see [`workspace.fs`](#FileSystem) for how to read and write files and folders from
+	 *  an uri.</haxe_doc>
+			</logUri>
 			<logPath set="null">
 				<c path="String"/>
+				<meta><m n=":deprecated"><e>"Use [logUri](#ExtensionContext.logUri) instead."</e></m></meta>
 				<haxe_doc>* An absolute file path of a directory in which the extension can create log files.
 	 * The directory might not exist on disk and creation is up to the extension. However,
 	 * the parent directory is guaranteed to be existent.</haxe_doc>
 			</logPath>
+			<globalStorageUri set="null">
+				<c path="vscode.Uri"/>
+				<haxe_doc>* The uri of a directory in which the extension can store global state.
+	 * The directory might not exist on disk and creation is
+	 * up to the extension. However, the parent directory is guaranteed to be existent.
+	 *
+	 * Use [`globalState`](#ExtensionContext.globalState) to store key value data.
+	 *
+	 * @see [`workspace.fs`](#FileSystem) for how to read and write files and folders from
+	 *  an uri.</haxe_doc>
+			</globalStorageUri>
 			<globalStoragePath set="null">
 				<c path="String"/>
+				<meta><m n=":deprecated"><e>"Use [globalStoragePath](#ExtensionContent.globalStorageUri) instead."</e></m></meta>
 				<haxe_doc>* An absolute file path in which the extension can store global state.
 	 * The directory might not exist on disk and creation is
 	 * up to the extension. However, the parent directory is guaranteed to be existent.
@@ -16046,6 +16152,9 @@
 					<c path="String"/>
 				</f>
 				<haxe_doc>* Get the absolute path of a resource contained in the extension.
+	 *
+	 * *Note* that an absolute uri can be constructed via [`Uri.joinPath`](#Uri.joinPath) and
+	 * [`extensionUri`](#ExtensionContent.extensionUri), e.g. `vscode.Uri.joinPath(context.extensionUri, relativePath);`
 	 *
 	 * @param relativePath A relative path to a resource contained in the extension.
 	 * @return The absolute path of the resource.</haxe_doc>
@@ -21057,6 +21166,12 @@
 			<c path="String"/>
 			<haxe_doc>* The task's name</haxe_doc>
 		</name>
+		<detail public="1">
+			<x path="Null"><c path="String"/></x>
+			<haxe_doc><![CDATA[* A human-readable string which is rendered less prominently on a separate line in places
+	 * where the task's name is displayed. Supports rendering of [theme icons](#ThemeIcon)
+	 * via the `$(<name>)`-syntax.]]></haxe_doc>
+		</detail>
 		<execution public="1">
 			<x path="Null"><x path="haxe.extern.EitherType">
 	<c path="vscode.ProcessExecution"/>
@@ -21669,6 +21784,67 @@
 </code></a>
 		<haxe_doc>* Represents how a terminal exited.</haxe_doc>
 	</typedef>
+	<typedef path="vscode.TerminalLink" params="" file="src/vscode/TerminalLink.hx">
+		<a>
+			<tooltip>
+				<x path="Null"><c path="String"/></x>
+				<meta><m n=":optional"/></meta>
+				<haxe_doc>* The tooltip text when you hover over this link.
+	 *
+	 * If a tooltip is provided, is will be displayed in a string that includes instructions on
+	 * how to trigger the link, such as `{0} (ctrl + click)`. The specific instructions vary
+	 * depending on OS, user settings, and localization.</haxe_doc>
+			</tooltip>
+			<startIndex>
+				<x path="Int"/>
+				<haxe_doc>* The start index of the link on [TerminalLinkContext.line](#TerminalLinkContext.line].</haxe_doc>
+			</startIndex>
+			<length>
+				<x path="Int"/>
+				<haxe_doc>* The length of the link on [TerminalLinkContext.line](#TerminalLinkContext.line]</haxe_doc>
+			</length>
+		</a>
+		<haxe_doc>* A link on a terminal line.</haxe_doc>
+	</typedef>
+	<typedef path="vscode.TerminalLinkContext" params="" file="src/vscode/TerminalLinkContext.hx">
+		<a>
+			<terminal>
+				<t path="vscode.Terminal"/>
+				<haxe_doc>* The terminal the link belongs to.</haxe_doc>
+			</terminal>
+			<line>
+				<c path="String"/>
+				<haxe_doc>* This is the text from the unwrapped line in the terminal.</haxe_doc>
+			</line>
+		</a>
+		<haxe_doc>* Provides information on a line in a terminal in order to provide links for it.</haxe_doc>
+	</typedef>
+	<typedef path="vscode.TerminalLinkProvider" params="T" file="src/vscode/TerminalLinkProvider.hx">
+		<a>
+			<provideTerminalLinks set="method">
+				<f a="context:token">
+					<t path="vscode.TerminalLinkContext"/>
+					<t path="vscode.CancellationToken"/>
+					<t path="vscode.ProviderResult"><c path="Array"><c path="vscode.TerminalLinkProvider.T"/></c></t>
+				</f>
+				<haxe_doc>* Provide terminal links for the given context. Note that this can be called multiple times
+	 * even before previous calls resolve, make sure to not share global objects (eg. `RegExp`)
+	 * that could have problems when asynchronous usage may overlap.
+	 * @param context Information about what links are being provided for.
+	 * @param token A cancellation token.
+	 * @return A list of terminal links for the given line.</haxe_doc>
+			</provideTerminalLinks>
+			<handleTerminalLink set="method">
+				<f a="link">
+					<c path="vscode.TerminalLinkProvider.T"/>
+					<t path="vscode.ProviderResult"><x path="Void"/></t>
+				</f>
+				<haxe_doc>* Handle an activated terminal link.
+	 * @param link The link to handle.</haxe_doc>
+			</handleTerminalLink>
+		</a>
+		<haxe_doc>* A provider that enables detection and handling of links within terminals.</haxe_doc>
+	</typedef>
 	<typedef path="vscode.TerminalOptions" params="" file="src/vscode/TerminalOptions.hx">
 		<a>
 			<strictEnv>
@@ -22214,7 +22390,7 @@
 				<haxe_doc>* The current visible ranges in the editor (vertically).
 	 * This accounts only for vertical scrolling, and not for horizontal scrolling.</haxe_doc>
 			</visibleRanges>
-			<viewColumn>
+			<viewColumn set="null">
 				<x path="Null"><x path="vscode.ViewColumn"/></x>
 				<meta><m n=":optional"/></meta>
 				<haxe_doc>* The column in which this editor shows. Will be `undefined` in case this
@@ -24671,6 +24847,8 @@
 	 * @param uri Uri of the new file..
 	 * @param options Defines if an existing file should be overwritten or be
 	 * ignored. When overwrite and ignoreIfExists are both set overwrite wins.
+	 * When both are unset and when the file already exists then the edit cannot
+	 * be applied successfully.
 	 * @param metadata Optional metadata for the entry.</haxe_doc>
 		</createFile>
 		<deleteFile public="1" set="method">
