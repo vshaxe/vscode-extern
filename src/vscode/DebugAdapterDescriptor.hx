@@ -1,3 +1,4 @@
 package vscode;
 
-typedef DebugAdapterDescriptor = EitherType<DebugAdapterExecutable, EitherType<DebugAdapterServer, DebugAdapterInlineImplementation>>;
+typedef DebugAdapterDescriptor = EitherType<DebugAdapterExecutable,
+	EitherType<DebugAdapterServer, EitherType<DebugAdapterNamedPipeServer, DebugAdapterInlineImplementation>>>;

@@ -800,6 +800,13 @@ extern class VscodeWindow {
 	}):Disposable;
 
 	/**
+	 * Register provider that enables the detection and handling of links within the terminal.
+	 * @param provider The provider that provides the terminal links.
+	 * @return Disposable that unregisters the provider.
+	 */
+	function registerTerminalLinkProvider<T:TerminalLink>(provider:TerminalLinkProvider<T>):Disposable;
+
+	/**
 	 * The currently active color theme as configured in the settings. The active
 	 * theme can be changed via the `workbench.colorTheme` setting.
 	 */
@@ -1812,6 +1819,12 @@ extern class VscodeDebug {
 	 */
 	function startDebugging(folder:Null<WorkspaceFolder>, nameOrConfiguration:EitherType<String, DebugConfiguration>,
 		?parentSessionOrOptions:EitherType<DebugSession, DebugSessionOptions>):Thenable<Bool>;
+
+	/**
+	 * Stop the given debug session or stop all debug sessions if session is omitted.
+	 * @param session The [debug session](#DebugSession) to stop; if omitted all sessions are stopped.
+	 */
+	function stopDebugging(?session:DebugSession):Thenable<Void>;
 
 	/**
 	 * Add breakpoints.

@@ -45,10 +45,27 @@ typedef ExtensionContext = {
 	/**
 	 * Get the absolute path of a resource contained in the extension.
 	 *
+	 * *Note* that an absolute uri can be constructed via [`Uri.joinPath`](#Uri.joinPath) and
+	 * [`extensionUri`](#ExtensionContent.extensionUri), e.g. `vscode.Uri.joinPath(context.extensionUri, relativePath);`
+	 *
 	 * @param relativePath A relative path to a resource contained in the extension.
 	 * @return The absolute path of the resource.
 	 */
 	function asAbsolutePath(relativePath:String):String;
+
+	/**
+	 * The uri of a workspace specific directory in which the extension
+	 * can store private state. The directory might not exist and creation is
+	 * up to the extension. However, the parent directory is guaranteed to be existent.
+	 * The value is `undefined` when no workspace nor folder has been opened.
+	 *
+	 * Use [`workspaceState`](#ExtensionContext.workspaceState) or
+	 * [`globalState`](#ExtensionContext.globalState) to store key value data.
+	 *
+	 * @see [`workspace.fs`](#FileSystem) for how to read and write files and folders from
+	 *  an uri.
+	 */
+	var storageUri(default, null):Null<Uri>;
 
 	/**
 	 * An absolute file path of a workspace specific directory in which the extension
@@ -58,7 +75,20 @@ typedef ExtensionContext = {
 	 * Use [`workspaceState`](#ExtensionContext.workspaceState) or
 	 * [`globalState`](#ExtensionContext.globalState) to store key value data.
 	 */
+	@:deprecated("Use [storagePath](#ExtensionContent.storageUri) instead.")
 	var storagePath(default, null):Null<String>;
+
+	/**
+	 * The uri of a directory in which the extension can store global state.
+	 * The directory might not exist on disk and creation is
+	 * up to the extension. However, the parent directory is guaranteed to be existent.
+	 *
+	 * Use [`globalState`](#ExtensionContext.globalState) to store key value data.
+	 *
+	 * @see [`workspace.fs`](#FileSystem) for how to read and write files and folders from
+	 *  an uri.
+	 */
+	var globalStorageUri(default, null):Uri;
 
 	/**
 	 * An absolute file path in which the extension can store global state.
@@ -67,13 +97,25 @@ typedef ExtensionContext = {
 	 *
 	 * Use [`globalState`](#ExtensionContext.globalState) to store key value data.
 	 */
+	@:deprecated("Use [globalStoragePath](#ExtensionContent.globalStorageUri) instead.")
 	var globalStoragePath(default, null):String;
+
+	/**
+	 * The uri of a directory in which the extension can create log files.
+	 * The directory might not exist on disk and creation is up to the extension. However,
+	 * the parent directory is guaranteed to be existent.
+	 *
+	 * @see [`workspace.fs`](#FileSystem) for how to read and write files and folders from
+	 *  an uri.
+	 */
+	var logUri(default, null):Uri;
 
 	/**
 	 * An absolute file path of a directory in which the extension can create log files.
 	 * The directory might not exist on disk and creation is up to the extension. However,
 	 * the parent directory is guaranteed to be existent.
 	 */
+	@:deprecated("Use [logUri](#ExtensionContext.logUri) instead.")
 	var logPath(default, null):String;
 
 	/**

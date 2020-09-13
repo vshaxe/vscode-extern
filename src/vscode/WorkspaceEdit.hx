@@ -74,6 +74,8 @@ extern class WorkspaceEdit {
 	 * @param uri Uri of the new file..
 	 * @param options Defines if an existing file should be overwritten or be
 	 * ignored. When overwrite and ignoreIfExists are both set overwrite wins.
+	 * When both are unset and when the file already exists then the edit cannot
+	 * be applied successfully.
 	 * @param metadata Optional metadata for the entry.
 	 */
 	function createFile(uri:Uri, ?options:{?overwrite:Bool, ?ignoreIfExists:Bool}, ?metadata:WorkspaceEditEntryMetadata):Void;
