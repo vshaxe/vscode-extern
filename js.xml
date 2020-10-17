@@ -1629,8 +1629,8 @@
 				<x path="js.lib.Thenable"><c path="withScmProgress.R"/></x>
 			</f>
 			<meta><m n=":deprecated"><e>"Use `withProgress` instead."</e></m></meta>
-			<haxe_doc>* ~~Show progress in the Source Control viewlet while running the given callback and while
-	 * its returned promise isn't resolve or rejected.~~
+			<haxe_doc>* Show progress in the Source Control viewlet while running the given callback and while
+	 * its returned promise isn't resolve or rejected.
 	 *
 	 * @deprecated Use `withProgress` instead.
 	 *
@@ -1800,10 +1800,10 @@
 	 *
 	 * @param handler The uri handler to register for this extension.</haxe_doc>
 		</registerUriHandler>
-		<registerWebviewPanelSerializer public="1" set="method">
+		<registerWebviewPanelSerializer public="1" params="T" set="method">
 			<f a="viewType:serializer">
 				<c path="String"/>
-				<t path="vscode.WebviewPanelSerializer"/>
+				<t path="vscode.WebviewPanelSerializer"><c path="registerWebviewPanelSerializer.T"/></t>
 				<c path="vscode.Disposable"/>
 			</f>
 			<haxe_doc>* Registers a webview panel serializer.
@@ -1816,6 +1816,42 @@
 	 * @param viewType Type of the webview panel that can be serialized.
 	 * @param serializer Webview serializer.</haxe_doc>
 		</registerWebviewPanelSerializer>
+		<registerWebviewViewProvider public="1" set="method">
+			<f a="viewId:provider:?options">
+				<c path="String"/>
+				<t path="vscode.WebviewViewProvider"/>
+				<a><webviewOptions set="null">
+	<x path="Null"><a><retainContextWhenHidden set="null">
+	<x path="Null"><x path="Bool"/></x>
+	<meta><m n=":optional"/></meta>
+	<haxe_doc>* Controls if the webview element itself (iframe) is kept around even when the view
+			 * is no longer visible.
+			 *
+			 * Normally the webview's html context is created when the view becomes visible
+			 * and destroyed when it is hidden. Extensions that have complex state
+			 * or UI can set the `retainContextWhenHidden` to make VS Code keep the webview
+			 * context around, even when the webview moves to a background tab. When a webview using
+			 * `retainContextWhenHidden` becomes hidden, its scripts and other dynamic content are suspended.
+			 * When the view becomes visible again, the context is automatically restored
+			 * in the exact same state it was in originally. You cannot send messages to a
+			 * hidden webview, even with `retainContextWhenHidden` enabled.
+			 *
+			 * `retainContextWhenHidden` has a high memory overhead and should only be used if
+			 * your view's context cannot be quickly saved and restored.</haxe_doc>
+</retainContextWhenHidden></a></x>
+	<meta><m n=":optional"/></meta>
+	<haxe_doc>* Content settings for the webview created for this view.</haxe_doc>
+</webviewOptions></a>
+				<c path="vscode.Disposable"/>
+			</f>
+			<haxe_doc>* Register a new provider for webview views.
+	 *
+	 * @param viewId Unique id of the view. This should match the `id` from the
+	 *   `views` contribution in the package.json.
+	 * @param provider Provider for the webview views.
+	 *
+	 * @return Disposable that unregisters the provider.</haxe_doc>
+		</registerWebviewViewProvider>
 		<registerCustomEditorProvider public="1" params="T" set="method">
 			<f a="viewType:provider:?options">
 				<c path="String"/>
@@ -1908,8 +1944,8 @@
 		<inputBox public="1" set="null">
 			<t path="vscode.SourceControlInputBox"/>
 			<meta><m n=":deprecated"><e>"Use SourceControl.inputBox instead"</e></m></meta>
-			<haxe_doc>* ~~The [input box](#SourceControlInputBox) for the last source control
-	 * created by the extension.~~
+			<haxe_doc>* The [input box](#SourceControlInputBox) for the last source control
+	 * created by the extension.
 	 *
 	 * @deprecated Use SourceControl.inputBox instead</haxe_doc>
 		</inputBox>
@@ -2061,10 +2097,10 @@
 	 * @param triggerCharacters Trigger completion when the user types one of the characters.
 	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.</haxe_doc>
 		</registerCompletionItemProvider>
-		<registerCodeActionsProvider public="1" set="method">
+		<registerCodeActionsProvider public="1" params="T" set="method">
 			<f a="selector:provider:?metadata">
 				<t path="vscode.DocumentSelector"/>
-				<t path="vscode.CodeActionProvider"/>
+				<t path="vscode.CodeActionProvider"><c path="registerCodeActionsProvider.T"/></t>
 				<t path="vscode.CodeActionProviderMetadata"/>
 				<c path="vscode.Disposable"/>
 			</f>
@@ -2508,8 +2544,8 @@
 		<rootPath public="1" set="null">
 			<x path="Null"><c path="String"/></x>
 			<meta><m n=":deprecated"><e>"Use [`workspaceFolders`](#workspace.workspaceFolders) instead."</e></m></meta>
-			<haxe_doc>* ~~The folder that is open in the editor. `undefined` when no folder
-	 * has been opened.~~
+			<haxe_doc>* The folder that is open in the editor. `undefined` when no folder
+	 * has been opened.
 	 *
 	 * @deprecated Use [`workspaceFolders`](#workspace.workspaceFolders) instead.</haxe_doc>
 		</rootPath>
@@ -2674,7 +2710,9 @@
 			</f>
 			<haxe_doc>* Find files across all [workspace folders](#workspace.workspaceFolders) in the workspace.
 	 *
-	 * @sample `findFiles('**​/*.js', '**​/node_modules/**', 10)`
+	 * @example
+	 * findFiles('**​/*.js', '**​/node_modules/**', 10)
+	 *
 	 * @param include A [glob pattern](#GlobPattern) that defines the files to search for. The glob pattern
 	 * will be matched against the file paths of resulting matches relative to their workspace. Use a [relative pattern](#RelativePattern)
 	 * to restrict the search results to a [workspace folder](#WorkspaceFolder).
@@ -2988,7 +3026,7 @@
 				<c path="vscode.Disposable"/>
 			</f>
 			<meta><m n=":deprecated"><e>"Use the corresponding function on the `tasks` namespace instead"</e></m></meta>
-			<haxe_doc>* ~~Register a task provider.~~
+			<haxe_doc>* Register a task provider.
 	 *
 	 * @deprecated Use the corresponding function on the `tasks` namespace instead
 	 *
@@ -11725,22 +11763,43 @@
 	<e>"CodeActionKind"</e>
 </m></meta>
 	</class>
-	<typedef path="vscode.CodeActionProvider" params="" file="src/vscode/CodeActionProvider.hx">
-		<a><provideCodeActions set="method">
-	<f a="document:range:context:token">
-		<t path="vscode.TextDocument"/>
-		<x path="haxe.extern.EitherType">
-			<c path="vscode.Range"/>
-			<c path="vscode.Selection"/>
-		</x>
-		<t path="vscode.CodeActionContext"/>
-		<t path="vscode.CancellationToken"/>
-		<t path="vscode.ProviderResult"><c path="Array"><x path="haxe.extern.EitherType">
+	<typedef path="vscode.CodeActionProvider" params="T" file="src/vscode/CodeActionProvider.hx">
+		<a>
+			<resolveCodeAction set="method">
+				<x path="Null"><f a="codeAction:token">
+	<c path="vscode.CodeActionProvider.T"/>
+	<t path="vscode.CancellationToken"/>
+	<t path="vscode.ProviderResult"><c path="vscode.CodeActionProvider.T"/></t>
+</f></x>
+				<meta><m n=":optional"/></meta>
+				<haxe_doc>* Given a code action fill in its [`edit`](#CodeAction.edit)-property. Changes to
+	 * all other properties, like title, are ignored. A code action that has an edit
+	 * will not be resolved.
+	 *
+	 * *Note* that a code action provider that returns commands, not code actions, cannot successfully
+	 * implement this function. Returning commands is deprecated and instead code actions should be
+	 * returned.
+	 *
+	 * @param codeAction A code action.
+	 * @param token A cancellation token.
+	 * @return The resolved code action or a thenable that resolves to such. It is OK to return the given
+	 * `item`. When no result is returned, the given `item` will be used.</haxe_doc>
+			</resolveCodeAction>
+			<provideCodeActions set="method">
+				<f a="document:range:context:token">
+					<t path="vscode.TextDocument"/>
+					<x path="haxe.extern.EitherType">
+						<c path="vscode.Range"/>
+						<c path="vscode.Selection"/>
+					</x>
+					<t path="vscode.CodeActionContext"/>
+					<t path="vscode.CancellationToken"/>
+					<t path="vscode.ProviderResult"><c path="Array"><x path="haxe.extern.EitherType">
 	<t path="vscode.Command"/>
 	<c path="vscode.CodeAction"/>
 </x></c></t>
-	</f>
-	<haxe_doc>* Provide commands for the given document and range.
+				</f>
+				<haxe_doc>* Provide commands for the given document and range.
 	 *
 	 * @param document The document in which the command was invoked.
 	 * @param range The selector or range for which the command was invoked. This will always be a selection if
@@ -11749,7 +11808,8 @@
 	 * @param token A cancellation token.
 	 * @return An array of commands, quick fixes, or refactorings or a thenable of such. The lack of a result can be
 	 * signaled by returning `undefined`, `null`, or an empty array.</haxe_doc>
-</provideCodeActions></a>
+			</provideCodeActions>
+		</a>
 		<haxe_doc>* The code action interface defines the contract between extensions and
  * the [lightbulb](https://code.visualstudio.com/docs/editor/editingevolved#_code-action) feature.
  *
@@ -12515,13 +12575,24 @@
 			<x path="Null"><c path="String"/></x>
 			<haxe_doc>* A string that should be used when comparing this item
 	 * with other items. When `falsy` the [label](#CompletionItem.label)
-	 * is used.</haxe_doc>
+	 * is used.
+	 *
+	 * Note that `sortText` is only used for the initial ordering of completion
+	 * items. When having a leading word (prefix) ordering is based on how
+	 * well completion match that prefix and the initial ordering is only used
+	 * when completions match equal. The prefix is defined by the
+	 * [`range`](#CompletionItem.range)-property and can therefore be different
+	 * for each completion.</haxe_doc>
 		</sortText>
 		<filterText public="1">
 			<x path="Null"><c path="String"/></x>
 			<haxe_doc>* A string that should be used when filtering a set of
 	 * completion items. When `falsy` the [label](#CompletionItem.label)
-	 * is used.</haxe_doc>
+	 * is used.
+	 *
+	 * Note that the filter text is matched against the leading word (prefix) which is defined
+	 * by the [`range`](#CompletionItem.range)-property.
+	 * prefix.</haxe_doc>
 		</filterText>
 		<preselect public="1">
 			<x path="Null"><x path="Bool"/></x>
@@ -12573,12 +12644,12 @@
 			<meta><m n=":deprecated"><e>"Use `CompletionItem.insertText` and `CompletionItem.range` instead."</e></m></meta>
 			<haxe_doc>* @deprecated Use `CompletionItem.insertText` and `CompletionItem.range` instead.
 	 *
-	 * ~~An [edit](#TextEdit) which is applied to a document when selecting
+	 * An [edit](#TextEdit) which is applied to a document when selecting
 	 * this completion. When an edit is provided the value of
-	 * [insertText](#CompletionItem.insertText) is ignored.~~
+	 * [insertText](#CompletionItem.insertText) is ignored.
 	 *
-	 * ~~The [range](#Range) of the edit must be single-line and on the same
-	 * line completions were [requested](#CompletionItemProvider.provideCompletionItems) at.~~</haxe_doc>
+	 * The [range](#Range) of the edit must be single-line and on the same
+	 * line completions were [requested](#CompletionItemProvider.provideCompletionItems) at.</haxe_doc>
 		</textEdit>
 		<additionalTextEdits public="1">
 			<x path="Null"><c path="Array"><c path="vscode.TextEdit"/></c></x>
@@ -15168,12 +15239,15 @@
 				<haxe_doc>* A language id, like `typescript`.</haxe_doc>
 			</language>
 		</a>
-		<haxe_doc>* A document filter denotes a document by different properties like
+		<haxe_doc><![CDATA[* A document filter denotes a document by different properties like
  * the [language](#TextDocument.languageId), the [scheme](#Uri.scheme) of
  * its resource, or a glob-pattern that is applied to the [path](#TextDocument.fileName).
  *
- * @sample A language filter that applies to typescript files on disk: `{ language: 'typescript', scheme: 'file' }`
- * @sample A language filter that applies to all package.json paths: `{ language: 'json', scheme: 'untitled', pattern: '**​/package.json' }`</haxe_doc>
+ * @example <caption>A language filter that applies to typescript files on disk</caption>
+ * { language: 'typescript', scheme: 'file' }
+ *
+ * @example <caption>A language filter that applies to all package.json paths</caption>
+ * { language: 'json', scheme: 'untitled', pattern: '**​/package.json' }]]></haxe_doc>
 	</typedef>
 	<typedef path="vscode.DocumentFormattingEditProvider" params="" file="src/vscode/DocumentFormattingEditProvider.hx">
 		<a><provideDocumentFormattingEdits set="method">
@@ -15440,7 +15514,8 @@
  * a feature works without further context, e.g. without the need to resolve related
  * 'files'.
  *
- * @sample `let sel:DocumentSelector = { scheme: 'file', language: 'typescript' }`;</haxe_doc>
+ * @example
+ * let sel:DocumentSelector = { scheme: 'file', language: 'typescript' };</haxe_doc>
 	</typedef>
 	<typedef path="vscode.DocumentSelectorSimple" params="" file="src/vscode/DocumentSelector.hx" module="vscode.DocumentSelector"><x path="haxe.extern.EitherType">
 	<t path="vscode.DocumentFilter"/>
@@ -15972,7 +16047,8 @@
  * @param disposables An array to which a [disposable](#Disposable) will be added.
  * @return A disposable which unsubscribes the event listener.
  *
- * @sample `item.onDidChange(function(event) { console.log("Event happened: " + event); });`</haxe_doc>
+ * @example
+ * item.onDidChange(function(event) { console.log("Event happened: " + event); });</haxe_doc>
 	</typedef>
 	<class path="vscode.EventEmitter" params="T" file="src/vscode/EventEmitter.hx" extern="1">
 		<event public="1">
@@ -17962,9 +18038,9 @@
 				</a>
 			</x>
 		</x>
-		<haxe_doc>* ~~MarkedString can be used to render human-readable text. It is either a markdown string
+		<haxe_doc>* MarkedString can be used to render human-readable text. It is either a markdown string
  * or a code-block that provides a language and a code snippet. Note that
- * markdown strings will be sanitized - that means html will be escaped.~~
+ * markdown strings will be sanitized - that means html will be escaped.
  *
  * @deprecated This type is deprecated, please use [`MarkdownString`](#MarkdownString) instead.</haxe_doc>
 	</typedef>
@@ -20503,6 +20579,26 @@
 				<haxe_doc>* The [decorations](#SourceControlResourceDecorations) for this source control
 	 * resource state.</haxe_doc>
 			</decorations>
+			<contextValue set="null">
+				<x path="Null"><c path="String"/></x>
+				<meta><m n=":optional"/></meta>
+				<haxe_doc>* Context value of the resource state. This can be used to contribute resource specific actions.
+	 * For example, if a resource is given a context value as `diffable`. When contributing actions to `scm/resourceState/context`
+	 * using `menus` extension point, you can specify context value for key `scmResourceState` in `when` expressions, like `scmResourceState == diffable`.
+	 * ```
+	 *	"contributes": {
+	 *		"menus": {
+	 *			"scm/resourceState/context": [
+	 *				{
+	 *					"command": "extension.diff",
+	 *					"when": "scmResourceState == diffable"
+	 *				}
+	 *			]
+	 *		}
+	 *	}
+	 * ```
+	 * This will show action `extension.diff` only for resources with `contextValue` is `diffable`.</haxe_doc>
+			</contextValue>
 			<command set="null">
 				<x path="Null"><t path="vscode.Command"/></x>
 				<meta><m n=":optional"/></meta>
@@ -21512,7 +21608,7 @@
 	<typedef path="vscode.TaskProvider" params="T" file="src/vscode/TaskProvider.hx">
 		<a>
 			<resolveTask set="method">
-				<f a="task:?token">
+				<f a="task:token">
 					<c path="vscode.TaskProvider.T"/>
 					<t path="vscode.CancellationToken"/>
 					<t path="vscode.ProviderResult"><c path="vscode.TaskProvider.T"/></t>
@@ -21530,7 +21626,7 @@
 	 * @return The resolved task</haxe_doc>
 			</resolveTask>
 			<provideTasks set="method">
-				<f a="?token">
+				<f a="token">
 					<t path="vscode.CancellationToken"/>
 					<t path="vscode.ProviderResult"><c path="Array"><c path="vscode.TaskProvider.T"/></c></t>
 				</f>
@@ -22403,7 +22499,7 @@
 					<x path="Void"/>
 				</f>
 				<meta><m n=":deprecated"><e>"Use [window.showTextDocument](#window.showTextDocument)"</e></m></meta>
-				<haxe_doc>* ~~Show the text editor.~~
+				<haxe_doc>* Show the text editor.
 	 *
 	 * @deprecated Use [window.showTextDocument](#window.showTextDocument) instead.
 	 *
@@ -22482,7 +22578,7 @@
 			<hide set="method">
 				<f a=""><x path="Void"/></f>
 				<meta><m n=":deprecated"><e>"Use the command `workbench.action.closeActiveEditor` instead."</e></m></meta>
-				<haxe_doc>* ~~Hide the text editor.~~
+				<haxe_doc>* Hide the text editor.
 	 *
 	 * @deprecated Use the command `workbench.action.closeActiveEditor` instead.
 	 * This method shows unexpected behavior and will be removed in the next major update.</haxe_doc>
@@ -23693,6 +23789,12 @@
 				<f a=""><x path="Void"/></f>
 				<haxe_doc>* Dispose this object.</haxe_doc>
 			</dispose>
+			<description>
+				<x path="Null"><c path="String"/></x>
+				<meta><m n=":optional"/></meta>
+				<haxe_doc>* An optional human-readable description which is rendered less prominently in the title of the view.
+	 * Setting the title description to null, undefined, or empty string will remove the description from the view.</haxe_doc>
+			</description>
 		</a>
 		<haxe_doc>* Represents a Tree view</haxe_doc>
 	</typedef>
@@ -24259,7 +24361,7 @@
 	 * Messages are only delivered if the webview is live (either visible or in the
 	 * background with `retainContextWhenHidden`).
 	 *
-	 * @param message Body of the message. This must be a string or other json serilizable object.</haxe_doc>
+	 * @param message Body of the message. This must be a string or other json serializable object.</haxe_doc>
 			</postMessage>
 			<options>
 				<t path="vscode.WebviewOptions"/>
@@ -24269,7 +24371,7 @@
 				<t path="vscode.Event"><x path="Any"/></t>
 				<haxe_doc>* Fired when the webview content posts a message.
 	 *
-	 * Webview content can post strings or json serilizable objects back to a VS Code extension. They cannot
+	 * Webview content can post strings or json serializable objects back to a VS Code extension. They cannot
 	 * post `Blob`, `File`, `ImageData` and other DOM specific objects since the extension that receives the
 	 * message does not run in a browser environment.</haxe_doc>
 			</onDidReceiveMessage>
@@ -24488,11 +24590,11 @@
 		</a>
 		<haxe_doc>* Content settings for a webview panel.</haxe_doc>
 	</typedef>
-	<typedef path="vscode.WebviewPanelSerializer" params="" file="src/vscode/WebviewPanelSerializer.hx">
+	<typedef path="vscode.WebviewPanelSerializer" params="T" file="src/vscode/WebviewPanelSerializer.hx">
 		<a><deserializeWebviewPanel set="method">
 	<f a="webviewPanel:state">
 		<t path="vscode.WebviewPanel"/>
-		<x path="Any"/>
+		<c path="vscode.WebviewPanelSerializer.T"/>
 		<x path="js.lib.Thenable"><x path="Void"/></x>
 	</f>
 	<haxe_doc>* Restore a webview panel from its serialized `state`.
@@ -24533,7 +24635,9 @@
  * A `WebviewPanelSerializer` extends this persistence across restarts of VS Code. When the editor is shutdown,
  * VS Code will save off the state from `setState` of all webviews that have a serializer. When the
  * webview first becomes visible after the restart, this state is passed to `deserializeWebviewPanel`.
- * The extension can then restore the old `WebviewPanel` from this state.</haxe_doc>
+ * The extension can then restore the old `WebviewPanel` from this state.
+ *
+ * @param T Type of the webview's state.</haxe_doc>
 	</typedef>
 	<typedef path="vscode.WebviewPortMapping" params="" file="src/vscode/WebviewPortMapping.hx">
 		<a>
@@ -24547,6 +24651,125 @@
 			</extensionHostPort>
 		</a>
 		<haxe_doc>* Defines a port mapping used for localhost inside the webview.</haxe_doc>
+	</typedef>
+	<typedef path="vscode.WebviewView" params="" file="src/vscode/WebviewView.hx">
+		<a>
+			<webview set="null">
+				<t path="vscode.Webview"/>
+				<haxe_doc>* The underlying webview for the view.</haxe_doc>
+			</webview>
+			<visible set="null">
+				<x path="Bool"/>
+				<haxe_doc>* Tracks if the webview is currently visible.
+	 *
+	 * Views are visible when they are on the screen and expanded.</haxe_doc>
+			</visible>
+			<viewType set="null">
+				<c path="String"/>
+				<haxe_doc>* Identifies the type of the webview view, such as `'hexEditor.dataView'`.</haxe_doc>
+			</viewType>
+			<title>
+				<x path="Null"><c path="String"/></x>
+				<meta><m n=":optional"/></meta>
+				<haxe_doc>* View title displayed in the UI.
+	 *
+	 * The view title is initially taken from the extension `package.json` contribution.</haxe_doc>
+			</title>
+			<show set="method">
+				<f a="?preserveFocus">
+					<x path="Bool"/>
+					<x path="Void"/>
+				</f>
+				<haxe_doc>* Reveal the view in the UI.
+	 *
+	 * If the view is collapsed, this will expand it.
+	 *
+	 * @param preserveFocus When `true` the view will not take focus.</haxe_doc>
+			</show>
+			<onDidDispose set="null">
+				<t path="vscode.Event"><x path="Void"/></t>
+				<haxe_doc>* Event fired when the view is disposed.
+	 *
+	 * Views are disposed when they are explicitly hidden by a user (this happens when a user
+	 * right clicks in a view and unchecks the webview view).
+	 *
+	 * Trying to use the view after it has been disposed throws an exception.</haxe_doc>
+			</onDidDispose>
+			<onDidChangeVisibility set="null">
+				<t path="vscode.Event"><x path="Void"/></t>
+				<haxe_doc>* Event fired when the visibility of the view changes.
+	 *
+	 * Actions that trigger a visibility change:
+	 *
+	 * - The view is collapsed or expanded.
+	 * - The user switches to a different view group in the sidebar or panel.
+	 *
+	 * Note that hiding a view using the context menu instead disposes of the view and fires `onDidDispose`.</haxe_doc>
+			</onDidChangeVisibility>
+			<description>
+				<x path="Null"><c path="String"/></x>
+				<meta><m n=":optional"/></meta>
+				<haxe_doc>* Human-readable string which is rendered less prominently in the title.</haxe_doc>
+			</description>
+		</a>
+		<haxe_doc>* A webview based view.</haxe_doc>
+	</typedef>
+	<typedef path="vscode.WebviewViewProvider" params="" file="src/vscode/WebviewViewProvider.hx">
+		<a><resolveWebviewView params="T" set="method">
+	<f a="webviewView:context:token">
+		<t path="vscode.WebviewView"/>
+		<t path="vscode.WebviewViewResolveContext"><c path="resolveWebviewView.T"/></t>
+		<t path="vscode.CancellationToken"/>
+		<x path="Null"><x path="js.lib.Thenable"><x path="Void"/></x></x>
+	</f>
+	<haxe_doc>* Revolves a webview view.
+	 *
+	 * `resolveWebviewView` is called when a view first becomes visible. This may happen when the view is
+	 * first loaded or when the user hides and then shows a view again.
+	 *
+	 * @param webviewView Webview view to restore. The provider should take ownership of this view. The
+	 *    provider must set the webview's `.html` and hook up all webview events it is interested in.
+	 * @param context Additional metadata about the view being resolved.
+	 * @param token Cancellation token indicating that the view being provided is no longer needed.
+	 *
+	 * @return Optional thenable indicating that the view has been fully resolved.</haxe_doc>
+</resolveWebviewView></a>
+		<haxe_doc>* Provider for creating `WebviewView` elements.</haxe_doc>
+	</typedef>
+	<typedef path="vscode.WebviewViewResolveContext" params="T" file="src/vscode/WebviewViewResolveContext.hx">
+		<a><state set="null">
+	<x path="Null"><c path="vscode.WebviewViewResolveContext.T"/></x>
+	<haxe_doc>* Persisted state from the webview content.
+	 *
+	 * To save resources, VS Code normally deallocates webview documents (the iframe content) that are not visible.
+	 * For example, when the user collapse a view or switches to another top level activity in the sidebar, the
+	 * `WebviewView` itself is kept alive but the webview's underlying document is deallocated. It is recreated when
+	 * the view becomes visible again.
+	 *
+	 * You can prevent this behavior by setting `retainContextWhenHidden` in the `WebviewOptions`. However this
+	 * increases resource usage and should be avoided wherever possible. Instead, you can use persisted state to
+	 * save off a webview's state so that it can be quickly recreated as needed.
+	 *
+	 * To save off a persisted state, inside the webview call `acquireVsCodeApi().setState()` with
+	 * any json serializable object. To restore the state again, call `getState()`. For example:
+	 *
+	 * ```js
+	 * // Within the webview
+	 * const vscode = acquireVsCodeApi();
+	 *
+	 * // Get existing state
+	 * const oldState = vscode.getState() || { value: 0 };
+	 *
+	 * // Update state
+	 * setState({ value: oldState.value + 1 })
+	 * ```
+	 *
+	 * VS Code ensures that the persisted state is saved correctly when a webview is hidden and across
+	 * editor restarts.</haxe_doc>
+</state></a>
+		<haxe_doc>* Additional information the webview view being resolved.
+ *
+ * @param T Type of the webview's state.</haxe_doc>
 	</typedef>
 	<typedef path="vscode.WindowState" params="" file="src/vscode/WindowState.hx">
 		<a><focused set="null">
@@ -24695,7 +24918,7 @@
  * The *effective* value (returned by [`get`](#WorkspaceConfiguration.get)) is computed by overriding or merging the values in the following order.
  *
  * ```
- * `defaultValue`
+ * `defaultValue` (if defined in `package.json` otherwise derived from the value's type)
  * `globalValue` (if defined)
  * `workspaceValue` (if defined)
  * `workspaceFolderValue` (if defined)
