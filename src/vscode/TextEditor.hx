@@ -85,7 +85,7 @@ typedef TextEditor = {
 	function revealRange(range:Range, ?revealType:TextEditorRevealType):Void;
 
 	/**
-	 * ~~Show the text editor.~~
+	 * Show the text editor.
 	 *
 	 * @deprecated Use [window.showTextDocument](#window.showTextDocument) instead.
 	 *
@@ -96,7 +96,7 @@ typedef TextEditor = {
 	function show(?column:ViewColumn):Void;
 
 	/**
-	 * ~~Hide the text editor.~~
+	 * Hide the text editor.
 	 *
 	 * @deprecated Use the command `workbench.action.closeActiveEditor` instead.
 	 * This method shows unexpected behavior and will be removed in the next major update.

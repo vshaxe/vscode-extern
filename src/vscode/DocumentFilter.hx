@@ -5,8 +5,11 @@ package vscode;
  * the [language](#TextDocument.languageId), the [scheme](#Uri.scheme) of
  * its resource, or a glob-pattern that is applied to the [path](#TextDocument.fileName).
  *
- * @sample A language filter that applies to typescript files on disk: `{ language: 'typescript', scheme: 'file' }`
- * @sample A language filter that applies to all package.json paths: `{ language: 'json', scheme: 'untitled', pattern: '**​/package.json' }`
+ * @example <caption>A language filter that applies to typescript files on disk</caption>
+ * { language: 'typescript', scheme: 'file' }
+ *
+ * @example <caption>A language filter that applies to all package.json paths</caption>
+ * { language: 'json', scheme: 'untitled', pattern: '**​/package.json' }
  */
 typedef DocumentFilter = {
 	/**

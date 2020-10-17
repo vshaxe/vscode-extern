@@ -30,8 +30,10 @@ package vscode;
  * VS Code will save off the state from `setState` of all webviews that have a serializer. When the
  * webview first becomes visible after the restart, this state is passed to `deserializeWebviewPanel`.
  * The extension can then restore the old `WebviewPanel` from this state.
+ *
+ * @param T Type of the webview's state.
  */
-typedef WebviewPanelSerializer = {
+typedef WebviewPanelSerializer<T> = {
 	/**
 	 * Restore a webview panel from its serialized `state`.
 	 *
@@ -43,5 +45,5 @@ typedef WebviewPanelSerializer = {
 	 *
 	 * @return Thenable indicating that the webview has been fully restored.
 	 */
-	function deserializeWebviewPanel(webviewPanel:WebviewPanel, state:Any):Thenable<Void>;
+	function deserializeWebviewPanel(webviewPanel:WebviewPanel, state:T):Thenable<Void>;
 }

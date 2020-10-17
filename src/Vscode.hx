@@ -646,8 +646,8 @@ extern class VscodeWindow {
 	function setStatusBarMessage(text:String):Disposable;
 
 	/**
-	 * ~~Show progress in the Source Control viewlet while running the given callback and while
-	 * its returned promise isn't resolve or rejected.~~
+	 * Show progress in the Source Control viewlet while running the given callback and while
+	 * its returned promise isn't resolve or rejected.
 	 *
 	 * @deprecated Use `withProgress` instead.
 	 *
@@ -759,7 +759,41 @@ extern class VscodeWindow {
 	 * @param viewType Type of the webview panel that can be serialized.
 	 * @param serializer Webview serializer.
 	 */
-	function registerWebviewPanelSerializer(viewType:String, serializer:WebviewPanelSerializer):Disposable;
+	function registerWebviewPanelSerializer<T>(viewType:String, serializer:WebviewPanelSerializer<T>):Disposable;
+
+	/**
+	 * Register a new provider for webview views.
+	 *
+	 * @param viewId Unique id of the view. This should match the `id` from the
+	 *   `views` contribution in the package.json.
+	 * @param provider Provider for the webview views.
+	 *
+	 * @return Disposable that unregisters the provider.
+	 */
+	function registerWebviewViewProvider(viewId:String, provider:WebviewViewProvider, ?options:{
+		/**
+		 * Content settings for the webview created for this view.
+		 */
+		var ?webviewOptions(default, null):{
+			/**
+			 * Controls if the webview element itself (iframe) is kept around even when the view
+			 * is no longer visible.
+			 *
+			 * Normally the webview's html context is created when the view becomes visible
+			 * and destroyed when it is hidden. Extensions that have complex state
+			 * or UI can set the `retainContextWhenHidden` to make VS Code keep the webview
+			 * context around, even when the webview moves to a background tab. When a webview using
+			 * `retainContextWhenHidden` becomes hidden, its scripts and other dynamic content are suspended.
+			 * When the view becomes visible again, the context is automatically restored
+			 * in the exact same state it was in originally. You cannot send messages to a
+			 * hidden webview, even with `retainContextWhenHidden` enabled.
+			 *
+			 * `retainContextWhenHidden` has a high memory overhead and should only be used if
+			 * your view's context cannot be quickly saved and restored.
+			 */
+			var ?retainContextWhenHidden(default, null):Bool;
+		};
+	}):Disposable;
 
 	/**
 	 * Register a provider for custom editors for the `viewType` contributed by the `customEditors` extension point.
@@ -841,8 +875,8 @@ extern class VscodeExtensions {
 
 extern class VscodeScm {
 	/**
-	 * ~~The [input box](#SourceControlInputBox) for the last source control
-	 * created by the extension.~~
+	 * The [input box](#SourceControlInputBox) for the last source control
+	 * created by the extension.
 	 *
 	 * @deprecated Use SourceControl.inputBox instead
 	 */
@@ -982,7 +1016,8 @@ extern class VscodeLanguages {
 	 * @param metadata Metadata about the kind of code actions the provider provides.
 	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
 	 */
-	function registerCodeActionsProvider(selector:DocumentSelector, provider:CodeActionProvider, ?metadata:CodeActionProviderMetadata):Disposable;
+	function registerCodeActionsProvider<T:CodeAction>(selector:DocumentSelector, provider:CodeActionProvider<T>,
+		?metadata:CodeActionProviderMetadata):Disposable;
 
 	/**
 	 * Register a code lens provider.
@@ -1320,8 +1355,8 @@ extern class VscodeWorkspace {
 	var fs(default, null):FileSystem;
 
 	/**
-	 * ~~The folder that is open in the editor. `undefined` when no folder
-	 * has been opened.~~
+	 * The folder that is open in the editor. `undefined` when no folder
+	 * has been opened.
 	 *
 	 * @deprecated Use [`workspaceFolders`](#workspace.workspaceFolders) instead.
 	 */
@@ -1463,7 +1498,9 @@ extern class VscodeWorkspace {
 	/**
 	 * Find files across all [workspace folders](#workspace.workspaceFolders) in the workspace.
 	 *
-	 * @sample `findFiles('**​/*.js', '**​/node_modules/**', 10)`
+	 * @example
+	 * findFiles('**​/*.js', '**​/node_modules/**', 10)
+	 *
 	 * @param include A [glob pattern](#GlobPattern) that defines the files to search for. The glob pattern
 	 * will be matched against the file paths of resulting matches relative to their workspace. Use a [relative pattern](#RelativePattern)
 	 * to restrict the search results to a [workspace folder](#WorkspaceFolder).
@@ -1697,7 +1734,7 @@ extern class VscodeWorkspace {
 	var onDidChangeConfiguration(default, null):Event<ConfigurationChangeEvent>;
 
 	/**
-	 * ~~Register a task provider.~~
+	 * Register a task provider.
 	 *
 	 * @deprecated Use the corresponding function on the `tasks` namespace instead
 	 *

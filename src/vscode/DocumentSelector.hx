@@ -9,7 +9,8 @@ package vscode;
  * a feature works without further context, e.g. without the need to resolve related
  * 'files'.
  *
- * @sample `let sel:DocumentSelector = { scheme: 'file', language: 'typescript' }`;
+ * @example
+ * let sel:DocumentSelector = { scheme: 'file', language: 'typescript' };
  */
 typedef DocumentSelector = EitherType<DocumentSelectorSimple, Array<DocumentSelectorSimple>>;
 

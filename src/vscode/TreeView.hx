@@ -52,6 +52,12 @@ typedef TreeView<T> = {
 	var ?title:String;
 
 	/**
+	 * An optional human-readable description which is rendered less prominently in the title of the view.
+	 * Setting the title description to null, undefined, or empty string will remove the description from the view.
+	 */
+	var ?description:String;
+
+	/**
 	 * Reveals the given element in the tree view.
 	 * If the tree view is not visible then the tree view is shown and element is revealed.
 	 *

@@ -11,6 +11,7 @@ package vscode;
  * @param disposables An array to which a [disposable](#Disposable) will be added.
  * @return A disposable which unsubscribes the event listener.
  *
- * @sample `item.onDidChange(function(event) { console.log("Event happened: " + event); });`
+ * @example
+ * item.onDidChange(function(event) { console.log("Event happened: " + event); });
  */
 typedef Event<T> = (T->Void)->?Any->?Array<Disposable>->Disposable;

@@ -50,6 +50,13 @@ extern class CompletionItem {
 	 * A string that should be used when comparing this item
 	 * with other items. When `falsy` the [label](#CompletionItem.label)
 	 * is used.
+	 *
+	 * Note that `sortText` is only used for the initial ordering of completion
+	 * items. When having a leading word (prefix) ordering is based on how
+	 * well completion match that prefix and the initial ordering is only used
+	 * when completions match equal. The prefix is defined by the
+	 * [`range`](#CompletionItem.range)-property and can therefore be different
+	 * for each completion.
 	 */
 	var sortText:Null<String>;
 
@@ -57,6 +64,10 @@ extern class CompletionItem {
 	 * A string that should be used when filtering a set of
 	 * completion items. When `falsy` the [label](#CompletionItem.label)
 	 * is used.
+	 *
+	 * Note that the filter text is matched against the leading word (prefix) which is defined
+	 * by the [`range`](#CompletionItem.range)-property.
+	 * prefix.
 	 */
 	var filterText:Null<String>;
 
@@ -104,12 +115,12 @@ extern class CompletionItem {
 	/**
 	 * @deprecated Use `CompletionItem.insertText` and `CompletionItem.range` instead.
 	 *
-	 * ~~An [edit](#TextEdit) which is applied to a document when selecting
+	 * An [edit](#TextEdit) which is applied to a document when selecting
 	 * this completion. When an edit is provided the value of
-	 * [insertText](#CompletionItem.insertText) is ignored.~~
+	 * [insertText](#CompletionItem.insertText) is ignored.
 	 *
-	 * ~~The [range](#Range) of the edit must be single-line and on the same
-	 * line completions were [requested](#CompletionItemProvider.provideCompletionItems) at.~~
+	 * The [range](#Range) of the edit must be single-line and on the same
+	 * line completions were [requested](#CompletionItemProvider.provideCompletionItems) at.
 	 */
 	@:deprecated("Use `CompletionItem.insertText` and `CompletionItem.range` instead.")
 	var textEdit:Null<TextEdit>;

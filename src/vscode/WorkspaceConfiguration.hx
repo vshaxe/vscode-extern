@@ -12,7 +12,7 @@ package vscode;
  * The *effective* value (returned by [`get`](#WorkspaceConfiguration.get)) is computed by overriding or merging the values in the following order.
  *
  * ```
- * `defaultValue`
+ * `defaultValue` (if defined in `package.json` otherwise derived from the value's type)
  * `globalValue` (if defined)
  * `workspaceValue` (if defined)
  * `workspaceFolderValue` (if defined)
