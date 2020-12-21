@@ -5,7 +5,7 @@ extern class TreeItem {
 	/**
 	 * A human-readable string describing this item. When `falsy`, it is derived from [resourceUri](#TreeItem.resourceUri).
 	 */
-	var label:Null<String>;
+	var label:Null<EitherType<String, TreeItemLabel>>;
 
 	/**
 	 * Optional id for the tree item that has to be unique across tree. The id is used to preserve the selection and expansion state of the tree item.
@@ -38,10 +38,14 @@ extern class TreeItem {
 	/**
 	 * The tooltip text when you hover over this item.
 	 */
-	var tooltip:Null<String>;
+	var tooltip:Null<EitherType<String, MarkdownString>>;
 
 	/**
 	 * The [command](#Command) that should be executed when the tree item is selected.
+	 * 
+	 * Please use `vscode.open` or `vscode.diff` as command IDs when the tree item is opening
+	 * something in the editor. Using these commands ensures that the resulting editor will
+	 * appear consistent with how other built-in trees open editors.
 	 */
 	var command:Null<Command>;
 
@@ -83,5 +87,5 @@ extern class TreeItem {
 	 * @param collapsibleState [TreeItemCollapsibleState](#TreeItemCollapsibleState) of the tree item. Default is [TreeItemCollapsibleState.None](#TreeItemCollapsibleState.None)
 	 */
 	@:overload(function(resourceUri:Uri, ?collapsibleState:TreeItemCollapsibleState):Void {})
-	function new(label:String, ?collapsibleState:TreeItemCollapsibleState);
+	function new(label:EitherType<String, TreeItemLabel>, ?collapsibleState:TreeItemCollapsibleState);
 }

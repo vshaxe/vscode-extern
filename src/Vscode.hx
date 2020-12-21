@@ -812,27 +812,27 @@ extern class VscodeWindow {
 	 */
 	function registerCustomEditorProvider<T:CustomDocument>(viewType:String,
 		provider:EitherType<CustomTextEditorProvider, EitherType<CustomReadonlyEditorProvider<T>, CustomEditorProvider<T>>>, ?options:{
-		/**
-		 * Content settings for the webview panels created for this custom editor.
-		 */
-		final ?webviewOptions:WebviewPanelOptions;
+			/**
+			 * Content settings for the webview panels created for this custom editor.
+			 */
+			final ?webviewOptions:WebviewPanelOptions;
 
-		/**
-		 * Only applies to `CustomReadonlyEditorProvider | CustomEditorProvider`.
-		 *
-		 * Indicates that the provider allows multiple editor instances to be open at the same time for
-		 * the same resource.
-		 *
-		 * By default, VS Code only allows one editor instance to be open at a time for each resource. If the
-		 * user tries to open a second editor instance for the resource, the first one is instead moved to where
-		 * the second one was to be opened.
-		 *
-		 * When `supportsMultipleEditorsPerDocument` is enabled, users can split and create copies of the custom
-		 * editor. In this case, the custom editor must make sure it can properly synchronize the states of all
-		 * editor instances for a resource so that they are consistent.
-		 */
-		final ?supportsMultipleEditorsPerDocument:Bool;
-	}):Disposable;
+			/**
+			 * Only applies to `CustomReadonlyEditorProvider | CustomEditorProvider`.
+			 *
+			 * Indicates that the provider allows multiple editor instances to be open at the same time for
+			 * the same resource.
+			 *
+			 * By default, VS Code only allows one editor instance to be open at a time for each resource. If the
+			 * user tries to open a second editor instance for the resource, the first one is instead moved to where
+			 * the second one was to be opened.
+			 *
+			 * When `supportsMultipleEditorsPerDocument` is enabled, users can split and create copies of the custom
+			 * editor. In this case, the custom editor must make sure it can properly synchronize the states of all
+			 * editor instances for a resource so that they are consistent.
+			 */
+			final ?supportsMultipleEditorsPerDocument:Bool;
+		}):Disposable;
 
 	/**
 	 * Register provider that enables the detection and handling of links within the terminal.
@@ -840,6 +840,14 @@ extern class VscodeWindow {
 	 * @return Disposable that unregisters the provider.
 	 */
 	function registerTerminalLinkProvider<T:TerminalLink>(provider:TerminalLinkProvider<T>):Disposable;
+
+	/**
+	 * Register a file decoration provider.
+	 *
+	 * @param provider A [FileDecorationProvider](#FileDecorationProvider).
+	 * @return A [disposable](#Disposable) that unregisters the provider.
+	 */
+	function registerFileDecorationProvider(provider:FileDecorationProvider):Disposable;
 
 	/**
 	 * The currently active color theme as configured in the settings. The active
@@ -1337,6 +1345,19 @@ extern class VscodeLanguages {
 	function registerCallHierarchyProvider(selector:DocumentSelector, provider:CallHierarchyProvider):Disposable;
 
 	/**
+	 * Register a linked editing range provider.
+	 *
+	 * Multiple providers can be registered for a language. In that case providers are sorted
+	 * by their [score](#languages.match) and the best-matching provider that has a result is used. Failure
+	 * of the selected provider will cause a failure of the whole operation.
+	 *
+	 * @param selector A selector that defines the documents this provider is applicable to.
+	 * @param provider A linked editing range provider.
+	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+	 */
+	function registerLinkedEditingRangeProvider(selector:DocumentSelector, provider:LinkedEditingRangeProvider):Disposable;
+
+	/**
 	 * Set a [language configuration](#LanguageConfiguration) for a language.
 	 *
 	 * @param language A language identifier like `typescript`.
@@ -1486,6 +1507,8 @@ extern class VscodeWorkspace {
 	 * flags to ignore certain kinds of events can be provided. To stop listening to events the watcher must be disposed.
 	 *
 	 * *Note* that only files within the current [workspace folders](#workspace.workspaceFolders) can be watched.
+	 * *Note* that when watching for file changes such as '**​/*.js', notifications will not be sent when a parent folder is
+	 * moved or deleted (this is a known limitation of the current implementation and may change in the future).
 	 *
 	 * @param globPattern A [glob pattern](#GlobPattern) that is applied to the absolute paths of created, changed,
 	 * and deleted files. Use a [relative pattern](#RelativePattern) to limit events to a certain [workspace folder](#WorkspaceFolder).

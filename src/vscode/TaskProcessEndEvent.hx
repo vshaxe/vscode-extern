@@ -11,7 +11,7 @@ typedef TaskProcessEndEvent = {
 	var execution(default, null):TaskExecution;
 
 	/**
-	 * The process's exit code.
+	 * The process's exit code. Will be `undefined` when the task is terminated.
 	 */
-	var exitCode(default, null):Int;
+	var exitCode(default, null):Null<Int>;
 }

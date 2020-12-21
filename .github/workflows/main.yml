@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: krdlab/setup-haxe@v1.1.2
+    - uses: krdlab/setup-haxe@v1.1.4
     - run: |
         haxelib install hxnodejs
         haxelib git dox https://github.com/HaxeFoundation/dox
