@@ -986,7 +986,8 @@
 	 * Text editor commands are different from ordinary [commands](#commands.registerCommand) as
 	 * they only execute when there is an active editor when the command is called. Also, the
 	 * command handler of an editor command has access to the active editor and to an
-	 * [edit](#TextEditorEdit)-builder.
+	 * [edit](#TextEditorEdit)-builder. Note that the edit-builder is only valid while the
+	 * callback executes.
 	 *
 	 * @param command A unique identifier for the command.
 	 * @param callback A command handler function with access to an [editor](#TextEditor) and an [edit](#TextEditorEdit).
@@ -1382,7 +1383,7 @@
 	 * @return A promise that resolves to the selection or `undefined`.</haxe_doc>
 </showQuickPick></overloads>
 		</showQuickPick>
-		<showQuickPickMany public="1" params="T" get="inline" set="null" line="540">
+		<showQuickPickMany public="1" params="T" get="inline" set="null" line="541">
 			<f a="items:?options:?token">
 				<x path="haxe.extern.EitherType">
 					<c path="Array"><c path="showQuickPickMany.T"/></c>
@@ -1872,17 +1873,17 @@
 						<x path="Null"><x path="Bool"/></x>
 						<meta><m n=":optional"/></meta>
 						<haxe_doc>* Only applies to `CustomReadonlyEditorProvider | CustomEditorProvider`.
-		 *
-		 * Indicates that the provider allows multiple editor instances to be open at the same time for
-		 * the same resource.
-		 *
-		 * By default, VS Code only allows one editor instance to be open at a time for each resource. If the
-		 * user tries to open a second editor instance for the resource, the first one is instead moved to where
-		 * the second one was to be opened.
-		 *
-		 * When `supportsMultipleEditorsPerDocument` is enabled, users can split and create copies of the custom
-		 * editor. In this case, the custom editor must make sure it can properly synchronize the states of all
-		 * editor instances for a resource so that they are consistent.</haxe_doc>
+			 *
+			 * Indicates that the provider allows multiple editor instances to be open at the same time for
+			 * the same resource.
+			 *
+			 * By default, VS Code only allows one editor instance to be open at a time for each resource. If the
+			 * user tries to open a second editor instance for the resource, the first one is instead moved to where
+			 * the second one was to be opened.
+			 *
+			 * When `supportsMultipleEditorsPerDocument` is enabled, users can split and create copies of the custom
+			 * editor. In this case, the custom editor must make sure it can properly synchronize the states of all
+			 * editor instances for a resource so that they are consistent.</haxe_doc>
 					</supportsMultipleEditorsPerDocument>
 				</a>
 				<c path="vscode.Disposable"/>
@@ -1909,6 +1910,16 @@
 	 * @param provider The provider that provides the terminal links.
 	 * @return Disposable that unregisters the provider.</haxe_doc>
 		</registerTerminalLinkProvider>
+		<registerFileDecorationProvider public="1" set="method">
+			<f a="provider">
+				<t path="vscode.FileDecorationProvider"/>
+				<c path="vscode.Disposable"/>
+			</f>
+			<haxe_doc>* Register a file decoration provider.
+	 *
+	 * @param provider A [FileDecorationProvider](#FileDecorationProvider).
+	 * @return A [disposable](#Disposable) that unregisters the provider.</haxe_doc>
+		</registerFileDecorationProvider>
 		<activeColorTheme public="1">
 			<t path="vscode.ColorTheme"/>
 			<haxe_doc>* The currently active color theme as configured in the settings. The active
@@ -2520,6 +2531,22 @@
 	 * @param provider A call hierarchy provider.
 	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.</haxe_doc>
 		</registerCallHierarchyProvider>
+		<registerLinkedEditingRangeProvider public="1" set="method">
+			<f a="selector:provider">
+				<t path="vscode.DocumentSelector"/>
+				<t path="vscode.LinkedEditingRangeProvider"/>
+				<c path="vscode.Disposable"/>
+			</f>
+			<haxe_doc>* Register a linked editing range provider.
+	 *
+	 * Multiple providers can be registered for a language. In that case providers are sorted
+	 * by their [score](#languages.match) and the best-matching provider that has a result is used. Failure
+	 * of the selected provider will cause a failure of the whole operation.
+	 *
+	 * @param selector A selector that defines the documents this provider is applicable to.
+	 * @param provider A linked editing range provider.
+	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.</haxe_doc>
+		</registerLinkedEditingRangeProvider>
 		<setLanguageConfiguration public="1" set="method">
 			<f a="language:configuration">
 				<c path="String"/>
@@ -2692,6 +2719,8 @@
 	 * flags to ignore certain kinds of events can be provided. To stop listening to events the watcher must be disposed.
 	 *
 	 * *Note* that only files within the current [workspace folders](#workspace.workspaceFolders) can be watched.
+	 * *Note* that when watching for file changes such as '**​/*.js', notifications will not be sent when a parent folder is
+	 * moved or deleted (this is a known limitation of the current implementation and may change in the future).
 	 *
 	 * @param globPattern A [glob pattern](#GlobPattern) that is applied to the absolute paths of created, changed,
 	 * and deleted files. Use a [relative pattern](#RelativePattern) to limit events to a certain [workspace folder](#WorkspaceFolder).
@@ -12449,6 +12478,11 @@
 				<haxe_doc>* Whether the thread should be collapsed or expanded when opening the document.
 	 * Defaults to Collapsed.</haxe_doc>
 			</collapsibleState>
+			<canReply>
+				<x path="Bool"/>
+				<haxe_doc>* Whether the thread supports reply.
+	 * Defaults to true.</haxe_doc>
+			</canReply>
 		</a>
 		<haxe_doc>* A collection of [comments](#Comment) representing a conversation at a particular range in a document.</haxe_doc>
 	</typedef>
@@ -13723,14 +13757,13 @@
 				</f>
 				<x path="Void"/>
 			</f>
-			<haxe_doc>* Constructs a CustomExecution task object. The callback will be executed the task is run, at which point the
+			<haxe_doc>* Constructs a CustomExecution task object. The callback will be executed when the task is run, at which point the
 	 * extension should return the Pseudoterminal it will "run in". The task should wait to do further execution until
 	 * [Pseudoterminal.open](#Pseudoterminal.open) is called. Task cancellation should be handled using
 	 * [Pseudoterminal.close](#Pseudoterminal.close). When the task is complete fire
 	 * [Pseudoterminal.onDidClose](#Pseudoterminal.onDidClose).
-	 * @param process The [Pseudoterminal](#Pseudoterminal) to be used by the task to display output.
 	 * @param callback The callback that will be called when the task is started by a user. Any ${} style variables that
-	 * were in the task definition will be resolved and passed into the callback.</haxe_doc>
+	 * were in the task definition will be resolved and passed into the callback as `resolvedDefinition`.</haxe_doc>
 		</new>
 		<haxe_doc>* Class used to execute an extension callback as a task.</haxe_doc>
 		<meta><m n=":jsRequire">
@@ -15222,18 +15255,18 @@
 	</typedef>
 	<typedef path="vscode.DocumentFilter" params="" file="src/vscode/DocumentFilter.hx">
 		<a>
-			<scheme>
+			<scheme final="1" set="null">
 				<x path="Null"><c path="String"/></x>
 				<meta><m n=":optional"/></meta>
 				<haxe_doc>* A Uri [scheme](#Uri.scheme), like `file` or `untitled`.</haxe_doc>
 			</scheme>
-			<pattern>
+			<pattern final="1" set="null">
 				<x path="Null"><t path="vscode.GlobPattern"/></x>
 				<meta><m n=":optional"/></meta>
 				<haxe_doc>* A [glob pattern](#GlobPattern) that is matched on the absolute path of the document. Use a [relative pattern](#RelativePattern)
 	 * to filter documents to a [workspace folder](#WorkspaceFolder).</haxe_doc>
 			</pattern>
-			<language>
+			<language final="1" set="null">
 				<x path="Null"><c path="String"/></x>
 				<meta><m n=":optional"/></meta>
 				<haxe_doc>* A language id, like `typescript`.</haxe_doc>
@@ -15504,7 +15537,7 @@
 	<typedef path="vscode.DocumentSelector" params="" file="src/vscode/DocumentSelector.hx">
 		<x path="haxe.extern.EitherType">
 			<t path="vscode.DocumentSelectorSimple"/>
-			<c path="Array"><t path="vscode.DocumentSelectorSimple"/></c>
+			<x path="haxe.ds.ReadOnlyArray"><t path="vscode.DocumentSelectorSimple"/></x>
 		</x>
 		<haxe_doc>* A language selector is the combination of one or many language identifiers
  * and [language filters](#DocumentFilter).
@@ -16130,7 +16163,61 @@
 	<typedef path="vscode.ExtensionContext" params="" file="src/vscode/ExtensionContext.hx">
 		<a>
 			<workspaceState set="null">
-				<t path="vscode.Memento"/>
+				<a>
+					<update set="method">
+						<f a="key:value">
+							<c path="String"/>
+							<x path="Any"/>
+							<x path="js.lib.Thenable"><x path="Void"/></x>
+						</f>
+						<haxe_doc>* Store a value. The value must be JSON-stringifyable.
+	 *
+	 * @param key A string.
+	 * @param value A value. MUST not contain cyclic references.</haxe_doc>
+					</update>
+					<setKeysForSync set="method">
+						<f a="keys">
+							<c path="Array"><c path="String"/></c>
+							<x path="Void"/>
+						</f>
+						<haxe_doc>* Set the keys whose values should be synchronized across devices when synchronizing user-data
+		 * like configuration, extensions, and mementos.
+		 *
+		 * Note that this function defines the whole set of keys whose values are synchronized:
+		 *  - calling it with an empty array stops synchronization for this memento
+		 *  - calling it with a non-empty array replaces all keys whose values are synchronized
+		 *
+		 * For any given set of keys this function needs to be called only once but there is no harm in
+		 * repeatedly calling it.
+		 *
+		 * @param keys The set of keys whose values are synced.</haxe_doc>
+					</setKeysForSync>
+					<get params="T" set="method">
+						<f a="key">
+							<c path="String"/>
+							<x path="Null"><c path="get.T"/></x>
+						</f>
+						<haxe_doc>* Return a value.
+	 *
+	 * @param key A string.
+	 * @param defaultValue A value that should be returned when there is no
+	 * value (`undefined`) with the given key.
+	 * @return The stored value, `undefined`, or the defaultValue.</haxe_doc>
+						<overloads><get public="1" params="T" set="method">
+	<f a="key:defaultValue">
+		<c path="String"/>
+		<c path="get.T"/>
+		<c path="get.T"/>
+	</f>
+	<haxe_doc>* Return a value.
+	 *
+	 * @param key A string.
+	 * @param defaultValue A value that should be returned when there is no
+	 * value (`undefined`) with the given key.
+	 * @return The stored value, `undefined`, or the defaultValue.</haxe_doc>
+</get></overloads>
+					</get>
+				</a>
 				<haxe_doc>* A memento object that stores state in the context
 	 * of the currently opened [workspace](#workspace.workspaceFolders).</haxe_doc>
 			</workspaceState>
@@ -16154,7 +16241,7 @@
 			</storageUri>
 			<storagePath set="null">
 				<x path="Null"><c path="String"/></x>
-				<meta><m n=":deprecated"><e>"Use [storagePath](#ExtensionContent.storageUri) instead."</e></m></meta>
+				<meta><m n=":deprecated"><e>"Use [storageUri](#ExtensionContext.storageUri) instead."</e></m></meta>
 				<haxe_doc>* An absolute file path of a workspace specific directory in which the extension
 	 * can store private state. The directory might not exist on disk and creation is
 	 * up to the extension. However, the parent directory is guaranteed to be existent.
@@ -16191,7 +16278,7 @@
 			</globalStorageUri>
 			<globalStoragePath set="null">
 				<c path="String"/>
-				<meta><m n=":deprecated"><e>"Use [globalStoragePath](#ExtensionContent.globalStorageUri) instead."</e></m></meta>
+				<meta><m n=":deprecated"><e>"Use [globalStorageUri](#ExtensionContext.globalStorageUri) instead."</e></m></meta>
 				<haxe_doc>* An absolute file path in which the extension can store global state.
 	 * The directory might not exist on disk and creation is
 	 * up to the extension. However, the parent directory is guaranteed to be existent.
@@ -16230,7 +16317,7 @@
 				<haxe_doc>* Get the absolute path of a resource contained in the extension.
 	 *
 	 * *Note* that an absolute uri can be constructed via [`Uri.joinPath`](#Uri.joinPath) and
-	 * [`extensionUri`](#ExtensionContent.extensionUri), e.g. `vscode.Uri.joinPath(context.extensionUri, relativePath);`
+	 * [`extensionUri`](#ExtensionContext.extensionUri), e.g. `vscode.Uri.joinPath(context.extensionUri, relativePath);`
 	 *
 	 * @param relativePath A relative path to a resource contained in the extension.
 	 * @return The absolute path of the resource.</haxe_doc>
@@ -16499,6 +16586,77 @@
 </files></a>
 		<haxe_doc>* An event that is fired after files are created.</haxe_doc>
 	</typedef>
+	<class path="vscode.FileDecoration" params="" file="src/vscode/FileDecoration.hx" extern="1">
+		<badge public="1">
+			<x path="Null"><c path="String"/></x>
+			<haxe_doc>* A very short string that represents this decoration.</haxe_doc>
+		</badge>
+		<tooltip public="1">
+			<x path="Null"><c path="String"/></x>
+			<haxe_doc>* A human-readable tooltip for this decoration.</haxe_doc>
+		</tooltip>
+		<color public="1">
+			<x path="Null"><c path="vscode.ThemeColor"/></x>
+			<haxe_doc>* The color of this decoration.</haxe_doc>
+		</color>
+		<propagate public="1">
+			<x path="Null"><x path="Bool"/></x>
+			<haxe_doc>* A flag expressing that this decoration should be
+	 * propagated to its parents.</haxe_doc>
+		</propagate>
+		<new public="1" set="method">
+			<f a="?badge:?tooltip:?color">
+				<c path="String"/>
+				<c path="String"/>
+				<c path="vscode.ThemeColor"/>
+				<x path="Void"/>
+			</f>
+			<haxe_doc>* Creates a new decoration.
+	 *
+	 * @param badge A letter that represents the decoration.
+	 * @param tooltip The tooltip of the decoration.
+	 * @param color The color of the decoration.</haxe_doc>
+		</new>
+		<haxe_doc>* A file decoration represents metadata that can be rendered with a file.</haxe_doc>
+		<meta><m n=":jsRequire">
+	<e>"vscode"</e>
+	<e>"FileDecoration"</e>
+</m></meta>
+	</class>
+	<typedef path="vscode.FileDecorationProvider" params="" file="src/vscode/FileDecorationProvider.hx">
+		<a>
+			<provideFileDecoration set="method">
+				<f a="uri:token">
+					<c path="vscode.Uri"/>
+					<t path="vscode.CancellationToken"/>
+					<t path="vscode.ProviderResult"><c path="vscode.FileDecoration"/></t>
+				</f>
+				<haxe_doc>* Provide decorations for a given uri.
+	 *
+	 * *Note* that this function is only called when a file gets rendered in the UI.
+	 * This means a decoration from a descendent that propagates upwards must be signaled
+	 * to the editor via the [onDidChangeFileDecorations](#FileDecorationProvider.onDidChangeFileDecorations)-event.
+	 *
+	 * @param uri The uri of the file to provide a decoration for.
+	 * @param token A cancellation token.
+	 * @returns A decoration or a thenable that resolves to such.</haxe_doc>
+			</provideFileDecoration>
+			<onDidChangeFileDecorations>
+				<x path="Null"><t path="vscode.Event"><x path="Null"><x path="haxe.extern.EitherType">
+	<c path="vscode.Uri"/>
+	<c path="Array"><c path="vscode.Uri"/></c>
+</x></x></t></x>
+				<meta><m n=":optional"/></meta>
+				<haxe_doc>* An optional event to signal that decorations for one or many files have changed.
+	 *
+	 * *Note* that this event should be used to propagate information about children.
+	 *
+	 * @see [EventEmitter](#EventEmitter)</haxe_doc>
+			</onDidChangeFileDecorations>
+		</a>
+		<haxe_doc>* The decoration provider interfaces defines the contract between extensions and
+ * file decorations.</haxe_doc>
+	</typedef>
 	<typedef path="vscode.FileDeleteEvent" params="" file="src/vscode/FileDeleteEvent.hx">
 		<a><files set="null">
 	<x path="haxe.ds.ReadOnlyArray"><c path="vscode.Uri"/></x>
@@ -16607,6 +16765,23 @@
 	 * @param uri The uri of the folder.
 	 * @return An array of name/type-tuples or a thenable that resolves to such.</haxe_doc>
 			</readDirectory>
+			<isWritableFileSystem set="method">
+				<f a="scheme">
+					<c path="String"/>
+					<x path="Null"><x path="Bool"/></x>
+				</f>
+				<haxe_doc>* Check if a given file system supports writing files.
+	 *
+	 * Keep in mind that just because a file system supports writing, that does
+	 * not mean that writes will always succeed. There may be permissions issues
+	 * or other errors that prevent writing a file.
+	 *
+	 * @param scheme The scheme of the filesystem, for example `file` or `git`.
+	 *
+	 * @return `true` if the file system supports writing, `false` if it does not
+	 * support writing (i.e. it is readonly), and `undefined` if VS Code does not
+	 * know about the filesystem.</haxe_doc>
+			</isWritableFileSystem>
 			<delete set="method">
 				<f a="uri:?options">
 					<c path="vscode.Uri"/>
@@ -17390,19 +17565,26 @@
 		</meta>
 	</class>
 	<typedef path="vscode.FoldingRangeProvider" params="" file="src/vscode/FoldingRangeProvider.hx">
-		<a><provideFoldingRanges set="method">
-	<f a="document:context:token">
-		<t path="vscode.TextDocument"/>
-		<t path="vscode.FoldingContext"/>
-		<t path="vscode.CancellationToken"/>
-		<t path="vscode.ProviderResult"><c path="Array"><c path="vscode.FoldingRange"/></c></t>
-	</f>
-	<haxe_doc>* Returns a list of folding ranges or null and undefined if the provider
+		<a>
+			<provideFoldingRanges set="method">
+				<f a="document:context:token">
+					<t path="vscode.TextDocument"/>
+					<t path="vscode.FoldingContext"/>
+					<t path="vscode.CancellationToken"/>
+					<t path="vscode.ProviderResult"><c path="Array"><c path="vscode.FoldingRange"/></c></t>
+				</f>
+				<haxe_doc>* Returns a list of folding ranges or null and undefined if the provider
 	 * does not want to participate or was cancelled.
 	 * @param document The document in which the command was invoked.
 	 * @param context Additional context information (for future use)
 	 * @param token A cancellation token.</haxe_doc>
-</provideFoldingRanges></a>
+			</provideFoldingRanges>
+			<onDidChangeFoldingRanges>
+				<x path="Null"><t path="vscode.Event"><x path="Void"/></t></x>
+				<meta><m n=":optional"/></meta>
+				<haxe_doc>* An optional event to signal that the folding ranges from this provider have changed.</haxe_doc>
+			</onDidChangeFoldingRanges>
+		</a>
 		<haxe_doc>* The folding range provider interface defines the contract between extensions and
  * [Folding](https://code.visualstudio.com/docs/editor/codebasics#_folding) in the editor.</haxe_doc>
 	</typedef>
@@ -17909,6 +18091,55 @@
 		<haxe_doc>* The language configuration interfaces defines the contract between extensions
  * and various editor features, like automatic bracket insertion, automatic indentation etc.</haxe_doc>
 	</typedef>
+	<typedef path="vscode.LinkedEditingRangeProvider" params="" file="src/vscode/LinkedEditingRangeProvider.hx">
+		<a><provideLinkedEditingRanges set="method">
+	<f a="document:position:token">
+		<t path="vscode.TextDocument"/>
+		<c path="vscode.Position"/>
+		<t path="vscode.CancellationToken"/>
+		<t path="vscode.ProviderResult"><c path="vscode.LinkedEditingRanges"/></t>
+	</f>
+	<haxe_doc>* For a given position in a document, returns the range of the symbol at the position and all ranges
+	 * that have the same content. A change to one of the ranges can be applied to all other ranges if the new content
+	 * is valid. An optional word pattern can be returned with the result to describe valid contents.
+	 * If no result-specific word pattern is provided, the word pattern from the language configuration is used.
+	 *
+	 * @param document The document in which the provider was invoked.
+	 * @param position The position at which the provider was invoked.
+	 * @param token A cancellation token.
+	 * @return A list of ranges that can be edited together</haxe_doc>
+</provideLinkedEditingRanges></a>
+		<haxe_doc>* The linked editing range provider interface defines the contract between extensions and
+ * the linked editing feature.</haxe_doc>
+	</typedef>
+	<class path="vscode.LinkedEditingRanges" params="" file="src/vscode/LinkedEditingRanges.hx" extern="1">
+		<ranges public="1" set="null">
+			<c path="Array"><c path="vscode.Range"/></c>
+			<haxe_doc>* A list of ranges that can be edited together. The ranges must have
+	 * identical length and text content. The ranges cannot overlap.</haxe_doc>
+		</ranges>
+		<wordPattern public="1" set="null">
+			<x path="Null"><c path="js.lib.RegExp"/></x>
+			<haxe_doc>* An optional word pattern that describes valid contents for the given ranges.
+	 * If no pattern is provided, the language configuration's word pattern will be used.</haxe_doc>
+		</wordPattern>
+		<new public="1" set="method">
+			<f a="ranges:?wordPattern">
+				<c path="Array"><c path="vscode.Range"/></c>
+				<c path="js.lib.RegExp"/>
+				<x path="Void"/>
+			</f>
+			<haxe_doc>* Create a new linked editing ranges object.
+	 *
+	 * @param ranges A list of ranges that can be edited together
+	 * @param wordPattern An optional word pattern that describes valid contents for the given ranges</haxe_doc>
+		</new>
+		<haxe_doc>* Represents a list of ranges that can be edited together along with a word pattern to describe valid range contents.</haxe_doc>
+		<meta><m n=":jsRequire">
+	<e>"vscode"</e>
+	<e>"LinkedEditingRanges"</e>
+</m></meta>
+	</class>
 	<class path="vscode.Location" params="" file="src/vscode/Location.hx" extern="1">
 		<uri public="1">
 			<c path="vscode.Uri"/>
@@ -19461,21 +19692,39 @@
 			<f a="base:pattern">
 				<x path="haxe.extern.EitherType">
 					<t path="vscode.WorkspaceFolder"/>
-					<c path="String"/>
+					<x path="haxe.extern.EitherType">
+						<c path="vscode.Uri"/>
+						<c path="String"/>
+					</x>
 				</x>
 				<c path="String"/>
 				<x path="Void"/>
 			</f>
-			<haxe_doc>* Creates a new relative pattern object with a base path and pattern to match. This pattern
-	 * will be matched on file paths relative to the base path.
+			<haxe_doc>* Creates a new relative pattern object with a base file path and pattern to match. This pattern
+	 * will be matched on file paths relative to the base.
+	 * Example:
 	 *
-	 * @param base A base file path to which this pattern will be matched against relatively.
-	 * @param pattern A file glob pattern like `*.{ts,js}` that will be matched on file paths
-	 * relative to the base path.</haxe_doc>
+	 * ```ts
+	 * const folder = vscode.workspace.workspaceFolders?.[0];
+	 * if (folder) {
+	 *
+	 *   // Match any TypeScript file in the root of this workspace folder
+	 *   const pattern1 = new vscode.RelativePattern(folder, '*.ts');
+	 *
+	 *   // Match any TypeScript file in `someFolder` inside this workspace folder
+	 *   const pattern2 = new vscode.RelativePattern(folder, 'someFolder/*.ts');
+	 * }
+	 * ```
+	 *
+	 * @param base A base to which this pattern will be matched against relatively. It is recommended
+	 * to pass in a [workspace folder](#WorkspaceFolder) if the pattern should match inside the workspace.
+	 * Otherwise, a uri or string should only be used if the pattern is for a file path outside the workspace.
+	 * @param pattern A file glob pattern like `*.{ts,js}` that will be matched on paths relative to the base.</haxe_doc>
 		</new>
 		<haxe_doc>* A relative pattern is a helper to construct glob patterns that are matched
- * relatively to a base path. The base path can either be an absolute file path
- * or a [workspace folder](#WorkspaceFolder).</haxe_doc>
+ * relatively to a base file path. The base path can either be an absolute file
+ * path as string or uri or a [workspace folder](#WorkspaceFolder), which is the
+ * preferred way of creating the relative pattern.</haxe_doc>
 		<meta><m n=":jsRequire">
 	<e>"vscode"</e>
 	<e>"RelativePattern"</e>
@@ -20695,7 +20944,7 @@
 	 *
 	 * `My text $(icon-name) contains icons like $(icon-name) this one.`
 	 *
-	 * Where the icon-name is taken from the [codicon](https://microsoft.github.io/vscode-codicons/dist/codicon.html) icon set, e.g.
+	 *  Where the icon-name is taken from the ThemeIcon [icon set](https://code.visualstudio.com/api/references/icons-in-labels#icon-listing), e.g.
 	 * `light-bulb`, `thumbsup`, `zap` etc.</haxe_doc>
 			</text>
 			<show set="method">
@@ -21580,8 +21829,8 @@
 	<typedef path="vscode.TaskProcessEndEvent" params="" file="src/vscode/TaskProcessEndEvent.hx">
 		<a>
 			<exitCode set="null">
-				<x path="Int"/>
-				<haxe_doc>* The process's exit code.</haxe_doc>
+				<x path="Null"><x path="Int"/></x>
+				<haxe_doc>* The process's exit code. Will be `undefined` when the task is terminated.</haxe_doc>
 			</exitCode>
 			<execution set="null">
 				<t path="vscode.TaskExecution"/>
@@ -23457,17 +23706,27 @@
 			<c path="vscode.ThemeIcon"/>
 			<haxe_doc>* Reference to an icon representing a folder. The icon is taken from the current file icon theme or a placeholder icon.</haxe_doc>
 		</Folder>
+		<id public="1" set="null">
+			<c path="String"/>
+			<haxe_doc>* The id of the icon. The available icons are listed in https://code.visualstudio.com/api/references/icons-in-labels#icon-listing.</haxe_doc>
+		</id>
+		<color public="1" set="null">
+			<x path="Null"><c path="vscode.ThemeColor"/></x>
+			<haxe_doc>* The optional ThemeColor of the icon. The color is currently only used in [TreeItem](#TreeItem).</haxe_doc>
+		</color>
 		<new public="1" set="method">
-			<f a="id">
+			<f a="id:?color">
 				<c path="String"/>
+				<c path="vscode.ThemeColor"/>
 				<x path="Void"/>
 			</f>
 			<haxe_doc>* Creates a reference to a theme icon.
-	 * @param id id of the icon. The available icons are listed in https://microsoft.github.io/vscode-codicons/dist/codicon.html.</haxe_doc>
+	 * @param id id id of the icon. The available icons are listed in https://code.visualstudio.com/api/references/icons-in-labels#icon-listing.
+	 * @param color optional `ThemeColor` for the icon. The color is currently only used in [TreeItem](#TreeItem).</haxe_doc>
 		</new>
 		<haxe_doc><![CDATA[* A reference to a named icon. Currently, [File](#ThemeIcon.File), [Folder](#ThemeIcon.Folder),
- * and [codicons](https://microsoft.github.io/vscode-codicons/dist/codicon.html) are supported.
- * Using a theme icon is preferred over a custom icon as it gives theme authors the possibility to change the icons.
+ * and [ThemeIcon ids](https://code.visualstudio.com/api/references/icons-in-labels#icon-listing) are supported.
+ * Using a theme icon is preferred over a custom icon as it gives product theme authors the possibility to change the icons.
  *
  * *Note* that theme icons can also be rendered inside labels and descriptions. Places that support theme icons spell this out
  * and they use the `$(<name>)`-syntax, for instance `quickPick.label = "Hello World $(globe)"`.]]></haxe_doc>
@@ -23478,6 +23737,31 @@
 	</class>
 	<typedef path="vscode.TreeDataProvider" params="T" file="src/vscode/TreeDataProvider.hx">
 		<a>
+			<resolveTreeItem set="null">
+				<x path="Null"><f a="item:element">
+	<c path="vscode.TreeItem"/>
+	<c path="vscode.TreeDataProvider.T"/>
+	<t path="vscode.ProviderResult"><c path="vscode.TreeItem"/></t>
+</f></x>
+				<meta><m n=":optional"/></meta>
+				<haxe_doc>* Called only on hover to resolve the [TreeItem](#TreeItem.tooltip) property if it is undefined.
+	 * Only properties that were undefined can be resolved in `resolveTreeItem`.
+	 * Functionality may be expanded later to include being called to resolve other missing
+	 * properties on selection and/or on open.
+	 *
+	 * Will only ever be called once per TreeItem.
+	 *
+	 * onDidChangeTreeData should not be triggered from within resolveTreeItem.
+	 *
+	 * *Note* that this function is called when tree items are already showing in the UI.
+	 * Because of that, no property that changes the presentation (label, description, command, etc.)
+	 * can be changed.
+	 *
+	 * @param element The object associated with the TreeItem
+	 * @param item Undefined properties of `item` should be set then `item` should be returned.
+	 * @return The resolved tree item or a thenable that resolves to such. It is OK to return the given
+	 * `item`. When no result is returned, the given `item` will be used.</haxe_doc>
+			</resolveTreeItem>
 			<onDidChangeTreeData>
 				<x path="Null"><t path="vscode.Event"><x path="Null"><c path="vscode.TreeDataProvider.T"/></x></t></x>
 				<meta><m n=":optional"/></meta>
@@ -23499,7 +23783,7 @@
 	 * @return [TreeItem](#TreeItem) representation of the element</haxe_doc>
 			</getTreeItem>
 			<getParent set="null">
-				<x path="Null"><f a="">
+				<x path="Null"><f a="element">
 	<c path="vscode.TreeDataProvider.T"/>
 	<t path="vscode.ProviderResult"><c path="vscode.TreeDataProvider.T"/></t>
 </f></x>
@@ -23527,7 +23811,10 @@
 	</typedef>
 	<class path="vscode.TreeItem" params="" file="src/vscode/TreeItem.hx" extern="1">
 		<label public="1">
-			<x path="Null"><c path="String"/></x>
+			<x path="Null"><x path="haxe.extern.EitherType">
+	<c path="String"/>
+	<t path="vscode.TreeItemLabel"/>
+</x></x>
 			<haxe_doc>* A human-readable string describing this item. When `falsy`, it is derived from [resourceUri](#TreeItem.resourceUri).</haxe_doc>
 		</label>
 		<id public="1">
@@ -23576,12 +23863,19 @@
 	 * Will be used to derive the icon from current file icon theme, when [iconPath](#TreeItem.iconPath) has [ThemeIcon](#ThemeIcon) value.</haxe_doc>
 		</resourceUri>
 		<tooltip public="1">
-			<x path="Null"><c path="String"/></x>
+			<x path="Null"><x path="haxe.extern.EitherType">
+	<c path="String"/>
+	<c path="vscode.MarkdownString"/>
+</x></x>
 			<haxe_doc>* The tooltip text when you hover over this item.</haxe_doc>
 		</tooltip>
 		<command public="1">
 			<x path="Null"><t path="vscode.Command"/></x>
-			<haxe_doc>* The [command](#Command) that should be executed when the tree item is selected.</haxe_doc>
+			<haxe_doc>* The [command](#Command) that should be executed when the tree item is selected.
+	 * 
+	 * Please use `vscode.open` or `vscode.diff` as command IDs when the tree item is opening
+	 * something in the editor. Using these commands ensures that the resulting editor will
+	 * appear consistent with how other built-in trees open editors.</haxe_doc>
 		</command>
 		<collapsibleState public="1">
 			<x path="Null"><x path="vscode.TreeItemCollapsibleState"/></x>
@@ -23614,7 +23908,10 @@
 		</accessibilityInformation>
 		<new public="1" set="method">
 			<f a="label:?collapsibleState">
-				<c path="String"/>
+				<x path="haxe.extern.EitherType">
+					<c path="String"/>
+					<t path="vscode.TreeItemLabel"/>
+				</x>
 				<x path="vscode.TreeItemCollapsibleState"/>
 				<x path="Void"/>
 			</f>
@@ -23714,6 +24011,21 @@
 			<m n=":enum"/>
 		</meta>
 	</class>
+	<typedef path="vscode.TreeItemLabel" params="" file="src/vscode/TreeItemLabel.hx">
+		<a>
+			<label>
+				<c path="String"/>
+				<haxe_doc>* A human-readable string describing the [Tree item](#TreeItem).</haxe_doc>
+			</label>
+			<highlights>
+				<x path="Null"><c path="Array"><c path="Array"><x path="Int"/></c></c></x>
+				<meta><m n=":optional"/></meta>
+				<haxe_doc>* Ranges in the label to highlight. A range is defined as a tuple of two number where the
+	 * first is the inclusive start index and the second the exclusive end index</haxe_doc>
+			</highlights>
+		</a>
+		<haxe_doc>* Label describing the [Tree item](#TreeItem)</haxe_doc>
+	</typedef>
 	<typedef path="vscode.TreeView" params="T" file="src/vscode/TreeView.hx">
 		<a>
 			<visible set="null">
