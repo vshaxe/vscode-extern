@@ -12,6 +12,6 @@ package vscode;
  * @example
  * let sel:DocumentSelector = { scheme: 'file', language: 'typescript' };
  */
-typedef DocumentSelector = EitherType<DocumentSelectorSimple, Array<DocumentSelectorSimple>>;
+typedef DocumentSelector = EitherType<DocumentSelectorSimple, ReadOnlyArray<DocumentSelectorSimple>>;
 
 typedef DocumentSelectorSimple = EitherType<DocumentFilter, String>;

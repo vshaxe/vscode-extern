@@ -21,8 +21,19 @@ extern class ThemeIcon {
 	static var Folder(default, never):ThemeIcon;
 
 	/**
+	 * The id of the icon. The available icons are listed in https://microsoft.github.io/vscode-codicons/dist/codicon.html.
+	 */
+	var id(default, null):String;
+
+	/**
+	 * The optional ThemeColor of the icon. The color is currently only used in [TreeItem](#TreeItem).
+	 */
+	var color(default, null):Null<ThemeColor>;
+
+	/**
 	 * Creates a reference to a theme icon.
 	 * @param id id of the icon. The available icons are listed in https://microsoft.github.io/vscode-codicons/dist/codicon.html.
+	 * @param color optional `ThemeColor` for the icon. The color is currently only used in [TreeItem](#TreeItem).
 	 */
-	function new(id:String);
+	function new(id:String, ?color:ThemeColor);
 }

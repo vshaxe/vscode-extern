@@ -15,16 +15,16 @@ typedef DocumentFilter = {
 	/**
 	 * A language id, like `typescript`.
 	 */
-	var ?language:String;
+	final ?language:String;
 
 	/**
 	 * A Uri [scheme](#Uri.scheme), like `file` or `untitled`.
 	 */
-	var ?scheme:String;
+	final ?scheme:String;
 
 	/**
 	 * A [glob pattern](#GlobPattern) that is matched on the absolute path of the document. Use a [relative pattern](#RelativePattern)
 	 * to filter documents to a [workspace folder](#WorkspaceFolder).
 	 */
-	var ?pattern:GlobPattern;
+	final ?pattern:GlobPattern;
 }

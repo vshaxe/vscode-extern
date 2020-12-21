@@ -18,7 +18,23 @@ typedef ExtensionContext = {
 	 * A memento object that stores state in the context
 	 * of the currently opened [workspace](#workspace.workspaceFolders).
 	 */
-	var workspaceState(default, null):Memento;
+	var workspaceState(default, null):Memento & {
+
+		/**
+		 * Set the keys whose values should be synchronized across devices when synchronizing user-data
+		 * like configuration, extensions, and mementos.
+		 *
+		 * Note that this function defines the whole set of keys whose values are synchronized:
+		 *  - calling it with an empty array stops synchronization for this memento
+		 *  - calling it with a non-empty array replaces all keys whose values are synchronized
+		 *
+		 * For any given set of keys this function needs to be called only once but there is no harm in
+		 * repeatedly calling it.
+		 *
+		 * @param keys The set of keys whose values are synced.
+		 */
+		function setKeysForSync(keys:Array<String>):Void;
+	};
 
 	/**
 	 * A memento object that stores state independent
@@ -46,7 +62,7 @@ typedef ExtensionContext = {
 	 * Get the absolute path of a resource contained in the extension.
 	 *
 	 * *Note* that an absolute uri can be constructed via [`Uri.joinPath`](#Uri.joinPath) and
-	 * [`extensionUri`](#ExtensionContent.extensionUri), e.g. `vscode.Uri.joinPath(context.extensionUri, relativePath);`
+	 * [`extensionUri`](#ExtensionContext.extensionUri), e.g. `vscode.Uri.joinPath(context.extensionUri, relativePath);`
 	 *
 	 * @param relativePath A relative path to a resource contained in the extension.
 	 * @return The absolute path of the resource.
@@ -75,7 +91,7 @@ typedef ExtensionContext = {
 	 * Use [`workspaceState`](#ExtensionContext.workspaceState) or
 	 * [`globalState`](#ExtensionContext.globalState) to store key value data.
 	 */
-	@:deprecated("Use [storagePath](#ExtensionContent.storageUri) instead.")
+	@:deprecated("Use [storageUri](#ExtensionContext.storageUri) instead.")
 	var storagePath(default, null):Null<String>;
 
 	/**
@@ -97,7 +113,7 @@ typedef ExtensionContext = {
 	 *
 	 * Use [`globalState`](#ExtensionContext.globalState) to store key value data.
 	 */
-	@:deprecated("Use [globalStoragePath](#ExtensionContent.globalStorageUri) instead.")
+	@:deprecated("Use [globalStorageUri](#ExtensionContext.globalStorageUri) instead.")
 	var globalStoragePath(default, null):String;
 
 	/**
