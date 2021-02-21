@@ -11517,6 +11517,22 @@
  * and the call hierarchy feature which allows to browse calls and caller of function,
  * methods, constructor etc.</haxe_doc>
 	</typedef>
+	<class path="vscode.CancellationError" params="" file="src/vscode/CancellationError.hx" extern="1">
+		<extends path="js.lib.Error"/>
+		<new public="1" set="method">
+			<f a=""><x path="Void"/></f>
+			<haxe_doc>* Creates a new cancellation error.</haxe_doc>
+		</new>
+		<haxe_doc>* An error type that should be used to signal cancellation of an operation.
+ *
+ * This type can be used in response to a [cancellation token](#CancellationToken)
+ * being cancelled or when an operation is being cancelled by the
+ * executor of that operation.</haxe_doc>
+		<meta><m n=":jsRequire">
+	<e>"vscode"</e>
+	<e>"CancellationError"</e>
+</m></meta>
+	</class>
 	<typedef path="vscode.CancellationToken" params="" file="src/vscode/CancellationToken.hx">
 		<a>
 			<onCancellationRequested>
@@ -12249,7 +12265,7 @@
 				<x path="Null"><f a="comment:reaction">
 	<t path="vscode.Comment"/>
 	<t path="vscode.CommentReaction"/>
-	<c path="js.lib.Promise"><x path="Void"/></c>
+	<x path="js.lib.Thenable"><x path="Void"/></x>
 </f></x>
 				<meta><m n=":optional"/></meta>
 				<haxe_doc>* Optional reaction handler for creating and deleting reactions on a [comment](#Comment).</haxe_doc>
@@ -12613,8 +12629,8 @@
 	 *
 	 * Note that `sortText` is only used for the initial ordering of completion
 	 * items. When having a leading word (prefix) ordering is based on how
-	 * well completion match that prefix and the initial ordering is only used
-	 * when completions match equal. The prefix is defined by the
+	 * well completions match that prefix and the initial ordering is only used
+	 * when completions match equally well. The prefix is defined by the
 	 * [`range`](#CompletionItem.range)-property and can therefore be different
 	 * for each completion.</haxe_doc>
 		</sortText>
@@ -12625,8 +12641,7 @@
 	 * is used.
 	 *
 	 * Note that the filter text is matched against the leading word (prefix) which is defined
-	 * by the [`range`](#CompletionItem.range)-property.
-	 * prefix.</haxe_doc>
+	 * by the [`range`](#CompletionItem.range)-property.</haxe_doc>
 		</filterText>
 		<preselect public="1">
 			<x path="Null"><x path="Bool"/></x>
@@ -13725,7 +13740,7 @@
 	 * your extension should first check to see if any backups exist for the resource. If there is a backup, your
 	 * extension should load the file contents from there instead of from the resource in the workspace.
 	 *
-	 * `backup` is triggered approximately one second after the the user stops editing the document. If the user
+	 * `backup` is triggered approximately one second after the user stops editing the document. If the user
 	 * rapidly edits the document, `backup` will not be invoked until the editing stops.
 	 *
 	 * `backup` is not invoked when `auto save` is enabled (since auto save already persists the resource).
@@ -16249,6 +16264,10 @@
 	 * Use [`workspaceState`](#ExtensionContext.workspaceState) or
 	 * [`globalState`](#ExtensionContext.globalState) to store key value data.</haxe_doc>
 			</storagePath>
+			<secrets set="null">
+				<t path="vscode.SecretStorage"/>
+				<haxe_doc>* A storage utility for secrets.</haxe_doc>
+			</secrets>
 			<logUri set="null">
 				<c path="vscode.Uri"/>
 				<haxe_doc>* The uri of a directory in which the extension can create log files.
@@ -18354,6 +18373,11 @@
 	</typedef>
 	<typedef path="vscode.OnEnterRule" params="" file="src/vscode/OnEnterRule.hx">
 		<a>
+			<previousLineText>
+				<x path="Null"><c path="js.lib.RegExp"/></x>
+				<meta><m n=":optional"/></meta>
+				<haxe_doc>* This rule will only execute if the text above the current line matches this regular expression.</haxe_doc>
+			</previousLineText>
 			<beforeText>
 				<c path="js.lib.RegExp"/>
 				<haxe_doc>* This rule will only execute if the text before the cursor matches this regular expression.</haxe_doc>
@@ -18447,8 +18471,8 @@
 		</a>
 		<haxe_doc>* Options to configure the behaviour of a file open dialog.
  *
- * * Note 1: A dialog can select files, folders, or both. This is not true for Windows
- * which enforces to open either files or folder, but *not both*.
+ * * Note 1: On Windows and Linux, a file dialog cannot be both a file selector and a folder selector, so if you
+ * set both `canSelectFiles` and `canSelectFolders` to `true` on these platforms, a folder selector will be shown.
  * * Note 2: Explicitly setting `canSelectFiles` and `canSelectFolders` to `false` is futile
  * and the editor then silently adjusts the options to select files.</haxe_doc>
 	</typedef>
@@ -19035,7 +19059,7 @@
 				<haxe_doc>* Implement to handle when the number of rows and columns that fit into the terminal panel
 	 * changes, for example when font size changes or when the panel is resized. The initial
 	 * state of a terminal's dimensions should be treated as `undefined` until this is triggered
-	 * as the size of a terminal isn't know until it shows up in the user interface.
+	 * as the size of a terminal isn't known until it shows up in the user interface.
 	 *
 	 * When dimensions are overridden by
 	 * [onDidOverrideDimensions](#Pseudoterminal.onDidOverrideDimensions), `setDimensions` will
@@ -19822,6 +19846,51 @@
 			</defaultUri>
 		</a>
 		<haxe_doc>* Options to configure the behaviour of a file save dialog.</haxe_doc>
+	</typedef>
+	<typedef path="vscode.SecretStorage" params="" file="src/vscode/SecretStorage.hx">
+		<a>
+			<store set="method">
+				<f a="key:value">
+					<c path="String"/>
+					<c path="String"/>
+					<x path="js.lib.Thenable"><x path="Void"/></x>
+				</f>
+				<haxe_doc>* Store a secret under a given key.
+	 * @param key The key to store the secret under.
+	 * @param value The secret.</haxe_doc>
+			</store>
+			<onDidChange>
+				<t path="vscode.Event"><t path="vscode.SecretStorageChangeEvent"/></t>
+				<haxe_doc>* Fires when a secret is stored or deleted.</haxe_doc>
+			</onDidChange>
+			<get set="method">
+				<f a="key">
+					<c path="String"/>
+					<x path="js.lib.Thenable"><x path="Null"><c path="String"/></x></x>
+				</f>
+				<haxe_doc>* Retrieve a secret that was stored with key. Returns undefined if there
+	 * is no password matching that key.
+	 * @param key The key the secret was stored under.
+	 * @returns The stored value or `undefined`.</haxe_doc>
+			</get>
+			<delete set="method">
+				<f a="key">
+					<c path="String"/>
+					<x path="js.lib.Thenable"><x path="Void"/></x>
+				</f>
+				<haxe_doc>* Remove a secret from storage.
+	 * @param key The key the secret was stored under.</haxe_doc>
+			</delete>
+		</a>
+		<haxe_doc>* Represents a storage utility for secrets, information that is
+ * sensitive.</haxe_doc>
+	</typedef>
+	<typedef path="vscode.SecretStorageChangeEvent" params="" file="src/vscode/SecretStorageChangeEvent.hx">
+		<a><key final="1" set="null">
+	<c path="String"/>
+	<haxe_doc>* The key of the secret that has changed.</haxe_doc>
+</key></a>
+		<haxe_doc>* The event data that is fired when a secret is added or removed.</haxe_doc>
 	</typedef>
 	<class path="vscode.Selection" params="" file="src/vscode/Selection.hx" extern="1">
 		<extends path="vscode.Range"/>
@@ -20985,6 +21054,18 @@
 </x></x>
 				<haxe_doc>* The foreground color for this entry.</haxe_doc>
 			</color>
+			<backgroundColor>
+				<x path="Null"><c path="vscode.ThemeColor"/></x>
+				<meta><m n=":optional"/></meta>
+				<haxe_doc>* The background color for this entry.
+	 *
+	 * *Note*: only `new ThemeColor('statusBarItem.errorBackground')` is
+	 * supported for now. More background colors may be supported in the
+	 * future.
+	 *
+	 * *Note*: when a background color is set, the statusbar may override
+	 * the `color` choice to ensure the entry is readable in all themes.</haxe_doc>
+			</backgroundColor>
 			<alignment set="null">
 				<x path="vscode.StatusBarAlignment"/>
 				<haxe_doc>* The alignment of this item.</haxe_doc>
@@ -23738,13 +23819,15 @@
 	<typedef path="vscode.TreeDataProvider" params="T" file="src/vscode/TreeDataProvider.hx">
 		<a>
 			<resolveTreeItem set="null">
-				<x path="Null"><f a="item:element">
+				<x path="Null"><f a="item:element:token">
 	<c path="vscode.TreeItem"/>
 	<c path="vscode.TreeDataProvider.T"/>
+	<t path="vscode.CancellationToken"/>
 	<t path="vscode.ProviderResult"><c path="vscode.TreeItem"/></t>
 </f></x>
 				<meta><m n=":optional"/></meta>
-				<haxe_doc>* Called only on hover to resolve the [TreeItem](#TreeItem.tooltip) property if it is undefined.
+				<haxe_doc>* Called on hover to resolve the [TreeItem](#TreeItem.tooltip) property if it is undefined.
+	 * Called on tree item click/open to resolve the [TreeItem](#TreeItem.command) property if it is undefined.
 	 * Only properties that were undefined can be resolved in `resolveTreeItem`.
 	 * Functionality may be expanded later to include being called to resolve other missing
 	 * properties on selection and/or on open.
@@ -23754,10 +23837,11 @@
 	 * onDidChangeTreeData should not be triggered from within resolveTreeItem.
 	 *
 	 * *Note* that this function is called when tree items are already showing in the UI.
-	 * Because of that, no property that changes the presentation (label, description, command, etc.)
+	 * Because of that, no property that changes the presentation (label, description, etc.)
 	 * can be changed.
 	 *
-	 * @param element The object associated with the TreeItem
+	 * @param element The object associated with the TreeItem.
+	 * @param token A cancellation token.
 	 * @param item Undefined properties of `item` should be set then `item` should be returned.
 	 * @return The resolved tree item or a thenable that resolves to such. It is OK to return the given
 	 * `item`. When no result is returned, the given `item` will be used.</haxe_doc>
