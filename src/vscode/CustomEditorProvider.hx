@@ -93,7 +93,7 @@ typedef CustomEditorProvider<T:CustomDocument> = CustomReadonlyEditorProvider<T>
 	 * your extension should first check to see if any backups exist for the resource. If there is a backup, your
 	 * extension should load the file contents from there instead of from the resource in the workspace.
 	 *
-	 * `backup` is triggered approximately one second after the the user stops editing the document. If the user
+	 * `backup` is triggered approximately one second after the user stops editing the document. If the user
 	 * rapidly edits the document, `backup` will not be invoked until the editing stops.
 	 *
 	 * `backup` is not invoked when `auto save` is enabled (since auto save already persists the resource).

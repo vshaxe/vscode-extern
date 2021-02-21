@@ -37,6 +37,18 @@ typedef StatusBarItem = {
 	var color:Null<EitherType<String, ThemeColor>>;
 
 	/**
+	 * The background color for this entry.
+	 *
+	 * *Note*: only `new ThemeColor('statusBarItem.errorBackground')` is
+	 * supported for now. More background colors may be supported in the
+	 * future.
+	 *
+	 * *Note*: when a background color is set, the statusbar may override
+	 * the `color` choice to ensure the entry is readable in all themes.
+	 */
+	var ?backgroundColor:ThemeColor;
+
+	/**
 	 * [`Command`](#Command) or identifier of a command to run on click.
 	 *
 	 * The command must be [known](#commands.getCommands).

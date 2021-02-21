@@ -42,7 +42,7 @@ typedef CommentController = {
 	/**
 	 * Optional reaction handler for creating and deleting reactions on a [comment](#Comment).
 	 */
-	var ?reactionHandler:(comment:Comment, reaction:CommentReaction) -> Promise<Void>;
+	var ?reactionHandler:(comment:Comment, reaction:CommentReaction) -> Thenable<Void>;
 
 	/**
 	 * Dispose this comment controller.

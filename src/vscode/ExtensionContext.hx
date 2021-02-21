@@ -43,6 +43,11 @@ typedef ExtensionContext = {
 	var globalState(default, null):Memento;
 
 	/**
+	 * A storage utility for secrets.
+	 */
+	var secrets(default, null):SecretStorage;
+
+	/**
 	 * The uri of the directory containing the extension.
 	 */
 	var extensionUri(default, null):String;

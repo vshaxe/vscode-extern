@@ -5,54 +5,52 @@ import haxe.zip.Writer;
 import sys.FileSystem;
 import sys.io.File;
 
-class Release {
-	static var outPath = "release.zip";
-	static var files = ["haxelib.json", "src", "LICENSE.md", "README.md"];
+final outPath = "release.zip";
+final files = ["haxelib.json", "src", "LICENSE.md", "README.md"];
 
-	static function makeZip() {
-		var entries = new List<Entry>();
+function makeZip() {
+	var entries = new List<Entry>();
 
-		function add(path:String, target:String) {
-			if (!FileSystem.exists(path))
-				throw 'Invalid path: $path';
+	function add(path:String, target:String) {
+		if (!FileSystem.exists(path))
+			throw 'Invalid path: $path';
 
-			if (FileSystem.isDirectory(path)) {
-				for (item in FileSystem.readDirectory(path))
-					add(path + "/" + item, target + "/" + item);
-			} else {
-				trace("Adding " + target);
-				var bytes = File.getBytes(path);
-				var entry:Entry = {
-					fileName: target,
-					fileSize: bytes.length,
-					fileTime: FileSystem.stat(path).mtime,
-					compressed: false,
-					dataSize: 0,
-					data: bytes,
-					crc32: Crc32.make(bytes),
-				}
-				Tools.compress(entry, 9);
-				entries.add(entry);
+		if (FileSystem.isDirectory(path)) {
+			for (item in FileSystem.readDirectory(path))
+				add(path + "/" + item, target + "/" + item);
+		} else {
+			trace("Adding " + target);
+			var bytes = File.getBytes(path);
+			var entry:Entry = {
+				fileName: target,
+				fileSize: bytes.length,
+				fileTime: FileSystem.stat(path).mtime,
+				compressed: false,
+				dataSize: 0,
+				data: bytes,
+				crc32: Crc32.make(bytes),
 			}
+			Tools.compress(entry, 9);
+			entries.add(entry);
 		}
-
-		for (file in files)
-			add(file, file);
-
-		trace("Saving to " + outPath);
-		var out = File.write(outPath, true);
-		var writer = new Writer(out);
-		writer.write(entries);
-		out.close();
 	}
 
-	static function submitZip() {
-		trace("Submitting " + outPath);
-		Sys.command("haxelib", ["submit", outPath]);
-	}
+	for (file in files)
+		add(file, file);
 
-	static function main() {
-		makeZip();
-		submitZip();
-	}
+	trace("Saving to " + outPath);
+	var out = File.write(outPath, true);
+	var writer = new Writer(out);
+	writer.write(entries);
+	out.close();
+}
+
+function submitZip() {
+	trace("Submitting " + outPath);
+	Sys.command("haxelib", ["submit", outPath]);
+}
+
+function main() {
+	makeZip();
+	submitZip();
 }

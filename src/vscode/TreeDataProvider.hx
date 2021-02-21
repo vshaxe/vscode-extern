@@ -39,7 +39,8 @@ typedef TreeDataProvider<T> = {
 	var ?getParent(default, never):(element:T) -> ProviderResult<T>;
 
 	/**
-	 * Called only on hover to resolve the [TreeItem](#TreeItem.tooltip) property if it is undefined.
+	 * Called on hover to resolve the [TreeItem](#TreeItem.tooltip) property if it is undefined.
+	 * Called on tree item click/open to resolve the [TreeItem](#TreeItem.command) property if it is undefined.
 	 * Only properties that were undefined can be resolved in `resolveTreeItem`.
 	 * Functionality may be expanded later to include being called to resolve other missing
 	 * properties on selection and/or on open.
@@ -49,13 +50,14 @@ typedef TreeDataProvider<T> = {
 	 * onDidChangeTreeData should not be triggered from within resolveTreeItem.
 	 *
 	 * *Note* that this function is called when tree items are already showing in the UI.
-	 * Because of that, no property that changes the presentation (label, description, command, etc.)
+	 * Because of that, no property that changes the presentation (label, description, etc.)
 	 * can be changed.
 	 *
-	 * @param element The object associated with the TreeItem
+	 * @param element The object associated with the TreeItem.
+	 * @param token A cancellation token.
 	 * @param item Undefined properties of `item` should be set then `item` should be returned.
 	 * @return The resolved tree item or a thenable that resolves to such. It is OK to return the given
 	 * `item`. When no result is returned, the given `item` will be used.
 	 */
-	var ?resolveTreeItem(default, never):(item:TreeItem, element:T) -> ProviderResult<TreeItem>;
+	var ?resolveTreeItem(default, never):(item:TreeItem, element:T, token:CancellationToken) -> ProviderResult<TreeItem>;
 }
