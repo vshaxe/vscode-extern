@@ -874,7 +874,7 @@
 			<haxe_doc>* Indicates whether the users has telemetry enabled.
 	 * Can be observed to determine if the extension should send telemetry.</haxe_doc>
 		</isTelemetryEnabled>
-		<onDidChangeTelemetryEnabled public="1">
+		<onDidChangeTelemetryEnabled public="1" set="null">
 			<t path="vscode.Event"><x path="Bool"/></t>
 			<haxe_doc>* An [event](#Event) which fires when the user enabled or disables telemetry.
 	 * `true` if the user has enabled telemetry or `false` if the user has disabled telemetry.</haxe_doc>
