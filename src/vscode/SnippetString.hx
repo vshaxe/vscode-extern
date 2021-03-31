@@ -51,7 +51,7 @@ extern class SnippetString {
 	function appendPlaceholder(value:EitherType<String, SnippetString->Any>, ?number:Int):SnippetString;
 
 	/**
-	 * Builder-function that appends a choice (`${1|a,b,c}`) to
+	 * Builder-function that appends a choice (`${1|a,b,c|}`) to
 	 * the [`value`](#SnippetString.value) of this snippet string.
 	 *
 	 * @param values The values for choices - the array of strings

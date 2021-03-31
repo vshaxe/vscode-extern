@@ -58,9 +58,16 @@ extern class Vscode {
 	static var window(default, null):VscodeWindow;
 
 	/**
-	 * Namespace for dealing with the current workspace. A workspace is the representation
-	 * of the folder that has been opened. There is no workspace when just a file but not a
-	 * folder has been opened.
+	 * Namespace for dealing with the current workspace. A workspace is the collection of one
+	 * or more folders that are opened in a VS Code window (instance).
+	 *
+	 * It is also possible to open VS Code without a workspace. For example, when you open a
+	 * new VS Code window by selecting a file from your platform's File menu, you will not be
+	 * inside a workspace. In this mode, some of VS Code's capabilities are reduced but you can
+	 * still open text files and edit them.
+	 *
+	 * Refer to https://code.visualstudio.com/docs/editor/workspaces for more information on
+	 * the concept of workspaces in VS Code.
 	 *
 	 * The workspace offers support for [listening](#workspace.createFileSystemWatcher) to fs
 	 * events and for [finding](#workspace.findFiles) files. Both perform well and run _outside_
@@ -192,6 +199,24 @@ extern class VscodeEnv {
 	 * Changes each time the editor is started.
 	 */
 	var sessionId(default, null):String;
+
+	/**
+	 * Indicates that this is a fresh install of the application.
+	 * `true` if within the first day of installation otherwise `false`.
+	 */
+	var isNewAppInstall(default, null):Bool;
+
+	/**
+	 * Indicates whether the users has telemetry enabled.
+	 * Can be observed to determine if the extension should send telemetry.
+	 */
+	var isTelemetryEnabled(default, null):Bool;
+
+	/**
+	 * An [event](#Event) which fires when the user enabled or disables telemetry.
+	 * `true` if the user has enabled telemetry or `false` if the user has disabled telemetry.
+	 */
+	var onDidChangeTelemetryEnabled(default, null):Event<Bool>;
 
 	/**
 	 * The name of a remote. Defined by extensions, popular samples are `wsl` for the Windows
@@ -1119,6 +1144,21 @@ extern class VscodeLanguages {
 	function registerEvaluatableExpressionProvider(selector:DocumentSelector, provider:EvaluatableExpressionProvider):Disposable;
 
 	/**
+	 * Register a provider that returns data for the debugger's 'inline value' feature.
+	 * Whenever the generic VS Code debugger has stopped in a source file, providers registered for the language of the file
+	 * are called to return textual data that will be shown in the editor at the end of lines.
+	 *
+	 * Multiple providers can be registered for a language. In that case providers are asked in
+	 * parallel and the results are merged. A failing provider (rejected promise or exception) will
+	 * not cause a failure of the whole operation.
+	 *
+	 * @param selector A selector that defines the documents this provider is applicable to.
+	 * @param provider An inline values provider.
+	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+	 */
+	function registerInlineValuesProvider(selector:DocumentSelector, provider:InlineValuesProvider):Disposable;
+
+	/**
 	 * Register a document highlight provider.
 	 *
 	 * Multiple providers can be registered for a language. In that case providers are sorted
@@ -1377,8 +1417,11 @@ extern class VscodeWorkspace {
 	var fs(default, null):FileSystem;
 
 	/**
-	 * The folder that is open in the editor. `undefined` when no folder
+	 * The workspace folder that is open in VS Code. `undefined` when no workspace
 	 * has been opened.
+	 *
+	 * Refer to https://code.visualstudio.com/docs/editor/workspaces for more information
+	 * on workspaces in VS Code.
 	 *
 	 * @deprecated Use [`workspaceFolders`](#workspace.workspaceFolders) instead.
 	 */
@@ -1386,14 +1429,22 @@ extern class VscodeWorkspace {
 	var rootPath(default, null):Null<String>;
 
 	/**
-	 * List of workspace folders or `undefined` when no folder is open.
+	 * List of workspace folders that are open in VS Code. `undefined when no workspace
+	 * has been opened.
+	 *
+	 * Refer to https://code.visualstudio.com/docs/editor/workspaces for more information
+	 * on workspaces in VS Code.
+	 *
 	 * *Note* that the first entry corresponds to the value of `rootPath`.
 	 */
 	var workspaceFolders(default, null):Null<ReadOnlyArray<WorkspaceFolder>>;
 
 	/**
-	 * The name of the workspace. `undefined` when no folder
+	 * The name of the workspace. `undefined` when no workspace
 	 * has been opened.
+	 *
+	 * Refer to https://code.visualstudio.com/docs/editor/workspaces for more information on
+	 * the concept of workspaces in VS Code.
 	 */
 	var name(default, null):Null<String>;
 
@@ -1409,7 +1460,7 @@ extern class VscodeWorkspace {
 	 * for a workspace that is untitled and not yet saved.
 	 *
 	 * Depending on the workspace that is opened, the value will be:
-	 *  * `undefined` when no workspace or  a single folder is opened
+	 *  * `undefined` when no workspace is opened
 	 *  * the path of the workspace file as `Uri` otherwise. if the workspace
 	 * is untitled, the returned URI will use the `untitled:` scheme
 	 *
@@ -1420,6 +1471,9 @@ extern class VscodeWorkspace {
 	 * ```typescript
 	 * vscode.commands.executeCommand('vscode.openFolder', uriOfWorkspace);
 	 * ```
+	 *
+	 * Refer to https://code.visualstudio.com/docs/editor/workspaces for more information on
+	 * the concept of workspaces in VS Code.
 	 *
 	 * **Note:** it is not advised to use `workspace.workspaceFile` to write
 	 * configuration data into the file. You can use `workspace.getConfiguration().update()`
@@ -2024,4 +2078,18 @@ extern class VscodeAuthentication {
 	 * been added, removed, or changed.
 	 */
 	var onDidChangeSessions(default, null):Event<AuthenticationSessionsChangeEvent>;
+
+	/**
+	 * Register an authentication provider.
+	 *
+	 * There can only be one provider per id and an error is being thrown when an id
+	 * has already been used by another provider. Ids are case-sensitive.
+	 *
+	 * @param id The unique identifier of the provider.
+	 * @param label The human-readable name of the provider.
+	 * @param provider The authentication provider provider.
+	 * @params options Additional options for the provider.
+	 * @return A [disposable](#Disposable) that unregisters this provider when being disposed.
+	 */
+	function registerAuthenticationProvider(id:String, label:String, provider:AuthenticationProvider, ?options:AuthenticationProviderOptions):Disposable;
 }

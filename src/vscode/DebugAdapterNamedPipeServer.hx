@@ -11,7 +11,7 @@ extern class DebugAdapterNamedPipeServer {
 	var path(default, null):String;
 
 	/**
-	 * Create a description for a debug adapter running as a socket based server.
+	 * Create a description for a debug adapter running as a Named Pipe (on Windows)/UNIX Domain Socket (on non-Windows) based server.
 	 */
 	function new(path:String);
 }

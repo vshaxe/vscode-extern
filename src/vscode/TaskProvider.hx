@@ -21,6 +21,10 @@ typedef TaskProvider<T:Task> = {
 	 * tasks are always fully resolved. A valid default implementation for the
 	 * `resolveTask` method is to return `undefined`.
 	 *
+	 * Note that when filling in the properties of `task`, you _must_ be sure to
+	 * use the exact same `TaskDefinition` and not create a new one. Other properties
+	 * may be changed.
+	 *
 	 * @param task The task to resolve.
 	 * @param token A cancellation token.
 	 * @return The resolved task

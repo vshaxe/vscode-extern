@@ -1,5 +1,7 @@
 package vscode;
 
+import js.lib.Uint8Array;
+
 /**
  * Additional information about the opening custom document.
  */
@@ -11,4 +13,11 @@ typedef CustomDocumentOpenContext = {
 	 * from the user's workspace.
 	 */
 	final ?backupId:String;
+
+	/**
+	 * If the URI is an untitled file, this will be populated with the byte data of that file
+	 *
+	 * If this is provided, your extension should utilize this byte data rather than executing fs APIs on the URI passed in
+	 */
+	var ?untitledDocumentData(default, null):Uint8Array;
 }

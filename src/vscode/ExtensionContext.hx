@@ -145,4 +145,9 @@ typedef ExtensionContext = {
 	 * other extensions in the host run in `ExtensionMode.Release`.
 	 */
 	var extensionMode(default, null):ExtensionMode;
+
+	/**
+	 * The current `Extension` instance.
+	 */
+	var extension(default, null):Extension<Dynamic>;
 }
