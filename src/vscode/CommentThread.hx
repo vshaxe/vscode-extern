@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * A collection of [comments](#Comment) representing a conversation at a particular range in a document.
+ * A collection of {@link Comment comments} representing a conversation at a particular range in a document.
  */
 typedef CommentThread = {
 	/**
@@ -53,7 +53,7 @@ typedef CommentThread = {
 	var ?contextValue:String;
 
 	/**
-	 * The optional human-readable label describing the [Comment Thread](#CommentThread)
+	 * The optional human-readable label describing the {@link CommentThread Comment Thread}
 	 */
 	var ?label:String;
 

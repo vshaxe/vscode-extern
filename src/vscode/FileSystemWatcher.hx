@@ -2,10 +2,10 @@ package vscode;
 
 /**
  * A file system watcher notifies about changes to files and folders
- * on disk or from other [FileSystemProviders](#FileSystemProvider).
+ * on disk or from other {@link FileSystemProvider FileSystemProviders}.
  *
  * To get an instance of a `FileSystemWatcher` use
- * [createFileSystemWatcher](#workspace.createFileSystemWatcher).
+ * {@link workspace.createFileSystemWatcher createFileSystemWatcher}.
  */
 @:jsRequire("vscode", "FileSystemWatcher")
 extern class FileSystemWatcher extends Disposable {

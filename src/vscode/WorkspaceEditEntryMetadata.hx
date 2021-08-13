@@ -22,7 +22,7 @@ typedef WorkspaceEditEntryMetadata = {
 	var ?description:String;
 
 	/**
-	 * The icon path or [ThemeIcon](#ThemeIcon) for the edit.
+	 * The icon path or {@link ThemeIcon} for the edit.
 	 */
 	var ?iconPath:EitherType<Uri, EitherType<{light:Uri, dark:Uri}, ThemeIcon>>;
 }

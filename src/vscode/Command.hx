@@ -14,7 +14,7 @@ typedef Command = {
 
 	/**
 	 * The identifier of the actual command handler.
-	 * @see [commands.registerCommand](#commands.registerCommand).
+	 * @see {@link commands.registerCommand}
 	 */
 	var command:String;
 

@@ -1,20 +1,20 @@
 package vscode;
 
 /**
- * The inline values provider interface defines the contract between extensions and the VS Code debugger inline values feature.
+ * The inline values provider interface defines the contract between extensions and the editor's debugger inline values feature.
  * In this contract the provider returns inline value information for a given document range
- * and VS Code shows this information in the editor at the end of lines.
+ * and the editor shows this information in the editor at the end of lines.
  */
 typedef InlineValuesProvider = {
 	/**
 	 * An optional event to signal that inline values have changed.
-	 * @see [EventEmitter](#EventEmitter)
+	 * @see {@link EventEmitter}
 	 */
 	var ?onDidChangeInlineValues:Event<Void>;
 
 	/**
 	 * Provide "inline value" information for a given document and range.
-	 * VS Code calls this method whenever debugging stops in the given document.
+	 * The editor calls this method whenever debugging stops in the given document.
 	 * The returned inline values information is rendered in the editor at the end of lines.
 	 *
 	 * @param document The document for which the inline values information is needed.

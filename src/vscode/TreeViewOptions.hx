@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * Options for creating a [TreeView](#TreeView)
+ * Options for creating a {@link TreeView}
  */
 typedef TreeViewOptions<T> = {
 	/**

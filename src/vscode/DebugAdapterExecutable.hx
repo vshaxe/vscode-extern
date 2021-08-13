@@ -17,7 +17,7 @@ extern class DebugAdapterExecutable {
 	/**
 	 * The command or path of the debug adapter executable.
 	 * A command must be either an absolute path of an executable or the name of an command to be looked up via the PATH environment variable.
-	 * The special value 'node' will be mapped to VS Code's built-in Node.js runtime.
+	 * The special value 'node' will be mapped to the editor's built-in Node.js runtime.
 	 */
 	var command(default, null):String;
 

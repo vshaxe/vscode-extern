@@ -3,7 +3,7 @@ package vscode;
 /**
  * A relative pattern is a helper to construct glob patterns that are matched
  * relatively to a base file path. The base path can either be an absolute file
- * path as string or uri or a [workspace folder](#WorkspaceFolder), which is the
+ * path as string or uri or a {@link WorkspaceFolder workspace folder}, which is the
  * preferred way of creating the relative pattern.
  */
 @:jsRequire("vscode", "RelativePattern")
@@ -40,7 +40,7 @@ extern class RelativePattern {
 	 * ```
 	 *
 	 * @param base A base to which this pattern will be matched against relatively. It is recommended
-	 * to pass in a [workspace folder](#WorkspaceFolder) if the pattern should match inside the workspace.
+	 * to pass in a {@link WorkspaceFolder workspace folder} if the pattern should match inside the workspace.
 	 * Otherwise, a uri or string should only be used if the pattern is for a file path outside the workspace.
 	 * @param pattern A file glob pattern like `*.{ts,js}` that will be matched on paths relative to the base.
 	 */

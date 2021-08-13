@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * Reactions of a [comment](#Comment)
+ * Reactions of a {@link Comment}
  */
 typedef CommentReaction = {
 	/**

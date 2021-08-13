@@ -5,12 +5,17 @@ package vscode;
  */
 typedef InputBoxOptions = {
 	/**
+	 * An optional string that represents the title of the input box.
+	 */
+	var ?title:String;
+
+	/**
 	 * The value to prefill in the input box.
 	 */
 	var ?value:String;
 
 	/**
-	 * Selection of the prefilled [`value`](#InputBoxOptions.value). Defined as tuple of two number where the
+	 * Selection of the prefilled {@link InputBoxOptions.value `value`}. Defined as tuple of two number where the
 	 * first is the inclusive start index and the second the exclusive end index. When `undefined` the whole
 	 * word will be selected, when empty (start equals end) only the cursor will be set,
 	 * otherwise the defined range will be selected.
@@ -34,6 +39,7 @@ typedef InputBoxOptions = {
 
 	/**
 	 * Set to `true` to keep the input box open when focus moves to another part of the editor or to another window.
+	 * This setting is ignored on iPad and is always false.
 	 */
 	var ?ignoreFocusOut:Bool;
 

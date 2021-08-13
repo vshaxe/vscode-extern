@@ -2,7 +2,7 @@ package vscode;
 
 typedef QuickDiffProvider = {
 	/**
-	 * Provide a [uri](#Uri) to the original resource of any given resource uri.
+	 * Provide a {@link Uri} to the original resource of any given resource uri.
 	 *
 	 * @param uri The uri of the resource open in a text editor.
 	 * @param token A cancellation token.

@@ -13,7 +13,7 @@ extern class DocumentHighlight {
 	var range:Range;
 
 	/**
-	 * The highlight kind, default is [text](#DocumentHighlightKind.Text).
+	 * The highlight kind, default is {@link DocumentHighlightKind.Text text}.
 	 */
 	var kind:Null<DocumentHighlightKind>;
 
@@ -21,7 +21,7 @@ extern class DocumentHighlight {
 	 * Creates a new document highlight object.
 	 *
 	 * @param range The range the highlight applies to.
-	 * @param kind The highlight kind, default is [text](#DocumentHighlightKind.Text).
+	 * @param kind The highlight kind, default is {@link DocumentHighlightKind.Text text}.
 	 */
 	function new(range:Range, ?kind:DocumentHighlightKind);
 }

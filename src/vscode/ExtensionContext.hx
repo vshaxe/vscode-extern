@@ -16,9 +16,15 @@ typedef ExtensionContext = {
 
 	/**
 	 * A memento object that stores state in the context
-	 * of the currently opened [workspace](#workspace.workspaceFolders).
+	 * of the currently opened {@link workspace.workspaceFolders workspace}.
 	 */
-	var workspaceState(default, null):Memento & {
+	var workspaceState(default, null):Memento;
+
+	/**
+	 * A memento object that stores state independent
+	 * of the current opened {@link workspace.workspaceFolders workspace}.
+	 */
+	var globalState(default, null):Memento & {
 
 		/**
 		 * Set the keys whose values should be synchronized across devices when synchronizing user-data
@@ -33,17 +39,12 @@ typedef ExtensionContext = {
 		 *
 		 * @param keys The set of keys whose values are synced.
 		 */
-		function setKeysForSync(keys:Array<String>):Void;
+		function setKeysForSync(keys:ReadOnlyArray<String>):Void;
 	};
 
 	/**
-	 * A memento object that stores state independent
-	 * of the current opened [workspace](#workspace.workspaceFolders).
-	 */
-	var globalState(default, null):Memento;
-
-	/**
-	 * A storage utility for secrets.
+	 * A storage utility for secrets. Secrets are persisted across reloads and are independent of the
+	 * current opened {@link workspace.workspaceFolders workspace}.
 	 */
 	var secrets(default, null):SecretStorage;
 
@@ -53,7 +54,8 @@ typedef ExtensionContext = {
 	var extensionUri(default, null):String;
 
 	/**
-	 * The absolute file path of the directory containing the extension.
+	 * The absolute file path of the directory containing the extension. Shorthand
+	 * notation for {@link TextDocument.uri ExtensionContext.extensionUri.fsPath} (independent of the uri scheme).
 	 */
 	var extensionPath(default, null):String;
 
@@ -66,8 +68,8 @@ typedef ExtensionContext = {
 	/**
 	 * Get the absolute path of a resource contained in the extension.
 	 *
-	 * *Note* that an absolute uri can be constructed via [`Uri.joinPath`](#Uri.joinPath) and
-	 * [`extensionUri`](#ExtensionContext.extensionUri), e.g. `vscode.Uri.joinPath(context.extensionUri, relativePath);`
+	 * *Note* that an absolute uri can be constructed via {@link Uri.joinPath `Uri.joinPath`} and
+	 * {@link ExtensionContext.extensionUri `extensionUri`}, e.g. `vscode.Uri.joinPath(context.extensionUri, relativePath);`
 	 *
 	 * @param relativePath A relative path to a resource contained in the extension.
 	 * @return The absolute path of the resource.
@@ -80,10 +82,10 @@ typedef ExtensionContext = {
 	 * up to the extension. However, the parent directory is guaranteed to be existent.
 	 * The value is `undefined` when no workspace nor folder has been opened.
 	 *
-	 * Use [`workspaceState`](#ExtensionContext.workspaceState) or
-	 * [`globalState`](#ExtensionContext.globalState) to store key value data.
+	 * Use {@link ExtensionContext.workspaceState `workspaceState`} or
+	 * {@link ExtensionContext.globalState `globalState`} to store key value data.
 	 *
-	 * @see [`workspace.fs`](#FileSystem) for how to read and write files and folders from
+	 * @see {@link FileSystem `workspace.fs`} for how to read and write files and folders from
 	 *  an uri.
 	 */
 	var storageUri(default, null):Null<Uri>;
@@ -93,10 +95,12 @@ typedef ExtensionContext = {
 	 * can store private state. The directory might not exist on disk and creation is
 	 * up to the extension. However, the parent directory is guaranteed to be existent.
 	 *
-	 * Use [`workspaceState`](#ExtensionContext.workspaceState) or
-	 * [`globalState`](#ExtensionContext.globalState) to store key value data.
+	 * Use {@link ExtensionContext.workspaceState `workspaceState`} or
+	 * {@link ExtensionContext.globalState `globalState`} to store key value data.
+	 *
+	 * @deprecated Use {@link ExtensionContext.storageUri storageUri} instead.
 	 */
-	@:deprecated("Use [storageUri](#ExtensionContext.storageUri) instead.")
+	@:deprecated("Use `ExtensionContext.storageUri` instead.")
 	var storagePath(default, null):Null<String>;
 
 	/**
@@ -104,9 +108,9 @@ typedef ExtensionContext = {
 	 * The directory might not exist on disk and creation is
 	 * up to the extension. However, the parent directory is guaranteed to be existent.
 	 *
-	 * Use [`globalState`](#ExtensionContext.globalState) to store key value data.
+	 * Use {@link ExtensionContext.globalState `globalState`} to store key value data.
 	 *
-	 * @see [`workspace.fs`](#FileSystem) for how to read and write files and folders from
+	 * @see {@link FileSystem `workspace.fs`} for how to read and write files and folders from
 	 *  an uri.
 	 */
 	var globalStorageUri(default, null):Uri;
@@ -116,9 +120,11 @@ typedef ExtensionContext = {
 	 * The directory might not exist on disk and creation is
 	 * up to the extension. However, the parent directory is guaranteed to be existent.
 	 *
-	 * Use [`globalState`](#ExtensionContext.globalState) to store key value data.
+	 * Use {@link ExtensionContext.globalState `globalState`} to store key value data.
+	 *
+	 * @deprecated Use {@link ExtensionContext.globalStorageUri globalStorageUri} instead.
 	 */
-	@:deprecated("Use [globalStorageUri](#ExtensionContext.globalStorageUri) instead.")
+	@:deprecated("Use `ExtensionContext.globalStorageUri` instead.")
 	var globalStoragePath(default, null):String;
 
 	/**
@@ -126,7 +132,7 @@ typedef ExtensionContext = {
 	 * The directory might not exist on disk and creation is up to the extension. However,
 	 * the parent directory is guaranteed to be existent.
 	 *
-	 * @see [`workspace.fs`](#FileSystem) for how to read and write files and folders from
+	 * @see {@link FileSystem `workspace.fs`} for how to read and write files and folders from
 	 *  an uri.
 	 */
 	var logUri(default, null):Uri;
@@ -135,8 +141,10 @@ typedef ExtensionContext = {
 	 * An absolute file path of a directory in which the extension can create log files.
 	 * The directory might not exist on disk and creation is up to the extension. However,
 	 * the parent directory is guaranteed to be existent.
+	 *
+	 * @deprecated Use {@link ExtensionContext.logUri logUri} instead.
 	 */
-	@:deprecated("Use [logUri](#ExtensionContext.logUri) instead.")
+	@:deprecated("Use `ExtensionContext.logUri` instead.")
 	var logPath(default, null):String;
 
 	/**

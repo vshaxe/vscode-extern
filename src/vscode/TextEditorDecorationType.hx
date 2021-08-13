@@ -2,10 +2,10 @@ package vscode;
 
 /**
  * Represents a handle to a set of decorations
- * sharing the same [styling options](#DecorationRenderOptions) in a [text editor](#TextEditor).
+ * sharing the same {@link DecorationRenderOptions styling options} in a {@link TextEditor text editor}.
  *
  * To get an instance of a `TextEditorDecorationType` use
- * [createTextEditorDecorationType](#window.createTextEditorDecorationType).
+ * {@link window.createTextEditorDecorationType createTextEditorDecorationType}.
  */
 typedef TextEditorDecorationType = {
 	/**

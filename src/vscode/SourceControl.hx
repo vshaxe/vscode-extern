@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * An source control is able to provide [resource states](#SourceControlResourceState)
+ * An source control is able to provide {@link SourceControlResourceState resource states}
  * to the editor and interact with the editor in several source control related ways.
  */
 typedef SourceControl = {
@@ -21,21 +21,21 @@ typedef SourceControl = {
 	var rootUri(default, null):Null<Uri>;
 
 	/**
-	 * The [input box](#SourceControlInputBox) for this source control.
+	 * The {@link SourceControlInputBox input box} for this source control.
 	 */
 	var inputBox(default, null):SourceControlInputBox;
 
 	/**
-	 * The UI-visible count of [resource states](#SourceControlResourceState) of
+	 * The UI-visible count of {@link SourceControlResourceState resource states} of
 	 * this source control.
 	 *
-	 * Equals to the total number of [resource state](#SourceControlResourceState)
+	 * Equals to the total number of {@link SourceControlResourceState resource state}
 	 * of this source control, if undefined.
 	 */
 	var ?count:Int;
 
 	/**
-	 * An optional [quick diff provider](#QuickDiffProvider).
+	 * An optional {@link QuickDiffProvider quick diff provider}.
 	 */
 	var ?quickDiffProvider:QuickDiffProvider;
 
@@ -63,7 +63,7 @@ typedef SourceControl = {
 	var ?statusBarCommands:Array<Command>;
 
 	/**
-	 * Create a new [resource group](#SourceControlResourceGroup).
+	 * Create a new {@link SourceControlResourceGroup resource group}.
 	 */
 	function createResourceGroup(id:String, label:String):SourceControlResourceGroup;
 

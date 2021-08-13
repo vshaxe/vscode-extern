@@ -2,7 +2,7 @@ package vscode;
 
 /**
  * A source control resource group is a collection of
- * [source control resource states](#SourceControlResourceState).
+ * {@link SourceControlResourceState source control resource states}.
  */
 typedef SourceControlResourceGroup = {
 	/**
@@ -17,13 +17,13 @@ typedef SourceControlResourceGroup = {
 
 	/**
 	 * Whether this source control resource group is hidden when it contains
-	 * no [source control resource states](#SourceControlResourceState).
+	 * no {@link SourceControlResourceState source control resource states}.
 	 */
 	var ?hideWhenEmpty:Bool;
 
 	/**
 	 * This group's collection of
-	 * [source control resource states](#SourceControlResourceState).
+	 * {@link SourceControlResourceState source control resource states}.
 	 */
 	var resourceStates:Array<SourceControlResourceState>;
 

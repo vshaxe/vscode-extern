@@ -27,7 +27,7 @@ extern class SignatureInformation {
 	/**
 	 * The index of the active parameter.
 	 *
-	 * If provided, this is used in place of [`SignatureHelp.activeSignature`](#SignatureHelp.activeSignature).
+	 * If provided, this is used in place of {@link SignatureHelp.activeSignature `SignatureHelp.activeSignature`}.
 	 */
 	var activeParameter:Null<Int>;
 

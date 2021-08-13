@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * How a [`SignatureHelpProvider`](#SignatureHelpProvider) was triggered.
+ * How a {@link SignatureHelpProvider `SignatureHelpProvider`} was triggered.
  */
 @:jsRequire("vscode", "SignatureHelpTriggerKind")
 extern enum abstract SignatureHelpTriggerKind(Int) {

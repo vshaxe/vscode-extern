@@ -4,7 +4,7 @@ package vscode;
  * An output channel is a container for readonly textual information.
  *
  * To get an instance of an `OutputChannel` use
- * [createOutputChannel](#window.createOutputChannel).
+ * {@link window.createOutputChannel createOutputChannel}.
  */
 typedef OutputChannel = {
 	/**

@@ -5,7 +5,7 @@ package vscode;
  */
 typedef AuthenticationProvider = {
 	/**
-	 * An [event](#Event) which fires when the array of sessions has changed, or data
+	 * An {@link Event} which fires when the array of sessions has changed, or data
 	 * within a session has changed.
 	 */
 	var onDidChangeSessions(default, null):Event<AuthenticationProviderAuthenticationSessionsChangeEvent>;
@@ -16,7 +16,7 @@ typedef AuthenticationProvider = {
 	 * these permissions, otherwise all sessions should be returned.
 	 * @returns A promise that resolves to an array of authentication sessions.
 	 */
-	function getSessions(?scopes:Array<String>):Thenable<ReadOnlyArray<AuthenticationSession>>;
+	function getSessions(?scopes:ReadOnlyArray<String>):Thenable<ReadOnlyArray<AuthenticationSession>>;
 
 	/**
 	 * Prompts a user to login.
@@ -31,7 +31,7 @@ typedef AuthenticationProvider = {
 	 * @param scopes A list of scopes, permissions, that the new session should be created with.
 	 * @returns A promise that resolves to an authentication session.
 	 */
-	function createSession(scopes:Array<String>):Thenable<AuthenticationSession>;
+	function createSession(scopes:ReadOnlyArray<String>):Thenable<AuthenticationSession>;
 
 	/**
 	 * Removes the session corresponding to session id.

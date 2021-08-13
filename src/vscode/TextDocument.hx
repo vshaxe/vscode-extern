@@ -4,7 +4,7 @@ import js.lib.RegExp;
 
 /**
  * Represents a text document, such as a source file. Text documents have
- * [lines](#TextLine) and knowledge about an underlying resource like a file.
+ * {@link TextLine lines} and knowledge about an underlying resource like a file.
  */
 typedef TextDocument = {
 	/**
@@ -13,21 +13,21 @@ typedef TextDocument = {
 	 * *Note* that most documents use the `file`-scheme, which means they are files on disk. However, **not** all documents are
 	 * saved on disk and therefore the `scheme` must be checked before trying to access the underlying file or siblings on disk.
 	 *
-	 * @see [FileSystemProvider](#FileSystemProvider)
-	 * @see [TextDocumentContentProvider](#TextDocumentContentProvider)
+	 * @see {@link FileSystemProvider}
+	 * @see {@link TextDocumentContentProvider}
 	 */
 	var uri(default, null):Uri;
 
 	/**
 	 * The file system path of the associated resource. Shorthand
-	 * notation for [TextDocument.uri.fsPath](#TextDocument.uri). Independent of the uri scheme.
+	 * notation for {@link TextDocument.uri TextDocument.uri.fsPath}. Independent of the uri scheme.
 	 */
 	var fileName(default, null):String;
 
 	/**
 	 * Is this document representing an untitled file which has never been saved yet. *Note* that
-	 * this does not mean the document will be saved to disk, use [`uri.scheme`](#Uri.scheme)
-	 * to figure out where a document will be [saved](#FileSystemProvider), e.g. `file`, `ftp` etc.
+	 * this does not mean the document will be saved to disk, use {@link Uri.scheme `uri.scheme`}
+	 * to figure out where a document will be {@link FileSystemProvider saved}, e.g. `file`, `ftp` etc.
 	 */
 	var isUntitled(default, null):Bool;
 
@@ -63,7 +63,7 @@ typedef TextDocument = {
 	function save():Thenable<Bool>;
 
 	/**
-	 * The [end of line](#EndOfLine) sequence that is predominately
+	 * The {@link EndOfLine end of line} sequence that is predominately
 	 * used in this document.
 	 */
 	var eol(default, null):EndOfLine;
@@ -79,7 +79,7 @@ typedef TextDocument = {
 	 * document are not reflected.
 	 *
 	 * @param line A line number in [0, lineCount).
-	 * @return A [line](#TextLine).
+	 * @return A {@link TextLine line}.
 	 */
 	// TODO: overload PLOX
 	// /**
@@ -87,11 +87,12 @@ typedef TextDocument = {
 	//  * that the returned object is *not* live and changes to the
 	//  * document are not reflected.
 	//  *
-	//  * The position will be [adjusted](#TextDocument.validatePosition).
+	//  * The position will be {@link TextDocument.validatePosition adjusted}.
 	//  *
-	//  * @see [TextDocument.lineAt](#TextDocument.lineAt)
+	//  * @see {@link TextDocument.lineAt}
+	//  *
 	//  * @param position A position.
-	//  * @return A [line](#TextLine).
+	//  * @return A {@link TextLine line}.
 	//  */
 	@:overload(function(position:Position):TextLine {})
 	function lineAt(line:Int):TextLine;
@@ -99,7 +100,7 @@ typedef TextDocument = {
 	/**
 	 * Converts the position to a zero-based offset.
 	 *
-	 * The position will be [adjusted](#TextDocument.validatePosition).
+	 * The position will be {@link TextDocument.validatePosition adjusted}.
 	 *
 	 * @param position A position.
 	 * @return A valid zero-based offset.
@@ -110,13 +111,13 @@ typedef TextDocument = {
 	 * Converts a zero-based offset to a position.
 	 *
 	 * @param offset A zero-based offset.
-	 * @return A valid [position](#Position).
+	 * @return A valid {@link Position}.
 	 */
 	function positionAt(offset:Int):Position;
 
 	/**
 	 * Get the text of this document. A substring can be retrieved by providing
-	 * a range. The range will be [adjusted](#TextDocument.validateRange).
+	 * a range. The range will be {@link TextDocument.validateRange adjusted}.
 	 *
 	 * @param range Include only the text included by the range.
 	 * @return The text inside the provided range or the entire text.
@@ -126,16 +127,16 @@ typedef TextDocument = {
 	/**
 	 * Get a word-range at the given position. By default words are defined by
 	 * common separators, like space, -, _, etc. In addition, per language custom
-	 * [word definitions](#LanguageConfiguration.wordPattern) can be defined. It
+	 * [word definitions} can be defined. It
 	 * is also possible to provide a custom regular expression.
 	 *
 	 * * *Note 1:* A custom regular expression must not match the empty string and
 	 * if it does, it will be ignored.
 	 * * *Note 2:* A custom regular expression will fail to match multiline strings
 	 * and in the name of speed regular expressions should not match words with
-	 * spaces. Use [`TextLine.text`](#TextLine.text) for more complex, non-wordy, scenarios.
+	 * spaces. Use {@link TextLine.text `TextLine.text`} for more complex, non-wordy, scenarios.
 	 *
-	 * The position will be [adjusted](#TextDocument.validatePosition).
+	 * The position will be {@link TextDocument.validatePosition adjusted}.
 	 *
 	 * @param position A position.
 	 * @param regex Optional regular expression that describes what a word is.

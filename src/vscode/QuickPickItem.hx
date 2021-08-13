@@ -6,20 +6,20 @@ package vscode;
  */
 typedef QuickPickItem = {
 	/**
-	 * A human-readable string which is rendered prominent. Supports rendering of [theme icons](#ThemeIcon) via
+	 * A human-readable string which is rendered prominent. Supports rendering of {@link ThemeIcon theme icons} via
 	 * the `$(<name>)`-syntax.
 	 */
 	var label:String;
 
 	/**
 	 * A human-readable string which is rendered less prominent in the same line. Supports rendering of
-	 * [theme icons](#ThemeIcon) via the `$(<name>)`-syntax.
+	 * {@link ThemeIcon theme icons} via the `$(<name>)`-syntax.
 	 */
 	var ?description:String;
 
 	/**
 	 * A human-readable string which is rendered less prominent in a separate line. Supports rendering of
-	 * [theme icons](#ThemeIcon) via the `$(<name>)`-syntax.
+	 * {@link ThemeIcon theme icons} via the `$(<name>)`-syntax.
 	 */
 	var ?detail:String;
 
@@ -27,7 +27,7 @@ typedef QuickPickItem = {
 	 * Optional flag indicating if this item is picked initially.
 	 * (Only honored when the picker allows multiple selections.)
 	 *
-	 * @see [QuickPickOptions.canPickMany](#QuickPickOptions.canPickMany)
+	 * @see {@link QuickPickOptions.canPickMany}
 	 */
 	var ?picked:Bool;
 

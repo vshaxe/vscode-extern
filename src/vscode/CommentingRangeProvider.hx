@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * Commenting range provider for a [comment controller](#CommentController).
+ * Commenting range provider for a {@link CommentController comment controller}.
  */
 typedef CommentingRangeProvider = {
 	/**

@@ -5,6 +5,11 @@ package vscode;
  */
 typedef QuickPickOptions = {
 	/**
+	 * An optional string that represents the title of the quick pick.
+	 */
+	var ?title:String;
+
+	/**
 	 * An optional flag to include the description when filtering the picks.
 	 */
 	var ?matchOnDescription:Bool;
@@ -21,6 +26,7 @@ typedef QuickPickOptions = {
 
 	/**
 	 * Set to `true` to keep the picker open when focus moves to another part of the editor or to another window.
+	 * This setting is ignored on iPad and is always false.
 	 */
 	var ?ignoreFocusOut:Bool;
 

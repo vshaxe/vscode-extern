@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * An event describing the changes to the set of [breakpoints](#Breakpoint).
+ * An event describing the changes to the set of {@link Breakpoint breakpoints}.
  */
 typedef BreakpointsChangeEvent = {
 	/**

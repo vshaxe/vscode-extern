@@ -6,7 +6,7 @@ package vscode;
  */
 typedef DocumentRangeSemanticTokensProvider = {
 	/**
-	 * @see [provideDocumentSemanticTokens](#DocumentSemanticTokensProvider.provideDocumentSemanticTokens).
+	 * @see {@link DocumentSemanticTokensProvider.provideDocumentSemanticTokens provideDocumentSemanticTokens}.
 	 */
 	function provideDocumentRangeSemanticTokens(document:TextDocument, range:Range, token:CancellationToken):ProviderResult<SemanticTokens>;
 }

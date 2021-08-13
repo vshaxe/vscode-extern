@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * Metadata about a registered [`SignatureHelpProvider`](#SignatureHelpProvider).
+ * Metadata about a registered {@link SignatureHelpProvider `SignatureHelpProvider`}.
  */
 typedef SignatureHelpProviderMetadata = {
 	/**

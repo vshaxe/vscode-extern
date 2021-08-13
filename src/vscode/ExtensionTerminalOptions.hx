@@ -10,8 +10,13 @@ typedef ExtensionTerminalOptions = {
 	var name:String;
 
 	/**
-	 * An implementation of [Pseudoterminal](#Pseudoterminal) that allows an extension to
+	 * An implementation of {@link Pseudoterminal} that allows an extension to
 	 * control a terminal.
 	 */
 	var pty:Pseudoterminal;
+
+	/**
+	 * The icon path or {@link ThemeIcon} for the terminal.
+	 */
+	var ?iconPath:EitherType<Uri, EitherType<{light:Uri, dark:Uri}, ThemeIcon>>;
 }

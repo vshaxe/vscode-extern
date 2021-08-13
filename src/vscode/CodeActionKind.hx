@@ -5,7 +5,7 @@ package vscode;
  *
  * Kinds are a hierarchical list of identifiers separated by `.`, e.g. `"refactor.extract.function"`.
  *
- * Code action kinds are used by VS Code for UI elements such as the refactoring context menu. Users
+ * Code action kinds are used by the editor for UI elements such as the refactoring context menu. Users
  * can also trigger code actions with a specific kind with the `editor.action.codeAction` command.
  */
 @:jsRequire("vscode", "CodeActionKind")

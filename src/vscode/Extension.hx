@@ -3,7 +3,7 @@ package vscode;
 /**
  * Represents an extension.
  *
- * To get an instance of an `Extension` use [getExtension](#extensions.getExtension).
+ * To get an instance of an `Extension` use {@link extensions.getExtension getExtension}.
  */
 typedef Extension<T> = {
 	/**
@@ -17,7 +17,8 @@ typedef Extension<T> = {
 	var extensionUri(default, null):String;
 
 	/**
-	 * The absolute file path of the directory containing this extension.
+	 * The absolute file path of the directory containing this extension. Shorthand
+	 * notation for {@link Extension.extensionUri Extension.extensionUri.fsPath} (independent of the uri scheme).
 	 */
 	var extensionPath(default, null):String;
 
@@ -35,8 +36,8 @@ typedef Extension<T> = {
 	 * The extension kind describes if an extension runs where the UI runs
 	 * or if an extension runs where the remote extension host runs. The extension kind
 	 * is defined in the `package.json`-file of extensions but can also be refined
-	 * via the the `remote.extensionKind`-setting. When no remote extension host exists,
-	 * the value is [`ExtensionKind.UI`](#ExtensionKind.UI).
+	 * via the `remote.extensionKind`-setting. When no remote extension host exists,
+	 * the value is {@link ExtensionKind.UI `ExtensionKind.UI`}.
 	 */
 	var extensionKind:ExtensionKind;
 

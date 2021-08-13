@@ -2,21 +2,21 @@ package vscode;
 
 /**
  * A range represents an ordered pair of two positions.
- * It is guaranteed that [start](#Range.start).isBeforeOrEqual([end](#Range.end))
+ * It is guaranteed that {@link Range.start start}.isBeforeOrEqual({@link Range.end end})
  *
- * Range objects are __immutable__. Use the [with](#Range.with),
- * [intersection](#Range.intersection), or [union](#Range.union) methods
+ * Range objects are __immutable__. Use the {@link Range.with with},
+ * {@link Range.intersection intersection}, or {@link Range.union union} methods
  * to derive new ranges from an existing range.
  */
 @:jsRequire("vscode", "Range")
 extern class Range {
 	/**
-	 * The start position. It is before or equal to [end](#Range.end).
+	 * The start position. It is before or equal to {@link Range.end end}.
 	 */
 	var start(default, null):Position;
 
 	/**
-	 * The end position. It is after or equal to [start](#Range.start).
+	 * The end position. It is after or equal to {@link Range.start start}.
 	 */
 	var end(default, null):Position;
 
@@ -63,7 +63,7 @@ extern class Range {
 	 * Check if `other` equals this range.
 	 *
 	 * @param other A range.
-	 * @return `true` when start and end are [equal](#Position.isEqual) to
+	 * @return `true` when start and end are {@link Position.isEqual equal} to
 	 * start and end of this range.
 	 */
 	function isEqual(other:Range):Bool;
@@ -89,8 +89,8 @@ extern class Range {
 	/**
 	 * Derived a new range from this range.
 	 *
-	 * @param start A position that should be used as start. The default value is the [current start](#Range.start).
-	 * @param end A position that should be used as end. The default value is the [current end](#Range.end).
+	 * @param start A position that should be used as start. The default value is the {@link Range.start current start}.
+	 * @param end A position that should be used as end. The default value is the {@link Range.end current end}.
 	 * @return A range derived from this range with the given start and end position.
 	 * If start and end are not different `this` range will be returned.
 	 */

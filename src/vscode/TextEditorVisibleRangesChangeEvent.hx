@@ -1,16 +1,16 @@
 package vscode;
 
 /**
- * Represents an event describing the change in a [text editor's visible ranges](#TextEditor.visibleRanges).
+ * Represents an event describing the change in a {@link TextEditor.visibleRanges text editor's visible ranges}.
  */
 typedef TextEditorVisibleRangesChangeEvent = {
 	/**
-	 * The [text editor](#TextEditor) for which the visible ranges have changed.
+	 * The {@link TextEditor text editor} for which the visible ranges have changed.
 	 */
 	var textEditor(default, null):TextEditor;
 
 	/**
-	 * The new value for the [text editor's visible ranges](#TextEditor.visibleRanges).
+	 * The new value for the {@link TextEditor.visibleRanges text editor's visible ranges}.
 	 */
 	var visibleRanges(default, null):ReadOnlyArray<Range>;
 }

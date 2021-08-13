@@ -21,7 +21,7 @@ typedef AuthenticationSession = {
 
 	/**
 	 * The permissions granted by the session's access token. Available scopes
-	 * are defined by the [AuthenticationProvider](#AuthenticationProvider).
+	 * are defined by the {@link AuthenticationProvider}.
 	 */
 	final scopes:ReadOnlyArray<String>;
 }

@@ -10,12 +10,12 @@ typedef Comment = {
 	var body:EitherType<String, MarkdownString>;
 
 	/**
-	 * [Comment mode](#CommentMode) of the comment
+	 * {@link CommentMode Comment mode} of the comment
 	 */
 	var mode:CommentMode;
 
 	/**
-	 * The [author information](#CommentAuthorInformation) of the comment
+	 * The {@link CommentAuthorInformation author information} of the comment
 	 */
 	var author:CommentAuthorInformation;
 
@@ -40,12 +40,12 @@ typedef Comment = {
 	var ?contextValue:String;
 
 	/**
-	 * Optional reactions of the [comment](#Comment)
+	 * Optional reactions of the {@link Comment}
 	 */
 	var ?reactions:Array<CommentReaction>;
 
 	/**
-	 * Optional label describing the [Comment](#Comment)
+	 * Optional label describing the {@link Comment}
 	 * Label will be rendered next to authorName if exists.
 	 */
 	var ?label:String;

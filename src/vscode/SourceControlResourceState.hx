@@ -2,22 +2,22 @@ package vscode;
 
 /**
  * An source control resource state represents the state of an underlying workspace
- * resource within a certain [source control group](#SourceControlResourceGroup).
+ * resource within a certain {@link SourceControlResourceGroup source control group}.
  */
 typedef SourceControlResourceState = {
 	/**
-	 * The [uri](#Uri) of the underlying resource inside the workspace.
+	 * The {@link Uri} of the underlying resource inside the workspace.
 	 */
 	var resourceUri(default, null):Uri;
 
 	/**
-	 * The [command](#Command) which should be run when the resource
+	 * The {@link Command} which should be run when the resource
 	 * state is open in the Source Control viewlet.
 	 */
 	var ?command(default, null):Command;
 
 	/**
-	 * The [decorations](#SourceControlResourceDecorations) for this source control
+	 * The {@link SourceControlResourceDecorations decorations} for this source control
 	 * resource state.
 	 */
 	var ?decorations(default, null):SourceControlResourceDecorations;

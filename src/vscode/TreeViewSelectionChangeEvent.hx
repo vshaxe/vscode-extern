@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * The event that is fired when there is a change in [tree view's selection](#TreeView.selection)
+ * The event that is fired when there is a change in {@link TreeView.selection tree view's selection}
  */
 typedef TreeViewSelectionChangeEvent<T> = {
 	/**

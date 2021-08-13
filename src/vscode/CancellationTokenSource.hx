@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * A cancellation source creates and controls a [cancellation token](#CancellationToken).
+ * A cancellation source creates and controls a {@link CancellationToken cancellation token}.
  */
 @:jsRequire("vscode", "CancellationTokenSource")
 extern class CancellationTokenSource {

@@ -3,7 +3,7 @@ package vscode;
 /**
  * Represents a line of text, such as a line of source code.
  *
- * TextLine objects are __immutable__. When a [document](#TextDocument) changes,
+ * TextLine objects are __immutable__. When a {@link TextDocument document} changes,
  * previously retrieved lines will not represent the latest state.
  */
 typedef TextLine = {
@@ -35,7 +35,7 @@ typedef TextLine = {
 
 	/**
 	 * Whether this line is whitespace only, shorthand
-	 * for [TextLine.firstNonWhitespaceCharacterIndex](#TextLine.firstNonWhitespaceCharacterIndex) === [TextLine.text.length](#TextLine.text).
+	 * for {@link TextLine.firstNonWhitespaceCharacterIndex} === {@link TextLine.text TextLine.text.length}.
 	 */
 	var isEmptyOrWhitespace(default, null):Bool;
 }

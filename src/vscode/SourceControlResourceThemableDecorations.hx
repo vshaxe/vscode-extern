@@ -2,12 +2,12 @@ package vscode;
 
 /**
  * The theme-aware decorations for a
- * [source control resource state](#SourceControlResourceState).
+ * {@link SourceControlResourceState source control resource state}.
  */
 typedef SourceControlResourceThemableDecorations = {
 	/**
 	 * The icon path for a specific
-	 * [source control resource state](#SourceControlResourceState).
+	 * {@link SourceControlResourceState source control resource state}.
 	 */
-	var ?iconPath(default, null):EitherType<String, Uri>;
+	var ?iconPath(default, null):EitherType<String, EitherType<Uri, ThemeIcon>>;
 }

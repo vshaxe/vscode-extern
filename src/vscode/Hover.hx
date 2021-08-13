@@ -9,7 +9,7 @@ extern class Hover {
 	/**
 	 * The contents of this hover.
 	 */
-	var contents:Array<MarkedString>;
+	var contents:Array<EitherType<MarkdownString, MarkedString>>;
 
 	/**
 	 * The range to which this hover applies. When missing, the
@@ -24,5 +24,5 @@ extern class Hover {
 	 * @param contents The contents of the hover.
 	 * @param range The range to which the hover applies.
 	 */
-	function new(contents:EitherType<MarkedString, Array<MarkedString>>, ?range:Range);
+	function new(contents:EitherType<MarkdownString, EitherType<MarkedString, Array<EitherType<MarkdownString, MarkedString>>>>, ?range:Range);
 }

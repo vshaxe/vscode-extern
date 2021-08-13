@@ -2,9 +2,14 @@ package vscode;
 
 /**
  * Contains additional diagnostic information about the context in which
- * a [code action](#CodeActionProvider.provideCodeActions) is run.
+ * a {@link CodeActionProvider.provideCodeActions code action} is run.
  */
 typedef CodeActionContext = {
+	/**
+	 * The reason why code actions were requested.
+	 */
+	final triggerKind:CodeActionTriggerKind;
+
 	/**
 	 * An array of diagnostics.
 	 */

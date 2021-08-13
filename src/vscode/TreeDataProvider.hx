@@ -12,10 +12,10 @@ typedef TreeDataProvider<T> = {
 	var ?onDidChangeTreeData:Event<Null<T> /* | Void */>;
 
 	/**
-	 * Get [TreeItem](#TreeItem) representation of the `element`
+	 * Get {@link TreeItem} representation of the `element`
 	 *
-	 * @param element The element for which [TreeItem](#TreeItem) representation is asked for.
-	 * @return [TreeItem](#TreeItem) representation of the element
+	 * @param element The element for which {@link TreeItem} representation is asked for.
+	 * @return {@link TreeItem} representation of the element
 	 */
 	function getTreeItem(element:T):EitherType<TreeItem, Thenable<TreeItem>>;
 
@@ -31,7 +31,7 @@ typedef TreeDataProvider<T> = {
 	 * Optional method to return the parent of `element`.
 	 * Return `null` or `undefined` if `element` is a child of root.
 	 *
-	 * **NOTE:** This method should be implemented in order to access [reveal](#TreeView.reveal) API.
+	 * **NOTE:** This method should be implemented in order to access {@link TreeView.reveal reveal} API.
 	 *
 	 * @param element The element for which the parent has to be returned.
 	 * @return Parent of `element`.
@@ -39,8 +39,8 @@ typedef TreeDataProvider<T> = {
 	var ?getParent(default, never):(element:T) -> ProviderResult<T>;
 
 	/**
-	 * Called on hover to resolve the [TreeItem](#TreeItem.tooltip) property if it is undefined.
-	 * Called on tree item click/open to resolve the [TreeItem](#TreeItem.command) property if it is undefined.
+	 * Called on hover to resolve the {@link TreeItem.tooltip TreeItem} property if it is undefined.
+	 * Called on tree item click/open to resolve the {@link TreeItem.command TreeItem} property if it is undefined.
 	 * Only properties that were undefined can be resolved in `resolveTreeItem`.
 	 * Functionality may be expanded later to include being called to resolve other missing
 	 * properties on selection and/or on open.
@@ -53,9 +53,9 @@ typedef TreeDataProvider<T> = {
 	 * Because of that, no property that changes the presentation (label, description, etc.)
 	 * can be changed.
 	 *
+	 * @param item Undefined properties of `item` should be set then `item` should be returned.
 	 * @param element The object associated with the TreeItem.
 	 * @param token A cancellation token.
-	 * @param item Undefined properties of `item` should be set then `item` should be returned.
 	 * @return The resolved tree item or a thenable that resolves to such. It is OK to return the given
 	 * `item`. When no result is returned, the given `item` will be used.
 	 */

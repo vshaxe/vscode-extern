@@ -4,7 +4,7 @@ package vscode;
  * A workspace edit is a collection of textual and files changes for
  * multiple resources and documents.
  *
- * Use the [applyEdit](#workspace.applyEdit)-function to apply a workspace edit.
+ * Use the {@link workspace.applyEdit applyEdit}-function to apply a workspace edit.
  */
 @:jsRequire("vscode", "WorkspaceEdit")
 extern class WorkspaceEdit {

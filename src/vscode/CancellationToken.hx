@@ -6,7 +6,7 @@ package vscode;
  * for completion items because the user continued to type.
  *
  * To get an instance of a `CancellationToken` use a
- * [CancellationTokenSource](#CancellationTokenSource).
+ * {@link CancellationTokenSource}.
  */
 typedef CancellationToken = {
 	/**
@@ -15,7 +15,7 @@ typedef CancellationToken = {
 	var isCancellationRequested:Bool;
 
 	/**
-	 * An [event](#Event) which fires upon cancellation.
+	 * An {@link Event} which fires upon cancellation.
 	 */
 	var onCancellationRequested:Event<Any>;
 }

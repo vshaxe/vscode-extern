@@ -6,6 +6,13 @@ package vscode;
  */
 typedef Memento = {
 	/**
+	 * Returns the stored keys.
+	 *
+	 * @return The stored keys.
+	 */
+	function keys():ReadOnlyArray<String>;
+
+	/**
 	 * Return a value.
 	 *
 	 * @param key A string.

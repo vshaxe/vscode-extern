@@ -7,7 +7,7 @@ package vscode;
 @:jsRequire("vscode", "SelectionRange")
 extern class SelectionRange {
 	/**
-	 * The [range](#Range) of this selection range.
+	 * The {@link Range} of this selection range.
 	 */
 	var range:Range;
 

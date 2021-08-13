@@ -3,23 +3,23 @@ package vscode;
 /**
  * A light-weight user input UI that is initially not visible. After
  * configuring it through its properties the extension can make it
- * visible by calling [QuickInput.show](#QuickInput.show).
+ * visible by calling {@link QuickInput.show}.
  *
  * There are several reasons why this UI might have to be hidden and
- * the extension will be notified through [QuickInput.onDidHide](#QuickInput.onDidHide).
- * (Examples include: an explicit call to [QuickInput.hide](#QuickInput.hide),
+ * the extension will be notified through {@link QuickInput.onDidHide}.
+ * (Examples include: an explicit call to {@link QuickInput.hide},
  * the user pressing Esc, some other input UI opening, etc.)
  *
  * A user pressing Enter or some other gesture implying acceptance
  * of the current state does not automatically hide this UI component.
  * It is up to the extension to decide whether to accept the user's input
- * and if the UI should indeed be hidden through a call to [QuickInput.hide](#QuickInput.hide).
+ * and if the UI should indeed be hidden through a call to {@link QuickInput.hide}.
  *
  * When the extension no longer needs this input UI, it should
- * [QuickInput.dispose](#QuickInput.dispose) it to allow for freeing up
+ * {@link QuickInput.dispose} it to allow for freeing up
  * any resources associated with it.
  *
- * See [QuickPick](#QuickPick) and [InputBox](#InputBox) for concrete UIs.
+ * See {@link QuickPick} and {@link InputBox} for concrete UIs.
  */
 typedef QuickInput = {
 	/**
@@ -55,17 +55,18 @@ typedef QuickInput = {
 
 	/**
 	 * If the UI should stay open even when loosing UI focus. Defaults to false.
+	 * This setting is ignored on iPad and is always false.
 	 */
 	var ignoreFocusOut:Bool;
 
 	/**
 	 * Makes the input UI visible in its current configuration. Any other input
-	 * UI will first fire an [QuickInput.onDidHide](#QuickInput.onDidHide) event.
+	 * UI will first fire an {@link QuickInput.onDidHide} event.
 	 */
 	function show():Void;
 
 	/**
-	 * Hides this input UI. This will also fire an [QuickInput.onDidHide](#QuickInput.onDidHide)
+	 * Hides this input UI. This will also fire an {@link QuickInput.onDidHide}
 	 * event.
 	 */
 	function hide():Void;
@@ -74,8 +75,8 @@ typedef QuickInput = {
 	 * An event signaling when this input UI is hidden.
 	 *
 	 * There are several reasons why this UI might have to be hidden and
-	 * the extension will be notified through [QuickInput.onDidHide](#QuickInput.onDidHide).
-	 * (Examples include: an explicit call to [QuickInput.hide](#QuickInput.hide),
+	 * the extension will be notified through {@link QuickInput.onDidHide}.
+	 * (Examples include: an explicit call to {@link QuickInput.hide},
 	 * the user pressing Esc, some other input UI opening, etc.)
 	 */
 	var onDidHide:Event<Void>;

@@ -6,6 +6,14 @@ package vscode;
  */
 typedef StatusBarItem = {
 	/**
+	 * The identifier of this item.
+	 *
+	 * *Note*: if no identifier was provided by the {@link window.createStatusBarItem `window.createStatusBarItem`}
+	 * method, the identifier will match the {@link Extension.id extension identifier}.
+	 */
+	var id(default, null):String;
+
+	/**
 	 * The alignment of this item.
 	 */
 	var alignment(default, null):StatusBarAlignment;
@@ -15,6 +23,13 @@ typedef StatusBarItem = {
 	 * be shown more to the left.
 	 */
 	var ?priority(default, null):Float;
+
+	/**
+	 * The name of the entry, like 'Python Language Indicator', 'Git Status' etc.
+	 * Try to keep the length of the name short, yet descriptive enough that
+	 * users can understand what the status bar item is about.
+	 */
+	var name:Null<String>;
 
 	/**
 	 * The text to show for the entry. You can embed icons in the text by leveraging the syntax:
@@ -29,7 +44,7 @@ typedef StatusBarItem = {
 	/**
 	 * The tooltip text when you hover over this entry.
 	 */
-	var tooltip:Null<String>;
+	var tooltip:Null<EitherType<String, MarkdownString>>;
 
 	/**
 	 * The foreground color for this entry.
@@ -39,9 +54,11 @@ typedef StatusBarItem = {
 	/**
 	 * The background color for this entry.
 	 *
-	 * *Note*: only `new ThemeColor('statusBarItem.errorBackground')` is
-	 * supported for now. More background colors may be supported in the
-	 * future.
+	 * *Note*: only the following colors are supported:
+	 * * `new ThemeColor('statusBarItem.errorBackground')`
+	 * * `new ThemeColor('statusBarItem.warningBackground')`
+	 *
+	 * More background colors may be supported in the future.
 	 *
 	 * *Note*: when a background color is set, the statusbar may override
 	 * the `color` choice to ensure the entry is readable in all themes.
@@ -49,17 +66,17 @@ typedef StatusBarItem = {
 	var ?backgroundColor:ThemeColor;
 
 	/**
-	 * [`Command`](#Command) or identifier of a command to run on click.
+	 * {@link Command `Command`} or identifier of a command to run on click.
 	 *
-	 * The command must be [known](#commands.getCommands).
+	 * The command must be {@link commands.getCommands known}.
 	 *
-	 * Note that if this is a [`Command`](#Command) object, only the [`command`](#Command.command) and [`arguments`](#Command.arguments)
-	 * are used by VS Code.
+	 * Note that if this is a {@link Command `Command`} object, only the {@link Command.command `command`} and {@link Command.arguments `arguments`}
+	 * are used by the editor.
 	 */
 	var command:Null<EitherType<String, Command>>;
 
 	/**
-	 * Accessibility information used when screen reader interacts with this StatusBar item
+	 * Accessibility information used when a screen reader interacts with this StatusBar item
 	 */
 	var ?accessibilityInformation:AccessibilityInformation;
 
@@ -75,7 +92,7 @@ typedef StatusBarItem = {
 
 	/**
 	 * Dispose and free associated resources. Call
-	 * [hide](#StatusBarItem.hide).
+	 * {@link StatusBarItem.hide hide}.
 	 */
 	function dispose():Void;
 }

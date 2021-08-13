@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * Author information of a [comment](#Comment)
+ * Author information of a {@link Comment}
  */
 typedef CommentAuthorInformation = {
 	/**

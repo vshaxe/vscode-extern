@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * Represents a [comment controller](#CommentController)'s [options](#CommentController.options).
+ * Represents a {@link CommentController comment controller}'s {@link CommentController.options options}.
  */
 typedef CommentOptions = {
 	/**

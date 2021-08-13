@@ -7,7 +7,7 @@ extern class ShellExecution {
 	 *
 	 * or
 	 *
-	 * Creates a shell execution with a command and arguments. For the real execution VS Code will
+	 * Creates a shell execution with a command and arguments. For the real execution the editor will
 	 * construct a command line from the command and the arguments. This is subject to interpretation
 	 * especially when it comes to quoting. If full control over the command line is needed please
 	 * use the constructor that creates a `ShellExecution` with the full command line.

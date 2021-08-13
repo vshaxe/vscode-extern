@@ -1,11 +1,11 @@
 package vscode;
 
 /**
- * A concrete [QuickInput](#QuickInput) to let the user input a text value.
+ * A concrete {@link QuickInput} to let the user input a text value.
  *
- * Note that in many cases the more convenient [window.showInputBox](#window.showInputBox)
- * is easier to use. [window.createInputBox](#window.createInputBox) should be used
- * when [window.showInputBox](#window.showInputBox) does not offer the required flexibility.
+ * Note that in many cases the more convenient {@link window.showInputBox}
+ * is easier to use. {@link window.createInputBox} should be used
+ * when {@link window.showInputBox} does not offer the required flexibility.
  */
 typedef InputBox = QuickInput & {
 	/**

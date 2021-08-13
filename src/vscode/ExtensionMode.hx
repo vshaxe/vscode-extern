@@ -8,13 +8,13 @@ package vscode;
 extern enum abstract ExtensionMode(Int) {
 	/**
 	 * The extension is installed normally (for example, from the marketplace
-	 * or VSIX) in VS Code.
+	 * or VSIX) in the editor.
 	 */
 	var Production;
 
 	/**
 	 * The extension is running from an `--extensionDevelopmentPath` provided
-	 * when launching VS Code.
+	 * when launching the editor.
 	 */
 	var Development;
 

@@ -4,7 +4,7 @@ import js.lib.Uint32Array;
 
 /**
  * Represents an edit to semantic tokens.
- * @see [provideDocumentSemanticTokensEdits](#DocumentSemanticTokensProvider.provideDocumentSemanticTokensEdits) for an explanation of the format.
+ * @see {@link DocumentSemanticTokensProvider.provideDocumentSemanticTokensEdits provideDocumentSemanticTokensEdits} for an explanation of the format.
  */
 @:jsRequire("vscode", "SemanticTokensEdit")
 extern class SemanticTokensEdit {

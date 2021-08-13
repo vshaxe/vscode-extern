@@ -5,7 +5,7 @@ package vscode;
  */
 typedef AuthenticationSessionsChangeEvent = {
 	/**
-	 * The [authenticationProvider](#AuthenticationProvider) that has had its sessions change.
+	 * The {@link AuthenticationProvider} that has had its sessions change.
 	 */
 	final provider:AuthenticationProviderInformation;
 }

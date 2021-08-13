@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * Comment mode of a [comment](#Comment)
+ * Comment mode of a {@link Comment}
  */
 @:jsRequire("vscode", "CommentMode")
 extern enum abstract CommentMode(Int) {

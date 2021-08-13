@@ -2,7 +2,7 @@ package vscode;
 
 /**
  * Contains additional information about the context in which
- * [completion provider](#CompletionItemProvider.provideCompletionItems) is triggered.
+ * {@link CompletionItemProvider.provideCompletionItems completion provider} is triggered.
  */
 typedef CompletionContext = {
 	/**

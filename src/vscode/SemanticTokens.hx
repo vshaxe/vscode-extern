@@ -4,8 +4,8 @@ import js.lib.Uint32Array;
 
 /**
  * Represents semantic tokens, either in a range or in an entire document.
- * @see [provideDocumentSemanticTokens](#DocumentSemanticTokensProvider.provideDocumentSemanticTokens) for an explanation of the format.
- * @see [SemanticTokensBuilder](#SemanticTokensBuilder) for a helper to create an instance.
+ * @see {@link DocumentSemanticTokensProvider.provideDocumentSemanticTokens provideDocumentSemanticTokens} for an explanation of the format.
+ * @see {@link SemanticTokensBuilder} for a helper to create an instance.
  */
 @:jsRequire("vscode", "SemanticTokens")
 extern class SemanticTokens {
@@ -18,7 +18,7 @@ extern class SemanticTokens {
 
 	/**
 	 * The actual tokens data.
-	 * @see [provideDocumentSemanticTokens](#DocumentSemanticTokensProvider.provideDocumentSemanticTokens) for an explanation of the format.
+	 * @see {@link DocumentSemanticTokensProvider.provideDocumentSemanticTokens provideDocumentSemanticTokens} for an explanation of the format.
 	 */
 	var data(default, null):Uint32Array;
 

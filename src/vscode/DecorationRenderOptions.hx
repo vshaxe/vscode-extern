@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * Represents rendering styles for a [text editor decoration](#TextEditorDecorationType).
+ * Represents rendering styles for a {@link TextEditorDecorationType text editor decoration}.
  */
 typedef DecorationRenderOptions = ThemableDecorationRenderOptions & {
 	/**

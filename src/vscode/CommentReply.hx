@@ -5,7 +5,7 @@ package vscode;
  */
 typedef CommentReply = {
 	/**
-	 * The active [comment thread](#CommentThread)
+	 * The active {@link CommentThread comment thread}
 	 */
 	var thread:CommentThread;
 

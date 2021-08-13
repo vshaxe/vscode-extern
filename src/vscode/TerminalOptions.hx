@@ -26,7 +26,7 @@ typedef TerminalOptions = {
 	var ?cwd:EitherType<String, Uri>;
 
 	/**
-	 * Object with environment variables that will be added to the VS Code process.
+	 * Object with environment variables that will be added to the editor process.
 	 */
 	var ?env:haxe.DynamicAccess<Null<String>>;
 
@@ -47,4 +47,16 @@ typedef TerminalOptions = {
 	 * as normal.
 	 */
 	var ?hideFromUser:Bool;
+
+	/**
+	 * A message to write to the terminal on first launch, note that this is not sent to the
+	 * process but, rather written directly to the terminal. This supports escape sequences such
+	 * a setting text style.
+	 */
+	var ?message:String;
+
+	/**
+	 * The icon path or {@link ThemeIcon} for the terminal.
+	 */
+	var ?iconPath:EitherType<Uri, EitherType<{light:Uri, dark:Uri}, ThemeIcon>>;
 }

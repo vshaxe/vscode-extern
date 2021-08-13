@@ -56,7 +56,7 @@ extern class FileSystemError extends Error {
 	/**
 	 * A code that identifies this error.
 	 *
-	 * Possible values are names of errors, like [`FileNotFound`](#FileSystemError.FileNotFound),
+	 * Possible values are names of errors, like {@link FileSystemError.FileNotFound `FileNotFound`},
 	 * or `Unknown` for unspecified errors.
 	 */
 	var code(default, null):String;

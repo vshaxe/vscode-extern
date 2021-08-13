@@ -10,13 +10,13 @@ typedef DocumentColorProvider = {
 	 *
 	 * @param document The document in which the command was invoked.
 	 * @param token A cancellation token.
-	 * @return An array of [color information](#ColorInformation) or a thenable that resolves to such. The lack of a result
+	 * @return An array of {@link ColorInformation color information} or a thenable that resolves to such. The lack of a result
 	 * can be signaled by returning `undefined`, `null`, or an empty array.
 	 */
 	function provideDocumentColors(document:TextDocument, token:CancellationToken):ProviderResult<Array<ColorInformation>>;
 
 	/**
-	 * Provide [representations](#ColorPresentation) for a color.
+	 * Provide {@link ColorPresentation representations} for a color.
 	 *
 	 * @param color The color to show and insert.
 	 * @param context A context object with additional information

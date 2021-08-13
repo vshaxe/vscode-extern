@@ -2,11 +2,11 @@ package vscode;
 
 /**
  * A diagnostics collection is a container that manages a set of
- * [diagnostics](#Diagnostic). Diagnostics are always scopes to a
+ * {@link Diagnostic diagnostics}. Diagnostics are always scopes to a
  * diagnostics collection and a resource.
  *
  * To get an instance of a `DiagnosticCollection` use
- * [createDiagnosticCollection](#languages.createDiagnosticCollection).
+ * {@link languages.createDiagnosticCollection createDiagnosticCollection}.
  */
 typedef DiagnosticCollection = {
 	/**
@@ -64,7 +64,7 @@ typedef DiagnosticCollection = {
 	 * modify the diagnostics-array returned from this call.
 	 *
 	 * @param uri A resource identifier.
-	 * @returns An immutable array of [diagnostics](#Diagnostic) or `undefined`.
+	 * @returns An immutable array of {@link Diagnostic diagnostics} or `undefined`.
 	 */
 	function get(uri:Uri):Null<ReadOnlyArray<Diagnostic>>;
 
@@ -79,7 +79,7 @@ typedef DiagnosticCollection = {
 
 	/**
 	 * Dispose and free associated resources. Calls
-	 * [clear](#DiagnosticCollection.clear).
+	 * {@link DiagnosticCollection.clear clear}.
 	 */
 	function dispose():Void;
 }

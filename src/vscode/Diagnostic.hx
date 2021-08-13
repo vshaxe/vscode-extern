@@ -17,7 +17,7 @@ extern class Diagnostic {
 	var message:String;
 
 	/**
-	 * The severity, default is [error](#DiagnosticSeverity.Error).
+	 * The severity, default is {@link DiagnosticSeverity.Error error}.
 	 */
 	var severity:DiagnosticSeverity;
 
@@ -29,12 +29,12 @@ extern class Diagnostic {
 
 	/**
 	 * A code or identifier for this diagnostic.
-	 * Should be used for later processing, e.g. when providing [code actions](#CodeActionContext).
+	 * Should be used for later processing, e.g. when providing {@link CodeActionContext code actions}.
 	 */
 	var code:Null<EitherType<String, EitherType<Int, {
 		/**
 		 * A code or identifier for this diagnostic.
-		 * Should be used for later processing, e.g. when providing [code actions](#CodeActionContext).
+		 * Should be used for later processing, e.g. when providing {@link CodeActionContext code actions}.
 		 */
 		var value:EitherType<String, Int>;
 
@@ -60,7 +60,7 @@ extern class Diagnostic {
 	 *
 	 * @param range The range to which this diagnostic applies.
 	 * @param message The human-readable message.
-	 * @param severity The severity, default is [error](#DiagnosticSeverity.Error).
+	 * @param severity The severity, default is {@link DiagnosticSeverity.Error error}.
 	 */
 	function new(range:Range, message:String, ?severity:DiagnosticSeverity):Void;
 }

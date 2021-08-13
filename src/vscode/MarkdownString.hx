@@ -4,8 +4,8 @@ package vscode;
  * The MarkdownString represents human-readable text that supports formatting via the
  * markdown syntax. Standard markdown is supported, also tables, but no embedded html.
  *
- * When created with `supportThemeIcons` then rendering of [theme icons](#ThemeIcon) via
- * the `$(<name>)`-syntax is supported.
+ * Rendering of {@link ThemeIcon theme icons} via the `$(<name>)`-syntax is supported
+ * when the {@link MarkdownString.supportThemeIcons `supportThemeIcons`} is set to `true`.
  */
 @:jsRequire("vscode", "MarkdownString")
 extern class MarkdownString {
@@ -21,15 +21,15 @@ extern class MarkdownString {
 	var isTrusted:Null<Bool>;
 
 	/**
-	 * Indicates that this markdown string can contain [ThemeIcons](#ThemeIcon), e.g. `$(zap)`.
+	 * Indicates that this markdown string can contain {@link ThemeIcon ThemeIcons}, e.g. `$(zap)`.
 	 */
-	var supportThemeIcons(default, null):Null<Bool>;
+	var supportThemeIcons:Null<Bool>;
 
 	/**
 	 * Creates a new markdown string with the given value.
 	 *
 	 * @param value Optional, initial value.
-	 * @param supportThemeIcons Optional, Specifies whether [ThemeIcons](#ThemeIcon) are supported within the [`MarkdownString`](#MarkdownString).
+	 * @param supportThemeIcons Optional, Specifies whether {@link ThemeIcon ThemeIcons} are supported within the {@link MarkdownString `MarkdownString`}.
 	 */
 	function new(?value:String, ?supportThemeIcons:Bool);
 
@@ -40,7 +40,7 @@ extern class MarkdownString {
 	function appendText(value:String):MarkdownString;
 
 	/**
-	 * Appends the given string 'as is' to this markdown string. When [`supportThemeIcons`](#MarkdownString.supportThemeIcons) is `true`, [ThemeIcons](#ThemeIcon) in the `value` will be iconified.
+	 * Appends the given string 'as is' to this markdown string. When {@link MarkdownString.supportThemeIcons `supportThemeIcons`} is `true`, {@link ThemeIcon ThemeIcons} in the `value` will be iconified.
 	 * @param value Markdown string.
 	 */
 	function appendMarkdown(value:String):MarkdownString;
@@ -48,7 +48,7 @@ extern class MarkdownString {
 	/**
 	 * Appends the given string as codeblock using the provided language.
 	 * @param value A code snippet.
-	 * @param language An optional [language identifier](#languages.getLanguages).
+	 * @param language An optional {@link languages.getLanguages language identifier}.
 	 */
 	function appendCodeblock(value:String, ?language:String):MarkdownString;
 }

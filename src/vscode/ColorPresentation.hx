@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * A color presentation object describes how a [`color`](#Color) should be represented as text and what
+ * A color presentation object describes how a {@link Color `color`} should be represented as text and what
  * edits are required to refer to it from source code.
  *
  * For some languages one color can have multiple presentations, e.g. css can represent the color red with
@@ -18,15 +18,15 @@ extern class ColorPresentation {
 	var label:String;
 
 	/**
-	 * An [edit](#TextEdit) which is applied to a document when selecting
-	 * this presentation for the color.  When `falsy` the [label](#ColorPresentation.label)
+	 * An {@link TextEdit edit} which is applied to a document when selecting
+	 * this presentation for the color.  When `falsy` the {@link ColorPresentation.label label}
 	 * is used.
 	 */
 	var textEdit:Null<TextEdit>;
 
 	/**
-	 * An optional array of additional [text edits](#TextEdit) that are applied when
-	 * selecting this color presentation. Edits must not overlap with the main [edit](#ColorPresentation.textEdit) nor with themselves.
+	 * An optional array of additional {@link TextEdit text edits} that are applied when
+	 * selecting this color presentation. Edits must not overlap with the main {@link ColorPresentation.textEdit edit} nor with themselves.
 	 */
 	var additionalTextEdits:Null<Array<TextEdit>>;
 

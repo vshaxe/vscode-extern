@@ -3,7 +3,7 @@ package vscode;
 @:jsRequire("vscode", "TreeItem")
 extern class TreeItem {
 	/**
-	 * A human-readable string describing this item. When `falsy`, it is derived from [resourceUri](#TreeItem.resourceUri).
+	 * A human-readable string describing this item. When `falsy`, it is derived from {@link TreeItem.resourceUri resourceUri}.
 	 */
 	var label:Null<EitherType<String, TreeItemLabel>>;
 
@@ -15,23 +15,23 @@ extern class TreeItem {
 	var id:Null<String>;
 
 	/**
-	 * The icon path or [ThemeIcon](#ThemeIcon) for the tree item.
-	 * When `falsy`, [Folder Theme Icon](#ThemeIcon.Folder) is assigned, if item is collapsible otherwise [File Theme Icon](#ThemeIcon.File).
-	 * When a file or folder [ThemeIcon](#ThemeIcon) is specified, icon is derived from the current file icon theme for the specified theme icon using [resourceUri](#TreeItem.resourceUri) (if provided).
+	 * The icon path or {@link ThemeIcon} for the tree item.
+	 * When `falsy`, {@link ThemeIcon.Folder Folder Theme Icon} is assigned, if item is collapsible otherwise {@link ThemeIcon.File File Theme Icon}.
+	 * When a file or folder {@link ThemeIcon} is specified, icon is derived from the current file icon theme for the specified theme icon using {@link TreeItem.resourceUri resourceUri} (if provided).
 	 */
 	var iconPath:Null<EitherType<String, EitherType<Uri, EitherType<{light:EitherType<String, Uri>, dark:EitherType<String, Uri>}, ThemeIcon>>>>;
 
 	/**
 	 * A human-readable string which is rendered less prominent.
-	 * When `true`, it is derived from [resourceUri](#TreeItem.resourceUri) and when `falsy`, it is not shown.
+	 * When `true`, it is derived from {@link TreeItem.resourceUri resourceUri} and when `falsy`, it is not shown.
 	 */
 	var description:Null<EitherType<String, Bool>>;
 
 	/**
-	 * The [uri](#Uri) of the resource representing this item.
+	 * The {@link Uri} of the resource representing this item.
 	 *
-	 * Will be used to derive the [label](#TreeItem.label), when it is not provided.
-	 * Will be used to derive the icon from current file icon theme, when [iconPath](#TreeItem.iconPath) has [ThemeIcon](#ThemeIcon) value.
+	 * Will be used to derive the {@link TreeItem.label label}, when it is not provided.
+	 * Will be used to derive the icon from current file icon theme, when {@link TreeItem.iconPath iconPath} has {@link ThemeIcon} value.
 	 */
 	var resourceUri:Null<Uri>;
 
@@ -41,8 +41,8 @@ extern class TreeItem {
 	var tooltip:Null<EitherType<String, MarkdownString>>;
 
 	/**
-	 * The [command](#Command) that should be executed when the tree item is selected.
-	 * 
+	 * The {@link Command} that should be executed when the tree item is selected.
+	 *
 	 * Please use `vscode.open` or `vscode.diff` as command IDs when the tree item is opening
 	 * something in the editor. Using these commands ensures that the resulting editor will
 	 * appear consistent with how other built-in trees open editors.
@@ -50,7 +50,7 @@ extern class TreeItem {
 	var command:Null<Command>;
 
 	/**
-	 * [TreeItemCollapsibleState](#TreeItemCollapsibleState) of the tree item.
+	 * {@link TreeItemCollapsibleState} of the tree item.
 	 */
 	var collapsibleState:Null<TreeItemCollapsibleState>;
 
@@ -83,8 +83,8 @@ extern class TreeItem {
 
 	/**
 	 * @param label A human-readable string describing this item
-	 * @param resourceUri The [uri](#Uri) of the resource representing this item.
-	 * @param collapsibleState [TreeItemCollapsibleState](#TreeItemCollapsibleState) of the tree item. Default is [TreeItemCollapsibleState.None](#TreeItemCollapsibleState.None)
+	 * @param resourceUri The {@link Uri} of the resource representing this item.
+	 * @param collapsibleState {@link TreeItemCollapsibleState} of the tree item. Default is {@link TreeItemCollapsibleState.None}
 	 */
 	@:overload(function(resourceUri:Uri, ?collapsibleState:TreeItemCollapsibleState):Void {})
 	function new(label:EitherType<String, TreeItemLabel>, ?collapsibleState:TreeItemCollapsibleState);

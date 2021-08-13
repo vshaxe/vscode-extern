@@ -12,7 +12,7 @@ extern class CallHierarchyIncomingCall {
 
 	/**
 	 * The range at which at which the calls appears. This is relative to the caller
-	 * denoted by [`this.from`](#CallHierarchyIncomingCall.from).
+	 * denoted by {@link CallHierarchyIncomingCall.from `this.from`}.
 	 */
 	var fromRanges:Array<Range>;
 

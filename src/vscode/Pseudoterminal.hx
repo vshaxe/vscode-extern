@@ -6,7 +6,7 @@ package vscode;
 typedef Pseudoterminal = {
 	/**
 	 * An event that when fired will write data to the terminal. Unlike
-	 * [Terminal.sendText](#Terminal.sendText) which sends text to the underlying child
+	 * {@link Terminal.sendText} which sends text to the underlying child
 	 * pseudo-device (the child), this will write the text to parent pseudo-device (the
 	 * _terminal_ itself).
 	 *
@@ -32,7 +32,7 @@ typedef Pseudoterminal = {
 	var onDidWrite:Event<String>;
 
 	/**
-	 * An event that when fired allows overriding the [dimensions](#Pseudoterminal.setDimensions) of the
+	 * An event that when fired allows overriding the {@link Pseudoterminal.setDimensions dimensions} of the
 	 * terminal. Note that when set, the overridden dimensions will only take effect when they
 	 * are lower than the actual dimensions of the terminal (ie. there will never be a scroll
 	 * bar). Set to `undefined` for the terminal to go back to the regular dimensions (fit to
@@ -87,6 +87,24 @@ typedef Pseudoterminal = {
 	var ?onDidClose:Event<EitherType<Void, Int>>;
 
 	/**
+	 * An event that when fired allows changing the name of the terminal.
+	 *
+	 * **Example:** Change the terminal name to "My new terminal".
+	 * ```typescript
+	 * const writeEmitter = new vscode.EventEmitter<string>();
+	 * const changeNameEmitter = new vscode.EventEmitter<string>();
+	 * const pty: vscode.Pseudoterminal = {
+	 *   onDidWrite: writeEmitter.event,
+	 *   onDidChangeName: changeNameEmitter.event,
+	 *   open: () => changeNameEmitter.fire('My new terminal'),
+	 *   close: () => {}
+	 * };
+	 * vscode.window.createTerminal({ name: 'My terminal', pty });
+	 * ```
+	 */
+	var ?onDidChangeName:Event<String>;
+
+	/**
 	 * Implement to handle when the pty is open and ready to start firing events.
 	 *
 	 * @param initialDimensions The dimensions of the terminal, this will be undefined if the
@@ -101,7 +119,7 @@ typedef Pseudoterminal = {
 
 	/**
 	 * Implement to handle incoming keystrokes in the terminal or when an extension calls
-	 * [Terminal.sendText](#Terminal.sendText). `data` contains the keystrokes/text serialized into
+	 * {@link Terminal.sendText}. `data` contains the keystrokes/text serialized into
 	 * their corresponding VT sequence representation.
 	 *
 	 * @param data The incoming data.
@@ -128,7 +146,7 @@ typedef Pseudoterminal = {
 	 * as the size of a terminal isn't known until it shows up in the user interface.
 	 *
 	 * When dimensions are overridden by
-	 * [onDidOverrideDimensions](#Pseudoterminal.onDidOverrideDimensions), `setDimensions` will
+	 * {@link Pseudoterminal.onDidOverrideDimensions onDidOverrideDimensions}, `setDimensions` will
 	 * continue to be called with the regular panel dimensions, allowing the extension continue
 	 * to react dimension changes.
 	 *

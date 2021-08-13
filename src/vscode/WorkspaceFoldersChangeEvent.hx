@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * An event describing a change to the set of [workspace folders](#workspace.workspaceFolders).
+ * An event describing a change to the set of {@link workspace.workspaceFolders workspace folders}.
  */
 typedef WorkspaceFoldersChangeEvent = {
 	/**

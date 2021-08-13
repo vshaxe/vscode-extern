@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * Options to be used when getting an [AuthenticationSession](#AuthenticationSession) from an [AuthenticationProvider](#AuthenticationProvider).
+ * Options to be used when getting an {@link AuthenticationSession} from an {@link AuthenticationProvider}.
  */
 typedef AuthenticationGetSessionOptions = {
 	/**
@@ -22,8 +22,8 @@ typedef AuthenticationGetSessionOptions = {
 	 * Whether the existing user session preference should be cleared.
 	 *
 	 * For authentication providers that support being signed into multiple accounts at once, the user will be
-	 * prompted to select an account to use when [getSession](#authentication.getSession) is called. This preference
-	 * is remembered until [getSession](#authentication.getSession) is called with this flag.
+	 * prompted to select an account to use when {@link authentication.getSession getSession} is called. This preference
+	 * is remembered until {@link authentication.getSession getSession} is called with this flag.
 	 *
 	 * Defaults to false.
 	 */

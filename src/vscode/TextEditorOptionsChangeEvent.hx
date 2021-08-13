@@ -1,16 +1,16 @@
 package vscode;
 
 /**
- * Represents an event describing the change in a [text editor's options](#TextEditor.options).
+ * Represents an event describing the change in a {@link TextEditor.options text editor's options}.
  */
 typedef TextEditorOptionsChangeEvent = {
 	/**
-	 * The [text editor](#TextEditor) for which the options have changed.
+	 * The {@link TextEditor text editor} for which the options have changed.
 	 */
 	var textEditor(default, null):TextEditor;
 
 	/**
-	 * The new value for the [text editor's options](#TextEditor.options).
+	 * The new value for the {@link TextEditor.options text editor's options}.
 	 */
 	var options(default, null):TextEditorOptions;
 }

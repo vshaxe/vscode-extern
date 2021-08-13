@@ -1,14 +1,14 @@
 package vscode;
 
 /**
- * A code lens represents a [command](#Command) that should be shown along with
+ * A code lens represents a {@link Command} that should be shown along with
  * source text, like the number of references, a way to run tests, etc.
  *
  * A code lens is _unresolved_ when no command is associated to it. For performance
  * reasons the creation of a code lens and resolving should be done to two stages.
  *
- * @see [CodeLensProvider.provideCodeLenses](#CodeLensProvider.provideCodeLenses)
- * @see [CodeLensProvider.resolveCodeLens](#CodeLensProvider.resolveCodeLens)
+ * @see {@link CodeLensProvider.provideCodeLenses}
+ * @see {@link CodeLensProvider.resolveCodeLens}
  */
 @:jsRequire("vscode", "CodeLens")
 extern class CodeLens {

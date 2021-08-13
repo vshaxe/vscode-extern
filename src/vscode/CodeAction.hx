@@ -4,7 +4,7 @@ package vscode;
  * A code action represents a change that can be performed in code, e.g. to fix a problem or
  * to refactor code.
  *
- * A CodeAction must set either [`edit`](#CodeAction.edit) and/or a [`command`](#CodeAction.command). If both are supplied, the `edit` is applied first, then the command is executed.
+ * A CodeAction must set either {@link CodeAction.edit `edit`} and/or a {@link CodeAction.command `command`}. If both are supplied, the `edit` is applied first, then the command is executed.
  */
 @:jsRequire("vscode", "CodeAction")
 extern class CodeAction {
@@ -14,22 +14,25 @@ extern class CodeAction {
 	var title:String;
 
 	/**
-	 * A [workspace edit](#WorkspaceEdit) this code action performs.
+	 * A {@link WorkspaceEdit workspace edit} this code action performs.
 	 */
 	var edit:Null<WorkspaceEdit>;
 
 	/**
-	 * [Diagnostics](#Diagnostic) that this code action resolves.
+	 * {@link Diagnostic Diagnostics} that this code action resolves.
 	 */
 	var diagnostics:Null<Array<Diagnostic>>;
 
 	/**
-	 * A [command](#Command) this code action executes.
+	 * A {@link Command} this code action executes.
+	 *
+	 * If this command throws an exception, the editor displays the exception message to users in the editor at the
+	 * current cursor position.
 	 */
 	var command:Null<Command>;
 
 	/**
-	 * [Kind](#CodeActionKind) of the code action.
+	 * {@link CodeActionKind Kind} of the code action.
 	 *
 	 * Used to filter code actions.
 	 */
@@ -54,8 +57,8 @@ extern class CodeAction {
 	 * of code action, such as refactorings.
 	 *
 	 * - If the user has a [keybinding](https://code.visualstudio.com/docs/editor/refactoring#_keybindings-for-code-actions)
-	 * that auto applies a code action and only a disabled code actions are returned, VS Code will show the user a
-	 * message with `reason` in the editor.
+	 * that auto applies a code action and only a disabled code actions are returned, the editor will show the user an
+	 * error message with `reason` in the editor.
 	 */
 	var disabled:Null<{
 		/**
@@ -69,8 +72,8 @@ extern class CodeAction {
 	/**
 	 * Creates a new code action.
 	 *
-	 * A code action must have at least a [title](#CodeAction.title) and [edits](#CodeAction.edit)
-	 * and/or a [command](#CodeAction.command).
+	 * A code action must have at least a {@link CodeAction.title title} and {@link CodeAction.edit edits}
+	 * and/or a {@link CodeAction.command command}.
 	 *
 	 * @param title The title of the code action.
 	 * @param kind The kind of the code action.

@@ -1,11 +1,11 @@
 package vscode;
 
 /**
- * A custom Debug Adapter Protocol event received from a [debug session](#DebugSession).
+ * A custom Debug Adapter Protocol event received from a {@link DebugSession debug session}.
  */
 typedef DebugSessionCustomEvent = {
 	/**
-	 * The [debug session](#DebugSession) for which the custom event was received.
+	 * The {@link DebugSession debug session} for which the custom event was received.
 	 */
 	var session(default, null):DebugSession;
 

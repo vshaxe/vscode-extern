@@ -7,18 +7,18 @@ package vscode;
 extern class Selection extends Range {
 	/**
 	 * The position at which the selection starts.
-	 * This position might be before or after [active](#Selection.active).
+	 * This position might be before or after {@link Selection.active active}.
 	 */
 	var anchor:Position;
 
 	/**
 	 * The position of the cursor.
-	 * This position might be before or after [anchor](#Selection.anchor).
+	 * This position might be before or after {@link Selection.anchor anchor}.
 	 */
 	var active:Position;
 
 	/**
-	 * A selection is reversed if [active](#Selection.active).isBefore([anchor](#Selection.anchor)).
+	 * A selection is reversed if {@link Selection.active active}.isBefore({@link Selection.anchor anchor}).
 	 */
 	var isReversed:Bool;
 

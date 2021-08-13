@@ -2,7 +2,7 @@ package vscode;
 
 /**
  * Represents edits to semantic tokens.
- * @see [provideDocumentSemanticTokensEdits](#DocumentSemanticTokensProvider.provideDocumentSemanticTokensEdits) for an explanation of the format.
+ * @see {@link DocumentSemanticTokensProvider.provideDocumentSemanticTokensEdits provideDocumentSemanticTokensEdits} for an explanation of the format.
  */
 @:jsRequire("vscode", "SemanticTokensEdits")
 extern class SemanticTokensEdits {

@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * Options for creating an [AuthenticationProvider](#AuthenticationProvider).
+ * Options for creating an {@link AuthenticationProvider}.
  */
 typedef AuthenticationProviderOptions = {
 	/**

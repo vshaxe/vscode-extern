@@ -1,11 +1,11 @@
 package vscode;
 
 /**
- * An event that is fired when a [document](#TextDocument) will be saved.
+ * An event that is fired when a {@link TextDocument document} will be saved.
  *
  * To make modifications to the document before it is being saved, call the
- * [`waitUntil`](#TextDocumentWillSaveEvent.waitUntil)-function with a thenable
- * that resolves to an array of [text edits](#TextEdit).
+ * {@link TextDocumentWillSaveEvent.waitUntil `waitUntil`}-function with a thenable
+ * that resolves to an array of {@link TextEdit text edits}.
  */
 typedef TextDocumentWillSaveEvent = {
 	/**
@@ -19,7 +19,7 @@ typedef TextDocumentWillSaveEvent = {
 	var reason(default, null):TextDocumentSaveReason;
 
 	/**
-	 * Allows to pause the event loop and to apply [pre-save-edits](#TextEdit).
+	 * Allows to pause the event loop and to apply {@link TextEdit pre-save-edits}.
 	 * Edits of subsequent calls to this function will be applied in order. The
 	 * edits will be *ignored* if concurrent modifications of the document happened.
 	 *
@@ -36,7 +36,7 @@ typedef TextDocumentWillSaveEvent = {
 	 * })
 	 * ```
 	 *
-	 * @param thenable A thenable that resolves to [pre-save-edits](#TextEdit).
+	 * @param thenable A thenable that resolves to {@link TextEdit pre-save-edits}.
 	 */
 	@:overload(function(thenable:Thenable<Dynamic>):Void {})
 	function waitUntil(thenable:Thenable<Array<TextEdit>>):Void;

@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * Represents sources that can cause [selection change events](#window.onDidChangeTextEditorSelection).
+ * Represents sources that can cause {@link window.onDidChangeTextEditorSelection selection change events}.
  */
 @:jsRequire("vscode", "TextEditorSelectionChangeKind")
 extern enum abstract TextEditorSelectionChangeKind(Int) {

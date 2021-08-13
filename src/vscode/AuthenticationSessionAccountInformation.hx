@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * The information of an account associated with an [AuthenticationSession](#AuthenticationSession).
+ * The information of an account associated with an {@link AuthenticationSession}.
  */
 typedef AuthenticationSessionAccountInformation = {
 	/**

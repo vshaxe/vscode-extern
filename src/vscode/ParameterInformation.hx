@@ -7,13 +7,11 @@ package vscode;
 @:jsRequire("vscode", "ParameterInformation")
 extern class ParameterInformation {
 	/**
-	 * The label of this signature. *Note*: Must be a substring of its
-	 * containing signature information's [label](#SignatureInformation.label).
 	 * The label of this signature.
 	 *
 	 * Either a string or inclusive start and exclusive end offsets within its containing
-	 * [signature label](#SignatureInformation.label). *Note*: A label of type string must be
-	 * a substring of its containing signature information's [label](#SignatureInformation.label).
+	 * {@link SignatureInformation.label signature label}. *Note*: A label of type string must be
+	 * a substring of its containing signature information's {@link SignatureInformation.label label}.
 	 */
 	var label:EitherType<String, Array<Int>>;
 

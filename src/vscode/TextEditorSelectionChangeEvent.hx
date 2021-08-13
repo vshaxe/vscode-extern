@@ -1,21 +1,21 @@
 package vscode;
 
 /**
- * Represents an event describing the change in a [text editor's selections](#TextEditor.selections).
+ * Represents an event describing the change in a {@link TextEditor.selections text editor's selections}.
  */
 typedef TextEditorSelectionChangeEvent = {
 	/**
-	 * The [text editor](#TextEditor) for which the selections have changed.
+	 * The {@link TextEditor text editor} for which the selections have changed.
 	 */
 	var textEditor(default, null):TextEditor;
 
 	/**
-	 * The new value for the [text editor's selections](#TextEditor.selections).
+	 * The new value for the {@link TextEditor.selections text editor's selections}.
 	 */
 	var selections(default, null):ReadOnlyArray<Selection>;
 
 	/**
-	 * The [change kind](#TextEditorSelectionChangeKind) which has triggered this
+	 * The {@link TextEditorSelectionChangeKind change kind} which has triggered this
 	 * event. Can be `undefined`.
 	 */
 	var ?kind(default, null):TextEditorSelectionChangeKind;

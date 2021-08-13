@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * An event describing an individual change in the text of a [document](#TextDocument).
+ * An event describing an individual change in the text of a {@link TextDocument document}.
  */
 typedef TextDocumentContentChangeEvent = {
 	/**

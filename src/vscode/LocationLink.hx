@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * Represents the connection of two locations. Provides additional metadata over normal [locations](#Location),
+ * Represents the connection of two locations. Provides additional metadata over normal {@link Location locations},
  * including an origin range.
  */
 typedef LocationLink = {

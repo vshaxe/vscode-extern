@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * How a [completion provider](#CompletionItemProvider) was triggered
+ * How a {@link CompletionItemProvider completion provider} was triggered
  */
 @:jsRequire("vscode", "CompletionTriggerKind")
 extern enum abstract CompletionTriggerKind(Int) {

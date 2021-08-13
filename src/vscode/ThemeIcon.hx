@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * A reference to a named icon. Currently, [File](#ThemeIcon.File), [Folder](#ThemeIcon.Folder),
+ * A reference to a named icon. Currently, {@link ThemeIcon.File File}, {@link ThemeIcon.Folder Folder},
  * and [ThemeIcon ids](https://code.visualstudio.com/api/references/icons-in-labels#icon-listing) are supported.
  * Using a theme icon is preferred over a custom icon as it gives product theme authors the possibility to change the icons.
  *
@@ -26,14 +26,14 @@ extern class ThemeIcon {
 	var id(default, null):String;
 
 	/**
-	 * The optional ThemeColor of the icon. The color is currently only used in [TreeItem](#TreeItem).
+	 * The optional ThemeColor of the icon. The color is currently only used in {@link TreeItem}.
 	 */
 	var color(default, null):Null<ThemeColor>;
 
 	/**
 	 * Creates a reference to a theme icon.
 	 * @param id id id of the icon. The available icons are listed in https://code.visualstudio.com/api/references/icons-in-labels#icon-listing.
-	 * @param color optional `ThemeColor` for the icon. The color is currently only used in [TreeItem](#TreeItem).
+	 * @param color optional `ThemeColor` for the icon. The color is currently only used in {@link TreeItem}.
 	 */
 	function new(id:String, ?color:ThemeColor);
 }

@@ -4,11 +4,11 @@ import js.lib.Uint8Array;
 
 /**
  * The file system interface exposes the editor's built-in and contributed
- * [file system providers](#FileSystemProvider). It allows extensions to work
+ * {@link FileSystemProvider file system providers}. It allows extensions to work
  * with files from the local disk as well as files from remote places, like the
  * remote extension host or ftp-servers.
  *
- * *Note* that an instance of this interface is available as [`workspace.fs`](#workspace.fs).
+ * *Note* that an instance of this interface is available as {@link workspace.fs `workspace.fs`}.
  */
 typedef FileSystem = {
 	/**
@@ -20,7 +20,7 @@ typedef FileSystem = {
 	function stat(uri:Uri):Thenable<FileStat>;
 
 	/**
-	 * Retrieve all entries of a [directory](#FileType.Directory).
+	 * Retrieve all entries of a {@link FileType.Directory directory}.
 	 *
 	 * @param uri The uri of the folder.
 	 * @return An array of name/type-tuples or a thenable that resolves to such.
@@ -89,7 +89,7 @@ typedef FileSystem = {
 	 * @param scheme The scheme of the filesystem, for example `file` or `git`.
 	 *
 	 * @return `true` if the file system supports writing, `false` if it does not
-	 * support writing (i.e. it is readonly), and `undefined` if VS Code does not
+	 * support writing (i.e. it is readonly), and `undefined` if the editor does not
 	 * know about the filesystem.
 	 */
 	function isWritableFileSystem(scheme:String):Null<Bool>;

@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * Represents options for a specific decoration in a [decoration set](#TextEditorDecorationType).
+ * Represents options for a specific decoration in a {@link TextEditorDecorationType decoration set}.
  */
 typedef DecorationOptions = {
 	/**
@@ -12,7 +12,7 @@ typedef DecorationOptions = {
 	/**
 	 * A message that should be rendered when hovering over the decoration.
 	 */
-	var hoverMessage:EitherType<MarkedString, Array<MarkedString>>;
+	var hoverMessage:EitherType<MarkdownString, EitherType<MarkedString, Array<EitherType<MarkdownString, MarkedString>>>>;
 
 	/**
 	 * Render options applied to the current decoration. For performance reasons, keep the

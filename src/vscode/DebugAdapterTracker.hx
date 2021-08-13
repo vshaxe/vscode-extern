@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * A Debug Adapter Tracker is a means to track the communication between VS Code and a Debug Adapter.
+ * A Debug Adapter Tracker is a means to track the communication between the editor and a Debug Adapter.
  */
 typedef DebugAdapterTracker = {
 	/**
@@ -10,12 +10,12 @@ typedef DebugAdapterTracker = {
 	@:optional function onWillStartSession():Void;
 
 	/**
-	 * The debug adapter is about to receive a Debug Adapter Protocol message from VS Code.
+	 * The debug adapter is about to receive a Debug Adapter Protocol message from the editor.
 	 */
 	@:optional function onWillReceiveMessage(message:Any):Void;
 
 	/**
-	 * The debug adapter has sent a Debug Adapter Protocol message to VS Code.
+	 * The debug adapter has sent a Debug Adapter Protocol message to the editor.
 	 */
 	@:optional function onDidSendMessage(message:Any):Void;
 

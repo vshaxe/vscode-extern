@@ -1,12 +1,12 @@
 package vscode;
 
 /**
- * Represents theme specific rendering styles for a [text editor decoration](#TextEditorDecorationType).
+ * Represents theme specific rendering styles for a {@link TextEditorDecorationType text editor decoration}.
  */
 typedef ThemableDecorationRenderOptions = {
 	/**
 	 * Background color of the decoration. Use rgba() and define transparent background colors to play well with other decorations.
-	 * Alternatively a color from the color registry can be [referenced](#ThemeColor).
+	 * Alternatively a color from the color registry can be {@link ThemeColor referenced}.
 	 */
 	var ?backgroundColor:EitherType<String, ThemeColor>;
 

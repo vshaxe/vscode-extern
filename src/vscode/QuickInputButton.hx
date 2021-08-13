@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * Button for an action in a [QuickPick](#QuickPick) or [InputBox](#InputBox).
+ * Button for an action in a {@link QuickPick} or {@link InputBox}.
  */
 typedef QuickInputButton = {
 	/**

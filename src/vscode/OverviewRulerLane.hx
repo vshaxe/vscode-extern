@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * Represents different positions for rendering a decoration in an [overview ruler](#DecorationRenderOptions.overviewRulerLane).
+ * Represents different positions for rendering a decoration in an {@link DecorationRenderOptions.overviewRulerLane overview ruler}.
  * The overview ruler supports three lanes.
  */
 @:jsRequire("vscode", "OverviewRulerLane")

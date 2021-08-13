@@ -4,7 +4,7 @@ package vscode;
  * The code action interface defines the contract between extensions and
  * the [lightbulb](https://code.visualstudio.com/docs/editor/editingevolved#_code-action) feature.
  *
- * A code action can be any command that is [known](#commands.getCommands) to the system.
+ * A code action can be any command that is {@link commands.getCommands known} to the system.
  */
 typedef CodeActionProvider<T:CodeAction> = {
 	/**
@@ -26,7 +26,7 @@ typedef CodeActionProvider<T:CodeAction> = {
 		token:CancellationToken):ProviderResult<Array<EitherType<Command, T>>>;
 
 	/**
-	 * Given a code action fill in its [`edit`](#CodeAction.edit)-property. Changes to
+	 * Given a code action fill in its {@link CodeAction.edit `edit`}-property. Changes to
 	 * all other properties, like title, are ignored. A code action that has an edit
 	 * will not be resolved.
 	 *

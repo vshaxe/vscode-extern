@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * Represents an end of line character sequence in a [document](#TextDocument).
+ * Represents an end of line character sequence in a {@link TextDocument document}.
  */
 @:jsRequire("vscode", "EndOfLine")
 extern enum abstract EndOfLine(Int) {

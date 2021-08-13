@@ -1,15 +1,15 @@
 package vscode;
 
 /**
- * A uri handler is responsible for handling system-wide [uris](#Uri).
+ * A uri handler is responsible for handling system-wide {@link Uri uris}.
  *
- * @see [window.registerUriHandler](#window.registerUriHandler).
+ * @see {@link window.registerUriHandler}.
  */
 typedef UriHandler = {
 	/**
-	 * Handle the provided system-wide [uri](#Uri).
+	 * Handle the provided system-wide {@link Uri}.
 	 *
-	 * @see [window.registerUriHandler](#window.registerUriHandler).
+	 * @see {@link window.registerUriHandler}.
 	 */
 	function handleUri(uri:Uri):ProviderResult<Void>;
 }

@@ -1,11 +1,11 @@
 package vscode;
 
 /**
- * Label describing the [Tree item](#TreeItem)
+ * Label describing the {@link TreeItem Tree item}
  */
 typedef TreeItemLabel = {
 	/**
-	 * A human-readable string describing the [Tree item](#TreeItem).
+	 * A human-readable string describing the {@link TreeItem Tree item}.
 	 */
 	var label:String;
 

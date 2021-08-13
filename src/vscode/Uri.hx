@@ -14,7 +14,7 @@ extern class Uri {
 	 * as all uris should have a scheme. To avoid breakage of existing code the optional
 	 * `strict`-argument has been added. We *strongly* advise to use it, e.g. `Uri.parse('my:uri', true)`
 	 *
-	 * @see [Uri.toString](#Uri.toString)
+	 * @see {@link Uri.toString}
 	 * @param value The string value of an Uri.
 	 * @param strict Throw an error when `value` is empty or when no `scheme` can be parsed.
 	 * @return A new Uri instance.
@@ -22,10 +22,10 @@ extern class Uri {
 	static function parse(value:String, ?strict:Bool):Uri;
 
 	/**
-	 * Create an URI from a file system path. The [scheme](#Uri.scheme)
+	 * Create an URI from a file system path. The {@link Uri.scheme scheme}
 	 * will be `file`.
 	 *
-	 * The *difference* between `Uri#parse` and `Uri#file` is that the latter treats the argument
+	 * The *difference* between {@link Uri.parse} and {@link Uri.file} is that the latter treats the argument
 	 * as path, not as stringified-uri. E.g. `Uri.file(path)` is *not* the same as
 	 * `Uri.parse('file://' + path)` because the path might contain characters that are
 	 * interpreted (# and ?). See the following sample:
@@ -66,6 +66,21 @@ extern class Uri {
 	 * @returns A new uri which path is joined with the given fragments
 	 */
 	static function joinPath(base:Uri, pathSegments:Rest<String>):Uri;
+
+	/**
+	 * Create an URI from its component parts
+	 *
+	 * @see {@link Uri.toString}
+	 * @param components The component parts of an Uri.
+	 * @return A new Uri instance.
+	 */
+	static function from(components:{
+		scheme:String,
+		?authority:String,
+		?path:String,
+		?query:String,
+		?fragment:String
+	}):Uri;
 
 	/**
 	 * Use the `file` and `parse` factory functions to create new `Uri` objects.
@@ -110,7 +125,7 @@ extern class Uri {
 	 * * The resulting string shall *not* be used for display purposes but
 	 * for disk operations, like `readFile` et al.
 	 *
-	 * The *difference* to the [`path`](#Uri.path)-property is the use of the platform specific
+	 * The *difference* to the {@link Uri.path `path`}-property is the use of the platform specific
 	 * path separator and the handling of UNC paths. The sample below outlines the difference:
 	 * ```ts
 	 * const u = URI.parse('file://server/c$/folder/file.txt')
@@ -147,7 +162,7 @@ extern class Uri {
 	 * Returns a string representation of this Uri. The representation and normalization
 	 * of a URI depends on the scheme.
 	 *
-	 * * The resulting string can be safely used with [Uri.parse](#Uri.parse).
+	 * * The resulting string can be safely used with {@link Uri.parse}.
 	 * * The resulting string shall *not* be used for display purposes.
 	 *
 	 * *Note* that the implementation will encode _aggressive_ which often leads to unexpected,

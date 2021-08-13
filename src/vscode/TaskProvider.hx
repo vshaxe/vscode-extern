@@ -2,7 +2,7 @@ package vscode;
 
 /**
  * A task provider allows to add tasks to the task service.
- * A task provider is registered via #tasks.registerTaskProvider.
+ * A task provider is registered via {@link tasks.registerTaskProvider}.
  */
 typedef TaskProvider<T:Task> = {
 	/**
@@ -13,7 +13,7 @@ typedef TaskProvider<T:Task> = {
 	function provideTasks(token:CancellationToken):ProviderResult<Array<T>>;
 
 	/**
-	 * Resolves a task that has no [`execution`](#Task.execution) set. Tasks are
+	 * Resolves a task that has no {@link Task.execution `execution`} set. Tasks are
 	 * often created from information found in the `tasks.json`-file. Such tasks miss
 	 * the information on how to execute them and a task provider must fill in
 	 * the missing information in the `resolveTask`-method. This method will not be

@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * Options to configure the behaviour of the [workspace folder](#WorkspaceFolder) pick UI.
+ * Options to configure the behaviour of the {@link WorkspaceFolder workspace folder} pick UI.
  */
 typedef WorkspaceFolderPickOptions = {
 	/**
@@ -11,6 +11,7 @@ typedef WorkspaceFolderPickOptions = {
 
 	/**
 	 * Set to `true` to keep the picker open when focus moves to another part of the editor or to another window.
+	 * This setting is ignored on iPad and is always false.
 	 */
 	var ?ignoreFocusOut:Bool;
 }

@@ -1,12 +1,12 @@
 package vscode;
 
 /**
- * A provider result represents the values a provider, like the [`HoverProvider`](#HoverProvider),
+ * A provider result represents the values a provider, like the {@link HoverProvider `HoverProvider`},
  * may return. For once this is the actual result type `T`, like `Hover`, or a thenable that resolves
  * to that type `T`. In addition, `null` and `undefined` can be returned - either directly or from a
  * thenable.
  *
- * The snippets below are all valid implementations of the [`HoverProvider`](#HoverProvider):
+ * The snippets below are all valid implementations of the {@link HoverProvider `HoverProvider`}:
  *
  * ```ts
  * let a: HoverProvider = {

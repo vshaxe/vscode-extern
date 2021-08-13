@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * A backup for an [`CustomDocument`](#CustomDocument).
+ * A backup for an {@link CustomDocument `CustomDocument`}.
  */
 typedef CustomDocumentBackup = {
 	/**
@@ -14,7 +14,7 @@ typedef CustomDocumentBackup = {
 	/**
 	 * Delete the current backup.
 	 *
-	 * This is called by VS Code when it is clear the current backup is no longer needed, such as when a new backup
+	 * This is called by the editor when it is clear the current backup is no longer needed, such as when a new backup
 	 * is made or when the file is saved.
 	 */
 	function delete():Void;

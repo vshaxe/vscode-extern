@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * Represents a collection of [completion items](#CompletionItem) to be presented
+ * Represents a collection of {@link CompletionItem completion items} to be presented
  * in the editor.
  */
 @:jsRequire("vscode", "CompletionList")

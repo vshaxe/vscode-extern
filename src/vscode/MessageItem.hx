@@ -4,9 +4,9 @@ package vscode;
  * Represents an action that is shown with an information, warning, or
  * error message.
  *
- * @see [showInformationMessage](#window.showInformationMessage)
- * @see [showWarningMessage](#window.showWarningMessage)
- * @see [showErrorMessage](#window.showErrorMessage)
+ * @see {@link window.showInformationMessage showInformationMessage}
+ * @see {@link window.showWarningMessage showWarningMessage}
+ * @see {@link window.showErrorMessage showErrorMessage}
  */
 typedef MessageItem = {
 	/**

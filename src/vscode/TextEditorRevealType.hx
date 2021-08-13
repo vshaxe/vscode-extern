@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * Represents different [reveal](#TextEditor.revealRange) strategies in a text editor.
+ * Represents different {@link TextEditor.revealRange reveal} strategies in a text editor.
  */
 @:jsRequire("vscode", "TextEditorRevealType")
 extern enum abstract TextEditorRevealType(Int) {
