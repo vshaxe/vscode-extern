@@ -735,8 +735,8 @@ extern class VscodeWindow {
 	 * @param priority The priority of the item. Higher values mean the item should be shown more to the left.
 	 * @return A new status bar item.
 	 */
-	@:overload(function(?alignment:StatusBarAlignment, ?priority:Float):StatusBarItem {})
-	function createStatusBarItem(id:String, ?alignment:StatusBarAlignment, ?priority:Float):StatusBarItem;
+	@:overload(function(id:String, ?alignment:StatusBarAlignment, ?priority:Float):StatusBarItem {})
+	function createStatusBarItem(?alignment:StatusBarAlignment, ?priority:Float):StatusBarItem;
 
 	/**
 	 * Creates a {@link Terminal} with a backing shell process. The cwd of the terminal will be the workspace
