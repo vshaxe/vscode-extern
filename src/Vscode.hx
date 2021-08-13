@@ -585,7 +585,7 @@ extern class VscodeWindow {
 	 * @return A promise that resolves to the selected items or `undefined`.
 	 */
 	// see #13 for details on why this is needed
-	extern inline function showQuickPickMany<T:QuickPickItem>(items:EitherType<Array<T>, Thenable<Array<T>>>, ?options:QuickPickOptions,
+	extern inline function showQuickPickMany<T:QuickPickItem>(items:EitherType<ReadOnlyArray<T>, Thenable<ReadOnlyArray<T>>>, ?options:QuickPickOptions,
 			?token:CancellationToken):Thenable<Null<Array<T>>> {
 		if (options == null)
 			options = {canPickMany: true};
