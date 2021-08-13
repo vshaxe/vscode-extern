@@ -1719,8 +1719,7 @@
 	 * @return The thenable the task-callback returned.</haxe_doc>
 		</withProgress>
 		<createStatusBarItem public="1" set="method">
-			<f a="id:?alignment:?priority">
-				<c path="String"/>
+			<f a="?alignment:?priority">
 				<x path="vscode.StatusBarAlignment"/>
 				<x path="Float"/>
 				<t path="vscode.StatusBarItem"/>
@@ -1732,7 +1731,8 @@
 	 * @param priority The priority of the item. Higher values mean the item should be shown more to the left.
 	 * @return A new status bar item.</haxe_doc>
 			<overloads><createStatusBarItem public="1" set="method">
-	<f a="?alignment:?priority">
+	<f a="id:?alignment:?priority">
+		<c path="String"/>
 		<x path="vscode.StatusBarAlignment"/>
 		<x path="Float"/>
 		<t path="vscode.StatusBarItem"/>
