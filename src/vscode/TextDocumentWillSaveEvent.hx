@@ -4,7 +4,7 @@ package vscode;
  * An event that is fired when a {@link TextDocument document} will be saved.
  *
  * To make modifications to the document before it is being saved, call the
- * {@link TextDocumentWillSaveEvent.waitUntil `waitUntil`}-function with a thenable
+ * {@linkcode TextDocumentWillSaveEvent.waitUntil waitUntil}-function with a thenable
  * that resolves to an array of {@link TextEdit text edits}.
  */
 typedef TextDocumentWillSaveEvent = {

@@ -125,7 +125,7 @@ extern class Uri {
 	 * * The resulting string shall *not* be used for display purposes but
 	 * for disk operations, like `readFile` et al.
 	 *
-	 * The *difference* to the {@link Uri.path `path`}-property is the use of the platform specific
+	 * The *difference* to the {@linkcode Uri.path path}-property is the use of the platform specific
 	 * path separator and the handling of UNC paths. The sample below outlines the difference:
 	 * ```ts
 	 * const u = URI.parse('file://server/c$/folder/file.txt')

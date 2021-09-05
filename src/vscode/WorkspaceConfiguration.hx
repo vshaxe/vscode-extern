@@ -9,7 +9,7 @@ package vscode;
  * - *Workspace Folder settings* - From one of the {@link workspace.workspaceFolders Workspace Folders} under which requested resource belongs to.
  * - *Language settings* - Settings defined under requested language.
  *
- * The *effective* value (returned by {@link WorkspaceConfiguration.get `get`}) is computed by overriding or merging the values in the following order.
+ * The *effective* value (returned by {@linkcode WorkspaceConfiguration.get get}) is computed by overriding or merging the values in the following order.
  *
  * ```
  * `defaultValue` (if defined in `package.json` otherwise derived from the value's type)

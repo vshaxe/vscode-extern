@@ -3,10 +3,10 @@ package vscode;
 /**
  * Provider for readonly custom editors that use a custom document model.
  *
- * Custom editors use {@link CustomDocument `CustomDocument`} as their document model instead of a {@link TextDocument `TextDocument`}.
+ * Custom editors use {@linkcode CustomDocument} as their document model instead of a {@linkcode TextDocument}.
  *
  * You should use this type of custom editor when dealing with binary files or more complex scenarios. For simple
- * text based documents, use {@link CustomTextEditorProvider `CustomTextEditorProvider`} instead.
+ * text based documents, use {@linkcode CustomTextEditorProvider} instead.
  *
  * @param T Type of the custom document returned by this provider.
  */
@@ -40,7 +40,7 @@ typedef CustomReadonlyEditorProvider<T:CustomDocument> = {
 	 *
 	 * During resolve, the provider must fill in the initial html for the content webview panel and hook up all
 	 * the event listeners on it that it is interested in. The provider can also hold onto the `WebviewPanel` to
-	 * use later for example in a command. See {@link WebviewPanel `WebviewPanel`} for additional details.
+	 * use later for example in a command. See {@linkcode WebviewPanel} for additional details.
 	 *
 	 * @param token A cancellation token that indicates the result is no longer needed.
 	 *

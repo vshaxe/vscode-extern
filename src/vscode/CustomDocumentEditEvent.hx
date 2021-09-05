@@ -1,9 +1,9 @@
 package vscode;
 
 /**
- * Event triggered by extensions to signal to the editor that an edit has occurred on an {@link CustomDocument `CustomDocument`}.
+ * Event triggered by extensions to signal to the editor that an edit has occurred on an {@linkcode CustomDocument}.
  *
- * @see {@link CustomEditorProvider.onDidChangeCustomDocument `CustomEditorProvider.onDidChangeCustomDocument`}.
+ * @see {@linkcode CustomEditorProvider.onDidChangeCustomDocument}.
  */
 typedef CustomDocumentEditEvent<T:CustomDocument> = {
 	/**

@@ -8,7 +8,7 @@ typedef TextDocumentShowOptions = {
 	 * An optional view column in which the {@link TextEditor editor} should be shown.
 	 * The default is the {@link ViewColumn.Active active}, other values are adjusted to
 	 * be `Min(column, columnCount + 1)`, the {@link ViewColumn.Active active}-column is
-	 * not adjusted. Use {@link ViewColumn.Beside `ViewColumn.Beside`} to open the
+	 * not adjusted. Use {@linkcode ViewColumn.Beside} to open the
 	 * editor to the side of the currently active one.
 	 */
 	var ?viewColumn:ViewColumn;

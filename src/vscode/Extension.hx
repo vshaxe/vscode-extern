@@ -37,7 +37,7 @@ typedef Extension<T> = {
 	 * or if an extension runs where the remote extension host runs. The extension kind
 	 * is defined in the `package.json`-file of extensions but can also be refined
 	 * via the `remote.extensionKind`-setting. When no remote extension host exists,
-	 * the value is {@link ExtensionKind.UI `ExtensionKind.UI`}.
+	 * the value is {@linkcode ExtensionKind.UI}.
 	 */
 	var extensionKind:ExtensionKind;
 

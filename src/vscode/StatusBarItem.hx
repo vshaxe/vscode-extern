@@ -8,7 +8,7 @@ typedef StatusBarItem = {
 	/**
 	 * The identifier of this item.
 	 *
-	 * *Note*: if no identifier was provided by the {@link window.createStatusBarItem `window.createStatusBarItem`}
+	 * *Note*: if no identifier was provided by the {@linkcode window.createStatusBarItem}
 	 * method, the identifier will match the {@link Extension.id extension identifier}.
 	 */
 	var id(default, null):String;
@@ -66,11 +66,11 @@ typedef StatusBarItem = {
 	var ?backgroundColor:ThemeColor;
 
 	/**
-	 * {@link Command `Command`} or identifier of a command to run on click.
+	 * {@linkcode Command} or identifier of a command to run on click.
 	 *
 	 * The command must be {@link commands.getCommands known}.
 	 *
-	 * Note that if this is a {@link Command `Command`} object, only the {@link Command.command `command`} and {@link Command.arguments `arguments`}
+	 * Note that if this is a {@linkcode Command} object, only the {@linkcode Command.command command} and {@linkcode Command.arguments arguments}
 	 * are used by the editor.
 	 */
 	var command:Null<EitherType<String, Command>>;

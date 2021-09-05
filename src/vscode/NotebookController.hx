@@ -4,12 +4,12 @@ package vscode;
  * A notebook controller represents an entity that can execute notebook cells. This is often referred to as a kernel.
  *
  * There can be multiple controllers and the editor will let users choose which controller to use for a certain notebook. The
- * {@link NotebookController.notebookType `notebookType`}-property defines for what kind of notebooks a controller is for and
- * the {@link NotebookController.updateNotebookAffinity `updateNotebookAffinity`}-function allows controllers to set a preference
+ * {@linkcode NotebookController.notebookType notebookType}-property defines for what kind of notebooks a controller is for and
+ * the {@linkcode NotebookController.updateNotebookAffinity updateNotebookAffinity}-function allows controllers to set a preference
  * for specific notebook documents. When a controller has been selected its
  * {@link NotebookController.onDidChangeSelectedNotebooks onDidChangeSelectedNotebooks}-event fires.
  *
- * When a cell is being run the editor will invoke the {@link NotebookController.executeHandler `executeHandler`} and a controller
+ * When a cell is being run the editor will invoke the {@linkcode NotebookController.executeHandler executeHandler} and a controller
  * is expected to create and finalize a {@link NotebookCellExecution notebook cell execution}. However, controllers are also free
  * to create executions by themselves.
  */
@@ -29,7 +29,7 @@ typedef NotebookController = {
 
 	/**
 	 * An array of language identifiers that are supported by this
-	 * controller. Any language identifier from {@link languages.getLanguages `getLanguages`}
+	 * controller. Any language identifier from {@linkcode languages.getLanguages getLanguages}
 	 * is possible. When falsy all languages are supported.
 	 *
 	 * Samples:

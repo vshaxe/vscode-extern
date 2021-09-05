@@ -60,7 +60,7 @@ extern class NotebookCellOutputItem {
 	static function error(value:Error):NotebookCellOutputItem;
 
 	/**
-	 * The mime type which determines how the {@link NotebookCellOutputItem.data `data`}-property
+	 * The mime type which determines how the {@linkcode NotebookCellOutputItem.data data}-property
 	 * is interpreted.
 	 *
 	 * Notebooks have built-in support for certain mime-types, extensions can add support for new

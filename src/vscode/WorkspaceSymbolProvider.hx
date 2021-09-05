@@ -27,7 +27,7 @@ typedef WorkspaceSymbolProvider<T:SymbolInformation> = {
 	/**
 	 * Given a symbol fill in its {@link SymbolInformation.location location}. This method is called whenever a symbol
 	 * is selected in the UI. Providers can implement this method and return incomplete symbols from
-	 * {@link WorkspaceSymbolProvider.provideWorkspaceSymbols `provideWorkspaceSymbols`} which often helps to improve
+	 * {@linkcode WorkspaceSymbolProvider.provideWorkspaceSymbols provideWorkspaceSymbols} which often helps to improve
 	 * performance.
 	 *
 	 * @param symbol The symbol that is to be resolved. Guaranteed to be an instance of an object returned from an

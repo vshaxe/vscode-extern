@@ -37,7 +37,8 @@ typedef QuickPick<T:QuickPickItem> = QuickInput & {
 	var buttons:ReadOnlyArray<QuickInputButton>;
 
 	/**
-	 * An event signaling when a button was triggered.
+	 * An event signaling when a button in the title bar was triggered.
+	 * This event does not fire for buttons on a {@link QuickPickItem}.
 	 */
 	var onDidTriggerButton(default, null):Event<QuickInputButton>;
 

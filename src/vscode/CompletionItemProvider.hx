@@ -4,9 +4,9 @@ package vscode;
  * The completion item provider interface defines the contract between extensions and
  * [IntelliSense](https://code.visualstudio.com/docs/editor/intellisense).
  *
- * Providers can delay the computation of the {@link CompletionItem.detail `detail`}
- * and {@link CompletionItem.documentation `documentation`} properties by implementing the
- * {@link CompletionItemProvider.resolveCompletionItem `resolveCompletionItem`}-function. However, properties that
+ * Providers can delay the computation of the {@linkcode CompletionItem.detail detail}
+ * and {@linkcode CompletionItem.documentation documentation} properties by implementing the
+ * {@linkcode CompletionItemProvider.resolveCompletionItem resolveCompletionItem}-function. However, properties that
  * are needed for the initial sorting and filtering, like `sortText`, `filterText`, `insertText`, and `range`, must
  * not be changed during resolve.
  *

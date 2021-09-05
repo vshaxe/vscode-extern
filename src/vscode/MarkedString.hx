@@ -5,6 +5,6 @@ package vscode;
  * or a code-block that provides a language and a code snippet. Note that
  * markdown strings will be sanitized - that means html will be escaped.
  *
- * @deprecated This type is deprecated, please use {@link MarkdownString `MarkdownString`} instead.
+ * @deprecated This type is deprecated, please use {@linkcode MarkdownString} instead.
  */
 typedef MarkedString = EitherType<String, {language:String, value:String}>;

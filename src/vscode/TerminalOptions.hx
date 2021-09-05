@@ -59,4 +59,11 @@ typedef TerminalOptions = {
 	 * The icon path or {@link ThemeIcon} for the terminal.
 	 */
 	var ?iconPath:EitherType<Uri, EitherType<{light:Uri, dark:Uri}, ThemeIcon>>;
+
+	/**
+	 * The icon {@link ThemeColor} for the terminal.
+	 * The `terminal.ansi*` theme keys are
+	 * recommended for the best contrast and consistency across themes.
+	 */
+	var ?color:ThemeColor;
 }

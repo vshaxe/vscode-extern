@@ -5,7 +5,7 @@ package vscode;
  * markdown syntax. Standard markdown is supported, also tables, but no embedded html.
  *
  * Rendering of {@link ThemeIcon theme icons} via the `$(<name>)`-syntax is supported
- * when the {@link MarkdownString.supportThemeIcons `supportThemeIcons`} is set to `true`.
+ * when the {@linkcode MarkdownString.supportThemeIcons supportThemeIcons} is set to `true`.
  */
 @:jsRequire("vscode", "MarkdownString")
 extern class MarkdownString {
@@ -29,7 +29,7 @@ extern class MarkdownString {
 	 * Creates a new markdown string with the given value.
 	 *
 	 * @param value Optional, initial value.
-	 * @param supportThemeIcons Optional, Specifies whether {@link ThemeIcon ThemeIcons} are supported within the {@link MarkdownString `MarkdownString`}.
+	 * @param supportThemeIcons Optional, Specifies whether {@link ThemeIcon ThemeIcons} are supported within the {@linkcode MarkdownString}.
 	 */
 	function new(?value:String, ?supportThemeIcons:Bool);
 
@@ -40,7 +40,7 @@ extern class MarkdownString {
 	function appendText(value:String):MarkdownString;
 
 	/**
-	 * Appends the given string 'as is' to this markdown string. When {@link MarkdownString.supportThemeIcons `supportThemeIcons`} is `true`, {@link ThemeIcon ThemeIcons} in the `value` will be iconified.
+	 * Appends the given string 'as is' to this markdown string. When {@linkcode MarkdownString.supportThemeIcons supportThemeIcons} is `true`, {@link ThemeIcon ThemeIcons} in the `value` will be iconified.
 	 * @param value Markdown string.
 	 */
 	function appendMarkdown(value:String):MarkdownString;

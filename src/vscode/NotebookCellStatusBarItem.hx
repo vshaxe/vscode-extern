@@ -16,11 +16,11 @@ extern class NotebookCellStatusBarItem {
 	var alignment:NotebookCellStatusBarAlignment;
 
 	/**
-	 * An optional {@link Command `Command`} or identifier of a command to run on click.
+	 * An optional {@linkcode Command} or identifier of a command to run on click.
 	 *
 	 * The command must be {@link commands.getCommands known}.
 	 *
-	 * Note that if this is a {@link Command `Command`} object, only the {@link Command.command `command`} and {@link Command.arguments `arguments`}
+	 * Note that if this is a {@linkcode Command} object, only the {@linkcode Command.command command} and {@linkcode Command.arguments arguments}
 	 * are used by the editor.
 	 */
 	var command:Null<EitherType<String, Command>>;

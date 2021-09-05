@@ -3,8 +3,8 @@ package vscode;
 /**
  * Raw representation of a notebook.
  *
- * Extensions are responsible for creating {@link NotebookData `NotebookData`} so that the editor
- * can create a {@link NotebookDocument `NotebookDocument`}.
+ * Extensions are responsible for creating {@linkcode NotebookData} so that the editor
+ * can create a {@linkcode NotebookDocument}.
  *
  * @see {@link NotebookSerializer}
  */

@@ -12,8 +12,8 @@ extern class CallHierarchyOutgoingCall {
 
 	/**
 	 * The range at which this item is called. This is the range relative to the caller, e.g the item
-	 * passed to {@link CallHierarchyProvider.provideCallHierarchyOutgoingCalls `provideCallHierarchyOutgoingCalls`}
-	 * and not {@link CallHierarchyOutgoingCall.to `this.to`}.
+	 * passed to {@linkcode CallHierarchyProvider.provideCallHierarchyOutgoingCalls provideCallHierarchyOutgoingCalls}
+	 * and not {@linkcode CallHierarchyOutgoingCall.to this.to}.
 	 */
 	var fromRanges:Array<Range>;
 

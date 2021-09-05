@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * NotebookCellData is the raw representation of notebook cells. Its is part of {@link NotebookData `NotebookData`}.
+ * NotebookCellData is the raw representation of notebook cells. Its is part of {@linkcode NotebookData}.
  */
 @:jsRequire("vscode", "NotebookCellData")
 extern class NotebookCellData {
@@ -17,7 +17,7 @@ extern class NotebookCellData {
 
 	/**
 	 * The language identifier of the source value of this cell data. Any value from
-	 * {@link languages.getLanguages `getLanguages`} is possible.
+	 * {@linkcode languages.getLanguages getLanguages} is possible.
 	 */
 	var languageId:String;
 

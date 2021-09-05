@@ -26,5 +26,16 @@ extern class TaskGroup {
 	 */
 	public static var Test:TaskGroup;
 
+	/**
+	 * Whether the task that is part of this group is the default for the group.
+	 * This property cannot be set through API, and is controlled by a user's task configurations.
+	 */
+	var isDefault(default, null):Null<Bool>;
+
+	/**
+	 * The ID of the task group. Is one of TaskGroup.Clean.id, TaskGroup.Build.id, TaskGroup.Rebuild.id, or TaskGroup.Test.id.
+	 */
+	var id(default, null):String;
+
 	private function new(id:String, label:String);
 }

@@ -19,7 +19,7 @@ typedef DocumentLinkProvider<T:DocumentLink> = {
 	/**
 	 * Given a link fill in its {@link DocumentLink.target target}. This method is called when an incomplete
 	 * link is selected in the UI. Providers can implement this method and return incomplete links
-	 * (without target) from the {@link DocumentLinkProvider.provideDocumentLinks `provideDocumentLinks`} method which
+	 * (without target) from the {@linkcode DocumentLinkProvider.provideDocumentLinks provideDocumentLinks} method which
 	 * often helps to improve performance.
 	 *
 	 * @param link The link that is to be resolved.

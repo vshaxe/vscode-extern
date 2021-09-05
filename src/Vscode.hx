@@ -193,6 +193,11 @@ extern class VscodeEnv {
 	var appRoot(default, null):String;
 
 	/**
+	 * The environment in which the app is hosted in. i.e. 'desktop', 'codespaces', 'web'.
+	 */
+	var appHost(default, null):String;
+
+	/**
 	 * The custom uri scheme the editor registers to in the operating system.
 	 */
 	var uriScheme(default, null):String;
@@ -268,7 +273,7 @@ extern class VscodeEnv {
 	 * * a mail client (`mailto:`)
 	 * * VSCode itself (`vscode:` from `vscode.env.uriScheme`)
 	 *
-	 * *Note* that {@link window.showTextDocument `showTextDocument`} is the right
+	 * *Note* that {@linkcode window.showTextDocument showTextDocument} is the right
 	 * way to open a text document inside the editor, not this function.
 	 *
 	 * @param target The uri that should be opened.
@@ -370,7 +375,7 @@ extern class VscodeCommands {
 	 *
 	 * * *Note 1:* When executing an editor command not all types are allowed to
 	 * be passed as arguments. Allowed are the primitive types `string`, `boolean`,
-	 * `number`, `undefined`, and `null`, as well as {@link Position `Position`}, {@link Range `Range`}, {@link Uri `Uri`} and {@link Location `Location`}.
+	 * `number`, `undefined`, and `null`, as well as {@linkcode Position}, {@linkcode Range}, {@linkcode Uri} and {@linkcode Location}.
 	 * * *Note 2:* There are no restrictions when executing commands that have been contributed
 	 * by extensions.
 	 *
@@ -483,7 +488,7 @@ extern class VscodeWindow {
 	 *
 	 * @param document A text document to be shown.
 	 * @param column A view column in which the {@link TextEditor editor} should be shown. The default is the {@link ViewColumn.Active active}, other values
-	 * are adjusted to be `Min(column, columnCount + 1)`, the {@link ViewColumn.Active active}-column is not adjusted. Use {@link ViewColumn.Beside `ViewColumn.Beside`}
+	 * are adjusted to be `Min(column, columnCount + 1)`, the {@link ViewColumn.Active active}-column is not adjusted. Use {@linkcode ViewColumn.Beside}
 	 * to open the editor to the side of the currently active one.
 	 * @param preserveFocus When `true` the editor will not take focus.
 	 * @return A promise that resolves to an {@link TextEditor editor}.
@@ -709,7 +714,7 @@ extern class VscodeWindow {
 	/**
 	 * Show progress in the editor. Progress is shown while running the given callback
 	 * and while the promise it returned isn't resolved nor rejected. The location at which
-	 * progress should show (and other details) is defined via the passed {@link ProgressOptions `ProgressOptions`}.
+	 * progress should show (and other details) is defined via the passed {@linkcode ProgressOptions}.
 	 *
 	 * @param task A callback returning a promise. Progress state can be reported with
 	 * the provided {@link Progress}-object.
@@ -719,7 +724,7 @@ extern class VscodeWindow {
 	 * e.g. `10` accounts for `10%` of work done).
 	 * Note that currently only `ProgressLocation.Notification` is capable of showing discrete progress.
 	 *
-	 * To monitor if the operation has been cancelled by the user, use the provided {@link CancellationToken `CancellationToken`}.
+	 * To monitor if the operation has been cancelled by the user, use the provided {@linkcode CancellationToken}.
 	 * Note that currently only `ProgressLocation.Notification` is supporting to show a cancel button to cancel the
 	 * long running operation.
 	 *
@@ -850,8 +855,8 @@ extern class VscodeWindow {
 	 * Register a provider for custom editors for the `viewType` contributed by the `customEditors` extension point.
 	 *
 	 * When a custom editor is opened, an `onCustomEditor:viewType` activation event is fired. Your extension
-	 * must register a {@link CustomTextEditorProvider `CustomTextEditorProvider`}, {@link CustomReadonlyEditorProvider `CustomReadonlyEditorProvider`},
-	 * {@link CustomEditorProvider `CustomEditorProvider`}for `viewType` as part of activation.
+	 * must register a {@linkcode CustomTextEditorProvider}, {@linkcode CustomReadonlyEditorProvider},
+	 * {@linkcode CustomEditorProvider}for `viewType` as part of activation.
 	 *
 	 * @param viewType Unique identifier for the custom editor provider. This should match the `viewType` from the
 	 *   `customEditors` contribution point.
@@ -971,8 +976,8 @@ extern class VscodeLanguages {
 	 * Set (and change) the {@link TextDocument.languageId language} that is associated
 	 * with the given document.
 	 *
-	 * *Note* that calling this function will trigger the {@link workspace.onDidCloseTextDocument `onDidCloseTextDocument`} event
-	 * followed by the {@link workspace.onDidOpenTextDocument `onDidOpenTextDocument`} event.
+	 * *Note* that calling this function will trigger the {@linkcode workspace.onDidCloseTextDocument onDidCloseTextDocument} event
+	 * followed by the {@linkcode workspace.onDidOpenTextDocument onDidOpenTextDocument} event.
 	 *
 	 * @param document The document which language is to be changed
 	 * @param languageId The new language identifier.
@@ -985,9 +990,9 @@ extern class VscodeLanguages {
 	 * greater than zero mean the selector matches the document.
 	 *
 	 * A match is computed according to these rules:
-	 * 1. When {@link DocumentSelector `DocumentSelector`} is an array, compute the match for each contained `DocumentFilter` or language identifier and take the maximum value.
-	 * 2. A string will be desugared to become the `language`-part of a {@link DocumentFilter `DocumentFilter`}, so `"fooLang"` is like `{ language: "fooLang" }`.
-	 * 3. A {@link DocumentFilter `DocumentFilter`} will be matched against the document by comparing its parts with the document. The following rules apply:
+	 * 1. When {@linkcode DocumentSelector} is an array, compute the match for each contained `DocumentFilter` or language identifier and take the maximum value.
+	 * 2. A string will be desugared to become the `language`-part of a {@linkcode DocumentFilter}, so `"fooLang"` is like `{ language: "fooLang" }`.
+	 * 3. A {@linkcode DocumentFilter} will be matched against the document by comparing its parts with the document. The following rules apply:
 	 *  1. When the `DocumentFilter` is empty (`{}`) the result is `0`
 	 *  2. When `scheme`, `language`, or `pattern` are defined but one doesn’t match, the result is `0`
 	 *  3. Matching against `*` gives a score of `5`, matching via equality or via a glob-pattern gives a score of `10`
@@ -1449,25 +1454,23 @@ extern class VscodeWorkspace {
 	var fs(default, null):FileSystem;
 
 	/**
-	 * The workspace folder that is open in the editor. `undefined` when no workspace
-	 * has been opened.
+	 * The uri of the first entry of {@linkcode workspace.workspaceFolders workspaceFolders}
+	 * as `string`. `undefined` if there is no first entry.
 	 *
 	 * Refer to https://code.visualstudio.com/docs/editor/workspaces for more information
 	 * on workspaces.
 	 *
-	 * @deprecated Use {@link workspace.workspaceFolders `workspaceFolders`} instead.
+	 * @deprecated Use {@linkcode workspace.workspaceFolders workspaceFolders} instead.
 	 */
 	@:deprecated("Use `workspace.workspaceFolders` instead.")
 	var rootPath(default, null):Null<String>;
 
 	/**
-	 * List of workspace folders that are open in the editor. `undefined` when no workspace
+	 * List of workspace folders (0-N) that are open in the editor. `undefined` when no workspace
 	 * has been opened.
 	 *
 	 * Refer to https://code.visualstudio.com/docs/editor/workspaces for more information
 	 * on workspaces.
-	 *
-	 * *Note* that the first entry corresponds to the value of `rootPath`.
 	 */
 	var workspaceFolders(default, null):Null<ReadOnlyArray<WorkspaceFolder>>;
 
@@ -1552,7 +1555,7 @@ extern class VscodeWorkspace {
 	 * one that called this method) will be terminated and restarted so that the (deprecated) `rootPath` property is
 	 * updated to point to the first workspace folder.
 	 *
-	 * Use the {@link onDidChangeWorkspaceFolders `onDidChangeWorkspaceFolders()`} event to get notified when the
+	 * Use the {@linkcode onDidChangeWorkspaceFolders onDidChangeWorkspaceFolders()} event to get notified when the
 	 * workspace folders have been updated.
 	 *
 	 * **Example:** adding a new workspace folder at the end of workspace folders
@@ -1574,7 +1577,7 @@ extern class VscodeWorkspace {
 	 * to rename that folder.
 	 *
 	 * **Note:** it is not valid to call {@link updateWorkspaceFolders updateWorkspaceFolders()} multiple times
-	 * without waiting for the {@link onDidChangeWorkspaceFolders `onDidChangeWorkspaceFolders()`} to fire.
+	 * without waiting for the {@linkcode onDidChangeWorkspaceFolders onDidChangeWorkspaceFolders()} to fire.
 	 *
 	 * @param start the zero-based location in the list of currently opened {@link WorkspaceFolder workspace folders}
 	 * from which to start deleting workspace folders.
@@ -1661,14 +1664,15 @@ extern class VscodeWorkspace {
 	 *
 	 * The document is denoted by an {@link Uri}. Depending on the {@link Uri.scheme scheme} the
 	 * following rules apply:
-	 * * `file`-scheme: Open a file on disk, will be rejected if the file does not exist or cannot be loaded.
-	 * * `untitled`-scheme: A new file that should be saved on disk, e.g. `untitled:c:\frodo\new.js`. The language
-	 * will be derived from the file name.
+	 * * `file`-scheme: Open a file on disk (`openTextDocument(Uri.file(path))`). Will be rejected if the file
+	 * does not exist or cannot be loaded.
+	 * * `untitled`-scheme: Open a blank untitled file with associated path (`openTextDocument(Uri.file(path).with({ scheme: 'untitled' }))`).
+	 * The language will be derived from the file name.
 	 * * For all other schemes contributed {@link TextDocumentContentProvider text document content providers} and
 	 * {@link FileSystemProvider file system providers} are consulted.
 	 *
 	 * *Note* that the lifecycle of the returned document is owned by the editor and not by the extension. That means an
-	 * {@link workspace.onDidCloseTextDocument `onDidClose`}-event can occur at any time after opening it.
+	 * {@linkcode workspace.onDidCloseTextDocument onDidClose}-event can occur at any time after opening it.
 	 *
 	 * ---
 	 *
@@ -1719,7 +1723,7 @@ extern class VscodeWorkspace {
 	 * of a text document {@link languages.setTextDocumentLanguage has been changed}.
 	 *
 	 * *Note 1:* There is no guarantee that this event fires when an editor tab is closed, use the
-	 * {@link window.onDidChangeVisibleTextEditors `onDidChangeVisibleTextEditors`}-event to know when editors change.
+	 * {@linkcode window.onDidChangeVisibleTextEditors onDidChangeVisibleTextEditors}-event to know when editors change.
 	 *
 	 * *Note 2:* A document can be open but not shown in an editor which means this event can fire
 	 * for a document that has not been shown in an editor.
@@ -1760,10 +1764,10 @@ extern class VscodeWorkspace {
 
 	/**
 	 * Open a notebook. Will return early if this notebook is already {@link notebook.notebookDocuments loaded}. Otherwise
-	 * the notebook is loaded and the {@link notebook.onDidOpenNotebookDocument `onDidOpenNotebookDocument`}-event fires.
+	 * the notebook is loaded and the {@linkcode notebook.onDidOpenNotebookDocument onDidOpenNotebookDocument}-event fires.
 	 *
 	 * *Note* that the lifecycle of the returned notebook is owned by the editor and not by the extension. That means an
-	 * {@link notebook.onDidCloseNotebookDocument `onDidCloseNotebookDocument`}-event can occur at any time after.
+	 * {@linkcode notebook.onDidCloseNotebookDocument onDidCloseNotebookDocument}-event can occur at any time after.
 	 *
 	 * *Note* that opening a notebook does not show a notebook editor. This function only returns a notebook document which
 	 * can be showns in a notebook editor but it can also be used for other things.
@@ -1813,9 +1817,9 @@ extern class VscodeWorkspace {
 	 * An event that is emitted when files are being created.
 	 *
 	 * *Note 1:* This event is triggered by user gestures, like creating a file from the
-	 * explorer, or from the {@link workspace.applyEdit `workspace.applyEdit`}-api. This event is *not* fired when
+	 * explorer, or from the {@linkcode workspace.applyEdit}-api. This event is *not* fired when
 	 * files change on disk, e.g triggered by another application, or when using the
-	 * {@link FileSystem `workspace.fs`}-api.
+	 * {@linkcode FileSystem workspace.fs}-api.
 	 *
 	 * *Note 2:* When this event is fired, edits to files that are are being created cannot be applied.
 	 */
@@ -1825,9 +1829,9 @@ extern class VscodeWorkspace {
 	 * An event that is emitted when files have been created.
 	 *
 	 * *Note:* This event is triggered by user gestures, like creating a file from the
-	 * explorer, or from the {@link workspace.applyEdit `workspace.applyEdit`}-api, but this event is *not* fired when
+	 * explorer, or from the {@linkcode workspace.applyEdit}-api, but this event is *not* fired when
 	 * files change on disk, e.g triggered by another application, or when using the
-	 * {@link FileSystem `workspace.fs`}-api.
+	 * {@linkcode FileSystem workspace.fs}-api.
 	 */
 	var onDidCreateFiles(default, null):Event<FileCreateEvent>;
 
@@ -1835,9 +1839,9 @@ extern class VscodeWorkspace {
 	 * An event that is emitted when files are being deleted.
 	 *
 	 * *Note 1:* This event is triggered by user gestures, like deleting a file from the
-	 * explorer, or from the {@link workspace.applyEdit `workspace.applyEdit`}-api, but this event is *not* fired when
+	 * explorer, or from the {@linkcode workspace.applyEdit}-api, but this event is *not* fired when
 	 * files change on disk, e.g triggered by another application, or when using the
-	 * {@link FileSystem `workspace.fs`}-api.
+	 * {@linkcode FileSystem workspace.fs}-api.
 	 *
 	 * *Note 2:* When deleting a folder with children only one event is fired.
 	 */
@@ -1847,9 +1851,9 @@ extern class VscodeWorkspace {
 	 * An event that is emitted when files have been deleted.
 	 *
 	 * *Note 1:* This event is triggered by user gestures, like deleting a file from the
-	 * explorer, or from the {@link workspace.applyEdit `workspace.applyEdit`}-api, but this event is *not* fired when
+	 * explorer, or from the {@linkcode workspace.applyEdit}-api, but this event is *not* fired when
 	 * files change on disk, e.g triggered by another application, or when using the
-	 * {@link FileSystem `workspace.fs`}-api.
+	 * {@linkcode FileSystem workspace.fs}-api.
 	 *
 	 * *Note 2:* When deleting a folder with children only one event is fired.
 	 */
@@ -1859,9 +1863,9 @@ extern class VscodeWorkspace {
 	 * An event that is emitted when files are being renamed.
 	 *
 	 * *Note 1:* This event is triggered by user gestures, like renaming a file from the
-	 * explorer, and from the {@link workspace.applyEdit `workspace.applyEdit`}-api, but this event is *not* fired when
+	 * explorer, and from the {@linkcode workspace.applyEdit}-api, but this event is *not* fired when
 	 * files change on disk, e.g triggered by another application, or when using the
-	 * {@link FileSystem `workspace.fs`}-api.
+	 * {@linkcode FileSystem workspace.fs}-api.
 	 *
 	 * *Note 2:* When renaming a folder with children only one event is fired.
 	 */
@@ -1871,9 +1875,9 @@ extern class VscodeWorkspace {
 	 * An event that is emitted when files have been renamed.
 	 *
 	 * *Note 1:* This event is triggered by user gestures, like renaming a file from the
-	 * explorer, and from the {@link workspace.applyEdit `workspace.applyEdit`}-api, but this event is *not* fired when
+	 * explorer, and from the {@linkcode workspace.applyEdit}-api, but this event is *not* fired when
 	 * files change on disk, e.g triggered by another application, or when using the
-	 * {@link FileSystem `workspace.fs`}-api.
+	 * {@linkcode FileSystem workspace.fs}-api.
 	 *
 	 * *Note 2:* When renaming a folder with children only one event is fired.
 	 */

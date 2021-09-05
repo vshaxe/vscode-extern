@@ -68,8 +68,8 @@ typedef ExtensionContext = {
 	/**
 	 * Get the absolute path of a resource contained in the extension.
 	 *
-	 * *Note* that an absolute uri can be constructed via {@link Uri.joinPath `Uri.joinPath`} and
-	 * {@link ExtensionContext.extensionUri `extensionUri`}, e.g. `vscode.Uri.joinPath(context.extensionUri, relativePath);`
+	 * *Note* that an absolute uri can be constructed via {@linkcode Uri.joinPath} and
+	 * {@linkcode ExtensionContext.extensionUri extensionUri}, e.g. `vscode.Uri.joinPath(context.extensionUri, relativePath);`
 	 *
 	 * @param relativePath A relative path to a resource contained in the extension.
 	 * @return The absolute path of the resource.
@@ -82,10 +82,10 @@ typedef ExtensionContext = {
 	 * up to the extension. However, the parent directory is guaranteed to be existent.
 	 * The value is `undefined` when no workspace nor folder has been opened.
 	 *
-	 * Use {@link ExtensionContext.workspaceState `workspaceState`} or
-	 * {@link ExtensionContext.globalState `globalState`} to store key value data.
+	 * Use {@linkcode ExtensionContext.workspaceState workspaceState} or
+	 * {@linkcode ExtensionContext.globalState globalState} to store key value data.
 	 *
-	 * @see {@link FileSystem `workspace.fs`} for how to read and write files and folders from
+	 * @see {@linkcode FileSystem workspace.fs} for how to read and write files and folders from
 	 *  an uri.
 	 */
 	var storageUri(default, null):Null<Uri>;
@@ -95,8 +95,8 @@ typedef ExtensionContext = {
 	 * can store private state. The directory might not exist on disk and creation is
 	 * up to the extension. However, the parent directory is guaranteed to be existent.
 	 *
-	 * Use {@link ExtensionContext.workspaceState `workspaceState`} or
-	 * {@link ExtensionContext.globalState `globalState`} to store key value data.
+	 * Use {@linkcode ExtensionContext.workspaceState workspaceState} or
+	 * {@linkcode ExtensionContext.globalState globalState} to store key value data.
 	 *
 	 * @deprecated Use {@link ExtensionContext.storageUri storageUri} instead.
 	 */
@@ -108,9 +108,9 @@ typedef ExtensionContext = {
 	 * The directory might not exist on disk and creation is
 	 * up to the extension. However, the parent directory is guaranteed to be existent.
 	 *
-	 * Use {@link ExtensionContext.globalState `globalState`} to store key value data.
+	 * Use {@linkcode ExtensionContext.globalState globalState} to store key value data.
 	 *
-	 * @see {@link FileSystem `workspace.fs`} for how to read and write files and folders from
+	 * @see {@linkcode FileSystem workspace.fs} for how to read and write files and folders from
 	 *  an uri.
 	 */
 	var globalStorageUri(default, null):Uri;
@@ -120,7 +120,7 @@ typedef ExtensionContext = {
 	 * The directory might not exist on disk and creation is
 	 * up to the extension. However, the parent directory is guaranteed to be existent.
 	 *
-	 * Use {@link ExtensionContext.globalState `globalState`} to store key value data.
+	 * Use {@linkcode ExtensionContext.globalState globalState} to store key value data.
 	 *
 	 * @deprecated Use {@link ExtensionContext.globalStorageUri globalStorageUri} instead.
 	 */
@@ -132,7 +132,7 @@ typedef ExtensionContext = {
 	 * The directory might not exist on disk and creation is up to the extension. However,
 	 * the parent directory is guaranteed to be existent.
 	 *
-	 * @see {@link FileSystem `workspace.fs`} for how to read and write files and folders from
+	 * @see {@linkcode FileSystem workspace.fs} for how to read and write files and folders from
 	 *  an uri.
 	 */
 	var logUri(default, null):Uri;

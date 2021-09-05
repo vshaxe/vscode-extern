@@ -4,9 +4,9 @@ package vscode;
  * A NotebookCellExecution is how {@link NotebookController notebook controller} modify a notebook cell as
  * it is executing.
  *
- * When a cell execution object is created, the cell enters the {@link NotebookCellExecutionState.Pending `Pending`} state.
- * When {@link NotebookCellExecution.start `start(...)`} is called on the execution task, it enters the {@link NotebookCellExecutionState.Executing `Executing`} state. When
- * {@link NotebookCellExecution.end `end(...)`} is called, it enters the {@link NotebookCellExecutionState.Idle `Idle`} state.
+ * When a cell execution object is created, the cell enters the {@linkcode NotebookCellExecutionState.Pending Pending} state.
+ * When {@linkcode NotebookCellExecution.start start(...)} is called on the execution task, it enters the {@linkcode NotebookCellExecutionState.Executing Executing} state. When
+ * {@linkcode NotebookCellExecution.end end(...)} is called, it enters the {@linkcode NotebookCellExecutionState.Idle Idle} state.
  */
 typedef NotebookCellExecution = {
 	/**

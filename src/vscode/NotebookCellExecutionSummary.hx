@@ -10,7 +10,7 @@ typedef NotebookCellExecutionSummary = {
 	var ?executionOrder(default, null):Int;
 
 	/**
-	 * If the exclusive finished successfully.
+	 * If the execution finished successfully.
 	 */
 	var ?success(default, null):Bool;
 

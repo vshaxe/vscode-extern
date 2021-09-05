@@ -20,7 +20,7 @@ typedef WebviewPanel = {
 	var ?iconPath:EitherType<Uri, {light:Uri, dark:Uri}>;
 
 	/**
-	 * {@link Webview `Webview`} belonging to the panel.
+	 * {@linkcode Webview} belonging to the panel.
 	 */
 	var webview(default, null):Webview;
 

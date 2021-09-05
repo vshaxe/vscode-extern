@@ -55,7 +55,7 @@ extern class CompletionItem {
 	 * items. When having a leading word (prefix) ordering is based on how
 	 * well completions match that prefix and the initial ordering is only used
 	 * when completions match equally well. The prefix is defined by the
-	 * {@link CompletionItem.range `range`}-property and can therefore be different
+	 * {@linkcode CompletionItem.range range}-property and can therefore be different
 	 * for each completion.
 	 */
 	var sortText:Null<String>;
@@ -66,7 +66,7 @@ extern class CompletionItem {
 	 * is used.
 	 *
 	 * Note that the filter text is matched against the leading word (prefix) which is defined
-	 * by the {@link CompletionItem.range `range`}-property.
+	 * by the {@linkcode CompletionItem.range range}-property.
 	 */
 	var filterText:Null<String>;
 

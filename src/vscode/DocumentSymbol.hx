@@ -34,7 +34,7 @@ extern class DocumentSymbol {
 
 	/**
 	 * The range that should be selected and reveal when this symbol is being picked, e.g. the name of a function.
-	 * Must be contained by the {@link DocumentSymbol.range `range`}.
+	 * Must be contained by the {@linkcode DocumentSymbol.range range}.
 	 */
 	var selectionRange:Range;
 

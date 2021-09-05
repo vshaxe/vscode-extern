@@ -41,9 +41,9 @@ typedef CodeActionProviderMetadata = {
 		/**
 		 * Command that displays the documentation to the user.
 		 *
-		 * This can display the documentation directly in the editor or open a website using {@link env.openExternal `env.openExternal`};
+		 * This can display the documentation directly in the editor or open a website using {@linkcode env.openExternal};
 		 *
-		 * The title of this documentation code action is taken from {@link Command.title `Command.title`}
+		 * The title of this documentation code action is taken from {@linkcode Command.title}
 		 */
 		final command:Command;
 	}>;

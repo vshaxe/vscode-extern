@@ -2,7 +2,7 @@ package vscode;
 
 /**
  * Additional information about the context in which a
- * {@link SignatureHelpProvider.provideSignatureHelp `SignatureHelpProvider`} was triggered.
+ * {@linkcode SignatureHelpProvider.provideSignatureHelp SignatureHelpProvider} was triggered.
  */
 typedef SignatureHelpContext = {
 	/**
@@ -27,7 +27,7 @@ typedef SignatureHelpContext = {
 	var isRetrigger(default, null):Bool;
 
 	/**
-	 * The currently active {@link SignatureHelp `SignatureHelp`}.
+	 * The currently active {@linkcode SignatureHelp}.
 	 *
 	 * The `activeSignatureHelp` has its [`SignatureHelp.activeSignature`] field updated based on
 	 * the user arrowing through available signatures.

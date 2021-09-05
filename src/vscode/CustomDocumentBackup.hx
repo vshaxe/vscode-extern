@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * A backup for an {@link CustomDocument `CustomDocument`}.
+ * A backup for an {@linkcode CustomDocument}.
  */
 typedef CustomDocumentBackup = {
 	/**

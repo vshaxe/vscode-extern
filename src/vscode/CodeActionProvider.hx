@@ -26,7 +26,7 @@ typedef CodeActionProvider<T:CodeAction> = {
 		token:CancellationToken):ProviderResult<Array<EitherType<Command, T>>>;
 
 	/**
-	 * Given a code action fill in its {@link CodeAction.edit `edit`}-property. Changes to
+	 * Given a code action fill in its {@linkcode CodeAction.edit edit}-property. Changes to
 	 * all other properties, like title, are ignored. A code action that has an edit
 	 * will not be resolved.
 	 *

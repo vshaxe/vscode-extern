@@ -8,7 +8,7 @@ import js.lib.Uint8Array;
  * with files from the local disk as well as files from remote places, like the
  * remote extension host or ftp-servers.
  *
- * *Note* that an instance of this interface is available as {@link workspace.fs `workspace.fs`}.
+ * *Note* that an instance of this interface is available as {@linkcode workspace.fs}.
  */
 typedef FileSystem = {
 	/**
@@ -99,6 +99,10 @@ typedef FileSystem = {
 abstract FileSystemReadDirectoryTuple(Array<Dynamic>) {
 	public var name(get, never):String;
 	public var type(get, never):FileType;
+
+	public extern inline function new(name:String, type:FileType) {
+		this = [name, type];
+	}
 
 	extern inline function get_name():String
 		return this[0];

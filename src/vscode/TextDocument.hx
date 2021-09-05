@@ -26,7 +26,7 @@ typedef TextDocument = {
 
 	/**
 	 * Is this document representing an untitled file which has never been saved yet. *Note* that
-	 * this does not mean the document will be saved to disk, use {@link Uri.scheme `uri.scheme`}
+	 * this does not mean the document will be saved to disk, use {@linkcode Uri.scheme}
 	 * to figure out where a document will be {@link FileSystemProvider saved}, e.g. `file`, `ftp` etc.
 	 */
 	var isUntitled(default, null):Bool;
@@ -134,7 +134,7 @@ typedef TextDocument = {
 	 * if it does, it will be ignored.
 	 * * *Note 2:* A custom regular expression will fail to match multiline strings
 	 * and in the name of speed regular expressions should not match words with
-	 * spaces. Use {@link TextLine.text `TextLine.text`} for more complex, non-wordy, scenarios.
+	 * spaces. Use {@linkcode TextLine.text} for more complex, non-wordy, scenarios.
 	 *
 	 * The position will be {@link TextDocument.validatePosition adjusted}.
 	 *
