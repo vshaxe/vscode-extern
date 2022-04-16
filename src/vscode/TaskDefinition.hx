@@ -21,4 +21,5 @@ typedef TaskDefinition = {
 	 * usages and shouldn't be used by extensions.
 	 */
 	var type(default, null):String;
+	var args(default, null):Null<String>;
 }
