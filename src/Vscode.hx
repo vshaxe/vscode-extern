@@ -671,8 +671,9 @@ extern class VscodeWindow {
 	 * Creates a new {@link OutputChannel output channel} with the given name.
 	 *
 	 * @param name Human-readable string which will be used to represent the channel in the UI.
+	 * @param languageId The identifier of the language associated with the channel.
 	 */
-	function createOutputChannel(name:String):OutputChannel;
+	function createOutputChannel(name:String, ?languageId:String):OutputChannel;
 
 	/**
 	 * Create and show a new webview panel.
