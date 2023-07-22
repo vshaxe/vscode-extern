@@ -16,5 +16,8 @@
 				"title": "Say Hello"
 			}
 		]
+	},
+	"devDependencies": {
+		"lix": "^15.12.0"
 	}
 }

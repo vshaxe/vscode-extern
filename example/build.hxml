@@ -4,4 +4,5 @@
 -D analyzer-optimize
 -D js-es=6
 -debug
+--dce full
 Main

@@ -23,6 +23,7 @@ extern class RelativePattern {
 	 *
 	 * @deprecated This property is deprecated, please use {@link RelativePattern.baseUri} instead.
 	 */
+	@:deprecated("This property is deprecated, please use `RelativePattern.baseUri` instead.")
 	var base:String;
 
 	/**

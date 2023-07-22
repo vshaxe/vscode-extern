@@ -398,6 +398,11 @@ extern class VscodeCommands {
 
 extern class VscodeWindow {
 	/**
+	 * Represents the grid widget within the main editor area
+	 */
+	final tabGroups:TabGroups;
+
+	/**
 	 * The currently active editor or `undefined`. The active editor is the one
 	 * that currently has focus or, when none has focus, the one that has changed
 	 * input most recently.
@@ -1825,6 +1830,16 @@ extern class VscodeWorkspace {
 	 */
 	@:overload(function(notebookType:String, ?content:NotebookData):Thenable<NotebookDocument> {})
 	function openNotebookDocument(uri:Uri):Thenable<NotebookDocument>;
+
+	/**
+	 * An event that is emitted when a {@link NotebookDocument notebook} has changed.
+	 */
+	var onDidChangeNotebookDocument:Event<NotebookDocumentChangeEvent>;
+
+	/**
+	 * An event that is emitted when a {@link NotebookDocument notebook} is saved.
+	 */
+	var onDidSaveNotebookDocument:Event<NotebookDocument>;
 
 	/**
 	 * Register a {@link NotebookSerializer notebook serializer}.
