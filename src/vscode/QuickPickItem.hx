@@ -18,6 +18,12 @@ typedef QuickPickItem = {
 	var ?description:String;
 
 	/**
+	 * The kind of QuickPickItem that will determine how this item is rendered in the quick pick. When not specified,
+	 * the default is {@link QuickPickItemKind.Default}.
+	 */
+	var ?kind:QuickPickItemKind;
+
+	/**
 	 * A human-readable string which is rendered less prominent in a separate line. Supports rendering of
 	 * {@link ThemeIcon theme icons} via the `$(<name>)`-syntax.
 	 */

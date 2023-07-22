@@ -540,8 +540,8 @@ extern class VscodeWindow {
 	//  */
 	@:overload(function<T:MessageItem>(message:String, items:Rest<T>):Thenable<Null<T>> {})
 	@:overload(function<T:MessageItem>(message:String, options:MessageOptions, items:Rest<T>):Thenable<Null<T>> {})
-	@:overload(function(message:String, items:Rest<String>):Thenable<Null<String>> {})
-	function showInformationMessage(message:String, options:MessageOptions, items:Rest<String>):Thenable<Null<String>>;
+	@:overload(function<T:String>(message:String, items:Rest<T>):Thenable<Null<T>> {})
+	function showInformationMessage<T:String>(message:String, options:MessageOptions, items:Rest<T>):Thenable<Null<T>>;
 
 	/**
 	 * Show a warning message.
@@ -555,8 +555,8 @@ extern class VscodeWindow {
 	 */
 	@:overload(function<T:MessageItem>(message:String, items:Rest<T>):Thenable<Null<T>> {})
 	@:overload(function<T:MessageItem>(message:String, options:MessageOptions, items:Rest<T>):Thenable<Null<T>> {})
-	@:overload(function(message:String, items:Rest<String>):Thenable<Null<String>> {})
-	function showWarningMessage(message:String, options:MessageOptions, items:Rest<String>):Thenable<Null<String>>;
+	@:overload(function<T:String>(message:String, items:Rest<T>):Thenable<Null<T>> {})
+	function showWarningMessage<T:String>(message:String, options:MessageOptions, items:Rest<T>):Thenable<Null<T>>;
 
 	/**
 	 * Show an error message.
@@ -570,8 +570,8 @@ extern class VscodeWindow {
 	 */
 	@:overload(function<T:MessageItem>(message:String, items:Rest<T>):Thenable<Null<T>> {})
 	@:overload(function<T:MessageItem>(message:String, options:MessageOptions, items:Rest<T>):Thenable<Null<T>> {})
-	@:overload(function(message:String, items:Rest<String>):Thenable<Null<String>> {})
-	function showErrorMessage(message:String, options:MessageOptions, items:Rest<String>):Thenable<Null<String>>;
+	@:overload(function<T:String>(message:String, items:Rest<T>):Thenable<Null<T>> {})
+	function showErrorMessage<T:String>(message:String, options:MessageOptions, items:Rest<T>):Thenable<Null<T>>;
 
 	/**
 	 * Shows a selection list.

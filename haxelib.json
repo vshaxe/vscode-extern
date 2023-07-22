@@ -1,10 +1,10 @@
 {
 	"name": "vscode",
 	"description": "Visual Studio Code extern library",
-	"url": "https://github.com/vshaxe/vscode-extern",
+	"url": "https://github.com/nevergarden/vscode-extern",
 	"license": "MIT",
-	"version": "1.63.0",
-	"releasenote": "Update to VSCode 1.63",
+	"version": "1.64.0",
+	"releasenote": "Update to VSCode 1.64",
 	"classPath": "src",
 	"contributors": ["nadako", "Gama11", "nevergarden"],
 	"dependencies": {

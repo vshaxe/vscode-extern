@@ -26,4 +26,9 @@ typedef ExtensionTerminalOptions = {
 	 * recommended for the best contrast and consistency across themes.
 	 */
 	var ?color:ThemeColor;
+
+	/**
+	 * The {@link TerminalLocation} or {@link TerminalEditorLocationOptions} or {@link TerminalSplitLocationOptions} for the terminal.
+	 */
+	var ?location:EitherType<TerminalLocation, EitherType<TerminalEditorLocationOptions, TerminalSplitLocationOptions>>;
 }

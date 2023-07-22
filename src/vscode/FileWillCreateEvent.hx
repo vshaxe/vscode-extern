@@ -9,6 +9,11 @@ package vscode;
  */
 typedef FileWillCreateEvent = {
 	/**
+	 * A cancellation token.
+	 */
+	var token(default, never):CancellationToken;
+
+	/**
 	 * The files that are going to be created.
 	 */
 	var files(default, never):ReadOnlyArray<Uri>;

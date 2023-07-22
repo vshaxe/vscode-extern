@@ -9,6 +9,11 @@ package vscode;
  */
 typedef FileWillRenameEvent = {
 	/**
+	 * A cancellation token.
+	 */
+	var token(default, never):CancellationToken;
+
+	/**
 	 * The files that are going to be renamed.
 	 */
 	var files(default, never):ReadOnlyArray<{final oldUri:Uri; final newUri:Uri;}>;

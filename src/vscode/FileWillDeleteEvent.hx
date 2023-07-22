@@ -9,6 +9,11 @@ package vscode;
  */
 typedef FileWillDeleteEvent = {
 	/**
+	 * A cancellation token.
+	 */
+	var token(default, never):CancellationToken;
+
+	/**
 	 * The files that are going to be deleted.
 	 */
 	var files(default, never):ReadOnlyArray<Uri>;
