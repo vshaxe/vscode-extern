@@ -69,6 +69,19 @@ typedef TestController = {
 	var resolveHandler:(item:Null<TestItem>) -> Thenable<Void>;
 
 	/**
+	 * If this method is present, a refresh button will be present in the
+	 * UI, and this method will be invoked when it's clicked. When called,
+	 * the extension should scan the workspace for any new, changed, or
+	 * removed tests.
+	 *
+	 * It's recommended that extensions try to update tests in realtime, using
+	 * a {@link FileSystemWatcher} for example, and use this method as a fallback.
+	 *
+	 * @returns A thenable that resolves when tests have been refreshed.
+	 */
+	var refreshHandler:Null<(token:CancellationToken) -> EitherType<Thenable<Void>, Void>>;
+
+	/**
 	 * Creates a {@link TestRun}. This should be called by the
 	 * {@link TestRunProfile} when a request is made to execute tests, and may
 	 * also be called if a test run is detected externally. Once created, tests

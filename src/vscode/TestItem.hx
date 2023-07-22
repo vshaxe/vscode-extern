@@ -69,6 +69,13 @@ typedef TestItem = {
 	var ?description:String;
 
 	/**
+	 * A string that should be used when comparing this item
+	 * with other items. When `falsy` the {@link TestItem.label label}
+	 * is used.
+	 */
+	var ?sortText:Null<String>;
+
+	/**
 	 * Location of the test item in its {@link uri}.
 	 *
 	 * This is only meaningful if the `uri` points to a file.

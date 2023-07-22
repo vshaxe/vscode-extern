@@ -1059,6 +1059,14 @@ extern class VscodeLanguages {
 	function createDiagnosticCollection(?name:String):DiagnosticCollection;
 
 	/**
+	 * Creates a new {@link LanguageStatusItem language status item}.
+	 *
+	 * @param id The identifier of the item.
+	 * @param selector The document selector that defines for what editors the item shows.
+	 */
+	function createLanguageStatusItem(id:String, selector:DocumentSelector):LanguageStatusItem;
+
+	/**
 	 * Register a completion provider.
 	 *
 	 * Multiple providers can be registered for a language. In that case providers are sorted
@@ -1386,6 +1394,19 @@ extern class VscodeLanguages {
 	 * @return A {@link Disposable} that unregisters this provider when being disposed.
 	 */
 	function registerColorProvider(selector:DocumentSelector, provider:DocumentColorProvider):Disposable;
+
+	/**
+	 * Register a inlay hints provider.
+	 *
+	 * Multiple providers can be registered for a language. In that case providers are asked in
+	 * parallel and the results are merged. A failing provider (rejected promise or exception) will
+	 * not cause a failure of the whole operation.
+	 *
+	 * @param selector A selector that defines the documents this provider is applicable to.
+	 * @param provider An inlay hints provider.
+	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 */
+	function registerInlayHintsProvider(selector:DocumentSelector, provider:InlayHintsProvider<InlayHint>):Disposable;
 
 	/**
 	 * Register a folding range provider.
