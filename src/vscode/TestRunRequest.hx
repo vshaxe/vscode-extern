@@ -21,7 +21,7 @@ extern class TestRunRequest {
 	 * The process of running tests should resolve the children of any test
 	 * items who have not yet been resolved.
 	 */
-	var include(default, null):Null<Array<TestItem>>;
+	var include(default, null):Null<ReadOnlyArray<TestItem>>;
 
 	/**
 	 * An array of tests the user has marked as excluded from the test included
@@ -30,7 +30,7 @@ extern class TestRunRequest {
 	 * May be omitted if no exclusions were requested. Test controllers should
 	 * not run excluded tests or any children of excluded tests.
 	 */
-	var exclude(default, null):Null<Array<TestItem>>;
+	var exclude(default, null):Null<ReadOnlyArray<TestItem>>;
 
 	/**
 	 * The profile used for this request. This will always be defined

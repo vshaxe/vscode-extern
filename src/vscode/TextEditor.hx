@@ -17,7 +17,7 @@ typedef TextEditor = {
 	/**
 	 * The selections in this text editor. The primary selection is always at index 0.
 	 */
-	var selections:Array<Selection>;
+	var selections(default, never):Array<Selection>;
 
 	/**
 	 * The current visible ranges in the editor (vertically).

@@ -1533,6 +1533,11 @@ extern class VscodeWorkspace {
 
 	/**
 	 * An event that is emitted when a workspace folder is added or removed.
+	 *
+	 * **Note:** this event will not fire if the first workspace folder is added, removed or changed,
+	 * because in that case the currently executing extensions (including the one that listens to this
+	 * event) will be terminated and restarted so that the (deprecated) `rootPath` property is updated
+	 * to point to the first workspace folder.
 	 */
 	var onDidChangeWorkspaceFolders(default, null):Event<WorkspaceFoldersChangeEvent>;
 
@@ -1971,7 +1976,7 @@ extern class VscodeDebug {
 	/**
 	 * List of breakpoints.
 	 */
-	var breakpoints:Array<Breakpoint>;
+	var breakpoints:ReadOnlyArray<Breakpoint>;
 
 	/**
 	 * An {@link Event} which fires when the {@link debug.activeDebugSession active debug session}
@@ -2185,10 +2190,26 @@ extern class VscodeAuthentication {
 	 * @param options The {@link AuthenticationGetSessionOptions} to use
 	 * @returns A thenable that resolves to an authentication session
 	 */
+	@:overload(function(providerId:String, scopes:ReadOnlyArray<String>, options:AuthenticationGetSessionOptions & {
+		forceNewSession:EitherType<Bool, {detail:String}>
+	}):Thenable<AuthenticationSession> {})
 	@:overload(function(providerId:String, scopes:ReadOnlyArray<String>, ?options:AuthenticationGetSessionOptions):Thenable<Null<AuthenticationSession>> {})
 	function getSession(providerId:String, scopes:ReadOnlyArray<String>,
 		options:AuthenticationGetSessionOptions & {createIfNone:Bool}):Thenable<AuthenticationSession>;
 
+	/**
+	 * Get an authentication session matching the desired scopes. Rejects if a provider with providerId is not
+	 * registered, or if the user does not consent to sharing authentication information with
+	 * the extension. If there are multiple sessions with the same scopes, the user will be shown a
+	 * quickpick to select which account they would like to use.
+	 *
+	 * Currently, there are only two authentication providers that are contributed from built in extensions
+	 * to the editor that implement GitHub and Microsoft authentication: their providerId's are 'github' and 'microsoft'.
+	 * @param providerId The id of the provider to use
+	 * @param scopes A list of scopes representing the permissions requested. These are dependent on the authentication provider
+	 * @param options The {@link AuthenticationGetSessionOptions} to use
+	 * @returns A thenable that resolves to an authentication session
+	 */
 	/**
 	 * An {@link Event} which fires when the authentication sessions of an authentication provider have
 	 * been added, removed, or changed.

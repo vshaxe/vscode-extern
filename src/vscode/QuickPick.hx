@@ -43,6 +43,12 @@ typedef QuickPick<T:QuickPickItem> = QuickInput & {
 	var onDidTriggerButton(default, null):Event<QuickInputButton>;
 
 	/**
+	 * An event signaling when a button in a particular {@link QuickPickItem} was triggered.
+	 * This event does not fire for buttons in the title bar.
+	 */
+	var onDidTriggerItemButton:Event<QuickPickItemButtonEvent<T>>;
+
+	/**
 	 * Items to pick from. This can be read and updated by the extension.
 	 */
 	var items:ReadOnlyArray<T>;
@@ -61,6 +67,11 @@ typedef QuickPick<T:QuickPickItem> = QuickInput & {
 	 * If the filter text should also be matched against the detail of the items. Defaults to false.
 	 */
 	var matchOnDetail:Bool;
+
+	/*
+	 * An optional flag to maintain the scroll position of the quick pick when the quick pick items are updated. Defaults to false.
+	 */
+	var ?keepScrollPosition:Bool;
 
 	/**
 	 * Active items. This can be read and updated by the extension.

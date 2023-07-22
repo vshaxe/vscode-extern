@@ -35,4 +35,12 @@ typedef QuickPickItem = {
 	 * Always show this item.
 	 */
 	var ?alwaysShow:Bool;
+
+	/**
+	 * Optional buttons that will be rendered on this particular item. These buttons will trigger
+	 * an {@link QuickPickItemButtonEvent} when clicked. Buttons are only rendered when using a quickpick
+	 * created by the {@link window.createQuickPick()} API. Buttons are not rendered when using
+	 * the {@link window.showQuickPick()} API.
+	 */
+	var ?buttons:ReadOnlyArray<QuickInputButton>;
 }
