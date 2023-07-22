@@ -1,5 +1,7 @@
 package vscode;
 
+import vscode.TerminalState;
+
 /**
  * An individual terminal instance within the integrated terminal.
  */
@@ -35,6 +37,8 @@ typedef Terminal = {
 	 * ```
 	 */
 	var ?exitStatus(default, null):TerminalExitStatus;
+
+	var state(default, null):TerminalState;
 
 	/**
 	 * Send text to the terminal. The text is written to the stdin of the underlying pty process

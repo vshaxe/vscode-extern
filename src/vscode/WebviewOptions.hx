@@ -12,6 +12,14 @@ typedef WebviewOptions = {
 	var ?enableScripts(default, null):Bool;
 
 	/**
+	 * Controls whether forms are enabled in the webview content or not.
+	 *
+	 * Defaults to true if {@link enableScripts scripts are enabled}. Otherwise defaults to false.
+	 * Explicitly setting this property to either true or false overrides the default.
+	 */
+	var ?enableForms(default, null):Bool;
+
+	/**
 	 * Controls whether command uris are enabled in webview content or not.
 	 *
 	 * Defaults to false.

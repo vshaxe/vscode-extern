@@ -472,6 +472,11 @@ extern class VscodeWindow {
 	var onDidCloseTerminal(default, null):Event<Terminal>;
 
 	/**
+	 * An {@link Event} which fires when a {@link Terminal.state terminal's state} has changed.
+	 */
+	var onDidChangeTerminalState(default, null):Event<Terminal>;
+
+	/**
 	 * Represents the current window's state.
 	 */
 	var state(default, null):WindowState;
@@ -1422,6 +1427,15 @@ extern class VscodeLanguages {
 	function registerCallHierarchyProvider(selector:DocumentSelector, provider:CallHierarchyProvider):Disposable;
 
 	/**
+	 * Register a type hierarchy provider.
+	 *
+	 * @param selector A selector that defines the documents this provider is applicable to.
+	 * @param provider A type hierarchy provider.
+	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 */
+	function registerTypeHierarchyProvider(selector:DocumentSelector, provider:TypeHierarchyProvider):Disposable;
+
+	/**
 	 * Register a linked editing range provider.
 	 *
 	 * Multiple providers can be registered for a language. In that case providers are sorted
@@ -2168,7 +2182,7 @@ extern class VscodeAuthentication {
 	 * to the editor that implement GitHub and Microsoft authentication: their providerId's are 'github' and 'microsoft'.
 	 * @param providerId The id of the provider to use
 	 * @param scopes A list of scopes representing the permissions requested. These are dependent on the authentication provider
-	 * @param options The {@link GetSessionOptions} to use
+	 * @param options The {@link AuthenticationGetSessionOptions} to use
 	 * @returns A thenable that resolves to an authentication session
 	 */
 	@:overload(function(providerId:String, scopes:ReadOnlyArray<String>, ?options:AuthenticationGetSessionOptions):Thenable<Null<AuthenticationSession>> {})

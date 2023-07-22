@@ -31,6 +31,12 @@ typedef TestRunProfile = {
 	var isDefault:Bool;
 
 	/**
+	 * Associated tag for the profile. If this is set, only {@link TestItem}
+	 * instances with the same tag will be eligible to execute in this profile.
+	 */
+	var ?tag:TestTag;
+
+	/**
 	 * If this method is present, a configuration gear will be present in the
 	 * UI, and this method will be invoked when it's clicked. When called,
 	 * you can take other editor actions, such as showing a quick pick or

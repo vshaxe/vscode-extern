@@ -73,8 +73,11 @@ typedef TestRun = {
 	 * such as colors and text styles, are supported.
 	 *
 	 * @param output Output text to append.
+	 * @param location Indicate that the output was logged at the given
+	 * location.
+	 * @param test Test item to associate the output with.
 	 */
-	function appendOutput(output:String):Void;
+	function appendOutput(output:String, ?location:Location, ?test:TestItem):Void;
 
 	/**
 	 * Signals that the end of the test run. Any tests included in the run whose

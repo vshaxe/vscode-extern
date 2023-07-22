@@ -1,5 +1,7 @@
 package vscode;
 
+import vscode.TestTag;
+
 /**
  * Entry point to discover and execute tests. It contains {@link TestController.items} which
  * are used to populate the editor UI, and is associated with
@@ -39,11 +41,12 @@ typedef TestController = {
 	 * @param kind Configures what kind of execution this profile manages.
 	 * @param runHandler Function called to start a test run.
 	 * @param isDefault Whether this is the default action for its kind.
+	 * @param tag Profile test tag.
 	 * @returns An instance of a {@link TestRunProfile}, which is automatically
 	 * associated with this controller.
 	 */
 	function createRunProfile(label:String, kind:TestRunProfileKind, runHandler:(request:TestRunRequest, token:CancellationToken) -> Thenable<Void>,
-		?isDefault:Bool):TestRunProfile;
+		?isDefault:Bool, ?tag:TestTag):TestRunProfile;
 
 	/**
 	 * A function provided by the extension that the editor may call to request
