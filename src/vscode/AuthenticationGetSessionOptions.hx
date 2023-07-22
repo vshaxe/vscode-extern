@@ -10,7 +10,10 @@ typedef AuthenticationGetSessionOptions = {
 	 * If true, a modal dialog will be shown asking the user to sign in again. This is mostly used for scenarios
 	 * where the token needs to be re minted because it has lost some authorization.
 	 *
-	 * Defaults to false.
+	 * If there are no existing sessions and forceNewSession is true, it will behave identically to
+	 * {@link AuthenticationGetSessionOptions.createIfNone createIfNone}.
+	 *
+	 * This defaults to false.
 	 */
 	var ?forceNewSession:EitherType<Bool, {detail:String}>;
 

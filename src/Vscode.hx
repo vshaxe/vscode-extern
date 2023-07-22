@@ -448,6 +448,43 @@ extern class VscodeWindow {
 	var onDidChangeTextEditorViewColumn(default, null):Event<TextEditorViewColumnChangeEvent>;
 
 	/**
+	 * The currently visible {@link NotebookEditor notebook editors} or an empty array.
+	 */
+	final visibleNotebookEditors:ReadOnlyArray<NotebookEditor>;
+
+	/**
+	 * An {@link Event} which fires when the {@link window.visibleNotebookEditors visible notebook editors}
+	 * has changed.
+	 */
+	final onDidChangeVisibleNotebookEditors:Event<ReadOnlyArray<NotebookEditor>>;
+
+	/**
+	 * The currently active {@link NotebookEditor notebook editor} or `undefined`. The active editor is the one
+	 * that currently has focus or, when none has focus, the one that has changed
+	 * input most recently.
+	 */
+	final activeNotebookEditor:Null<NotebookEditor>;
+
+	/**
+	 * An {@link Event} which fires when the {@link window.activeNotebookEditor active notebook editor}
+	 * has changed. *Note* that the event also fires when the active editor changes
+	 * to `undefined`.
+	 */
+	final onDidChangeActiveNotebookEditor:Event<Null<NotebookEditor>>;
+
+	/**
+	 * An {@link Event} which fires when the {@link NotebookEditor.selections notebook editor selections}
+	 * have changed.
+	 */
+	final onDidChangeNotebookEditorSelection:Event<NotebookEditorSelectionChangeEvent>;
+
+	/**
+	 * An {@link Event} which fires when the {@link NotebookEditor.visibleRanges notebook editor visible ranges}
+	 * have changed.
+	 */
+	final onDidChangeNotebookEditorVisibleRanges:Event<NotebookEditorVisibleRangesChangeEvent>;
+
+	/**
 	 * The currently opened terminals or an empty array.
 	 */
 	var terminals(default, null):ReadOnlyArray<Terminal>;
@@ -506,6 +543,16 @@ extern class VscodeWindow {
 	@:overload(function(uri:Uri, ?options:TextDocumentShowOptions):Thenable<TextEditor> {})
 	@:overload(function(document:TextDocument, ?options:TextDocumentShowOptions):Thenable<TextEditor> {})
 	function showTextDocument(document:TextDocument, ?column:ViewColumn, ?preserveFocus:Bool):Thenable<TextEditor>;
+
+	/**
+	 * Show the given {@link NotebookDocument} in a {@link NotebookEditor notebook editor}.
+	 *
+	 * @param document A text document to be shown.
+	 * @param options {@link NotebookDocumentShowOptions Editor options} to configure the behavior of showing the {@link NotebookEditor notebook editor}.
+	 *
+	 * @return A promise that resolves to an {@link NotebookEditor notebook editor}.
+	 */
+	function showNotebookDocument(document:NotebookDocument, ?options:NotebookDocumentShowOptions):Thenable<NotebookEditor>;
 
 	/**
 	 * Create a TextEditorDecorationType that can be used to add decorations to text editors.
@@ -1093,6 +1140,19 @@ extern class VscodeLanguages {
 	 */
 	function registerCompletionItemProvider<T:CompletionItem>(selector:DocumentSelector, provider:CompletionItemProvider<T>,
 		triggerCharacters:Rest<String>):Disposable;
+
+	/**
+	 * Registers an inline completion provider.
+	 *
+	 * Multiple providers can be registered for a language. In that case providers are asked in
+	 * parallel and the results are merged. A failing provider (rejected promise or exception) will
+	 * not cause a failure of the whole operation.
+	 *
+	 * @param selector A selector that defines the documents this provider is applicable to.
+	 * @param provider An inline completion provider.
+	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 */
+	function registerInlineCompletionItemProvider(selector:DocumentSelector, provider:InlineCompletionItemProvider):Disposable;
 
 	/**
 	 * Register a code action provider.

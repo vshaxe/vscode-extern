@@ -50,6 +50,8 @@ typedef InputBox = QuickInput & {
 
 	/**
 	 * An optional validation message indicating a problem with the current input value.
+	 * By returning a string, the InputBox will use a default {@link InputBoxValidationSeverity} of Error.
+	 * Returning undefined clears the validation message.
 	 */
-	var ?validationMessage:String;
+	var ?validationMessage:EitherType<String, InputBoxValidationMessage>;
 }
