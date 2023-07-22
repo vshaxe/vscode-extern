@@ -20,5 +20,5 @@ typedef CodeActionContext = {
 	 *
 	 * Actions not of this kind are filtered out before being shown by the [lightbulb](https://code.visualstudio.com/docs/editor/editingevolved#_code-action).
 	 */
-	var ?only(default, null):CodeActionKind;
+	var only(default, null):Null<CodeActionKind>;
 }

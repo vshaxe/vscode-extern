@@ -13,9 +13,9 @@ typedef CompletionContext = {
 	/**
 	 * Character that triggered the completion item provider.
 	 *
-	 * `undefined` if provider was not triggered by a character.
+	 * `undefined` if the provider was not triggered by a character.
 	 *
 	 * The trigger character is already in the document when the completion provider is triggered.
 	 */
-	var ?triggerCharacter(default, null):String;
+	var triggerCharacter(default, null):Null<String>;
 }
