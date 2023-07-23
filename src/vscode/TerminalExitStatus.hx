@@ -12,4 +12,9 @@ typedef TerminalExitStatus = {
 	 *   without providing an exit code.
 	 */
 	var ?code(default, null):Int;
+
+	/**
+	 * The reason that triggered the exit of a terminal.
+	 */
+	var reason(default, never):TerminalExitReason;
 }
