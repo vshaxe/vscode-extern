@@ -82,10 +82,21 @@ extern class TreeItem {
 	var accessibilityInformation:Null<AccessibilityInformation>;
 
 	/**
-	 * @param label A human-readable string describing this item
-	 * @param resourceUri The {@link Uri} of the resource representing this item.
-	 * @param collapsibleState {@link TreeItemCollapsibleState} of the tree item. Default is {@link TreeItemCollapsibleState.None}
+	 * {@link TreeItemCheckboxState TreeItemCheckboxState} of the tree item.
+	 * {@link TreeDataProvider.onDidChangeTreeData onDidChangeTreeData} should be fired when {@link TreeItem.checkboxState checkboxState} changes.
 	 */
-	@:overload(function(resourceUri:Uri, ?collapsibleState:TreeItemCollapsibleState):Void {})
-	function new(label:EitherType<String, TreeItemLabel>, ?collapsibleState:TreeItemCollapsibleState);
-}
+	var ?checkboxState:EitherType<TreeItemCheckboxState, {
+		var state(default, null):TreeItemCheckboxState;
+		var ?tooltip(default, null):string;
+		var ?accessibilityInformation(default, null):AccessibilityInformation
+	};
+
+		/**
+		 * @param label A human-readable string describing this item
+		 * @param resourceUri The {@link Uri} of the resource representing this item.
+		 * @param collapsibleState {@link TreeItemCollapsibleState} of the tree item. Default is {@link TreeItemCollapsibleState.None}
+		 */
+		@:overload(function(resourceUri:Uri, ?collapsibleState:TreeItemCollapsibleState):Void {}) function new
+
+		(label:EitherType<String, TreeItemLabel>, ?collapsibleState:TreeItemCollapsibleState);
+	}

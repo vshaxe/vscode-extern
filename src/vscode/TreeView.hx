@@ -40,6 +40,11 @@ typedef TreeView<T> = {
 	var onDidChangeVisibility(default, null):Event<TreeViewVisibilityChangeEvent>;
 
 	/**
+	 * An event to signal that an element or root has either been checked or unchecked.
+	 */
+	var onDidChangeCheckboxState:Event<TreeCheckboxChangeEvent<T>>;
+
+	/**
 	 * An optional human-readable message that will be rendered in the view.
 	 * Setting the message to null, undefined, or empty string will remove the message from the view.
 	 */
