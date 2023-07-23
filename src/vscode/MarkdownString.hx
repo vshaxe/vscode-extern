@@ -18,8 +18,12 @@ extern class MarkdownString {
 	/**
 	 * Indicates that this markdown string is from a trusted source. Only *trusted*
 	 * markdown supports links that execute commands, e.g. `[Run it](command:myCommandId)`.
+	 *
+	 * Defaults to `false` (commands are disabled).
+	 *
+	 * If this is an object, only the set of commands listed in `enabledCommands` are allowed.
 	 */
-	var isTrusted:Null<Bool>;
+	var isTrusted:Null<EitherType<Bool, {enableCommands:ReadOnlyArray<String>}>>;
 
 	/**
 	 * Indicates that this markdown string can contain {@link ThemeIcon ThemeIcons}, e.g. `$(zap)`.

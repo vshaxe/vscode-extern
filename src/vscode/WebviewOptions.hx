@@ -22,9 +22,11 @@ typedef WebviewOptions = {
 	/**
 	 * Controls whether command uris are enabled in webview content or not.
 	 *
-	 * Defaults to false.
+	 * Defaults to `false` (command uris are disabled).
+	 *
+	 * If you pass in an array, only the commands in the array are allowed.
 	 */
-	var ?enableCommandUris(default, null):Bool;
+	var ?enableCommandUris(default, null):EitherType<Bool, ReadOnlyArray<String>>;
 
 	/**
 	 * Root paths from which the webview can load local (filesystem) resources using the `vscode-resource:` scheme.

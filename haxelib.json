@@ -4,7 +4,7 @@
 	"url": "https://github.com/nevergarden/vscode-extern",
 	"license": "MIT",
 	"version": "1.72.0",
-	"releasenote": "Update to VSCode 1.72.0",
+	"releasenote": "Update to VSCode 1.73.0",
 	"classPath": "src",
 	"contributors": ["nadako", "Gama11", "nevergarden"],
 	"dependencies": {

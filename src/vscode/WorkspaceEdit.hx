@@ -60,10 +60,10 @@ extern class WorkspaceEdit {
 	 * @param uri A resource identifier.
 	 * @param edits An array of edits.
 	 */
-	@:overload(function(uri:Uri, edits:Array<tuple.NotebookEditWorkspaceEditEntryMetadataTuple>):Void {})
-	@:overload(function(uri:Uri, edits:Array<EitherType<TextEdit, SnippetTextEdit>>):Void {})
-	@:overload(function(uri:Uri, edits:Array<EitherType<TextEdit, tuple.NotebookEditWorkspaceEditEntryMetadataTuple>>):Void {})
-	function set(uri:Uri, edits:Array<NotebookEdit>):Void;
+	@:overload(function(uri:Uri, edits:ReadOnlyArray<tuple.NotebookEditWorkspaceEditEntryMetadataTuple>):Void {})
+	@:overload(function(uri:Uri, edits:ReadOnlyArray<EitherType<TextEdit, SnippetTextEdit>>):Void {})
+	@:overload(function(uri:Uri, edits:ReadOnlyArray<EitherType<TextEdit, tuple.NotebookEditWorkspaceEditEntryMetadataTuple>>):Void {})
+	function set(uri:Uri, edits:ReadOnlyArray<NotebookEdit>):Void;
 
 	/**
 	 * Get the text edits for a resource.
