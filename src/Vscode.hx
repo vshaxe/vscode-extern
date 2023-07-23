@@ -254,6 +254,15 @@ extern class VscodeEnv {
 	var onDidChangeTelemetryEnabled(default, null):Event<Bool>;
 
 	/**
+	 * Creates a new {@link TelemetryLogger telemetry logger}.
+	 *
+	 * @param sender The telemetry sender that is used by the telemetry logger.
+	 * @param options Options for the telemetry logger.
+	 * @returns A new telemetry logger
+	 */
+	function createTelemetryLogger(sender:TelemetrySender, ?options:TelemetryLoggerOptions):TelemetryLogger;
+
+	/**
 	 * The name of a remote. Defined by extensions, popular samples are `wsl` for the Windows
 	 * Subsystem for Linux or `ssh-remote` for remotes using a secure shell.
 	 *
