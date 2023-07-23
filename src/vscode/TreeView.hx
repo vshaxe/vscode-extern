@@ -58,6 +58,12 @@ typedef TreeView<T> = {
 	var ?description:String;
 
 	/**
+	 * The badge to display for this TreeView.
+	 * To remove the badge, set to undefined.
+	 */
+	var ?badge:ViewBadge;
+
+	/**
 	 * Reveals the given element in the tree view.
 	 * If the tree view is not visible then the tree view is shown and element is revealed.
 	 *

@@ -27,6 +27,12 @@ typedef WebviewView = {
 	var ?description:String;
 
 	/**
+	 * The badge to display for this webview view.
+	 * To remove the badge, set to undefined.
+	 */
+	var ?badge:ViewBadge;
+
+	/**
 	 * Event fired when the view is disposed.
 	 *
 	 * Views are disposed when they are explicitly hidden by a user (this happens when a user

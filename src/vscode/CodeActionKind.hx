@@ -55,6 +55,18 @@ extern class CodeActionKind {
 	static var RefactorInline(default, null):CodeActionKind;
 
 	/**
+	 * Base kind for refactoring move actions: `refactor.move`
+	 *
+	 * Example move actions:
+	 *
+	 * - Move a function to a new file
+	 * - Move a property between classes
+	 * - Move method to base class
+	 * - ...
+	 */
+	static var RefactorMove(default, null):CodeActionKind;
+
+	/**
 	 * Base kind for refactoring rewrite actions: `refactor.rewrite`
 	 *
 	 * Example rewrite actions:
