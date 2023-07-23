@@ -2411,6 +2411,13 @@ extern class Vscodel10n {
 	/**
 	 * Marks a string for localization. If a localized bundle is available for the language specified by
 	 * {@link env.language} and the bundle has a localized value for this message, then that localized
+	 * value will be returned (with injected args values for any templated values).
+	 * @param options The options to use when localizing the message.
+	 * @returns localized string with injected arguments.
+	 */
+	/**
+	 * Marks a string for localization. If a localized bundle is available for the language specified by
+	 * {@link env.language} and the bundle has a localized value for this message, then that localized
 	 * value will be returned (with injected {@link args} values for any templated values).
 	 * @param message - The message to localize. Supports index templating where strings like `{0}` and `{1}` are
 	 * replaced by the item at that index in the {@link args} array.
@@ -2420,16 +2427,7 @@ extern class Vscodel10n {
 	 * @example `l10n.t('Hello {0}!', 'World');`
 	 */
 	@:overload(function(message:String, args:Map<String, Any>):String {})
-	function t(message:String, args:Rest<Array<EitherType<String, EitherType<Float, Bool>>>>):String;
-
-	/**
-	 * Marks a string for localization. If a localized bundle is available for the language specified by
-	 * {@link env.language} and the bundle has a localized value for this message, then that localized
-	 * value will be returned (with injected args values for any templated values).
-	 * @param options The options to use when localizing the message.
-	 * @returns localized string with injected arguments.
-	 */
-	function x(options:{
+	@:overload(function(options:{
 		/**
 		 * The message to localize. If {@link args} is an array, this message supports index templating where strings like
 		 * `{0}` and `{1}` are replaced by the item at that index in the {@link args} array. If `args` is a `Record<string, any>`,
@@ -2449,7 +2447,8 @@ extern class Vscodel10n {
 		 * A comment to help translators understand the context of the message.
 		 */
 		comment:EitherType<String, Array<String>>
-	}):String;
+	}):String {})
+	function t(message:String, args:Rest<Array<EitherType<String, EitherType<Float, Bool>>>>):String;
 
 	/**
 	 * The bundle of localized strings that have been loaded for the extension.
