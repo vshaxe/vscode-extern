@@ -33,5 +33,5 @@ extern class DataTransfer {
 	 * @param callbackfn Callback for iteration through the data transfer items.
 	 * @param thisArg The `this` context used when invoking the handler function.
 	 */
-	function forEach(callbackfn:DataTransferItem->String->DataTransfer->Void, ?thisArg:Any):Void;
+	function forEach(callbackfn:Function, ?thisArg:Any):Void;
 }

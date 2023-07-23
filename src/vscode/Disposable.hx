@@ -22,7 +22,7 @@ extern class Disposable {
 	 * on dispose.
 	 * @param callOnDispose Function that disposes something.
 	 */
-	function new(callOnDispose:Void->Any):Void;
+	function new(callOnDispose:Function):Void;
 
 	/**
 	 * Dispose this object.
