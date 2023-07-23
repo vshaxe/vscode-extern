@@ -15,7 +15,7 @@ typedef AuthenticationGetSessionOptions = {
 	 *
 	 * This defaults to false.
 	 */
-	var ?forceNewSession:EitherType<Bool, {detail:String}>;
+	var ?forceNewSession:EitherType<Bool, AuthenticationForceNewSessionOptions>;
 
 	/**
 	 * Whether we should show the indication to sign in in the Accounts menu.

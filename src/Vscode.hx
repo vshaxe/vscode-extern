@@ -2346,7 +2346,7 @@ extern class VscodeAuthentication {
 	 * @returns A thenable that resolves to an authentication session
 	 */
 	@:overload(function(providerId:String, scopes:ReadOnlyArray<String>, options:AuthenticationGetSessionOptions & {
-		forceNewSession:EitherType<Bool, {detail:String}>
+		forceNewSession:EitherType<Bool, AuthenticationForceNewSessionOptions>
 	}):Thenable<AuthenticationSession> {})
 	@:overload(function(providerId:String, scopes:ReadOnlyArray<String>, ?options:AuthenticationGetSessionOptions):Thenable<Null<AuthenticationSession>> {})
 	function getSession(providerId:String, scopes:ReadOnlyArray<String>,
