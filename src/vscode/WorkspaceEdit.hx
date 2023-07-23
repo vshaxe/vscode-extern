@@ -86,7 +86,13 @@ extern class WorkspaceEdit {
 	function createFile(uri:Uri, ?options:{
 		?overwrite:Bool,
 		?ignoreIfExists:Bool,
-		?contents:Uint8Array
+		/**
+		 * The initial contents of the new file.
+		 *
+		 * If creating a file from a {@link DocumentDropEditProvider drop operation}, you can
+		 * pass in a {@link DataTransferFile} to improve performance by avoiding extra data copying.
+		 */
+		?contents:EitherType<Uint8Array, DataTransferFile>
 	}, ?metadata:WorkspaceEditEntryMetadata):Void;
 
 	/**
