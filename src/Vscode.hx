@@ -347,6 +347,16 @@ extern class VscodeEnv {
 	 * @return A uri that can be used on the client machine.
 	 */
 	function asExternalUri(target:Uri):Thenable<Uri>;
+
+	/**
+	 * The current log level of the editor.
+	 */
+	final logLevel:LogLevel;
+
+	/**
+	 * An {@link Event} which fires when the log level of the editor changes.
+	 */
+	final onDidChangeLogLevel:Event<LogLevel>;
 }
 
 extern class VscodeCommands {
@@ -737,6 +747,7 @@ extern class VscodeWindow {
 	 * @param name Human-readable string which will be used to represent the channel in the UI.
 	 * @param languageId The identifier of the language associated with the channel.
 	 */
+	@:overload(function(name:String, options:{log:Bool}):LogOutputChannel {})
 	function createOutputChannel(name:String, ?languageId:String):OutputChannel;
 
 	/**
