@@ -3,8 +3,8 @@
 	"description": "Visual Studio Code extern library",
 	"url": "https://github.com/nevergarden/vscode-extern",
 	"license": "MIT",
-	"version": "1.69.0",
-	"releasenote": "Update to VSCode 1.69.0",
+	"version": "1.70.0",
+	"releasenote": "Update to VSCode 1.70.0",
 	"classPath": "src",
 	"contributors": ["nadako", "Gama11", "nevergarden"],
 	"dependencies": {

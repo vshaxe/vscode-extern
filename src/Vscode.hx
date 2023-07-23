@@ -1536,6 +1536,16 @@ extern class VscodeLanguages {
 	function registerLinkedEditingRangeProvider(selector:DocumentSelector, provider:LinkedEditingRangeProvider):Disposable;
 
 	/**
+	 * Registers a new {@link DocumentDropEditProvider}.
+	 *
+	 * @param selector A selector that defines the documents this provider applies to.
+	 * @param provider A drop provider.
+	 *
+	 * @return A {@link Disposable} that unregisters this provider when disposed of.
+	 */
+	function registerDocumentDropEditProvider(selector:DocumentSelector, provider:DocumentDropEditProvider):Disposable;
+
+	/**
 	 * Set a {@link LanguageConfiguration language configuration} for a language.
 	 *
 	 * @param language A language identifier like `typescript`.
