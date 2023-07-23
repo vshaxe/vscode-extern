@@ -31,6 +31,13 @@ typedef TestRunProfile = {
 	var isDefault:Bool;
 
 	/**
+	 * Whether this profile supports continuous running of requests. If so,
+	 * then {@link TestRunRequest.continuous} may be set to `true`. Defaults
+	 * to false.
+	 */
+	var supportsContinuousRun:Bool;
+
+	/**
 	 * Associated tag for the profile. If this is set, only {@link TestItem}
 	 * instances with the same tag will be eligible to execute in this profile.
 	 */
