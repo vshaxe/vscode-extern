@@ -13,32 +13,32 @@ extern class FileSystemWatcher extends Disposable {
 	 * true if this file system watcher has been created such that
 	 * it ignores creation file system events.
 	 */
-	var ignoreCreateEvents:Bool;
+	var ignoreCreateEvents(default, never):Bool;
 
 	/**
 	 * true if this file system watcher has been created such that
 	 * it ignores change file system events.
 	 */
-	var ignoreChangeEvents:Bool;
+	var ignoreChangeEvents(default, never):Bool;
 
 	/**
 	 * true if this file system watcher has been created such that
 	 * it ignores delete file system events.
 	 */
-	var ignoreDeleteEvents:Bool;
+	var ignoreDeleteEvents(default, never):Bool;
 
 	/**
 	 * An event which fires on file/folder creation.
 	 */
-	var onDidCreate:Event<Uri>;
+	var onDidCreate(default, never):Event<Uri>;
 
 	/**
 	 * An event which fires on file/folder change.
 	 */
-	var onDidChange:Event<Uri>;
+	var onDidChange(default, never):Event<Uri>;
 
 	/**
 	 * An event which fires on file/folder deletion.
 	 */
-	var onDidDelete:Event<Uri>;
+	var onDidDelete(default, never):Event<Uri>;
 }
