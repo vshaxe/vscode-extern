@@ -38,19 +38,22 @@ typedef LanguageConfiguration = {
 	var ?onEnterRules:Array<OnEnterRule>;
 
 	/**
+	 * The language's auto closing pairs.
+	 */
+	var ?autoClosingPairs:Array<AutoClosingPair>;
+
+	/**
 	 * **Deprecated** Do not use.
 	 *
 	 * @deprecated Will be replaced by a better API soon.
 	 */
-	@:deprecated("Will be replaced by a better API soon.")
-	var ?__electricCharacterSupport:{
+	@:deprecated("Will be replaced by a better API soon.") var ?__electricCharacterSupport:{
 		/**
 		 * This property is deprecated and will be **ignored** from
 		 * the editor.
 		 * @deprecated
 		 */
 		@:deprecated var ?brackets:Any;
-
 		/**
 		 * This property is deprecated and not fully supported anymore by
 		 * the editor (scope and lineStart are ignored).
@@ -70,8 +73,7 @@ typedef LanguageConfiguration = {
 	 *
 	 * @deprecated * Use the autoClosingPairs property in the language configuration file instead.
 	 */
-	@:deprecated("Use the autoClosingPairs property in the language configuration file instead.")
-	var ?__characterPairSupport:{
+	@:deprecated("Use the autoClosingPairs property in the language configuration file instead.") var ?__characterPairSupport:{
 		var autoClosingPairs:Array<{open:String, close:String, ?notIn:Array<String>}>;
 	};
 }

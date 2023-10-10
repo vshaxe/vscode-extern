@@ -37,5 +37,11 @@ extern class TaskGroup {
 	 */
 	var id(default, null):String;
 
+	/**
+	 * Private constructor
+	 *
+	 * @param id Identifier of a task group.
+	 * @param label The human-readable name of a task group.
+	 */
 	private function new(id:String, label:String);
 }

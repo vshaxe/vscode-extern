@@ -55,6 +55,18 @@ extern class CodeActionKind {
 	static var RefactorInline(default, null):CodeActionKind;
 
 	/**
+	 * Base kind for refactoring move actions: `refactor.move`
+	 *
+	 * Example move actions:
+	 *
+	 * - Move a function to a new file
+	 * - Move a property between classes
+	 * - Move method to base class
+	 * - ...
+	 */
+	static var RefactorMove(default, null):CodeActionKind;
+
+	/**
 	 * Base kind for refactoring rewrite actions: `refactor.rewrite`
 	 *
 	 * Example rewrite actions:
@@ -90,6 +102,29 @@ extern class CodeActionKind {
 	 */
 	static var SourceFixAll(default, null):CodeActionKind;
 
+	/**
+	 * Base kind for all code actions applying to the enitre notebook's scope. CodeActionKinds using
+	 * this should always begin with `notebook.`
+	 *
+	 * This requires that new CodeActions be created for it and contributed via extensions.
+	 * Pre-existing kinds can not just have the new `notebook.` prefix added to them, as the functionality
+	 * is unique to the full-notebook scope.
+	 *
+	 * Notebook CodeActionKinds can be initialized as either of the following (both resulting in `notebook.source.xyz`):
+	 * - `const newKind =  CodeActionKind.Notebook.append(CodeActionKind.Source.append('xyz').value)`
+	 * - `const newKind =  CodeActionKind.Notebook.append('source.xyz')`
+	 *
+	 * Example Kinds/Actions:
+	 * - `notebook.source.organizeImports` (might move all imports to a new top cell)
+	 * - `notebook.source.normalizeVariableNames` (might rename all variables to a standardized casing format)
+	 */
+	static var Notebook(default, null):CodeActionKind;
+
+	/**
+	 * Private constructor, use statix `CodeActionKind.XYZ` to derive from an existing code action kind.
+	 *
+	 * @param value The value of the kind, such as `refactor.extract.function`.
+	 */
 	private function new(value:String);
 
 	/**

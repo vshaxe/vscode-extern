@@ -8,7 +8,13 @@ typedef NotebookRendererMessaging = {
 	 * An event that fires when a message is received from a renderer.
 	 */
 	var onDidReceiveMessage(default, null):Event<{
+		/**
+		 * The {@link NotebookEditor editor} that sent the message.
+		 */
 		final editor:NotebookEditor;
+		/**
+		 * The actual message.
+		 */
 		final message:Any;
 	}>;
 

@@ -8,4 +8,5 @@ extern enum abstract ColorThemeKind(Int) {
 	var Light;
 	var Dark;
 	var HighContrast;
+	var HighContrastLight;
 }

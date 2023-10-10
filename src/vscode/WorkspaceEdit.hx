@@ -1,5 +1,7 @@
 package vscode;
 
+import js.lib.Uint8Array;
+
 /**
  * A workspace edit is a collection of textual and files changes for
  * multiple resources and documents.
@@ -53,12 +55,15 @@ extern class WorkspaceEdit {
 	function has(uri:Uri):Bool;
 
 	/**
-	 * Set (and replace) text edits for a resource.
+	 * Set (and replace) notebook edits for a resource.
 	 *
 	 * @param uri A resource identifier.
-	 * @param edits An array of text edits.
+	 * @param edits An array of edits.
 	 */
-	function set(uri:Uri, edits:Array<TextEdit>):Void;
+	@:overload(function(uri:Uri, edits:ReadOnlyArray<tuple.NotebookEditWorkspaceEditEntryMetadataTuple>):Void {})
+	@:overload(function(uri:Uri, edits:ReadOnlyArray<EitherType<TextEdit, SnippetTextEdit>>):Void {})
+	@:overload(function(uri:Uri, edits:ReadOnlyArray<EitherType<TextEdit, tuple.NotebookEditWorkspaceEditEntryMetadataTuple>>):Void {})
+	function set(uri:Uri, edits:ReadOnlyArray<NotebookEdit>):Void;
 
 	/**
 	 * Get the text edits for a resource.
@@ -78,7 +83,17 @@ extern class WorkspaceEdit {
 	 * be applied successfully.
 	 * @param metadata Optional metadata for the entry.
 	 */
-	function createFile(uri:Uri, ?options:{?overwrite:Bool, ?ignoreIfExists:Bool}, ?metadata:WorkspaceEditEntryMetadata):Void;
+	function createFile(uri:Uri, ?options:{
+		?overwrite:Bool,
+		?ignoreIfExists:Bool,
+		/**
+		 * The initial contents of the new file.
+		 *
+		 * If creating a file from a {@link DocumentDropEditProvider drop operation}, you can
+		 * pass in a {@link DataTransferFile} to improve performance by avoiding extra data copying.
+		 */
+		?contents:EitherType<Uint8Array, DataTransferFile>
+	}, ?metadata:WorkspaceEditEntryMetadata):Void;
 
 	/**
 	 * Delete a file or folder.

@@ -21,7 +21,7 @@ extern class TestRunRequest {
 	 * The process of running tests should resolve the children of any test
 	 * items who have not yet been resolved.
 	 */
-	var include(default, null):Null<Array<TestItem>>;
+	var include(default, null):Null<ReadOnlyArray<TestItem>>;
 
 	/**
 	 * An array of tests the user has marked as excluded from the test included
@@ -30,7 +30,7 @@ extern class TestRunRequest {
 	 * May be omitted if no exclusions were requested. Test controllers should
 	 * not run excluded tests or any children of excluded tests.
 	 */
-	var exclude(default, null):Null<Array<TestItem>>;
+	var exclude(default, null):Null<ReadOnlyArray<TestItem>>;
 
 	/**
 	 * The profile used for this request. This will always be defined
@@ -40,9 +40,15 @@ extern class TestRunRequest {
 	var profile(default, null):Null<TestRunProfile>;
 
 	/**
+	 * Whether the profile should run continuously as source code changes. Only
+	 * relevant for profiles that set {@link TestRunProfile.supportsContinuousRun}.
+	 */
+	var continuous(default, null):Null<Bool>;
+
+	/**
 	 * @param tests Array of specific tests to run, or undefined to run all tests
 	 * @param exclude An array of tests to exclude from the run.
 	 * @param profile The run profile used for this request.
 	 */
-	function new(?include:ReadOnlyArray<TestItem>, ?exclude:ReadOnlyArray<TestItem>, ?profile:TestRunProfile);
+	function new(?include:ReadOnlyArray<TestItem>, ?exclude:ReadOnlyArray<TestItem>, ?profile:TestRunProfile, ?continuous:Bool);
 }

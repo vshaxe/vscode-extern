@@ -28,6 +28,13 @@ typedef OutputChannel = {
 	function appendLine(value:String):Void;
 
 	/**
+	 * Replaces all output from the channel with the given value.
+	 *
+	 * @param value A string, falsy values will not be printed.
+	 */
+	function replace(value:String):Void;
+
+	/**
 	 * Removes all output from the channel.
 	 */
 	function clear():Void;

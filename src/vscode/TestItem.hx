@@ -34,6 +34,12 @@ typedef TestItem = {
 	var ?parent(default, null):TestItem;
 
 	/**
+	 * Tags associated with this test item. May be used in combination with
+	 * {@link TestRunProfile.tags}, or simply as an organizational feature.
+	 */
+	var tags(default, null):Array<TestTag>;
+
+	/**
 	 * Indicates whether this test item may have children discovered by resolving.
 	 *
 	 * If true, this item is shown as expandable in the Test Explorer view and
@@ -61,6 +67,13 @@ typedef TestItem = {
 	 * Optional description that appears next to the label.
 	 */
 	var ?description:String;
+
+	/**
+	 * A string that should be used when comparing this item
+	 * with other items. When `falsy` the {@link TestItem.label label}
+	 * is used.
+	 */
+	var ?sortText:Null<String>;
 
 	/**
 	 * Location of the test item in its {@link uri}.

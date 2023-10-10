@@ -7,4 +7,5 @@ package vscode;
  *
  * @deprecated This type is deprecated, please use {@linkcode MarkdownString} instead.
  */
+// TODO: find a way to supress warnings for this project only.
 typedef MarkedString = EitherType<String, {language:String, value:String}>;

@@ -26,4 +26,15 @@ typedef ExtensionTerminalOptions = {
 	 * recommended for the best contrast and consistency across themes.
 	 */
 	var ?color:ThemeColor;
+
+	/**
+	 * The {@link TerminalLocation} or {@link TerminalEditorLocationOptions} or {@link TerminalSplitLocationOptions} for the terminal.
+	 */
+	var ?location:EitherType<TerminalLocation, EitherType<TerminalEditorLocationOptions, TerminalSplitLocationOptions>>;
+
+	/**
+	 * Opt-out of the default terminal persistence on restart and reload.
+	 * This will only take effect when `terminal.integrated.enablePersistentSessions` is enabled.
+	 */
+	var ?isTransient:Bool;
 }

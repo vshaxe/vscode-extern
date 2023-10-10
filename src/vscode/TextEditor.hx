@@ -17,7 +17,7 @@ typedef TextEditor = {
 	/**
 	 * The selections in this text editor. The primary selection is always at index 0.
 	 */
-	var selections:Array<Selection>;
+	var selections(default, never):Array<Selection>;
 
 	/**
 	 * The current visible ranges in the editor (vertically).
@@ -35,7 +35,7 @@ typedef TextEditor = {
 	 * isn't one of the main editors, e.g. an embedded editor, or when the editor
 	 * column is larger than three.
 	 */
-	var ?viewColumn(default, never):ViewColumn;
+	var viewColumn(default, never):Null<ViewColumn>;
 
 	/**
 	 * Perform an edit on the document associated with this text editor.
@@ -96,8 +96,7 @@ typedef TextEditor = {
 	 * @param column The {@link ViewColumn column} in which to show this editor.
 	 * This method shows unexpected behavior and will be removed in the next major update.
 	 */
-	@:deprecated("Use `window.showTextDocument` instead.")
-	function show(?column:ViewColumn):Void;
+	@:deprecated("Use `window.showTextDocument` instead.") function show(?column:ViewColumn):Void;
 
 	/**
 	 * Hide the text editor.
@@ -105,6 +104,5 @@ typedef TextEditor = {
 	 * @deprecated Use the command `workbench.action.closeActiveEditor` instead.
 	 * This method shows unexpected behavior and will be removed in the next major update.
 	 */
-	@:deprecated("Use the command `workbench.action.closeActiveEditor` instead.")
-	function hide():Void;
+	@:deprecated("Use the command `workbench.action.closeActiveEditor` instead.") function hide():Void;
 }

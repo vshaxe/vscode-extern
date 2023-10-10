@@ -18,6 +18,17 @@ typedef QuickPickItem = {
 	var ?description:String;
 
 	/**
+	 * The kind of QuickPickItem that will determine how this item is rendered in the quick pick. When not specified,
+	 * the default is {@link QuickPickItemKind.Default}.
+	 */
+	var ?kind:QuickPickItemKind;
+
+	/**
+	 * The icon path or {@link ThemeIcon} for the QuickPickItem.
+	 */
+	var ?iconPath:EitherType<Uri, EitherType<{light:Uri, dark:Uri}, ThemeIcon>>;
+
+	/**
 	 * A human-readable string which is rendered less prominent in a separate line. Supports rendering of
 	 * {@link ThemeIcon theme icons} via the `$(<name>)`-syntax.
 	 */
@@ -35,4 +46,12 @@ typedef QuickPickItem = {
 	 * Always show this item.
 	 */
 	var ?alwaysShow:Bool;
+
+	/**
+	 * Optional buttons that will be rendered on this particular item. These buttons will trigger
+	 * an {@link QuickPickItemButtonEvent} when clicked. Buttons are only rendered when using a quickpick
+	 * created by the {@link window.createQuickPick()} API. Buttons are not rendered when using
+	 * the {@link window.showQuickPick()} API.
+	 */
+	var ?buttons:ReadOnlyArray<QuickInputButton>;
 }

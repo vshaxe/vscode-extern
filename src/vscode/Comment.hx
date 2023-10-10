@@ -49,4 +49,10 @@ typedef Comment = {
 	 * Label will be rendered next to authorName if exists.
 	 */
 	var ?label:String;
+
+	/**
+	 * Optional timestamp that will be displayed in comments.
+	 * The date will be formatted according to the user's locale and settings.
+	 */
+	var ?timestamp:Date;
 }

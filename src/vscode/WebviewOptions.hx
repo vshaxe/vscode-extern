@@ -12,11 +12,21 @@ typedef WebviewOptions = {
 	var ?enableScripts(default, null):Bool;
 
 	/**
+	 * Controls whether forms are enabled in the webview content or not.
+	 *
+	 * Defaults to true if {@link enableScripts scripts are enabled}. Otherwise defaults to false.
+	 * Explicitly setting this property to either true or false overrides the default.
+	 */
+	var ?enableForms(default, null):Bool;
+
+	/**
 	 * Controls whether command uris are enabled in webview content or not.
 	 *
-	 * Defaults to false.
+	 * Defaults to `false` (command uris are disabled).
+	 *
+	 * If you pass in an array, only the commands in the array are allowed.
 	 */
-	var ?enableCommandUris(default, null):Bool;
+	var ?enableCommandUris(default, null):EitherType<Bool, ReadOnlyArray<String>>;
 
 	/**
 	 * Root paths from which the webview can load local (filesystem) resources using the `vscode-resource:` scheme.

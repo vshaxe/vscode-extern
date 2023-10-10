@@ -176,6 +176,18 @@ extern class Vscode {
 	 * {@link TestRunProfile} instances.
 	 */
 	static var tests(default, null):VscodeTests;
+
+	/**
+	 * Namespace for localization-related functionality in the extension API. To use this properly,
+	 * you must have `l10n` defined in your extension manifest and have bundle.l10n.<language>.json files.
+	 * For more information on how to generate bundle.l10n.<language>.json files, check out the
+	 * [vscode-l10n repo](https://github.com/microsoft/vscode-l10n).
+	 *
+	 * Note: Built-in extensions (for example, Git, TypeScript Language Features, GitHub Authentication)
+	 * are excluded from the `l10n` property requirement. In other words, they do not need to specify
+	 * a `l10n` in the extension manifest because their translated strings come from Language Packs.
+	 */
+	static var l10n(default, null):Vscodel10n;
 }
 
 extern class VscodeEnv {
@@ -240,6 +252,21 @@ extern class VscodeEnv {
 	 * `true` if the user has enabled telemetry or `false` if the user has disabled telemetry.
 	 */
 	var onDidChangeTelemetryEnabled(default, null):Event<Bool>;
+
+	/**
+	 * An {@link Event} which fires when the default shell changes. This fires with the new
+	 * shell path.
+	 */
+	var onDidChangeShell(default, null):Event<String>;
+
+	/**
+	 * Creates a new {@link TelemetryLogger telemetry logger}.
+	 *
+	 * @param sender The telemetry sender that is used by the telemetry logger.
+	 * @param options Options for the telemetry logger.
+	 * @returns A new telemetry logger
+	 */
+	function createTelemetryLogger(sender:TelemetrySender, ?options:TelemetryLoggerOptions):TelemetryLogger;
 
 	/**
 	 * The name of a remote. Defined by extensions, popular samples are `wsl` for the Windows
@@ -335,6 +362,16 @@ extern class VscodeEnv {
 	 * @return A uri that can be used on the client machine.
 	 */
 	function asExternalUri(target:Uri):Thenable<Uri>;
+
+	/**
+	 * The current log level of the editor.
+	 */
+	final logLevel:LogLevel;
+
+	/**
+	 * An {@link Event} which fires when the log level of the editor changes.
+	 */
+	final onDidChangeLogLevel:Event<LogLevel>;
 }
 
 extern class VscodeCommands {
@@ -398,6 +435,11 @@ extern class VscodeCommands {
 
 extern class VscodeWindow {
 	/**
+	 * Represents the grid widget within the main editor area
+	 */
+	final tabGroups:TabGroups;
+
+	/**
 	 * The currently active editor or `undefined`. The active editor is the one
 	 * that currently has focus or, when none has focus, the one that has changed
 	 * input most recently.
@@ -443,6 +485,43 @@ extern class VscodeWindow {
 	var onDidChangeTextEditorViewColumn(default, null):Event<TextEditorViewColumnChangeEvent>;
 
 	/**
+	 * The currently visible {@link NotebookEditor notebook editors} or an empty array.
+	 */
+	final visibleNotebookEditors:ReadOnlyArray<NotebookEditor>;
+
+	/**
+	 * An {@link Event} which fires when the {@link window.visibleNotebookEditors visible notebook editors}
+	 * has changed.
+	 */
+	final onDidChangeVisibleNotebookEditors:Event<ReadOnlyArray<NotebookEditor>>;
+
+	/**
+	 * The currently active {@link NotebookEditor notebook editor} or `undefined`. The active editor is the one
+	 * that currently has focus or, when none has focus, the one that has changed
+	 * input most recently.
+	 */
+	final activeNotebookEditor:Null<NotebookEditor>;
+
+	/**
+	 * An {@link Event} which fires when the {@link window.activeNotebookEditor active notebook editor}
+	 * has changed. *Note* that the event also fires when the active editor changes
+	 * to `undefined`.
+	 */
+	final onDidChangeActiveNotebookEditor:Event<Null<NotebookEditor>>;
+
+	/**
+	 * An {@link Event} which fires when the {@link NotebookEditor.selections notebook editor selections}
+	 * have changed.
+	 */
+	final onDidChangeNotebookEditorSelection:Event<NotebookEditorSelectionChangeEvent>;
+
+	/**
+	 * An {@link Event} which fires when the {@link NotebookEditor.visibleRanges notebook editor visible ranges}
+	 * have changed.
+	 */
+	final onDidChangeNotebookEditorVisibleRanges:Event<NotebookEditorVisibleRangesChangeEvent>;
+
+	/**
 	 * The currently opened terminals or an empty array.
 	 */
 	var terminals(default, null):ReadOnlyArray<Terminal>;
@@ -472,6 +551,11 @@ extern class VscodeWindow {
 	var onDidCloseTerminal(default, null):Event<Terminal>;
 
 	/**
+	 * An {@link Event} which fires when a {@link Terminal.state terminal's state} has changed.
+	 */
+	var onDidChangeTerminalState(default, null):Event<Terminal>;
+
+	/**
 	 * Represents the current window's state.
 	 */
 	var state(default, null):WindowState;
@@ -496,6 +580,16 @@ extern class VscodeWindow {
 	@:overload(function(uri:Uri, ?options:TextDocumentShowOptions):Thenable<TextEditor> {})
 	@:overload(function(document:TextDocument, ?options:TextDocumentShowOptions):Thenable<TextEditor> {})
 	function showTextDocument(document:TextDocument, ?column:ViewColumn, ?preserveFocus:Bool):Thenable<TextEditor>;
+
+	/**
+	 * Show the given {@link NotebookDocument} in a {@link NotebookEditor notebook editor}.
+	 *
+	 * @param document A text document to be shown.
+	 * @param options {@link NotebookDocumentShowOptions Editor options} to configure the behavior of showing the {@link NotebookEditor notebook editor}.
+	 *
+	 * @return A promise that resolves to an {@link NotebookEditor notebook editor}.
+	 */
+	function showNotebookDocument(document:NotebookDocument, ?options:NotebookDocumentShowOptions):Thenable<NotebookEditor>;
 
 	/**
 	 * Create a TextEditorDecorationType that can be used to add decorations to text editors.
@@ -535,8 +629,8 @@ extern class VscodeWindow {
 	//  */
 	@:overload(function<T:MessageItem>(message:String, items:Rest<T>):Thenable<Null<T>> {})
 	@:overload(function<T:MessageItem>(message:String, options:MessageOptions, items:Rest<T>):Thenable<Null<T>> {})
-	@:overload(function(message:String, items:Rest<String>):Thenable<Null<String>> {})
-	function showInformationMessage(message:String, options:MessageOptions, items:Rest<String>):Thenable<Null<String>>;
+	@:overload(function<T:String>(message:String, items:Rest<T>):Thenable<Null<T>> {})
+	function showInformationMessage<T:String>(message:String, options:MessageOptions, items:Rest<T>):Thenable<Null<T>>;
 
 	/**
 	 * Show a warning message.
@@ -550,8 +644,8 @@ extern class VscodeWindow {
 	 */
 	@:overload(function<T:MessageItem>(message:String, items:Rest<T>):Thenable<Null<T>> {})
 	@:overload(function<T:MessageItem>(message:String, options:MessageOptions, items:Rest<T>):Thenable<Null<T>> {})
-	@:overload(function(message:String, items:Rest<String>):Thenable<Null<String>> {})
-	function showWarningMessage(message:String, options:MessageOptions, items:Rest<String>):Thenable<Null<String>>;
+	@:overload(function<T:String>(message:String, items:Rest<T>):Thenable<Null<T>> {})
+	function showWarningMessage<T:String>(message:String, options:MessageOptions, items:Rest<T>):Thenable<Null<T>>;
 
 	/**
 	 * Show an error message.
@@ -565,8 +659,8 @@ extern class VscodeWindow {
 	 */
 	@:overload(function<T:MessageItem>(message:String, items:Rest<T>):Thenable<Null<T>> {})
 	@:overload(function<T:MessageItem>(message:String, options:MessageOptions, items:Rest<T>):Thenable<Null<T>> {})
-	@:overload(function(message:String, items:Rest<String>):Thenable<Null<String>> {})
-	function showErrorMessage(message:String, options:MessageOptions, items:Rest<String>):Thenable<Null<String>>;
+	@:overload(function<T:String>(message:String, items:Rest<T>):Thenable<Null<T>> {})
+	function showErrorMessage<T:String>(message:String, options:MessageOptions, items:Rest<T>):Thenable<Null<T>>;
 
 	/**
 	 * Shows a selection list.
@@ -666,8 +760,10 @@ extern class VscodeWindow {
 	 * Creates a new {@link OutputChannel output channel} with the given name.
 	 *
 	 * @param name Human-readable string which will be used to represent the channel in the UI.
+	 * @param languageId The identifier of the language associated with the channel.
 	 */
-	function createOutputChannel(name:String):OutputChannel;
+	@:overload(function(name:String, options:{log:Bool}):LogOutputChannel {})
+	function createOutputChannel(name:String, ?languageId:String):OutputChannel;
 
 	/**
 	 * Create and show a new webview panel.
@@ -871,7 +967,6 @@ extern class VscodeWindow {
 			 * Content settings for the webview panels created for this custom editor.
 			 */
 			final ?webviewOptions:WebviewPanelOptions;
-
 			/**
 			 * Only applies to `CustomReadonlyEditorProvider | CustomEditorProvider`.
 			 *
@@ -1054,6 +1149,14 @@ extern class VscodeLanguages {
 	function createDiagnosticCollection(?name:String):DiagnosticCollection;
 
 	/**
+	 * Creates a new {@link LanguageStatusItem language status item}.
+	 *
+	 * @param id The identifier of the item.
+	 * @param selector The document selector that defines for what editors the item shows.
+	 */
+	function createLanguageStatusItem(id:String, selector:DocumentSelector):LanguageStatusItem;
+
+	/**
 	 * Register a completion provider.
 	 *
 	 * Multiple providers can be registered for a language. In that case providers are sorted
@@ -1074,6 +1177,19 @@ extern class VscodeLanguages {
 	 */
 	function registerCompletionItemProvider<T:CompletionItem>(selector:DocumentSelector, provider:CompletionItemProvider<T>,
 		triggerCharacters:Rest<String>):Disposable;
+
+	/**
+	 * Registers an inline completion provider.
+	 *
+	 * Multiple providers can be registered for a language. In that case providers are asked in
+	 * parallel and the results are merged. A failing provider (rejected promise or exception) will
+	 * not cause a failure of the whole operation.
+	 *
+	 * @param selector A selector that defines the documents this provider is applicable to.
+	 * @param provider An inline completion provider.
+	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 */
+	function registerInlineCompletionItemProvider(selector:DocumentSelector, provider:InlineCompletionItemProvider):Disposable;
 
 	/**
 	 * Register a code action provider.
@@ -1271,8 +1387,7 @@ extern class VscodeLanguages {
 	 * @param provider A document semantic tokens provider.
 	 * @return A {@link Disposable} that unregisters this provider when being disposed.
 	 */
-	function registerDocumentSemanticTokensProvider(selector:DocumentSelector, provider:DocumentSemanticTokensProvider,
-		legend:SemanticTokensLegend):Disposable;
+	function registerDocumentSemanticTokensProvider(selector:DocumentSelector, provider:DocumentSemanticTokensProvider, legend:SemanticTokensLegend):Disposable;
 
 	/**
 	 * Register a semantic tokens provider for a document range.
@@ -1383,6 +1498,19 @@ extern class VscodeLanguages {
 	function registerColorProvider(selector:DocumentSelector, provider:DocumentColorProvider):Disposable;
 
 	/**
+	 * Register a inlay hints provider.
+	 *
+	 * Multiple providers can be registered for a language. In that case providers are asked in
+	 * parallel and the results are merged. A failing provider (rejected promise or exception) will
+	 * not cause a failure of the whole operation.
+	 *
+	 * @param selector A selector that defines the documents this provider is applicable to.
+	 * @param provider An inlay hints provider.
+	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 */
+	function registerInlayHintsProvider(selector:DocumentSelector, provider:InlayHintsProvider<InlayHint>):Disposable;
+
+	/**
 	 * Register a folding range provider.
 	 *
 	 * Multiple providers can be registered for a language. In that case providers are asked in
@@ -1422,6 +1550,15 @@ extern class VscodeLanguages {
 	function registerCallHierarchyProvider(selector:DocumentSelector, provider:CallHierarchyProvider):Disposable;
 
 	/**
+	 * Register a type hierarchy provider.
+	 *
+	 * @param selector A selector that defines the documents this provider is applicable to.
+	 * @param provider A type hierarchy provider.
+	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 */
+	function registerTypeHierarchyProvider(selector:DocumentSelector, provider:TypeHierarchyProvider):Disposable;
+
+	/**
 	 * Register a linked editing range provider.
 	 *
 	 * Multiple providers can be registered for a language. In that case providers are sorted
@@ -1433,6 +1570,16 @@ extern class VscodeLanguages {
 	 * @return A {@link Disposable} that unregisters this provider when being disposed.
 	 */
 	function registerLinkedEditingRangeProvider(selector:DocumentSelector, provider:LinkedEditingRangeProvider):Disposable;
+
+	/**
+	 * Registers a new {@link DocumentDropEditProvider}.
+	 *
+	 * @param selector A selector that defines the documents this provider applies to.
+	 * @param provider A drop provider.
+	 *
+	 * @return A {@link Disposable} that unregisters this provider when disposed of.
+	 */
+	function registerDocumentDropEditProvider(selector:DocumentSelector, provider:DocumentDropEditProvider):Disposable;
 
 	/**
 	 * Set a {@link LanguageConfiguration language configuration} for a language.
@@ -1519,6 +1666,11 @@ extern class VscodeWorkspace {
 
 	/**
 	 * An event that is emitted when a workspace folder is added or removed.
+	 *
+	 * **Note:** this event will not fire if the first workspace folder is added, removed or changed,
+	 * because in that case the currently executing extensions (including the one that listens to this
+	 * event) will be terminated and restarted so that the (deprecated) `rootPath` property is updated
+	 * to point to the first workspace folder.
 	 */
 	var onDidChangeWorkspaceFolders(default, null):Event<WorkspaceFoldersChangeEvent>;
 
@@ -1649,9 +1801,10 @@ extern class VscodeWorkspace {
 	 * not be attempted, when a single edit fails.
 	 *
 	 * @param edit A workspace edit.
+	 * @param metadata Optional {@link WorkspaceEditMetadata metadata} for the edit.
 	 * @return A thenable that resolves when the edit could be applied.
 	 */
-	function applyEdit(edit:WorkspaceEdit):Thenable<Bool>;
+	function applyEdit(edit:WorkspaceEdit, ?metadata:WorkspaceEditMetadata):Thenable<Bool>;
 
 	/**
 	 * All text documents currently known to the editor.
@@ -1784,6 +1937,31 @@ extern class VscodeWorkspace {
 	 */
 	@:overload(function(notebookType:String, ?content:NotebookData):Thenable<NotebookDocument> {})
 	function openNotebookDocument(uri:Uri):Thenable<NotebookDocument>;
+
+	/**
+	 * An event that is emitted when a {@link NotebookDocument notebook} has changed.
+	 */
+	var onDidChangeNotebookDocument:Event<NotebookDocumentChangeEvent>;
+
+	/**
+	 * An event that is emitted when a {@link NotebookDocument notebook document} will be saved to disk.
+	 *
+	 * *Note 1:* Subscribers can delay saving by registering asynchronous work. For the sake of data integrity the editor
+	 * might save without firing this event. For instance when shutting down with dirty files.
+	 *
+	 * *Note 2:* Subscribers are called sequentially and they can {@link NotebookDocumentWillSaveEvent.waitUntil delay} saving
+	 * by registering asynchronous work. Protection against misbehaving listeners is implemented as such:
+	 *  * there is an overall time budget that all listeners share and if that is exhausted no further listener is called
+	 *  * listeners that take a long time or produce errors frequently will not be called anymore
+	 *
+	 * The current thresholds are 1.5 seconds as overall time budget and a listener can misbehave 3 times before being ignored.
+	 */
+	var onWillSaveNotebookDocument:Event<NotebookDocumentWillSaveEvent>;
+
+	/**
+	 * An event that is emitted when a {@link NotebookDocument notebook} is saved.
+	 */
+	var onDidSaveNotebookDocument:Event<NotebookDocument>;
 
 	/**
 	 * Register a {@link NotebookSerializer notebook serializer}.
@@ -1957,7 +2135,7 @@ extern class VscodeDebug {
 	/**
 	 * List of breakpoints.
 	 */
-	var breakpoints:Array<Breakpoint>;
+	var breakpoints:ReadOnlyArray<Breakpoint>;
 
 	/**
 	 * An {@link Event} which fires when the {@link debug.activeDebugSession active debug session}
@@ -2168,13 +2346,29 @@ extern class VscodeAuthentication {
 	 * to the editor that implement GitHub and Microsoft authentication: their providerId's are 'github' and 'microsoft'.
 	 * @param providerId The id of the provider to use
 	 * @param scopes A list of scopes representing the permissions requested. These are dependent on the authentication provider
-	 * @param options The {@link GetSessionOptions} to use
+	 * @param options The {@link AuthenticationGetSessionOptions} to use
 	 * @returns A thenable that resolves to an authentication session
 	 */
+	@:overload(function(providerId:String, scopes:ReadOnlyArray<String>, options:AuthenticationGetSessionOptions & {
+		forceNewSession:EitherType<Bool, AuthenticationForceNewSessionOptions>
+	}):Thenable<AuthenticationSession> {})
 	@:overload(function(providerId:String, scopes:ReadOnlyArray<String>, ?options:AuthenticationGetSessionOptions):Thenable<Null<AuthenticationSession>> {})
 	function getSession(providerId:String, scopes:ReadOnlyArray<String>,
 		options:AuthenticationGetSessionOptions & {createIfNone:Bool}):Thenable<AuthenticationSession>;
 
+	/**
+	 * Get an authentication session matching the desired scopes. Rejects if a provider with providerId is not
+	 * registered, or if the user does not consent to sharing authentication information with
+	 * the extension. If there are multiple sessions with the same scopes, the user will be shown a
+	 * quickpick to select which account they would like to use.
+	 *
+	 * Currently, there are only two authentication providers that are contributed from built in extensions
+	 * to the editor that implement GitHub and Microsoft authentication: their providerId's are 'github' and 'microsoft'.
+	 * @param providerId The id of the provider to use
+	 * @param scopes A list of scopes representing the permissions requested. These are dependent on the authentication provider
+	 * @param options The {@link AuthenticationGetSessionOptions} to use
+	 * @returns A thenable that resolves to an authentication session
+	 */
 	/**
 	 * An {@link Event} which fires when the authentication sessions of an authentication provider have
 	 * been added, removed, or changed.
@@ -2239,4 +2433,71 @@ extern class VscodeTests {
 	 * @returns An instance of the {@link TestController}.
 	 */
 	function createTestController(id:String, label:String):TestController;
+}
+
+extern class Vscodel10n {
+	/**
+	 * Marks a string for localization. If a localized bundle is available for the language specified by
+	 * {@link env.language} and the bundle has a localized value for this message, then that localized
+	 * value will be returned (with injected {@link args} values for any templated values).
+	 * @param message The message to localize. Supports named templating where strings like `{foo}` and `{bar}` are
+	 * replaced by the value in the Record for that key (foo, bar, etc).
+	 * @param args The arguments to be used in the localized string. The name of the key in the record is used to
+	 * match the template placeholder in the localized string.
+	 * @returns localized string with injected arguments.
+	 * @example `l10n.t('Hello {name}', { name: 'Erich' });`
+	 */
+	/**
+	 * Marks a string for localization. If a localized bundle is available for the language specified by
+	 * {@link env.language} and the bundle has a localized value for this message, then that localized
+	 * value will be returned (with injected args values for any templated values).
+	 * @param options The options to use when localizing the message.
+	 * @returns localized string with injected arguments.
+	 */
+	/**
+	 * Marks a string for localization. If a localized bundle is available for the language specified by
+	 * {@link env.language} and the bundle has a localized value for this message, then that localized
+	 * value will be returned (with injected {@link args} values for any templated values).
+	 * @param message - The message to localize. Supports index templating where strings like `{0}` and `{1}` are
+	 * replaced by the item at that index in the {@link args} array.
+	 * @param args - The arguments to be used in the localized string. The index of the argument is used to
+	 * match the template placeholder in the localized string.
+	 * @returns localized string with injected arguments.
+	 * @example `l10n.t('Hello {0}!', 'World');`
+	 */
+	@:overload(function(message:String, args:Map<String, Any>):String {})
+	@:overload(function(options:{
+		/**
+		 * The message to localize. If {@link args} is an array, this message supports index templating where strings like
+		 * `{0}` and `{1}` are replaced by the item at that index in the {@link args} array. If `args` is a `Record<string, any>`,
+		 * this supports named templating where strings like `{foo}` and `{bar}` are replaced by the value in
+		 * the Record for that key (foo, bar, etc).
+		 */
+		message:String,
+		/**
+		 * The arguments to be used in the localized string. As an array, the index of the argument is used to
+		 * match the template placeholder in the localized string. As a Record, the key is used to match the template
+		 * placeholder in the localized string.
+		 */
+		?args:Array<EitherType<String, EitherType<Float, Bool>>>,
+		/**
+		 * A comment to help translators understand the context of the message.
+		 */
+		comment:EitherType<String, Array<String>>
+	}):String {})
+	function t(message:String, args:Rest<Array<EitherType<String, EitherType<Float, Bool>>>>):String;
+
+	/**
+	 * The bundle of localized strings that have been loaded for the extension.
+	 * It's undefined if no bundle has been loaded. The bundle is typically not loaded if
+	 * there was no bundle found or when we are running with the default language.
+	 */
+	final bundle:Null<Map<String, String>>;
+
+	/**
+	 * The URI of the localization bundle that has been loaded for the extension.
+	 * It's undefined if no bundle has been loaded. The bundle is typically not loaded if
+	 * there was no bundle found or when we are running with the default language.
+	 */
+	final uri:Null<Uri>;
 }

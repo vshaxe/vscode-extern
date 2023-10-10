@@ -14,6 +14,12 @@ typedef EnvironmentVariableCollection = {
 	var persistent:Bool;
 
 	/**
+	 * A description for the environment variable collection, this will be used to describe the
+	 * changes in the UI.
+	 */
+	var description:Null<EitherType<String, MarkdownString>>;
+
+	/**
 	 * Replace an environment variable with a value.
 	 *
 	 * Note that an extension can only make a single change to any one variable, so this will
@@ -21,8 +27,10 @@ typedef EnvironmentVariableCollection = {
 	 *
 	 * @param variable The variable to replace.
 	 * @param value The value to replace the variable with.
+	 * @param options Options applied to the mutator, when no options are provided this will
+	 * default to `{ applyAtProcessCreation: true }`.
 	 */
-	function replace(variable:String, value:String):Void;
+	function replace(variable:String, value:String, ?options:EnvironmentVariableMutatorOptions):Void;
 
 	/**
 	 * Append a value to an environment variable.
@@ -32,8 +40,10 @@ typedef EnvironmentVariableCollection = {
 	 *
 	 * @param variable The variable to append to.
 	 * @param value The value to append to the variable.
+	 * @param options Options applied to the mutator, when no options are provided this will
+	 * default to `{ applyAtProcessCreation: true }`.
 	 */
-	function append(variable:String, value:String):Void;
+	function append(variable:String, value:String, ?options:EnvironmentVariableMutatorOptions):Void;
 
 	/**
 	 * Prepend a value to an environment variable.
@@ -43,8 +53,10 @@ typedef EnvironmentVariableCollection = {
 	 *
 	 * @param variable The variable to prepend.
 	 * @param value The value to prepend to the variable.
+	 * @param options Options applied to the mutator, when no options are provided this will
+	 * default to `{ applyAtProcessCreation: true }`.
 	 */
-	function prepend(variable:String, value:String):Void;
+	function prepend(variable:String, value:String, ?options:EnvironmentVariableMutatorOptions):Void;
 
 	/**
 	 * Gets the mutator that this collection applies to a variable, if any.
