@@ -60,10 +60,10 @@ typedef ExtensionContext = {
 	var extensionPath(default, null):String;
 
 	/**
-	 * Gets the extension's environment variable collection for this workspace, enabling changes
-	 * to be applied to terminal environment variables.
+	 * Gets the extension's global environment variable collection for this workspace, enabling changes to be
+	 * applied to terminal environment variables.
 	 */
-	var environmentVariableCollection(default, null):EnvironmentVariableCollection;
+	var environmentVariableCollection(default, null):GlobalEnvironmentVariableCollection;
 
 	/**
 	 * Get the absolute path of a resource contained in the extension.
