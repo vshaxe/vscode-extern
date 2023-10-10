@@ -24,6 +24,11 @@ typedef QuickPickItem = {
 	var ?kind:QuickPickItemKind;
 
 	/**
+	 * The icon path or {@link ThemeIcon} for the QuickPickItem.
+	 */
+	var ?iconPath:EitherType<Uri, EitherType<{light:Uri, dark:Uri}, ThemeIcon>>;
+
+	/**
 	 * A human-readable string which is rendered less prominent in a separate line. Supports rendering of
 	 * {@link ThemeIcon theme icons} via the `$(<name>)`-syntax.
 	 */
