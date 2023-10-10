@@ -63,5 +63,11 @@ extern class NotebookEdit {
 	 */
 	var newNotebookMetadata:Map<String, Any>;
 
+	/**
+	 * Create a new notebook edit.
+	 *
+	 * @param range A notebook range.
+	 * @param newCells An array of new cell data.
+	 */
 	function new(range:NotebookRange, newCells:Array<NotebookCellData>);
 }

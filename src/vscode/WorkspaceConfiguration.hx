@@ -97,15 +97,45 @@ typedef WorkspaceConfiguration = {
 	 * @return Information about a configuration setting or `undefined`.
 	 */
 	function inspect<T>(section:String):Null<{
+		/**
+		 * The fully qualified key of the configuration value
+		 */
 		key:String,
+		/**
+		 * The default value which is used when no other value is defined
+		 */
 		?defaultValue:T,
+		/**
+		 * The global or installation-wide value.
+		 */
 		?globalValue:T,
+		/**
+		 * The workspace-specific value.
+		 */
 		?workspaceValue:T,
+		/**
+		 * The workpace-folder-specific value.
+		 */
 		?workspaceFolderValue:T,
+		/**
+		 * Language specific default value when this configuration value is created for a {@link ConfigurationScope language scope}.
+		 */
 		?defaultLanguageValue:T,
+		/**
+		 * Language specific global value when this configuration value is created for a {@link ConfigurationScope language scope}.
+		 */
 		?globalLanguageValue:T,
+		/**
+		 * Language specific workspace value when this configuration value is created for a {@link ConfigurationScope language scope}.
+		 */
 		?workspaceLanguageValue:T,
+		/**
+		 * Language specific workspace-folder value when this configuration value is created for a {@link ConfigurationScope language scope}.
+		 */
 		?workspaceFolderLanguageValue:T,
+		/**
+		 * All language identifiers for which this configuration is defined.
+		 */
 		?languageIds:Array<String>,
 	}>;
 

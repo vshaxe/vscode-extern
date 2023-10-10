@@ -148,9 +148,8 @@ typedef ExtensionContext = {
 	var logPath(default, null):String;
 
 	/**
-	 * The mode the extension is running in. This is specific to the current
-	 * extension. One extension may be in `ExtensionMode.Development` while
-	 * other extensions in the host run in `ExtensionMode.Release`.
+	 * The mode the extension is running in. See {@link ExtensionMode}
+	 * for possible values and scenarios.
 	 */
 	var extensionMode(default, null):ExtensionMode;
 

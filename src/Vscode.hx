@@ -254,6 +254,12 @@ extern class VscodeEnv {
 	var onDidChangeTelemetryEnabled(default, null):Event<Bool>;
 
 	/**
+	 * An {@link Event} which fires when the default shell changes. This fires with the new
+	 * shell path.
+	 */
+	var onDidChangeShell(default, null):Event<String>;
+
+	/**
 	 * Creates a new {@link TelemetryLogger telemetry logger}.
 	 *
 	 * @param sender The telemetry sender that is used by the telemetry logger.
@@ -961,7 +967,6 @@ extern class VscodeWindow {
 			 * Content settings for the webview panels created for this custom editor.
 			 */
 			final ?webviewOptions:WebviewPanelOptions;
-
 			/**
 			 * Only applies to `CustomReadonlyEditorProvider | CustomEditorProvider`.
 			 *
@@ -1382,8 +1387,7 @@ extern class VscodeLanguages {
 	 * @param provider A document semantic tokens provider.
 	 * @return A {@link Disposable} that unregisters this provider when being disposed.
 	 */
-	function registerDocumentSemanticTokensProvider(selector:DocumentSelector, provider:DocumentSemanticTokensProvider,
-		legend:SemanticTokensLegend):Disposable;
+	function registerDocumentSemanticTokensProvider(selector:DocumentSelector, provider:DocumentSemanticTokensProvider, legend:SemanticTokensLegend):Disposable;
 
 	/**
 	 * Register a semantic tokens provider for a document range.
@@ -2470,14 +2474,12 @@ extern class Vscodel10n {
 		 * the Record for that key (foo, bar, etc).
 		 */
 		message:String,
-
 		/**
 		 * The arguments to be used in the localized string. As an array, the index of the argument is used to
 		 * match the template placeholder in the localized string. As a Record, the key is used to match the template
 		 * placeholder in the localized string.
 		 */
 		?args:Array<EitherType<String, EitherType<Float, Bool>>>,
-
 		/**
 		 * A comment to help translators understand the context of the message.
 		 */

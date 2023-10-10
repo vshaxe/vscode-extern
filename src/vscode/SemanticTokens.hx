@@ -22,5 +22,11 @@ extern class SemanticTokens {
 	 */
 	var data(default, null):Uint32Array;
 
+	/**
+	 * Create new semantic tokens.
+	 *
+	 * @param data Token data.
+	 * @param resultId Result identifier.
+	 */
 	function new(data:Uint32Array, ?resultId:String);
 }

@@ -1,5 +1,8 @@
 package vscode;
 
+/**
+ * Represents a task execution that happens inside a shell.
+ */
 @:jsRequire("vscode", "ShellExecution")
 extern class ShellExecution {
 	/**

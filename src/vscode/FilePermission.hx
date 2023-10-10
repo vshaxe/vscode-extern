@@ -1,5 +1,8 @@
 package vscode;
 
+/**
+ * Permissions of a file.
+ */
 @:jsRequire("vscode", "FilePermission")
 extern enum abstract FilePermission(Int) {
 	/**

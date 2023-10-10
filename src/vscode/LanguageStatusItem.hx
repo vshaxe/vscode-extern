@@ -5,8 +5,19 @@ package vscode;
  */
 @:jsRequire("vscode", "LanguageStatusSeverity")
 extern enum abstract LanguageStatusSeverity(Int) {
+	/**
+	 * Informational severity level.
+	 */
 	var Information = 0;
+
+	/**
+	 * Warning severity level.
+	 */
 	var Warning = 1;
+
+	/**
+	 * Error severity level.
+	 */
 	var Error = 2;
 }
 

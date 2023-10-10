@@ -6,6 +6,11 @@ package vscode;
  */
 @:jsRequire("vscode", "SemanticTokensBuilder")
 extern class SemanticTokensBuilder {
+	/**
+	 * Creates a semantic tokens builder.
+	 *
+	 * @param legend A semantic tokens legent.
+	 */
 	function new(?legend:SemanticTokensLegend);
 
 	/**
