@@ -5,7 +5,7 @@ package vscode;
  */
 typedef WebviewViewProvider = {
 	/**
-	 * Revolves a webview view.
+	 * Resolves a webview view.
 	 *
 	 * `resolveWebviewView` is called when a view first becomes visible. This may happen when the view is
 	 * first loaded or when the user hides and then shows a view again.
@@ -15,7 +15,7 @@ typedef WebviewViewProvider = {
 	 * @param context Additional metadata about the view being resolved.
 	 * @param token Cancellation token indicating that the view being provided is no longer needed.
 	 *
-	 * @return Optional thenable indicating that the view has been fully resolved.
+	 * @returns Optional thenable indicating that the view has been fully resolved.
 	 */
 	function resolveWebviewView<T>(webviewView:WebviewView, context:WebviewViewResolveContext<T>,
 		token:CancellationToken):Null<Thenable<Void>>; // can't have EitherType<...,Void>

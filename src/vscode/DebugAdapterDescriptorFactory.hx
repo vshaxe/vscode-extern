@@ -1,5 +1,8 @@
 package vscode;
 
+/**
+ * A debug adaper factory that creates {@link DebugAdapterDescriptor debug adapter descriptors}.
+ */
 typedef DebugAdapterDescriptorFactory = {
 	/**
 	 * 'createDebugAdapterDescriptor' is called at the start of a debug session to provide details about the debug adapter to use.
@@ -16,7 +19,7 @@ typedef DebugAdapterDescriptorFactory = {
 	 *   }
 	 * @param session The {@link DebugSession debug session} for which the debug adapter will be used.
 	 * @param executable The debug adapter's executable information as specified in the package.json (or undefined if no such information exists).
-	 * @return a {@link DebugAdapterDescriptor debug adapter descriptor} or undefined.
+	 * @returns a {@link DebugAdapterDescriptor debug adapter descriptor} or undefined.
 	 */
 	function createDebugAdapterDescriptor(session:DebugSession, ?executable:DebugAdapterExecutable):ProviderResult<DebugAdapterDescriptor>;
 }

@@ -34,8 +34,17 @@ extern class NotebookRange {
 	 * Derive a new range for this range.
 	 *
 	 * @param change An object that describes a change to this range.
-	 * @return A range that reflects the given change. Will return `this` range if the change
+	 * @returns A range that reflects the given change. Will return `this` range if the change
 	 * is not changing anything.
 	 */
-	function with(change:{?start:Int, ?end:Int}):NotebookRange;
+	function with(change:{
+		/**
+		 * New start index, defaults to `this.start`.
+		 */
+		?start:Int,
+		/**
+		 * New end index, defaults to `this.end`.
+		 */
+		?end:Int
+	}):NotebookRange;
 }

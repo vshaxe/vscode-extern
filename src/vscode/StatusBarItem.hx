@@ -22,7 +22,7 @@ typedef StatusBarItem = {
 	 * The priority of this item. Higher value means the item should
 	 * be shown more to the left.
 	 */
-	var ?priority(default, null):Float;
+	var priority(default, null):Null<Float>;
 
 	/**
 	 * The name of the entry, like 'Python Language Indicator', 'Git Status' etc.
@@ -78,7 +78,7 @@ typedef StatusBarItem = {
 	/**
 	 * Accessibility information used when a screen reader interacts with this StatusBar item
 	 */
-	var ?accessibilityInformation:AccessibilityInformation;
+	var accessibilityInformation:Null<AccessibilityInformation>;
 
 	/**
 	 * Shows the entry in the status bar.

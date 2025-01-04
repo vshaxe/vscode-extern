@@ -23,5 +23,12 @@ extern class SemanticTokensEdit {
 	 */
 	var data(default, null):Null<Uint32Array>;
 
+	/**
+	 * Create a semantic token edit.
+	 *
+	 * @param start Start offset
+	 * @param deleteCount Number of elements to remove.
+	 * @param data Elements to insert
+	 */
 	function new(start:Int, deleteCount:Int, ?data:Uint32Array);
 }

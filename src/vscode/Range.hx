@@ -54,7 +54,7 @@ extern class Range {
 	 * Check if a position or a range is contained in this range.
 	 *
 	 * @param positionOrRange A position or a range.
-	 * @return `true` if the position or range is inside or equal
+	 * @returns `true` if the position or range is inside or equal
 	 * to this range.
 	 */
 	function contains(positionOrRange:EitherType<Position, Range>):Bool;
@@ -63,7 +63,7 @@ extern class Range {
 	 * Check if `other` equals this range.
 	 *
 	 * @param other A range.
-	 * @return `true` when start and end are {@link Position.isEqual equal} to
+	 * @returns `true` when start and end are {@link Position.isEqual equal} to
 	 * start and end of this range.
 	 */
 	function isEqual(other:Range):Bool;
@@ -73,7 +73,7 @@ extern class Range {
 	 * if the ranges have no overlap.
 	 *
 	 * @param range A range.
-	 * @return A range of the greater start and smaller end positions. Will
+	 * @returns A range of the greater start and smaller end positions. Will
 	 * return undefined when there is no overlap.
 	 */
 	function intersection(range:Range):Null<Range>;
@@ -82,7 +82,7 @@ extern class Range {
 	 * Compute the union of `other` with this range.
 	 *
 	 * @param other A range.
-	 * @return A range of smaller start position and the greater end position.
+	 * @returns A range of smaller start position and the greater end position.
 	 */
 	function union(other:Range):Range;
 
@@ -91,17 +91,26 @@ extern class Range {
 	 *
 	 * @param start A position that should be used as start. The default value is the {@link Range.start current start}.
 	 * @param end A position that should be used as end. The default value is the {@link Range.end current end}.
-	 * @return A range derived from this range with the given start and end position.
+	 * @returns A range derived from this range with the given start and end position.
 	 * If start and end are not different `this` range will be returned.
 	 */
-	// TODO overload plox
-	// /**
-	//  * Derived a new range from this range.
-	//  *
-	//  * @param change An object that describes a change to this range.
-	//  * @return A range that reflects the given change. Will return `this` range if the change
-	//  * is not changing anything.
-	//  */
-	@:overload(function(change:{?start:Position, ?end:Position}):Range {})
-	function with(?start:Position, ?end:Position):Range;
+	overload function with(?start:Position, ?end:Position):Range;
+
+	/**
+	 * Derived a new range from this range.
+	 *
+	 * @param change An object that describes a change to this range.
+	 * @returns A range that reflects the given change. Will return `this` range if the change
+	 * is not changing anything.
+	 */
+	overload function with(change:{
+		/**
+		 * New start position, defaults to {@link Range.start current start}
+		 */
+		?start:Position,
+		/**
+		 * New end position, defaults to {@link Range.end current end}
+		 */
+		?end:Position
+	}):Range;
 }

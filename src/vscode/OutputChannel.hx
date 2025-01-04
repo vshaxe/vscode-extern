@@ -6,7 +6,8 @@ package vscode;
  * To get an instance of an `OutputChannel` use
  * {@link window.createOutputChannel createOutputChannel}.
  */
-typedef OutputChannel = {
+@:jsRequire("vscode", "OutputChannel")
+extern class OutputChannel {
 	/**
 	 * The human-readable name of this output channel.
 	 */
@@ -28,6 +29,13 @@ typedef OutputChannel = {
 	function appendLine(value:String):Void;
 
 	/**
+	 * Replaces all output from the channel with the given value.
+	 *
+	 * @param value A string, falsy values will not be printed.
+	 */
+	function replace(value:String):Void;
+
+	/**
 	 * Removes all output from the channel.
 	 */
 	function clear():Void;
@@ -37,8 +45,17 @@ typedef OutputChannel = {
 	 *
 	 * @param preserveFocus When `true` the channel will not take focus.
 	 */
-	@:overload(function(?column:ViewColumn, ?preservceFocus:Bool):Void {})
-	function show(?preserveFocus:Bool):Void;
+	overload function show(?preserveFocus:Bool):Void;
+
+	/**
+	 * Reveal this channel in the UI.
+	 *
+	 * @deprecated Use the overload with just one parameter (`show(preserveFocus?: boolean): void`).
+	 *
+	 * @param column This argument is **deprecated** and will be ignored.
+	 * @param preserveFocus When `true` the channel will not take focus.
+	 */
+	overload function show(?column:ViewColumn, ?preservceFocus:Bool):Void;
 
 	/**
 	 * Hide this channel from the UI.

@@ -12,7 +12,7 @@ typedef DebugConfigurationProvider = {
 	 *
 	 * @param folder The workspace folder for which the configurations are used or `undefined` for a folderless setup.
 	 * @param token A cancellation token.
-	 * @return An array of {@link DebugConfiguration debug configurations}.
+	 * @returns An array of {@link DebugConfiguration debug configurations}.
 	 */
 	@:optional function provideDebugConfigurations(folder:Null<WorkspaceFolder>, ?token:CancellationToken):ProviderResult<Array<DebugConfiguration>>;
 
@@ -26,7 +26,7 @@ typedef DebugConfigurationProvider = {
 	 * @param folder The workspace folder from which the configuration originates from or `undefined` for a folderless setup.
 	 * @param debugConfiguration The {@link DebugConfiguration debug configuration} to resolve.
 	 * @param token A cancellation token.
-	 * @return The resolved debug configuration or undefined or null.
+	 * @returns The resolved debug configuration or undefined or null.
 	 */
 	@:optional function resolveDebugConfiguration(folder:Null<WorkspaceFolder>, debugConfiguration:DebugConfiguration,
 		?token:CancellationToken):ProviderResult<DebugConfiguration>;
@@ -42,7 +42,7 @@ typedef DebugConfigurationProvider = {
 	 * @param folder The workspace folder from which the configuration originates from or `undefined` for a folderless setup.
 	 * @param debugConfiguration The {@link DebugConfiguration debug configuration} to resolve.
 	 * @param token A cancellation token.
-	 * @return The resolved debug configuration or undefined or null.
+	 * @returns The resolved debug configuration or undefined or null.
 	 */
 	@:optional function resolveDebugConfigurationWithSubstitutedVariables(folder:Null<WorkspaceFolder>, debugConfiguration:DebugConfiguration,
 		?token:CancellationToken):ProviderResult<DebugConfiguration>;

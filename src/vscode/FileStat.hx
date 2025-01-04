@@ -34,4 +34,11 @@ typedef FileStat = {
 	 * example.
 	 */
 	var size:Int;
+
+	/**
+	 * The permissions of the file, e.g. whether the file is readonly.
+	 *
+	 * *Note:* This value might be a bitmask, e.g. `FilePermission.Readonly | FilePermission.Other`.
+	 */
+	var ?permissions:FilePermission;
 }

@@ -8,5 +8,5 @@ typedef ReferenceContext = {
 	/**
 	 * Include the declaration of the current symbol.
 	 */
-	var includeDeclaration:Bool;
+	var includeDeclaration(default, null):Bool;
 }

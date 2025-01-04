@@ -1,5 +1,8 @@
 package vscode;
 
+/**
+ * Represents a task execution that happens inside a shell.
+ */
 @:jsRequire("vscode", "ShellExecution")
 extern class ShellExecution {
 	/**
@@ -29,12 +32,12 @@ extern class ShellExecution {
 	/**
 	 * The shell command. Is `undefined` if created with a full command line.
 	 */
-	var command:EitherType<String, ShellQuotedString>;
+	var command:Null<EitherType<String, ShellQuotedString>>;
 
 	/**
 	 * The shell args. Is `undefined` if created with a full command line.
 	 */
-	var args:Array<EitherType<String, ShellQuotedString>>;
+	var args:Null<Array<EitherType<String, ShellQuotedString>>>;
 
 	/**
 	 * The shell options used when the command line is executed in a shell.

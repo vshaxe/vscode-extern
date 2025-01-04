@@ -51,7 +51,7 @@ typedef NotebookCellExecution = {
 	 *
 	 * @param cell Cell for which output is cleared. Defaults to the {@link NotebookCellExecution.cell cell} of
 	 * this execution.
-	 * @return A thenable that resolves when the operation finished.
+	 * @returns A thenable that resolves when the operation finished.
 	 */
 	function clearOutput(?cell:NotebookCell):Thenable<Void>;
 
@@ -61,9 +61,9 @@ typedef NotebookCellExecution = {
 	 * @param out Output that replaces the current output.
 	 * @param cell Cell for which output is cleared. Defaults to the {@link NotebookCellExecution.cell cell} of
 	 * this execution.
-	 * @return A thenable that resolves when the operation finished.
+	 * @returns A thenable that resolves when the operation finished.
 	 */
-	function replaceOutput(out:EitherType<NotebookCellOutput, Array<NotebookCellOutput>>, ?cell:NotebookCell):Thenable<Void>;
+	function replaceOutput(out:EitherType<NotebookCellOutput, ReadOnlyArray<NotebookCellOutput>>, ?cell:NotebookCell):Thenable<Void>;
 
 	/**
 	 * Append to the output of the cell that is executing or to another cell that is affected by this execution.
@@ -71,25 +71,25 @@ typedef NotebookCellExecution = {
 	 * @param out Output that is appended to the current output.
 	 * @param cell Cell for which output is cleared. Defaults to the {@link NotebookCellExecution.cell cell} of
 	 * this execution.
-	 * @return A thenable that resolves when the operation finished.
+	 * @returns A thenable that resolves when the operation finished.
 	 */
-	function appendOutput(out:EitherType<NotebookCellOutput, Array<NotebookCellOutput>>, ?cell:NotebookCell):Thenable<Void>;
+	function appendOutput(out:EitherType<NotebookCellOutput, ReadOnlyArray<NotebookCellOutput>>, ?cell:NotebookCell):Thenable<Void>;
 
 	/**
 	 * Replace all output items of existing cell output.
 	 *
 	 * @param items Output items that replace the items of existing output.
 	 * @param output Output object that already exists.
-	 * @return A thenable that resolves when the operation finished.
+	 * @returns A thenable that resolves when the operation finished.
 	 */
-	function replaceOutputItems(items:EitherType<NotebookCellOutputItem, Array<NotebookCellOutputItem>>, output:NotebookCellOutput):Thenable<Void>;
+	function replaceOutputItems(items:EitherType<NotebookCellOutputItem, ReadOnlyArray<NotebookCellOutputItem>>, output:NotebookCellOutput):Thenable<Void>;
 
 	/**
 	 * Append output items to existing cell output.
 	 *
 	 * @param items Output items that are append to existing output.
 	 * @param output Output object that already exists.
-	 * @return A thenable that resolves when the operation finished.
+	 * @returns A thenable that resolves when the operation finished.
 	 */
-	function appendOutputItems(items:EitherType<NotebookCellOutputItem, Array<NotebookCellOutputItem>>, output:NotebookCellOutput):Thenable<Void>;
+	function appendOutputItems(items:EitherType<NotebookCellOutputItem, ReadOnlyArray<NotebookCellOutputItem>>, output:NotebookCellOutput):Thenable<Void>;
 }

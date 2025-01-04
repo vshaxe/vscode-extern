@@ -14,7 +14,7 @@ typedef EvaluatableExpressionProvider = {
 	 * @param document The document for which the debug hover is about to appear.
 	 * @param position The line and character position in the document where the debug hover is about to appear.
 	 * @param token A cancellation token.
-	 * @return An EvaluatableExpression or a thenable that resolves to such. The lack of a result can be
+	 * @returns An EvaluatableExpression or a thenable that resolves to such. The lack of a result can be
 	 * signaled by returning `undefined` or `null`.
 	 */
 	function provideEvaluatableExpression(document:TextDocument, position:Position, token:CancellationToken):ProviderResult<EvaluatableExpression>;

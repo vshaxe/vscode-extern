@@ -19,5 +19,11 @@ extern class SemanticTokensEdits {
 	 */
 	var edits(default, null):Array<SemanticTokensEdit>;
 
+	/**
+	 * Create new semantic tokens edits.
+	 *
+	 * @param edits An array of semantic token edits
+	 * @param resultId Result identifier.
+	 */
 	function new(edits:Array<SemanticTokensEdit>, ?resultId:String);
 }

@@ -19,7 +19,7 @@ extern class TreeItem {
 	 * When `falsy`, {@link ThemeIcon.Folder Folder Theme Icon} is assigned, if item is collapsible otherwise {@link ThemeIcon.File File Theme Icon}.
 	 * When a file or folder {@link ThemeIcon} is specified, icon is derived from the current file icon theme for the specified theme icon using {@link TreeItem.resourceUri resourceUri} (if provided).
 	 */
-	var iconPath:Null<EitherType<String, EitherType<Uri, EitherType<{light:EitherType<String, Uri>, dark:EitherType<String, Uri>}, ThemeIcon>>>>;
+	var iconPath:Null<EitherType<String, IconPath>>;
 
 	/**
 	 * A human-readable string which is rendered less prominent.
@@ -58,17 +58,17 @@ extern class TreeItem {
 	 * Context value of the tree item. This can be used to contribute item specific actions in the tree.
 	 * For example, a tree item is given a context value as `folder`. When contributing actions to `view/item/context`
 	 * using `menus` extension point, you can specify context value for key `viewItem` in `when` expression like `viewItem == folder`.
-	 * ```
-	 *	"contributes": {
-	 *		"menus": {
-	 *			"view/item/context": [
-	 *				{
-	 *					"command": "extension.deleteFolder",
-	 *					"when": "viewItem == folder"
-	 *				}
-	 *			]
-	 *		}
-	 *	}
+	 * ```json
+	 * "contributes": {
+	 *   "menus": {
+	 *     "view/item/context": [
+	 *       {
+	 *         "command": "extension.deleteFolder",
+	 *         "when": "viewItem == folder"
+	 *       }
+	 *     ]
+	 *   }
+	 * }
 	 * ```
 	 * This will show action `extension.deleteFolder` only for items with `contextValue` is `folder`.
 	 */
@@ -80,6 +80,25 @@ extern class TreeItem {
 	 * however, there are cases where a TreeItem is not displayed in a tree-like way where setting the `role` may make sense.
 	 */
 	var accessibilityInformation:Null<AccessibilityInformation>;
+
+	/**
+	 * {@link TreeItemCheckboxState TreeItemCheckboxState} of the tree item.
+	 * {@link TreeDataProvider.onDidChangeTreeData onDidChangeTreeData} should be fired when {@link TreeItem.checkboxState checkboxState} changes.
+	 */
+	var checkboxState:Null<EitherType<TreeItemCheckboxState, {
+		/**
+		 * The {@link TreeItemCheckboxState} of the tree item
+		 */
+		state:TreeItemCheckboxState,
+		/**
+		 * A tooltip for the checkbox
+		 */
+		?tooltip:String,
+		/**
+		 * Accessibility information used when screen readers interact with this checkbox
+		 */
+		?accessibilityInformation:AccessibilityInformation
+	}>>;
 
 	/**
 	 * @param label A human-readable string describing this item

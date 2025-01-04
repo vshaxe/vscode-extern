@@ -9,18 +9,17 @@ package vscode;
  * - *Workspace Folder settings* - From one of the {@link workspace.workspaceFolders Workspace Folders} under which requested resource belongs to.
  * - *Language settings* - Settings defined under requested language.
  *
- * The *effective* value (returned by {@linkcode WorkspaceConfiguration.get get}) is computed by overriding or merging the values in the following order.
+ * The *effective* value (returned by {@linkcode WorkspaceConfiguration.get get}) is computed by overriding or merging the values in the following order:
  *
- * ```
- * `defaultValue` (if defined in `package.json` otherwise derived from the value's type)
- * `globalValue` (if defined)
- * `workspaceValue` (if defined)
- * `workspaceFolderValue` (if defined)
- * `defaultLanguageValue` (if defined)
- * `globalLanguageValue` (if defined)
- * `workspaceLanguageValue` (if defined)
- * `workspaceFolderLanguageValue` (if defined)
- * ```
+ * 1. `defaultValue` (if defined in `package.json` otherwise derived from the value's type)
+ * 1. `globalValue` (if defined)
+ * 1. `workspaceValue` (if defined)
+ * 1. `workspaceFolderValue` (if defined)
+ * 1. `defaultLanguageValue` (if defined)
+ * 1. `globalLanguageValue` (if defined)
+ * 1. `workspaceLanguageValue` (if defined)
+ * 1. `workspaceFolderLanguageValue` (if defined)
+ *
  * **Note:** Only `object` value types are merged and all other value types are overridden.
  *
  * Example 1: Overriding
@@ -64,21 +63,30 @@ package vscode;
  *
  * Refer to [Settings](https://code.visualstudio.com/docs/getstarted/settings) for more information.
  */
-typedef WorkspaceConfiguration = {
+@:jsRequire("vscode", "WorkspaceConfiguration")
+extern class WorkspaceConfiguration {
 	/**
 	 * Return a value from this configuration.
 	 *
 	 * @param section Configuration name, supports _dotted_ names.
-	 * @return The value `section` denotes or `undefined`.
+	 * @returns The value `section` denotes or `undefined`.
 	 */
-	@:overload(function<T>(section:String, defaultValue:T):T {})
-	function get<T>(section:String):Null<T>;
+	overload function get<T>(section:String):Null<T>;
+
+	/**
+	 * Return a value from this configuration.
+	 *
+	 * @param section Configuration name, supports _dotted_ names.
+	 * @param defaultValue A value should be returned when no value could be found, is `undefined`.
+	 * @returns The value `section` denotes or the default.
+	 */
+	overload function get<T>(section:String, defaultValue:T):T;
 
 	/**
 	 * Check if this configuration has a certain value.
 	 *
 	 * @param section Configuration name, supports _dotted_ names.
-	 * @return `true` if the section doesn't resolve to `undefined`.
+	 * @returns `true` if the section doesn't resolve to `undefined`.
 	 */
 	function has(section:String):Bool;
 
@@ -94,18 +102,48 @@ typedef WorkspaceConfiguration = {
 	 * (`editor.fontSize` vs `editor`) otherwise no result is returned.
 	 *
 	 * @param section Configuration name, supports _dotted_ names.
-	 * @return Information about a configuration setting or `undefined`.
+	 * @returns Information about a configuration setting or `undefined`.
 	 */
 	function inspect<T>(section:String):Null<{
+		/**
+		 * The fully qualified key of the configuration value
+		 */
 		key:String,
+		/**
+		 * The default value which is used when no other value is defined
+		 */
 		?defaultValue:T,
+		/**
+		 * The global or installation-wide value.
+		 */
 		?globalValue:T,
+		/**
+		 * The workspace-specific value.
+		 */
 		?workspaceValue:T,
+		/**
+		 * The workspace-folder-specific value.
+		 */
 		?workspaceFolderValue:T,
+		/**
+		 * Language specific default value when this configuration value is created for a {@link ConfigurationScope language scope}.
+		 */
 		?defaultLanguageValue:T,
+		/**
+		 * Language specific global value when this configuration value is created for a {@link ConfigurationScope language scope}.
+		 */
 		?globalLanguageValue:T,
+		/**
+		 * Language specific workspace value when this configuration value is created for a {@link ConfigurationScope language scope}.
+		 */
 		?workspaceLanguageValue:T,
+		/**
+		 * Language specific workspace-folder value when this configuration value is created for a {@link ConfigurationScope language scope}.
+		 */
 		?workspaceFolderLanguageValue:T,
+		/**
+		 * All language identifiers for which this configuration is defined.
+		 */
 		?languageIds:Array<String>,
 	}>;
 

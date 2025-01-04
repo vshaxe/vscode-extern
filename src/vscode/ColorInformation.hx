@@ -20,7 +20,6 @@ extern class ColorInformation {
 	 *
 	 * @param range The range the color appears in. Must not be empty.
 	 * @param color The value of the color.
-	 * @param format The format in which this color is currently formatted.
 	 */
 	function new(range:Range, color:Color);
 }

@@ -37,4 +37,9 @@ typedef TaskPresentationOptions = {
 	 * Controls whether the terminal is cleared before executing the task.
 	 */
 	var ?clear:Bool;
+
+	/**
+	 * Controls whether the terminal is closed after executing the task.
+	 */
+	var ?close:Bool;
 }

@@ -7,8 +7,8 @@ package vscode;
  * A snippet can define tab stops and placeholders with `$1`, `$2`
  * and `${3:foo}`. `$0` defines the final tab stop, it defaults to
  * the end of the snippet. Variables are defined with `$name` and
- * `${name:default value}`. The full snippet syntax is documented
- * [here](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_creating-your-own-snippets).
+ * `${name:default value}`. Also see
+ * [the full snippet syntax](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_create-your-own-snippets).
  */
 @:jsRequire("vscode", "SnippetString")
 extern class SnippetString {
@@ -17,6 +17,11 @@ extern class SnippetString {
 	 */
 	var value:String;
 
+	/**
+	 * Create a new snippet string.
+	 *
+	 * @param value A snippet string.
+	 */
 	function new(?value:String);
 
 	/**
@@ -24,7 +29,7 @@ extern class SnippetString {
 	 * the {@linkcode SnippetString.value value} of this snippet string.
 	 *
 	 * @param string A value to append 'as given'. The string will be escaped.
-	 * @return This snippet string.
+	 * @returns This snippet string.
 	 */
 	function appendText(string:String):SnippetString;
 
@@ -34,7 +39,7 @@ extern class SnippetString {
 	 *
 	 * @param number The number of this tabstop, defaults to an auto-increment
 	 * value starting at 1.
-	 * @return This snippet string.
+	 * @returns This snippet string.
 	 */
 	function appendTabstop(?number:Int):SnippetString;
 
@@ -46,7 +51,7 @@ extern class SnippetString {
 	 * with which a nested snippet can be created.
 	 * @param number The number of this tabstop, defaults to an auto-increment
 	 * value starting at 1.
-	 * @return This snippet string.
+	 * @returns This snippet string.
 	 */
 	function appendPlaceholder(value:EitherType<String, SnippetString->Any>, ?number:Int):SnippetString;
 
@@ -57,9 +62,9 @@ extern class SnippetString {
 	 * @param values The values for choices - the array of strings
 	 * @param number The number of this tabstop, defaults to an auto-increment
 	 * value starting at 1.
-	 * @return This snippet string.
+	 * @returns This snippet string.
 	 */
-	function appendChoice(values:Array<String>, ?number:Int):SnippetString;
+	function appendChoice(values:ReadOnlyArray<String>, ?number:Int):SnippetString;
 
 	/**
 	 * Builder-function that appends a variable (`${VAR}`) to
@@ -68,7 +73,7 @@ extern class SnippetString {
 	 * @param name The name of the variable - excluding the `$`.
 	 * @param defaultValue The default value which is used when the variable name cannot
 	 * be resolved - either a string or a function with which a nested snippet can be created.
-	 * @return This snippet string.
+	 * @returns This snippet string.
 	 */
 	function appendVariable(name:String, defaultValue:EitherType<String, SnippetString->Any>):SnippetString;
 }

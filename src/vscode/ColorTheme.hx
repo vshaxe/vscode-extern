@@ -5,7 +5,7 @@ package vscode;
  */
 typedef ColorTheme = {
 	/**
-	 * The kind of this color theme: light, dark or high contrast.
+	 * The kind of this color theme: light, dark, high contrast dark and high contrast light.
 	 */
 	var kind(default, null):ColorThemeKind;
 }

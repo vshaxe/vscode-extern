@@ -8,7 +8,7 @@ package vscode;
  */
 typedef TestController = {
 	/**
-	 * The id of the controller passed in {@link vscode.tests.createTestController}.
+	 * The id of the controller passed in {@link tests.createTestController}.
 	 * This must be globally unique.
 	 */
 	var id(default, null):String;
@@ -24,7 +24,7 @@ typedef TestController = {
 	 * "test tree."
 	 *
 	 * The extension controls when to add tests. For example, extensions should
-	 * add tests for a file when {@link vscode.workspace.onDidOpenTextDocument}
+	 * add tests for a file when {@link workspace.onDidOpenTextDocument}
 	 * fires in order for decorations for tests within a file to be visible.
 	 *
 	 * However, the editor may sometimes explicitly request children using the
@@ -39,17 +39,19 @@ typedef TestController = {
 	 * @param kind Configures what kind of execution this profile manages.
 	 * @param runHandler Function called to start a test run.
 	 * @param isDefault Whether this is the default action for its kind.
+	 * @param tag Profile test tag.
+	 * @param supportsContinuousRun Whether the profile supports continuous running.
 	 * @returns An instance of a {@link TestRunProfile}, which is automatically
 	 * associated with this controller.
 	 */
 	function createRunProfile(label:String, kind:TestRunProfileKind, runHandler:(request:TestRunRequest, token:CancellationToken) -> Thenable<Void>,
-		?isDefault:Bool):TestRunProfile;
+		?isDefault:Bool, ?tag:TestTag, ?supportsContinuousRun:Bool):TestRunProfile;
 
 	/**
 	 * A function provided by the extension that the editor may call to request
 	 * children of a test item, if the {@link TestItem.canResolveChildren} is
 	 * `true`. When called, the item should discover children and call
-	 * {@link vscode.tests.createTestItem} as children are discovered.
+	 * {@link TestController.createTestItem} as children are discovered.
 	 *
 	 * Generally the extension manages the lifecycle of test items, but under
 	 * certain conditions the editor may request the children of a specific
@@ -61,9 +63,22 @@ typedef TestController = {
 	 * the function returns or the returned thenable resolves.
 	 *
 	 * @param item An unresolved test item for which children are being
-	 * requested, or `undefined` to resolve the controller's initial {@link items}.
+	 * requested, or `undefined` to resolve the controller's initial {@link TestController.items items}.
 	 */
 	var resolveHandler:(item:Null<TestItem>) -> Thenable<Void>;
+
+	/**
+	 * If this method is present, a refresh button will be present in the
+	 * UI, and this method will be invoked when it's clicked. When called,
+	 * the extension should scan the workspace for any new, changed, or
+	 * removed tests.
+	 *
+	 * It's recommended that extensions try to update tests in realtime, using
+	 * a {@link FileSystemWatcher} for example, and use this method as a fallback.
+	 *
+	 * @returns A thenable that resolves when tests have been refreshed.
+	 */
+	var refreshHandler:Null<(token:CancellationToken) -> Thenable<Void>>;
 
 	/**
 	 * Creates a {@link TestRun}. This should be called by the
@@ -99,6 +114,24 @@ typedef TestController = {
 	 * @param uri URI this TestItem is associated with. May be a file or directory.
 	 */
 	function createTestItem(id:String, label:String, ?uri:Uri):TestItem;
+
+	/**
+	 * Marks an item's results as being outdated. This is commonly called when
+	 * code or configuration changes and previous results should no longer
+	 * be considered relevant. The same logic used to mark results as outdated
+	 * may be used to drive {@link TestRunRequest.continuous continuous test runs}.
+	 *
+	 * If an item is passed to this method, test results for the item and all of
+	 * its children will be marked as outdated. If no item is passed, then all
+	 * test owned by the TestController will be marked as outdated.
+	 *
+	 * Any test runs started before the moment this method is called, including
+	 * runs which may still be ongoing, will be marked as outdated and deprioritized
+	 * in the editor's UI.
+	 *
+	 * @param items Item to mark as outdated. If undefined, all the controller's items are marked outdated.
+	 */
+	function invalidateTestResults(?items:EitherType<TestItem, ReadOnlyArray<TestItem>>):Void;
 
 	/**
 	 * Unregisters the test controller, disposing of its associated tests

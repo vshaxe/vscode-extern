@@ -16,5 +16,11 @@ extern class SemanticTokensLegend {
 	 */
 	var tokenModifiers(default, null):Array<String>;
 
+	/**
+	 * Creates a semantic tokens legend.
+	 *
+	 * @param tokenTypes An array of token types.
+	 * @param tokenModifiers An array of token modifiers.
+	 */
 	function new(tokenTypes:Array<String>, ?tokenModifiers:Array<String>);
 }

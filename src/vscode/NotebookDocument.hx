@@ -56,7 +56,7 @@ typedef NotebookDocument = {
 	 * Return the cell at the specified index. The index will be adjusted to the notebook.
 	 *
 	 * @param index - The index of the cell to retrieve.
-	 * @return A {@link NotebookCell cell}.
+	 * @returns A {@link NotebookCell cell}.
 	 */
 	function cellAt(index:Int):NotebookCell;
 
@@ -72,7 +72,7 @@ typedef NotebookDocument = {
 	/**
 	 * Save the document. The saving will be handled by the corresponding {@link NotebookSerializer serializer}.
 	 *
-	 * @return A promise that will resolve to true when the document
+	 * @returns A promise that will resolve to true when the document
 	 * has been saved. Will return false if the file was not dirty or when save failed.
 	 */
 	function save():Thenable<Bool>;

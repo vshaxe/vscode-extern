@@ -13,7 +13,7 @@ typedef RenameProvider = {
 	 * @param position The position at which the command was invoked.
 	 * @param newName The new name of the symbol. If the given name is not valid, the provider must return a rejected promise.
 	 * @param token A cancellation token.
-	 * @return A workspace edit or a thenable that resolves to such. The lack of a result can be
+	 * @returns A workspace edit or a thenable that resolves to such. The lack of a result can be
 	 * signaled by returning `undefined` or `null`.
 	 */
 	function provideRenameEdits(document:TextDocument, position:Position, newName:String, token:CancellationToken):ProviderResult<WorkspaceEdit>;
@@ -23,15 +23,24 @@ typedef RenameProvider = {
 	 * be a range or a range and a placeholder text. The placeholder text should be the identifier of the symbol
 	 * which is being renamed - when omitted the text in the returned range is used.
 	 *
-	 * *Note: * This function should throw an error or return a rejected thenable when the provided location
+	 * *Note:* This function should throw an error or return a rejected thenable when the provided location
 	 * doesn't allow for a rename.
 	 *
 	 * @param document The document in which rename will be invoked.
 	 * @param position The position at which rename will be invoked.
 	 * @param token A cancellation token.
-	 * @return The range or range and placeholder text of the identifier that is to be renamed. The lack of a result can signaled by returning `undefined` or `null`.
+	 * @returns The range or range and placeholder text of the identifier that is to be renamed. The lack of a result can signaled by returning `undefined` or `null`.
 	 */
-	var ?prepareRename:TextDocument->Position->CancellationToken->ProviderResult<EitherType<Range, {range:Range, placeholder:String}>>;
+	var ?prepareRename:TextDocument->Position->CancellationToken->ProviderResult<EitherType<Range, {
+		/**
+		 * The range of the identifier that can be renamed.
+		 */
+		range:Range,
+		/**
+		 * The placeholder of the editors rename input box.
+		 */
+		placeholder:String
+	}>>;
 
 	// TODO: use Haxe 4 function types whenever we drop Haxe 3.4 support for the externs (lets us have argument names)
 	// function prepareRename?(document: TextDocument, position: Position, token: CancellationToken): ProviderResult<Range | { range: Range, placeholder: string }>;

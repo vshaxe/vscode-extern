@@ -19,7 +19,7 @@ typedef WorkspaceSymbolProvider<T:SymbolInformation> = {
 	 *
 	 * @param query A query string, can be the empty string in which case all symbols should be returned.
 	 * @param token A cancellation token.
-	 * @return An array of document highlights or a thenable that resolves to such. The lack of a result can be
+	 * @returns An array of document highlights or a thenable that resolves to such. The lack of a result can be
 	 * signaled by returning `undefined`, `null`, or an empty array.
 	 */
 	function provideWorkspaceSymbols(query:String, token:CancellationToken):ProviderResult<Array<T>>;
@@ -33,7 +33,7 @@ typedef WorkspaceSymbolProvider<T:SymbolInformation> = {
 	 * @param symbol The symbol that is to be resolved. Guaranteed to be an instance of an object returned from an
 	 * earlier call to `provideWorkspaceSymbols`.
 	 * @param token A cancellation token.
-	 * @return The resolved symbol or a thenable that resolves to that. When no result is returned,
+	 * @returns The resolved symbol or a thenable that resolves to that. When no result is returned,
 	 * the given `symbol` is used.
 	 */
 	var ?resolveWorkspaceSymbol:(symbol:T, token:CancellationToken) -> ProviderResult<T>;

@@ -15,7 +15,19 @@ typedef DocumentFilter = {
 	/**
 	 * A language id, like `typescript`.
 	 */
-	final ?language:String;
+	var ?language(default, null):String;
+
+	/**
+	 * The {@link NotebookDocument.notebookType type} of a notebook, like `jupyter-notebook`. This allows
+	 * to narrow down on the type of a notebook that a {@link NotebookCell.document cell document} belongs to.
+	 *
+	 * *Note* that setting the `notebookType`-property changes how `scheme` and `pattern` are interpreted. When set
+	 * they are evaluated against the {@link NotebookDocument.uri notebook uri}, not the document uri.
+	 *
+	 * @example <caption>Match python document inside jupyter notebook that aren't stored yet (`untitled`)</caption>
+	 * { language: 'python', notebookType: 'jupyter-notebook', scheme: 'untitled' }
+	 */
+	var ?notebookType(default, null):String;
 
 	/**
 	 * A Uri {@link Uri.scheme scheme}, like `file` or `untitled`.

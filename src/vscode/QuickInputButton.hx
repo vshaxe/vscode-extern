@@ -7,7 +7,7 @@ typedef QuickInputButton = {
 	/**
 	 * Icon for the button.
 	 */
-	var iconPath(default, null):EitherType<Uri, EitherType<{light:Uri, dark:Uri}, ThemeIcon>>;
+	var iconPath(default, null):IconPath;
 
 	/**
 	 * An optional tooltip.

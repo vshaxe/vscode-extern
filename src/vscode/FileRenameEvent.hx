@@ -7,5 +7,14 @@ typedef FileRenameEvent = {
 	/**
 	 * The files that got renamed.
 	 */
-	var files(default, never):ReadOnlyArray<{final oldUri:Uri; final newUri:Uri;}>;
+	var files(default, never):ReadOnlyArray<{
+		/**
+		 * The old uri of a file.
+		 */
+		final oldUri:Uri;
+		/**
+		 * The new uri of a file.
+		 */
+		final newUri:Uri;
+	}>;
 }

@@ -95,7 +95,16 @@ extern class CompletionItem {
 	 * {@link Range.contains contain} the position at which completion has been {@link CompletionItemProvider.provideCompletionItems requested}.
 	 * *Note 2:* A insert range must be a prefix of a replace range, that means it must be contained and starting at the same position.
 	 */
-	var range:Null<EitherType<Range, {inserting:Range, replacing:Range}>>;
+	var range:Null<EitherType<Range, {
+		/**
+		 * The range that should be used when insert-accepting a completion. Must be a prefix of `replaceRange`.
+		 */
+		inserting:Range,
+		/**
+		 * The range that should be used when replace-accepting a completion.
+		 */
+		replacing:Range
+	}>>;
 
 	/**
 	 * An optional set of characters that when pressed while this completion is active will accept it first and

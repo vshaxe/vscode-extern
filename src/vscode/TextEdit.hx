@@ -11,7 +11,7 @@ extern class TextEdit {
 	 *
 	 * @param range A range.
 	 * @param newText A string.
-	 * @return A new text edit object.
+	 * @returns A new text edit object.
 	 */
 	static function replace(range:Range, newText:String):TextEdit;
 
@@ -20,7 +20,7 @@ extern class TextEdit {
 	 *
 	 * @param position A position, will become an empty range.
 	 * @param newText A string.
-	 * @return A new text edit object.
+	 * @returns A new text edit object.
 	 */
 	static function insert(position:Position, newText:String):TextEdit;
 
@@ -28,7 +28,7 @@ extern class TextEdit {
 	 * Utility to create a delete edit.
 	 *
 	 * @param range A range.
-	 * @return A new text edit object.
+	 * @returns A new text edit object.
 	 */
 	static function delete(range:Range):TextEdit;
 
@@ -36,7 +36,7 @@ extern class TextEdit {
 	 * Utility to create an eol-edit.
 	 *
 	 * @param eol An eol-sequence
-	 * @return A new text edit object.
+	 * @returns A new text edit object.
 	 */
 	static function setEndOfLine(eol:EndOfLine):TextEdit;
 

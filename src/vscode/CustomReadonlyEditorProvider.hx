@@ -25,7 +25,7 @@ typedef CustomReadonlyEditorProvider<T:CustomDocument> = {
 	 * @param openContext Additional information about the opening custom document.
 	 * @param token A cancellation token that indicates the result is no longer needed.
 	 *
-	 * @return The custom document.
+	 * @returns The custom document.
 	 */
 	function openCustomDocument(uri:Uri, openContext:CustomDocumentOpenContext, token:CancellationToken):EitherType<Thenable<T>, T>;
 
@@ -44,7 +44,7 @@ typedef CustomReadonlyEditorProvider<T:CustomDocument> = {
 	 *
 	 * @param token A cancellation token that indicates the result is no longer needed.
 	 *
-	 * @return Optional thenable indicating that the custom editor has been resolved.
+	 * @returns Optional thenable indicating that the custom editor has been resolved.
 	 */
 	function resolveCustomEditor(document:T, webviewPanel:WebviewPanel, token:CancellationToken):EitherType<Thenable<Void>, Void>;
 }

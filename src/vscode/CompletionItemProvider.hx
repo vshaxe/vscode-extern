@@ -22,7 +22,7 @@ typedef CompletionItemProvider<T:CompletionItem> = {
 	 * @param token A cancellation token.
 	 * @param context How the completion was triggered.
 	 *
-	 * @return An array of completions, a {@link CompletionList completion list}, or a thenable that resolves to either.
+	 * @returns An array of completions, a {@link CompletionList completion list}, or a thenable that resolves to either.
 	 * The lack of a result can be signaled by returning `undefined`, `null`, or an empty array.
 	 */
 	function provideCompletionItems(document:TextDocument, position:Position, token:CancellationToken,
@@ -44,7 +44,7 @@ typedef CompletionItemProvider<T:CompletionItem> = {
 	 *
 	 * @param item A completion item currently active in the UI.
 	 * @param token A cancellation token.
-	 * @return The resolved completion item or a thenable that resolves to of such. It is OK to return the given
+	 * @returns The resolved completion item or a thenable that resolves to of such. It is OK to return the given
 	 * `item`. When no result is returned, the given `item` will be used.
 	 */
 	@:optional function resolveCompletionItem(item:T, token:CancellationToken):ProviderResult<T>;

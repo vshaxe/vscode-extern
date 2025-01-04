@@ -1,5 +1,7 @@
 package vscode;
 
+import js.lib.Uint8Array;
+
 /**
  * A workspace edit is a collection of textual and files changes for
  * multiple resources and documents.
@@ -48,37 +50,78 @@ extern class WorkspaceEdit {
 	 * Check if a text edit for a resource exists.
 	 *
 	 * @param uri A resource identifier.
-	 * @return `true` if the given resource will be touched by this edit.
+	 * @returns `true` if the given resource will be touched by this edit.
 	 */
 	function has(uri:Uri):Bool;
 
 	/**
-	 * Set (and replace) text edits for a resource.
+	 * Set (and replace) text edits or snippet edits for a resource.
 	 *
 	 * @param uri A resource identifier.
-	 * @param edits An array of text edits.
+	 * @param edits An array of edits.
 	 */
-	function set(uri:Uri, edits:Array<TextEdit>):Void;
+	overload function set(uri:Uri, edits:ReadOnlyArray<EitherType<TextEdit, SnippetTextEdit>>):Void;
+
+	/**
+	 * Set (and replace) text edits or snippet edits with metadata for a resource.
+	 *
+	 * @param uri A resource identifier.
+	 * @param edits An array of edits.
+	 */
+	overload function set(uri:Uri, edits:ReadOnlyArray<WorkspaceEditMetadataTuple>):Void;
+
+	/**
+	 * Set (and replace) notebook edits for a resource.
+	 *
+	 * @param uri A resource identifier.
+	 * @param edits An array of edits.
+	 */
+	overload function set(uri:Uri, edits:ReadOnlyArray<NotebookEdit>):Void;
+
+	/**
+	 * Set (and replace) notebook edits with metadata for a resource.
+	 *
+	 * @param uri A resource identifier.
+	 * @param edits An array of edits.
+	 */
+	overload function set(uri:Uri, edits:ReadOnlyArray<WorkspaceEditNotebookMetadataTuple>):Void;
 
 	/**
 	 * Get the text edits for a resource.
 	 *
 	 * @param uri A resource identifier.
-	 * @return An array of text edits.
+	 * @returns An array of text edits.
 	 */
 	function get(uri:Uri):Array<TextEdit>;
 
 	/**
 	 * Create a regular file.
 	 *
-	 * @param uri Uri of the new file..
+	 * @param uri Uri of the new file.
 	 * @param options Defines if an existing file should be overwritten or be
-	 * ignored. When overwrite and ignoreIfExists are both set overwrite wins.
+	 * ignored. When `overwrite` and `ignoreIfExists` are both set `overwrite` wins.
 	 * When both are unset and when the file already exists then the edit cannot
-	 * be applied successfully.
+	 * be applied successfully. The `content`-property allows to set the initial contents
+	 * the file is being created with.
 	 * @param metadata Optional metadata for the entry.
 	 */
-	function createFile(uri:Uri, ?options:{?overwrite:Bool, ?ignoreIfExists:Bool}, ?metadata:WorkspaceEditEntryMetadata):Void;
+	function createFile(uri:Uri, ?options:{
+		/**
+		 * Overwrite existing file. Overwrite wins over `ignoreIfExists`
+		 */
+		?overwrite:Bool,
+		/**
+		 * Do nothing if a file with `uri` exists already.
+		 */
+		?ignoreIfExists:Bool,
+		/**
+		 * The initial contents of the new file.
+		 *
+		 * If creating a file from a {@link DocumentDropEditProvider drop operation}, you can
+		 * pass in a {@link DataTransferFile} to improve performance by avoiding extra data copying.
+		 */
+		?contents:EitherType<Uint8Array, DataTransferFile>
+	}, ?metadata:WorkspaceEditEntryMetadata):Void;
 
 	/**
 	 * Delete a file or folder.
@@ -86,7 +129,16 @@ extern class WorkspaceEdit {
 	 * @param uri The uri of the file that is to be deleted.
 	 * @param metadata Optional metadata for the entry.
 	 */
-	function deleteFile(uri:Uri, ?options:{?recursive:Bool, ?ignoreIfNotExists:Bool}, ?metadata:WorkspaceEditEntryMetadata):Void;
+	function deleteFile(uri:Uri, ?options:{
+		/**
+		 * Delete the content recursively if a folder is denoted.
+		 */
+		?recursive:Bool,
+		/**
+		 * Do nothing if a file with `uri` exists already.
+		 */
+		?ignoreIfNotExists:Bool
+	}, ?metadata:WorkspaceEditEntryMetadata):Void;
 
 	/**
 	 * Rename a file or folder.
@@ -97,12 +149,21 @@ extern class WorkspaceEdit {
 	 * ignored. When overwrite and ignoreIfExists are both set overwrite wins.
 	 * @param metadata Optional metadata for the entry.
 	 */
-	function renameFile(oldUri:Uri, newUri:Uri, ?options:{?overwrite:Bool, ?ignoreIfExists:Bool}, ?metadata:WorkspaceEditEntryMetadata):Void;
+	function renameFile(oldUri:Uri, newUri:Uri, ?options:{
+		/**
+		 * Overwrite existing file. Overwrite wins over `ignoreIfExists`
+		 */
+		?overwrite:Bool,
+		/**
+		 * Do nothing if a file with `uri` exists already.
+		 */
+		?ignoreIfExists:Bool
+	}, ?metadata:WorkspaceEditEntryMetadata):Void;
 
 	/**
 	 * Get all text edits grouped by resource.
 	 *
-	 * @return A shallow copy of `[Uri, TextEdit[]]`-tuples.
+	 * @returns A shallow copy of `[Uri, TextEdit[]]`-tuples.
 	 */
 	function entries():Array<WorkspaceEditEntriesTuple>;
 }
@@ -116,5 +177,29 @@ abstract WorkspaceEditEntriesTuple(Array<Any>) to Array<Any> {
 		return this[0];
 
 	extern inline function get_edits():Array<TextEdit>
+		return this[1];
+}
+
+@:dce
+abstract WorkspaceEditMetadataTuple(Array<Any>) to Array<Any> {
+	public var edit(get, never):EitherType<TextEdit, SnippetTextEdit>;
+	public var meta(get, never):Null<WorkspaceEditEntryMetadata>;
+
+	extern inline function get_edit():EitherType<TextEdit, SnippetTextEdit>
+		return this[0];
+
+	extern inline function get_meta():Null<WorkspaceEditEntryMetadata>
+		return this[1];
+}
+
+@:dce
+abstract WorkspaceEditNotebookMetadataTuple(Array<Any>) to Array<Any> {
+	public var edit(get, never):NotebookEdit;
+	public var meta(get, never):Null<WorkspaceEditEntryMetadata>;
+
+	extern inline function get_edit():NotebookEdit
+		return this[0];
+
+	extern inline function get_meta():Null<WorkspaceEditEntryMetadata>
 		return this[1];
 }

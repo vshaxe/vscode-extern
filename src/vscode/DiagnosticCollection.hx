@@ -8,7 +8,9 @@ package vscode;
  * To get an instance of a `DiagnosticCollection` use
  * {@link languages.createDiagnosticCollection createDiagnosticCollection}.
  */
-typedef DiagnosticCollection = {
+@:jsRequire("vscode", "DiagnosticCollection")
+extern class DiagnosticCollection { // extends Iterable<{uri:Uri, diagnostics:ReadOnlyArray<Diagnostic>}> {
+
 	/**
 	 * The name of this diagnostic collection, for instance `typescript`. Every diagnostic
 	 * from this collection will be associated with this name. Also, the task framework uses this
@@ -23,19 +25,19 @@ typedef DiagnosticCollection = {
 	 * @param uri A resource identifier.
 	 * @param diagnostics Array of diagnostics or `undefined`
 	 */
-	// TODO overload plox
-	// /**
-	//  * Replace diagnostics for multiple resources in this collection.
-	//  *
-	//  * _Note_ that multiple tuples of the same uri will be merged, e.g
-	//  * `[[file1, [d1]], [file1, [d2]]]` is equivalent to `[[file1, [d1, d2]]]`.
-	//  * If a diagnostics item is `undefined` as in `[file1, undefined]`
-	//  * all previous but not subsequent diagnostics are removed.
-	//  *
-	//  * @param entries An array of tuples, like `[[file1, [d1, d2]], [file2, [d3, d4, d5]]]`, or `undefined`.
-	//  */
-	@:overload(function(entries:ReadOnlyArray<ReadOnlyArray<Any>>):Void {})
-	function set(uri:Uri, diagnostics:Null<ReadOnlyArray<Diagnostic>>):Void;
+	overload function set(uri:Uri, diagnostics:Null<ReadOnlyArray<Diagnostic>>):Void;
+
+	/**
+	 * Replace diagnostics for multiple resources in this collection.
+	 *
+	 * _Note_ that multiple tuples of the same uri will be merged, e.g
+	 * `[[file1, [d1]], [file1, [d2]]]` is equivalent to `[[file1, [d1, d2]]]`.
+	 * If a diagnostics item is `undefined` as in `[file1, undefined]`
+	 * all previous but not subsequent diagnostics are removed.
+	 *
+	 * @param entries An array of tuples, like `[[file1, [d1, d2]], [file2, [d3, d4, d5]]]`, or `undefined`.
+	 */
+	overload function set(entries:ReadOnlyArray<ReadOnlyArray<Any>>):Void;
 
 	/**
 	 * Remove all diagnostics from this collection that belong

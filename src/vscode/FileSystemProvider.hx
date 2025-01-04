@@ -29,17 +29,36 @@ typedef FileSystemProvider = {
 	var onDidChangeFile(default, null):Event<Array<FileChangeEvent>>;
 
 	/**
-	 * Subscribe to events in the file or folder denoted by `uri`.
+	 * Subscribes to file change events in the file or folder denoted by `uri`. For folders,
+	 * the option `recursive` indicates whether subfolders, sub-subfolders, etc. should
+	 * be watched for file changes as well. With `recursive: false`, only changes to the
+	 * files that are direct children of the folder should trigger an event.
 	 *
-	 * The editor will call this function for files and folders. In the latter case, the
-	 * options differ from defaults, e.g. what files/folders to exclude from watching
-	 * and if subfolders, sub-subfolder, etc. should be watched (`recursive`).
+	 * The `excludes` array is used to indicate paths that should be excluded from file
+	 * watching. It is typically derived from the `files.watcherExclude` setting that
+	 * is configurable by the user. Each entry can be be:
+	 * - the absolute path to exclude
+	 * - a relative path to exclude (for example `build/output`)
+	 * - a simple glob pattern (for example `**​/build`, `output/**`)
 	 *
-	 * @param uri The uri of the file to be watched.
+	 * It is the file system provider's job to call {@linkcode FileSystemProvider.onDidChangeFile onDidChangeFile}
+	 * for every change given these rules. No event should be emitted for files that match any of the provided
+	 * excludes.
+	 *
+	 * @param uri The uri of the file or folder to be watched.
 	 * @param options Configures the watch.
 	 * @returns A disposable that tells the provider to stop watching the `uri`.
 	 */
-	function watch(uri:Uri, options:{recursive:Bool, excludes:Array<String>}):Disposable;
+	function watch(uri:Uri, options:{
+		/**
+		 * When enabled also watch subfolders.
+		 */
+		recursive:Bool,
+		/**
+		 * A list of paths and pattern to exclude from watching.
+		 */
+		excludes:Array<String>
+	}):Disposable;
 
 	/**
 	 * Retrieve metadata about a file.
@@ -49,7 +68,7 @@ typedef FileSystemProvider = {
 	 * `FileType.SymbolicLink | FileType.Directory`.
 	 *
 	 * @param uri The uri of the file to retrieve metadata about.
-	 * @return The file metadata about the file.
+	 * @returns The file metadata about the file.
 	 * @throws {@linkcode FileSystemError.FileNotFound FileNotFound} when `uri` doesn't exist.
 	 */
 	function stat(uri:Uri):EitherType<FileStat, Thenable<FileStat>>;
@@ -58,7 +77,7 @@ typedef FileSystemProvider = {
 	 * Retrieve all entries of a {@link FileType.Directory directory}.
 	 *
 	 * @param uri The uri of the folder.
-	 * @return An array of name/type-tuples or a thenable that resolves to such.
+	 * @returns An array of name/type-tuples or a thenable that resolves to such.
 	 * @throws {@linkcode FileSystemError.FileNotFound FileNotFound} when `uri` doesn't exist.
 	 */
 	function readDirectory(uri:Uri):EitherType<Array<FileSystemReadDirectoryTuple>, Thenable<Array<FileSystemReadDirectoryTuple>>>;
@@ -77,7 +96,7 @@ typedef FileSystemProvider = {
 	 * Read the entire contents of a file.
 	 *
 	 * @param uri The uri of the file.
-	 * @return An array of bytes or a thenable that resolves to such.
+	 * @returns An array of bytes or a thenable that resolves to such.
 	 * @throws {@linkcode FileSystemError.FileNotFound FileNotFound} when `uri` doesn't exist.
 	 */
 	function readFile(uri:Uri):EitherType<Uint8Array, Thenable<Uint8Array>>;
@@ -93,7 +112,16 @@ typedef FileSystemProvider = {
 	 * @throws {@linkcode FileSystemError.FileExists FileExists} when `uri` already exists, `create` is set but `overwrite` is not set.
 	 * @throws {@linkcode FileSystemError.NoPermissions NoPermissions} when permissions aren't sufficient.
 	 */
-	function writeFile(uri:Uri, content:Uint8Array, options:{create:Bool, overwrite:Bool}):EitherType<Void, Thenable<Void>>;
+	function writeFile(uri:Uri, content:Uint8Array, options:{
+		/**
+		 * Create the file if it does not exist already.
+		 */
+		create:Bool,
+		/**
+		 * Overwrite the file if it does exist.
+		 */
+		overwrite:Bool
+	}):EitherType<Void, Thenable<Void>>;
 
 	/**
 	 * Delete a file.
@@ -103,7 +131,12 @@ typedef FileSystemProvider = {
 	 * @throws {@linkcode FileSystemError.FileNotFound FileNotFound} when `uri` doesn't exist.
 	 * @throws {@linkcode FileSystemError.NoPermissions NoPermissions} when permissions aren't sufficient.
 	 */
-	function delete(uri:Uri, options:{recursive:Bool}):EitherType<Void, Thenable<Void>>;
+	function delete(uri:Uri, options:{
+		/**
+		 * Delete the content recursively if a folder is denoted.
+		 */
+		recursive:Bool
+	}):EitherType<Void, Thenable<Void>>;
 
 	/**
 	 * Rename a file or folder.
@@ -116,7 +149,12 @@ typedef FileSystemProvider = {
 	 * @throws {@linkcode FileSystemError.FileExists FileExists} when `newUri` exists and when the `overwrite` option is not `true`.
 	 * @throws {@linkcode FileSystemError.NoPermissions NoPermissions} when permissions aren't sufficient.
 	 */
-	function rename(oldUri:Uri, newUri:Uri, options:{overwrite:Bool}):EitherType<Void, Thenable<Void>>;
+	function rename(oldUri:Uri, newUri:Uri, options:{
+		/**
+		 * Overwrite the file if it does exist.
+		 */
+		overwrite:Bool
+	}):EitherType<Void, Thenable<Void>>;
 
 	/**
 	 * Copy files or folders. Implementing this function is optional but it will speedup
@@ -130,5 +168,10 @@ typedef FileSystemProvider = {
 	 * @throws {@linkcode FileSystemError.FileExists FileExists} when `destination` exists and when the `overwrite` option is not `true`.
 	 * @throws {@linkcode FileSystemError.NoPermissions NoPermissions} when permissions aren't sufficient.
 	 */
-	var ?copy:(source:Uri, destination:Uri, options:{overwrite:Bool}) -> EitherType<Void, Thenable<Void>>;
+	var ?copy:(source:Uri, destination:Uri, options:{
+		/**
+		 * Overwrite the file if it does exist.
+		 */
+		overwrite:Bool
+	}) -> EitherType<Void, Thenable<Void>>;
 }

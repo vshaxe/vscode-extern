@@ -15,7 +15,7 @@ typedef TreeDataProvider<T> = {
 	 * Get {@link TreeItem} representation of the `element`
 	 *
 	 * @param element The element for which {@link TreeItem} representation is asked for.
-	 * @return {@link TreeItem} representation of the element
+	 * @returns TreeItem representation of the element.
 	 */
 	function getTreeItem(element:T):EitherType<TreeItem, Thenable<TreeItem>>;
 
@@ -23,7 +23,7 @@ typedef TreeDataProvider<T> = {
 	 * Get the children of `element` or root if no element is passed.
 	 *
 	 * @param element The element from which the provider gets children. Can be `undefined`.
-	 * @return Children of `element` or root if no element is passed.
+	 * @returns Children of `element` or root if no element is passed.
 	 */
 	function getChildren(?element:T):ProviderResult<Array<T>>;
 
@@ -34,9 +34,9 @@ typedef TreeDataProvider<T> = {
 	 * **NOTE:** This method should be implemented in order to access {@link TreeView.reveal reveal} API.
 	 *
 	 * @param element The element for which the parent has to be returned.
-	 * @return Parent of `element`.
+	 * @returns Parent of `element`.
 	 */
-	var ?getParent(default, never):(element:T) -> ProviderResult<T>;
+	function getParent(element:T):ProviderResult<T>;
 
 	/**
 	 * Called on hover to resolve the {@link TreeItem.tooltip TreeItem} property if it is undefined.
@@ -56,8 +56,8 @@ typedef TreeDataProvider<T> = {
 	 * @param item Undefined properties of `item` should be set then `item` should be returned.
 	 * @param element The object associated with the TreeItem.
 	 * @param token A cancellation token.
-	 * @return The resolved tree item or a thenable that resolves to such. It is OK to return the given
+	 * @returns The resolved tree item or a thenable that resolves to such. It is OK to return the given
 	 * `item`. When no result is returned, the given `item` will be used.
 	 */
-	var ?resolveTreeItem(default, never):(item:TreeItem, element:T, token:CancellationToken) -> ProviderResult<TreeItem>;
+	function resolveTreeItem(item:TreeItem, element:T, token:CancellationToken):ProviderResult<TreeItem>;
 }

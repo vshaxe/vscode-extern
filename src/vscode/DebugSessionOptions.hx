@@ -36,4 +36,31 @@ typedef DebugSessionOptions = {
 	 * If compact is true, debug sessions with a single child are hidden in the CALL STACK view to make the tree more compact.
 	 */
 	var ?compact:Bool;
+
+	/**
+	 * When true, a save will not be triggered for open editors when starting a debug session, regardless of the value of the `debug.saveBeforeStart` setting.
+	 */
+	var ?suppressSaveBeforeStart:Bool;
+
+	/**
+	 * When true, the debug toolbar will not be shown for this session.
+	 */
+	var ?suppressDebugToolbar:Bool;
+
+	/**
+	 * When true, the window statusbar color will not be changed for this session.
+	 */
+	var ?suppressDebugStatusbar:Bool;
+
+	/**
+	 * When true, the debug viewlet will not be automatically revealed for this session.
+	 */
+	var ?suppressDebugView:Bool;
+
+	/**
+	 * Signals to the editor that the debug session was started from a test run
+	 * request. This is used to link the lifecycle of the debug session and
+	 * test run in UI actions.
+	 */
+	var ?testRun:TestRun;
 }

@@ -17,7 +17,7 @@ typedef OnTypeFormattingEditProvider = {
 	 * @param ch The character that has been typed.
 	 * @param options Options controlling formatting.
 	 * @param token A cancellation token.
-	 * @return A set of text edits or a thenable that resolves to such. The lack of a result can be
+	 * @returns A set of text edits or a thenable that resolves to such. The lack of a result can be
 	 * signaled by returning `undefined`, `null`, or an empty array.
 	 */
 	function provideOnTypeFormattingEdits(document:TextDocument, position:Position, ch:String, options:FormattingOptions,

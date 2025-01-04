@@ -34,7 +34,7 @@ typedef TerminalOptions = {
 	 * Whether the terminal process environment should be exactly as provided in
 	 * `TerminalOptions.env`. When this is false (default), the environment will be based on the
 	 * window's environment and also apply configured platform settings like
-	 * `terminal.integrated.windows.env` on top. When this is true, the complete environment
+	 * `terminal.integrated.env.windows` on top. When this is true, the complete environment
 	 * must be provided as nothing will be inherited from the process or any configuration.
 	 */
 	var ?strictEnv:Bool;
@@ -44,7 +44,7 @@ typedef TerminalOptions = {
 	 * until `Terminal.show` is called. The typical usage for this is when you need to run
 	 * something that may need interactivity but only want to tell the user about it when
 	 * interaction is needed. Note that the terminals will still be exposed to all extensions
-	 * as normal.
+	 * as normal. The hidden terminals will not be restored when the workspace is next opened.
 	 */
 	var ?hideFromUser:Bool;
 
@@ -58,7 +58,7 @@ typedef TerminalOptions = {
 	/**
 	 * The icon path or {@link ThemeIcon} for the terminal.
 	 */
-	var ?iconPath:EitherType<Uri, EitherType<{light:Uri, dark:Uri}, ThemeIcon>>;
+	var ?iconPath:IconPath;
 
 	/**
 	 * The icon {@link ThemeColor} for the terminal.
@@ -66,4 +66,15 @@ typedef TerminalOptions = {
 	 * recommended for the best contrast and consistency across themes.
 	 */
 	var ?color:ThemeColor;
+
+	/**
+	 * The {@link TerminalLocation} or {@link TerminalEditorLocationOptions} or {@link TerminalSplitLocationOptions} for the terminal.
+	 */
+	var ?location:EitherType<TerminalLocation, EitherType<TerminalEditorLocationOptions, TerminalSplitLocationOptions>>;
+
+	/**
+	 * Opt-out of the default terminal persistence on restart and reload.
+	 * This will only take effect when `terminal.integrated.enablePersistentSessions` is enabled.
+	 */
+	var ?isTransient:Bool;
 }

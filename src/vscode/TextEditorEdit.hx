@@ -8,7 +8,7 @@ package vscode;
 typedef TextEditorEdit = {
 	/**
 	 * Replace a certain text region with a new value.
-	 * You can use \r\n or \n in `value` and they will be normalized to the current {@link TextDocument document}.
+	 * You can use `\r\n` or `\n` in `value` and they will be normalized to the current {@link TextDocument document}.
 	 *
 	 * @param location The range this operation should remove.
 	 * @param value The new text this operation should insert after removing `location`.
@@ -17,7 +17,7 @@ typedef TextEditorEdit = {
 
 	/**
 	 * Insert text at a location.
-	 * You can use \r\n or \n in `value` and they will be normalized to the current {@link TextDocument document}.
+	 * You can use `\r\n` or `\n` in `value` and they will be normalized to the current {@link TextDocument document}.
 	 * Although the equivalent text edit can be made with {@link TextEditorEdit.replace replace}, `insert` will produce a different resulting selection (it will get moved).
 	 *
 	 * @param location The position where the new text should be inserted.

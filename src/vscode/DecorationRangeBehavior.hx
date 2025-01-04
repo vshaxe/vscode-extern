@@ -11,7 +11,7 @@ extern enum abstract DecorationRangeBehavior(Int) {
 	var OpenOpen;
 
 	/**
-	 * The decoration's range will not widen when edits occur at the start of end.
+	 * The decoration's range will not widen when edits occur at the start or end.
 	 */
 	var ClosedClosed;
 

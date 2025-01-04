@@ -1,5 +1,8 @@
 package vscode;
 
+/**
+ * The selection range provider interface defines the contract between extensions and the "Expand and Shrink Selection" feature.
+ */
 typedef SelectionRangeProvider = {
 	/**
 	 * Provide selection ranges for the given positions.
@@ -11,8 +14,8 @@ typedef SelectionRangeProvider = {
 	 * @param document The document in which the command was invoked.
 	 * @param positions The positions at which the command was invoked.
 	 * @param token A cancellation token.
-	 * @return Selection ranges or a thenable that resolves to such. The lack of a result can be
+	 * @returns Selection ranges or a thenable that resolves to such. The lack of a result can be
 	 * signaled by returning `undefined` or `null`.
 	 */
-	function provideSelectionRanges(document:TextDocument, positions:Array<Position>, token:CancellationToken):ProviderResult<Array<SelectionRange>>;
+	function provideSelectionRanges(document:TextDocument, positions:ReadOnlyArray<Position>, token:CancellationToken):ProviderResult<Array<SelectionRange>>;
 }

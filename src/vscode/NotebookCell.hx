@@ -42,5 +42,5 @@ typedef NotebookCell = {
 	/**
 	 * The most recent {@link NotebookCellExecutionSummary execution summary} for this cell.
 	 */
-	final ?executionSummary:NotebookCellExecutionSummary;
+	final executionSummary:Null<NotebookCellExecutionSummary>;
 }

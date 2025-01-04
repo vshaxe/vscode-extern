@@ -4,7 +4,8 @@ package vscode;
  * Collection of test items, found in {@link TestItem.children} and
  * {@link TestController.items}.
  */
-typedef TestItemCollection = {
+typedef TestItemCollection = { //  extends Iterable<[id: string, testItem: TestItem]> {
+
 	/**
 	 * Gets the number of items in the collection.
 	 */
@@ -27,7 +28,7 @@ typedef TestItemCollection = {
 	/**
 	 * Adds the test item to the children. If an item with the same ID already
 	 * exists, it'll be replaced.
-	 * @param items Item to add.
+	 * @param item Item to add.
 	 */
 	function add(item:TestItem):Void;
 

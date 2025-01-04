@@ -7,7 +7,7 @@ package vscode;
 @:jsRequire("vscode", "Uri")
 extern class Uri {
 	/**
-	 * Create an URI from a string, e.g. `http://www.msft.com/some/path`,
+	 * Create an URI from a string, e.g. `http://www.example.com/some/path`,
 	 * `file:///usr/home`, or `scheme:with/path`.
 	 *
 	 * *Note* that for a while uris without a `scheme` were accepted. That is not correct
@@ -17,7 +17,7 @@ extern class Uri {
 	 * @see {@link Uri.toString}
 	 * @param value The string value of an Uri.
 	 * @param strict Throw an error when `value` is empty or when no `scheme` can be parsed.
-	 * @return A new Uri instance.
+	 * @returns A new Uri instance.
 	 */
 	static function parse(value:String, ?strict:Bool):Uri;
 
@@ -34,6 +34,7 @@ extern class Uri {
 	 * good.scheme === 'file';
 	 * good.path === '/coding/c#/project1';
 	 * good.fragment === '';
+	 *
 	 * const bad = URI.parse('file://' + '/coding/c#/project1');
 	 * bad.scheme === 'file';
 	 * bad.path === '/coding/c'; // path is now broken
@@ -41,7 +42,7 @@ extern class Uri {
 	 * ```
 	 *
 	 * @param path A file system or UNC path.
-	 * @return A new Uri instance.
+	 * @returns A new Uri instance.
 	 */
 	static function file(path:String):Uri;
 
@@ -72,13 +73,28 @@ extern class Uri {
 	 *
 	 * @see {@link Uri.toString}
 	 * @param components The component parts of an Uri.
-	 * @return A new Uri instance.
+	 * @returns A new Uri instance.
 	 */
 	static function from(components:{
+		/**
+		 * The scheme of the uri
+		 */
 		scheme:String,
+		/**
+		 * The authority of the uri
+		 */
 		?authority:String,
+		/**
+		 * The path of the uri
+		 */
 		?path:String,
+		/**
+		 * The query string of the uri
+		 */
 		?query:String,
+		/**
+		 * The fragment identifier of the uri
+		 */
 		?fragment:String
 	}):Uri;
 
@@ -88,29 +104,29 @@ extern class Uri {
 	private function new(scheme:String, authority:String, path:String, query:String, fragment:String);
 
 	/**
-	 * Scheme is the `http` part of `http://www.msft.com/some/path?query#fragment`.
+	 * Scheme is the `http` part of `http://www.example.com/some/path?query#fragment`.
 	 * The part before the first colon.
 	 */
 	var scheme(default, null):String;
 
 	/**
-	 * Authority is the `www.msft.com` part of `http://www.msft.com/some/path?query#fragment`.
+	 * Authority is the `www.example.com` part of `http://www.example.com/some/path?query#fragment`.
 	 * The part between the first double slashes and the next slash.
 	 */
 	var authority(default, null):String;
 
 	/**
-	 * Path is the `/some/path` part of `http://www.msft.com/some/path?query#fragment`.
+	 * Path is the `/some/path` part of `http://www.example.com/some/path?query#fragment`.
 	 */
 	var path(default, null):String;
 
 	/**
-	 * Query is the `query` part of `http://www.msft.com/some/path?query#fragment`.
+	 * Query is the `query` part of `http://www.example.com/some/path?query#fragment`.
 	 */
 	var query(default, null):String;
 
 	/**
-	 * Fragment is the `fragment` part of `http://www.msft.com/some/path?query#fragment`.
+	 * Fragment is the `fragment` part of `http://www.example.com/some/path?query#fragment`.
 	 */
 	var fragment(default, null):String;
 
@@ -130,7 +146,7 @@ extern class Uri {
 	 * ```ts
 	 * const u = URI.parse('file://server/c$/folder/file.txt')
 	 * u.authority === 'server'
-	 * u.path === '/shares/c$/file.txt'
+	 * u.path === '/c$/folder/file.txt'
 	 * u.fsPath === '\\server\c$\folder\file.txt'
 	 * ```
 	 */
@@ -147,14 +163,29 @@ extern class Uri {
 	 *
 	 * @param change An object that describes a change to this Uri. To unset components use `null` or
 	 *  the empty string.
-	 * @return A new Uri that reflects the given change. Will return `this` Uri if the change
+	 * @returns A new Uri that reflects the given change. Will return `this` Uri if the change
 	 *  is not changing anything.
 	 */
 	function with(change:{
+		/**
+		 * The new scheme, defaults to this Uri's scheme.
+		 */
 		?scheme:String,
+		/**
+		 * The new authority, defaults to this Uri's authority.
+		 */
 		?authority:String,
+		/**
+		 * The new path, defaults to this Uri's path.
+		 */
 		?path:String,
+		/**
+		 * The new query, defaults to this Uri's query.
+		 */
 		?query:String,
+		/**
+		 * The new fragment, defaults to this Uri's fragment.
+		 */
 		?fragment:String
 	}):Uri;
 
@@ -180,7 +211,7 @@ extern class Uri {
 	/**
 	 * Returns a JSON representation of this Uri.
 	 *
-	 * @return An object.
+	 * @returns An object.
 	 */
 	function toJSON():Any;
 }

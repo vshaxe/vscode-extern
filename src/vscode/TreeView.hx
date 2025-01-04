@@ -22,7 +22,7 @@ typedef TreeView<T> = {
 	/**
 	 * Currently selected elements.
 	 */
-	var selection(default, null):Array<T>;
+	var selection(default, null):ReadOnlyArray<T>;
 
 	/**
 	 * Event that is fired when the {@link TreeView.selection selection} has changed
@@ -38,6 +38,11 @@ typedef TreeView<T> = {
 	 * Event that is fired when {@link TreeView.visible visibility} has changed
 	 */
 	var onDidChangeVisibility(default, null):Event<TreeViewVisibilityChangeEvent>;
+
+	/**
+	 * An event to signal that an element or root has either been checked or unchecked.
+	 */
+	var onDidChangeCheckboxState(default, null):Event<TreeCheckboxChangeEvent<T>>;
 
 	/**
 	 * An optional human-readable message that will be rendered in the view.
@@ -58,6 +63,12 @@ typedef TreeView<T> = {
 	var ?description:String;
 
 	/**
+	 * The badge to display for this TreeView.
+	 * To remove the badge, set to undefined.
+	 */
+	var ?badge:Null<ViewBadge>;
+
+	/**
 	 * Reveals the given element in the tree view.
 	 * If the tree view is not visible then the tree view is shown and element is revealed.
 	 *
@@ -65,9 +76,22 @@ typedef TreeView<T> = {
 	 * In order to not to select, set the option `select` to `false`.
 	 * In order to focus, set the option `focus` to `true`.
 	 * In order to expand the revealed element, set the option `expand` to `true`. To expand recursively set `expand` to the number of levels to expand.
-	 * **NOTE:** You can expand only to 3 levels maximum.
 	 *
-	 * **NOTE:** The {@link TreeDataProvider} that the `TreeView` {@link window.createTreeView is registered with} with must implement {@link TreeDataProvider.getParent getParent} method to access this API.
+	 * * *NOTE:* You can expand only to 3 levels maximum.
+	 * * *NOTE:* The {@link TreeDataProvider} that the `TreeView` {@link window.createTreeView is registered with} with must implement {@link TreeDataProvider.getParent getParent} method to access this API.
 	 */
-	function reveal(element:T, ?options:{?select:Bool, ?focus:Bool, ?exapnd:EitherType<Bool, Int>}):Thenable<Void>;
+	function reveal(element:T, ?options:{
+		/**
+		 * If true, then the element will be selected.
+		 */
+		?select:Bool,
+		/**
+		 * If true, then the element will be focused.
+		 */
+		?focus:Bool,
+		/**
+		 * If true, then the element will be expanded. If a number is passed, then up to that number of levels of children will be expanded
+		 */
+		?exapnd:EitherType<Bool, Int>
+	}):Thenable<Void>;
 }

@@ -20,7 +20,7 @@ typedef CommentReaction = {
 	var count(default, null):Int;
 
 	/**
-	 * Whether the [author](CommentAuthorInformation) of the comment has reacted to this reaction
+	 * Whether the {@link CommentAuthorInformation author} of the comment has reacted to this reaction
 	 */
 	var authorHasReacted(default, null):Bool;
 }

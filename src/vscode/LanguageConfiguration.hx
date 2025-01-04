@@ -23,7 +23,9 @@ typedef LanguageConfiguration = {
 	 * If the language supports Unicode identifiers (e.g. JavaScript), it is preferable
 	 * to provide a word definition that uses exclusion of known separators.
 	 * e.g.: A regex that matches anything except known separators (and dot is allowed to occur in a floating point number):
-	 *   /(-?\d*\.\d\w*)|([^\`\~\!\@\#\%\^\&\*\(\)\-\=\+\[\{\]\}\\\|\;\:\'\"\,\.\<\>\/\?\s]+)/g
+	 * ```
+	 * /(-?\d*\.\d\w*)|([^\`\~\!\@\#\%\^\&\*\(\)\-\=\+\[\{\]\}\\\|\;\:\'\"\,\.\<\>\/\?\s]+)/g
+	 * ```
 	 */
 	var ?wordPattern:RegExp;
 
@@ -38,6 +40,11 @@ typedef LanguageConfiguration = {
 	var ?onEnterRules:Array<OnEnterRule>;
 
 	/**
+	 * The language's auto closing pairs.
+	 */
+	var ?autoClosingPairs:Array<AutoClosingPair>;
+
+	/**
 	 * **Deprecated** Do not use.
 	 *
 	 * @deprecated Will be replaced by a better API soon.
@@ -50,7 +57,6 @@ typedef LanguageConfiguration = {
 		 * @deprecated
 		 */
 		@:deprecated var ?brackets:Any;
-
 		/**
 		 * This property is deprecated and not fully supported anymore by
 		 * the editor (scope and lineStart are ignored).
@@ -58,9 +64,21 @@ typedef LanguageConfiguration = {
 		 * @deprecated
 		 */
 		@:deprecated var ?docComment:{
+			/**
+			 * @deprecated
+			 */
 			var scope:String;
+			/**
+			 * @deprecated
+			 */
 			var open:String;
+			/**
+			 * @deprecated
+			 */
 			var lineStart:String;
+			/**
+			 * @deprecated
+			 */
 			var ?close:String;
 		};
 	};
@@ -72,6 +90,22 @@ typedef LanguageConfiguration = {
 	 */
 	@:deprecated("Use the autoClosingPairs property in the language configuration file instead.")
 	var ?__characterPairSupport:{
-		var autoClosingPairs:Array<{open:String, close:String, ?notIn:Array<String>}>;
+		/**
+		 * @deprecated
+		 */
+		var autoClosingPairs:Array<{
+			/**
+			 * @deprecated
+			 */
+			open:String,
+			/**
+			 * @deprecated
+			 */
+			close:String,
+			/**
+			 * @deprecated
+			 */
+			?notIn:Array<String>
+		}>;
 	};
 }

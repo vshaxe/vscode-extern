@@ -16,7 +16,7 @@ typedef TextDocumentChangeEvent = {
 
 	/**
 	 * The reason why the document was changed.
-	 * Is undefined if the reason is not known.
+	 * Is `undefined` if the reason is not known.
 	 */
-	var ?reason(default, null):TextDocumentChangeReason;
+	var reason(default, null):Null<TextDocumentChangeReason>;
 }
