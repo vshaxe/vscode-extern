@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><!-- use theme color or fallback -->
 <!--use textcolor from settings, otherwise create a contrasting color to theme color-->
-<head><meta charset="utf-8"/><link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet"/><link href="../bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet"/><link href="../bootstrap/css/bootstrap-select.min.css" rel="stylesheet"/><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,700italic,400italic" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600,600italic,400" rel="stylesheet" type="text/css"/><link href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css" rel="stylesheet" type="text/css"/><script src="../jquery-1.9.1.min.js"></script><script src="../bootstrap/js/bootstrap.min.js"></script><script src="../bootstrap/js/bootstrap-select.min.js"></script><link href="../styles.css" rel="stylesheet"/><link href="../extra-styles.css" rel="stylesheet"/><link href="../haxe-nav.css" rel="stylesheet"/><link href="../dark-mode.css" rel="stylesheet"/><script>var dox = {rootPath: "../",platforms: ["js"]};</script><script src="../nav.js"></script><script src="../index.js"></script><link rel="icon" href="../favicon.ico" type="image/x-icon"/><title>vscode.Pseudoterminal - Haxe externs for Visual Studio Code - API documentation</title><meta name="description" content="Defines the interface of a terminal pty, enabling extensions to control a terminal."/></head><body><script>/* Here to prevent flash of unstyled content */let systemDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;if ((!localStorage.theme && systemDarkMode) || localStorage.theme == "dark") {document.body.style.backgroundColor = "#111";document.body.style.opacity = "0";document.addEventListener("DOMContentLoaded", function(event) {toggleTheme();document.body.style.backgroundColor = "";document.body.style.opacity = "";});}</script><style>
+<head><meta charset="utf-8"/><link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet"/><link href="../bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet"/><link href="../bootstrap/css/bootstrap-select.min.css" rel="stylesheet"/><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,700italic,400italic" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600,600italic,400" rel="stylesheet" type="text/css"/><link href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css" rel="stylesheet" type="text/css"/><script src="../jquery-3.6.0.min.js"></script><script src="../bootstrap/js/bootstrap.min.js"></script><script src="../bootstrap/js/bootstrap-select.min.js"></script><link href="../styles.css" rel="stylesheet"/><link href="../extra-styles.css" rel="stylesheet"/><link href="../haxe-nav.css" rel="stylesheet"/><link href="../dark-mode.css" rel="stylesheet"/><script>var dox = {rootPath: "../",platforms: ["js"]};</script><script src="../nav.js"></script><script src="../index.js"></script><link rel="icon" href="../favicon.ico" type="image/x-icon"/><title>vscode.Pseudoterminal - Haxe externs for Visual Studio Code - API documentation</title><meta name="description" content="Defines the interface of a terminal pty, enabling extensions to control a terminal."/></head><body><script>/* Here to prevent flash of unstyled content */let systemDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;if ((!localStorage.theme && systemDarkMode) || localStorage.theme == "dark") {document.body.style.backgroundColor = "#111";document.body.style.opacity = "0";document.addEventListener("DOMContentLoaded", function(event) {toggleTheme();document.body.style.backgroundColor = "";document.body.style.opacity = "";});}</script><style>
 .navbar .brand {
 	display: inline-block;
 	float: none;
@@ -21,6 +21,7 @@ pseudo-device (the child), this will write the text to parent pseudo-device (the
 <em>terminal</em> itself).</p>
 <p>Note writing <code>\n</code> will just move the cursor down 1 row, you need to write <code>\r</code> as well
 to move the cursor to the left-most cell.</p>
+<p>Events fired before {@link Pseudoterminal.open} is called will be be ignored.</p>
 <p><strong>Example:</strong> Write red text to the terminal</p>
 <pre><code class="prettyprint typescript">const writeEmitter = new vscode.EventEmitter&lt;string&gt;();
 const pty: vscode.Pseudoterminal = {
@@ -35,6 +36,7 @@ terminal. Note that when set, the overridden dimensions will only take effect wh
 are lower than the actual dimensions of the terminal (ie. there will never be a scroll
 bar). Set to <code>undefined</code> for the terminal to go back to the regular dimensions (fit to
 the size of the panel).</p>
+<p>Events fired before {@link Pseudoterminal.open} is called will be be ignored.</p>
 <p><strong>Example:</strong> Override the dimensions of a terminal to 20 columns and 10 rows</p>
 <pre><code class="prettyprint typescript">const dimensionsEmitter = new vscode.EventEmitter&lt;vscode.TerminalDimensions&gt;();
 const pty: vscode.Pseudoterminal = {
@@ -49,13 +51,14 @@ open: () =&gt; {
 close: () =&gt; {}
 };
 vscode.window.createTerminal({ name: 'My terminal', pty });</code></pre></div></div><div class="field "><a name="onDidClose"></a><h3 class="anchor"><code><span class="label label-meta label-meta-optional" title="Marks the field of a structure as optional.">@:optional</span><span class="label label-optional">optional</span><a href="#onDidClose"><span class="identifier">onDidClose</span></a>:<span class="type">Null</span>&lt;<a class="type" title="vscode.Event - Represents a typed event." href="../vscode/Event.html">Event</a>&lt;<span class="type">EitherType</span>&lt;<span class="type">Void</span>, <span class="type">Int</span>&gt;&gt;&gt;</code></h3><div class="doc"><p>An event that when fired will signal that the pty is closed and dispose of the terminal.</p>
+<p>Events fired before {@link Pseudoterminal.open} is called will be be ignored.</p>
 <p>A number can be used to provide an exit code for the terminal. Exit codes must be
 positive and a non-zero exit codes signals failure which shows a notification for a
 regular terminal and allows dependent tasks to proceed when used with the
 <code><a href="../vscode/CustomExecution.html#CustomExecution">CustomExecution</a></code> API.</p>
 <p><strong>Example:</strong> Exit the terminal when "y" is pressed, otherwise show a notification.</p>
 <pre><code class="prettyprint typescript">const writeEmitter = new vscode.EventEmitter&lt;string&gt;();
-const closeEmitter = new vscode.EventEmitter&lt;vscode.TerminalDimensions&gt;();
+const closeEmitter = new vscode.EventEmitter&lt;void&gt;();
 const pty: vscode.Pseudoterminal = {
 onDidWrite: writeEmitter.event,
 onDidClose: closeEmitter.event,
@@ -68,7 +71,8 @@ handleInput: data =&gt; {
   closeEmitter.fire();
 }
 };
-vscode.window.createTerminal({ name: 'Exit example', pty });</code></pre></div></div><div class="field "><a name="onDidChangeName"></a><h3 class="anchor"><code><span class="label label-meta label-meta-optional" title="Marks the field of a structure as optional.">@:optional</span><span class="label label-optional">optional</span><a href="#onDidChangeName"><span class="identifier">onDidChangeName</span></a>:<span class="type">Null</span>&lt;<a class="type" title="vscode.Event - Represents a typed event." href="../vscode/Event.html">Event</a>&lt;<span class="type">String</span>&gt;&gt;</code></h3><div class="doc"><p>An event that when fired allows changing the name of the terminal.</p>
+const terminal = vscode.window.createTerminal({ name: 'Exit example', pty });
+terminal.show(true);</code></pre></div></div><div class="field "><a name="onDidChangeName"></a><h3 class="anchor"><code><span class="label label-meta label-meta-optional" title="Marks the field of a structure as optional.">@:optional</span><span class="label label-optional">optional</span><a href="#onDidChangeName"><span class="identifier">onDidChangeName</span></a>:<span class="type">Null</span>&lt;<a class="type" title="vscode.Event - Represents a typed event." href="../vscode/Event.html">Event</a>&lt;<span class="type">String</span>&gt;&gt;</code></h3><div class="doc"><p>An event that when fired allows changing the name of the terminal.</p>
 <p><strong>Example:</strong> Change the terminal name to "My new terminal".</p>
 <pre><code class="prettyprint typescript">const writeEmitter = new vscode.EventEmitter&lt;string&gt;();
 const changeNameEmitter = new vscode.EventEmitter&lt;string&gt;();
@@ -90,4 +94,4 @@ open: () =&gt; {},
 close: () =&gt; {},
 handleInput: data =&gt; writeEmitter.fire(data === '\r' ? '\r\n' : data)
 };
-vscode.window.createTerminal({ name: 'Local echo', pty });</code></pre></td></tr></table></div></div><div class="field "><a name="close"></a><h3 class="anchor"><code><a href="#close"><span class="identifier">close</span></a>():<span class="type">Void</span></code></h3><div class="doc"><p>Implement to handle when the terminal is closed by an act of the user.</p></div></div></div></div></div></div></div><footer class="section site-footer" style="background:#141419"><div class="container"><div class="copyright"><p style="color:#FFFFFF">This documentation is generated for version 1.60.0</p><p style="color:#FFFFFF">&copy; 2021 &nbsp;<a style="color:#FFFFFF" href="https://github.com/vshaxe/">https://github.com/vshaxe/</a></p></div></div></footer><script src="..//highlighter.js"></script><link href="../highlighter.css" rel="stylesheet"/></body></html>
+vscode.window.createTerminal({ name: 'Local echo', pty });</code></pre></td></tr></table></div></div><div class="field "><a name="close"></a><h3 class="anchor"><code><a href="#close"><span class="identifier">close</span></a>():<span class="type">Void</span></code></h3><div class="doc"><p>Implement to handle when the terminal is closed by an act of the user.</p></div></div></div></div></div></div></div><footer class="section site-footer" style="background:#141419"><div class="container"><div class="copyright"><p style="color:#FFFFFF">This documentation is generated for version 1.60.0</p><p style="color:#FFFFFF">&copy; 2025 &nbsp;<a style="color:#FFFFFF" href="https://github.com/vshaxe/">https://github.com/vshaxe/</a></p></div></div></footer><script src="../highlighter.js"></script><link href="../highlighter.css" rel="stylesheet"/></body></html>

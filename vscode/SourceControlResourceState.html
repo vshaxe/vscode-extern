@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en"><!-- use theme color or fallback -->
 <!--use textcolor from settings, otherwise create a contrasting color to theme color-->
-<head><meta charset="utf-8"/><link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet"/><link href="../bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet"/><link href="../bootstrap/css/bootstrap-select.min.css" rel="stylesheet"/><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,700italic,400italic" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600,600italic,400" rel="stylesheet" type="text/css"/><link href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css" rel="stylesheet" type="text/css"/><script src="../jquery-1.9.1.min.js"></script><script src="../bootstrap/js/bootstrap.min.js"></script><script src="../bootstrap/js/bootstrap-select.min.js"></script><link href="../styles.css" rel="stylesheet"/><link href="../extra-styles.css" rel="stylesheet"/><link href="../haxe-nav.css" rel="stylesheet"/><link href="../dark-mode.css" rel="stylesheet"/><script>var dox = {rootPath: "../",platforms: ["js"]};</script><script src="../nav.js"></script><script src="../index.js"></script><link rel="icon" href="../favicon.ico" type="image/x-icon"/><title>vscode.SourceControlResourceState - Haxe externs for Visual Studio Code - API documentation</title><meta name="description" content="An source control resource state represents the state of an underlying workspace
+<head><meta charset="utf-8"/><link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet"/><link href="../bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet"/><link href="../bootstrap/css/bootstrap-select.min.css" rel="stylesheet"/><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,700italic,400italic" rel="stylesheet" type="text/css"/><link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,600,600italic,400" rel="stylesheet" type="text/css"/><link href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css" rel="stylesheet" type="text/css"/><script src="../jquery-3.6.0.min.js"></script><script src="../bootstrap/js/bootstrap.min.js"></script><script src="../bootstrap/js/bootstrap-select.min.js"></script><link href="../styles.css" rel="stylesheet"/><link href="../extra-styles.css" rel="stylesheet"/><link href="../haxe-nav.css" rel="stylesheet"/><link href="../dark-mode.css" rel="stylesheet"/><script>var dox = {rootPath: "../",platforms: ["js"]};</script><script src="../nav.js"></script><script src="../index.js"></script><link rel="icon" href="../favicon.ico" type="image/x-icon"/><title>vscode.SourceControlResourceState - Haxe externs for Visual Studio Code - API documentation</title><meta name="description" content="An source control resource state represents the state of an underlying workspace
 resource within a certain {@link SourceControlResourceGroup source control group}."/></head><body><script>/* Here to prevent flash of unstyled content */let systemDarkMode = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;if ((!localStorage.theme && systemDarkMode) || localStorage.theme == "dark") {document.body.style.backgroundColor = "#111";document.body.style.opacity = "0";document.addEventListener("DOMContentLoaded", function(event) {toggleTheme();document.body.style.backgroundColor = "";document.body.style.opacity = "";});}</script><style>
 .navbar .brand {
 	display: inline-block;
@@ -13,15 +13,15 @@ resource within a certain {@link SourceControlResourceGroup source control group
 resource state.</p></div></div><div class="field "><a name="contextValue"></a><h3 class="anchor"><code><span class="label label-meta label-meta-optional" title="Marks the field of a structure as optional.">@:optional</span><span class="label label-optional">optional</span><span class="label">read only</span><a href="#contextValue"><span class="identifier">contextValue</span></a>:<span class="type">Null</span>&lt;<span class="type">String</span>&gt;</code></h3><div class="doc"><p>Context value of the resource state. This can be used to contribute resource specific actions.
 For example, if a resource is given a context value as <code>diffable</code>. When contributing actions to <code>scm/resourceState/context</code>
 using <code>menus</code> extension point, you can specify context value for key <code>scmResourceState</code> in <code>when</code> expressions, like <code>scmResourceState == diffable</code>.</p>
-<pre><code>	"contributes": {
+<pre><code class="prettyprint json">"contributes": {
 "menus": {
-	"scm/resourceState/context": [
-		{
-			"command": "extension.diff",
-			"when": "scmResourceState == diffable"
-		}
-	]
+  "scm/resourceState/context": [
+    {
+      "command": "extension.diff",
+      "when": "scmResourceState == diffable"
+    }
+  ]
 }
-	}</code></pre>
+}</code></pre>
 <p>This will show action <code>extension.diff</code> only for resources with <code>contextValue</code> is <code>diffable</code>.</p></div></div><div class="field "><a name="command"></a><h3 class="anchor"><code><span class="label label-meta label-meta-optional" title="Marks the field of a structure as optional.">@:optional</span><span class="label label-optional">optional</span><span class="label">read only</span><a href="#command"><span class="identifier">command</span></a>:<span class="type">Null</span>&lt;<a class="type" title="vscode.Command - Represents a reference to a command." href="../vscode/Command.html">Command</a>&gt;</code></h3><div class="doc"><p>The {@link Command} which should be run when the resource
-state is open in the Source Control viewlet.</p></div></div></div></div></div></div></div><footer class="section site-footer" style="background:#141419"><div class="container"><div class="copyright"><p style="color:#FFFFFF">This documentation is generated for version 1.60.0</p><p style="color:#FFFFFF">&copy; 2021 &nbsp;<a style="color:#FFFFFF" href="https://github.com/vshaxe/">https://github.com/vshaxe/</a></p></div></div></footer><script src="..//highlighter.js"></script><link href="../highlighter.css" rel="stylesheet"/></body></html>
+state is open in the Source Control viewlet.</p></div></div></div></div></div></div></div><footer class="section site-footer" style="background:#141419"><div class="container"><div class="copyright"><p style="color:#FFFFFF">This documentation is generated for version 1.60.0</p><p style="color:#FFFFFF">&copy; 2025 &nbsp;<a style="color:#FFFFFF" href="https://github.com/vshaxe/">https://github.com/vshaxe/</a></p></div></div></footer><script src="../highlighter.js"></script><link href="../highlighter.css" rel="stylesheet"/></body></html>
