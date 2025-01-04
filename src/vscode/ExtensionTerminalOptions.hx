@@ -18,7 +18,7 @@ typedef ExtensionTerminalOptions = {
 	/**
 	 * The icon path or {@link ThemeIcon} for the terminal.
 	 */
-	var ?iconPath:EitherType<Uri, EitherType<{light:Uri, dark:Uri}, ThemeIcon>>;
+	var ?iconPath:IconPath;
 
 	/**
 	 * The icon {@link ThemeColor} for the terminal.
@@ -26,4 +26,15 @@ typedef ExtensionTerminalOptions = {
 	 * recommended for the best contrast and consistency across themes.
 	 */
 	var ?color:ThemeColor;
+
+	/**
+	 * The {@link TerminalLocation} or {@link TerminalEditorLocationOptions} or {@link TerminalSplitLocationOptions} for the terminal.
+	 */
+	var ?location:EitherType<TerminalLocation, EitherType<TerminalEditorLocationOptions, TerminalSplitLocationOptions>>;
+
+	/**
+	 * Opt-out of the default terminal persistence on restart and reload.
+	 * This will only take effect when `terminal.integrated.enablePersistentSessions` is enabled.
+	 */
+	var ?isTransient:Bool;
 }

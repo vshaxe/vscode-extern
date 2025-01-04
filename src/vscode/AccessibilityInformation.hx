@@ -7,7 +7,7 @@ typedef AccessibilityInformation = {
 	/**
 	 * Label to be read out by a screen reader once the item has focus.
 	 */
-	var label:String;
+	var label(default, null):String;
 
 	/**
 	 * Role of the widget which defines how a screen reader interacts with it.
@@ -15,5 +15,5 @@ typedef AccessibilityInformation = {
 	 * If role is not specified the editor will pick the appropriate role automatically.
 	 * More about aria roles can be found here https://w3c.github.io/aria/#widget_roles
 	 */
-	var ?role:String;
+	var ?role(default, null):String;
 }

@@ -16,7 +16,7 @@ typedef NotebookSerializer = {
 	 *
 	 * @param content Contents of a notebook file.
 	 * @param token A cancellation token.
-	 * @return Notebook data or a thenable that resolves to such.
+	 * @returns Notebook data or a thenable that resolves to such.
 	 */
 	function deserializeNotebook(content:Uint8Array, token:CancellationToken):EitherType<NotebookData, Thenable<NotebookData>>;
 

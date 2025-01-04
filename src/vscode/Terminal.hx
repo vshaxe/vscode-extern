@@ -37,15 +37,31 @@ typedef Terminal = {
 	var ?exitStatus(default, null):TerminalExitStatus;
 
 	/**
+	 * The current state of the {@link Terminal}.
+	 */
+	var state(default, null):TerminalState;
+
+	/**
+	 * An object that contains [shell integration](https://code.visualstudio.com/docs/terminal/shell-integration)-powered
+	 * features for the terminal. This will always be `undefined` immediately after the terminal
+	 * is created. Listen to {@link window.onDidChangeTerminalShellIntegration} to be notified
+	 * when shell integration is activated for a terminal.
+	 *
+	 * Note that this object may remain undefined if shell integration never activates. For
+	 * example Command Prompt does not support shell integration and a user's shell setup could
+	 * conflict with the automatic shell integration activation.
+	 */
+	var shellIntegration(default, null):Null<TerminalShellIntegration>;
+
+	/**
 	 * Send text to the terminal. The text is written to the stdin of the underlying pty process
 	 * (shell) of the terminal.
 	 *
 	 * @param text The text to send.
-	 * @param addNewLine Whether to add a new line to the text being sent, this is normally
-	 * required to run a command in the terminal. The character(s) added are \n or \r\n
-	 * depending on the platform. This defaults to `true`.
+	 * @param shouldExecute Indicates that the text being sent should be executed rather than just inserted in the terminal.
+	 * The character(s) added are `\n` or `\r\n`, depending on the platform. This defaults to `true`.
 	 */
-	function sendText(text:String, ?addNewLine:Bool):Void;
+	function sendText(text:String, ?shouldExecute:Bool):Void;
 
 	/**
 	 * Show the terminal panel and reveal this terminal in the UI.

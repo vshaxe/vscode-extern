@@ -1,5 +1,8 @@
 package vscode;
 
+/**
+ * A task filter denotes tasks by their version and types
+ */
 typedef TaskFilter = {
 	/**
 	 * The task version as used in the tasks.json file.

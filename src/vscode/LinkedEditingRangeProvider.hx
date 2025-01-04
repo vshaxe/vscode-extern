@@ -14,7 +14,7 @@ typedef LinkedEditingRangeProvider = {
 	 * @param document The document in which the provider was invoked.
 	 * @param position The position at which the provider was invoked.
 	 * @param token A cancellation token.
-	 * @return A list of ranges that can be edited together
+	 * @returns A list of ranges that can be edited together
 	 */
 	function provideLinkedEditingRanges(document:TextDocument, position:Position, token:CancellationToken):ProviderResult<LinkedEditingRanges>;
 }

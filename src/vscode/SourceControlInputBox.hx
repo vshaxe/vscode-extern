@@ -15,6 +15,11 @@ typedef SourceControlInputBox = {
 	var placeholder:String;
 
 	/**
+	 * Controls whether the input box is enabled (default is `true`).
+	 */
+	var enabled:Bool;
+
+	/**
 	 * Controls whether the input box is visible (default is `true`).
 	 */
 	var visible:Bool;

@@ -10,7 +10,7 @@ typedef ConfigurationChangeEvent = {
 	 *
 	 * @param section Configuration name, supports _dotted_ names.
 	 * @param scope A scope in which to check.
-	 * @return `true` if the given section has changed.
+	 * @returns `true` if the given section has changed.
 	 */
 	function affectsConfiguration(section:String, ?scope:ConfigurationScope):Bool;
 }

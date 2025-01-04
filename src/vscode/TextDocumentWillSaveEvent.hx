@@ -7,7 +7,8 @@ package vscode;
  * {@linkcode TextDocumentWillSaveEvent.waitUntil waitUntil}-function with a thenable
  * that resolves to an array of {@link TextEdit text edits}.
  */
-typedef TextDocumentWillSaveEvent = {
+@:jsRequire("vscode", "TextDocumentWillSaveEvent")
+extern class TextDocumentWillSaveEvent {
 	/**
 	 * The document that will be saved.
 	 */
@@ -38,6 +39,14 @@ typedef TextDocumentWillSaveEvent = {
 	 *
 	 * @param thenable A thenable that resolves to {@link TextEdit pre-save-edits}.
 	 */
-	@:overload(function(thenable:Thenable<Dynamic>):Void {})
-	function waitUntil(thenable:Thenable<Array<TextEdit>>):Void;
+	overload function waitUntil(thenable:Thenable<ReadOnlyArray<TextEdit>>):Void;
+
+	/**
+	 * Allows to pause the event loop until the provided thenable resolved.
+	 *
+	 * *Note:* This function can only be called during event dispatch.
+	 *
+	 * @param thenable A thenable that delays saving.
+	 */
+	overload function waitUntil(thenable:Thenable<Dynamic>):Void;
 }

@@ -110,7 +110,16 @@ typedef NotebookController = {
 	 * _Note_ that controller selection is persisted (by the controllers {@link NotebookController.id id}) and restored as soon as a
 	 * controller is re-created or as a notebook is {@link workspace.onDidOpenNotebookDocument opened}.
 	 */
-	var onDidChangeSelectedNotebooks(default, null):Event<{notebook:NotebookDocument, selected:Bool}>;
+	var onDidChangeSelectedNotebooks(default, null):Event<{
+		/**
+		 * The notebook for which the controller has been selected or un-selected.
+		 */
+		notebook:NotebookDocument,
+		/**
+		 * Whether the controller has been selected or un-selected.
+		 */
+		selected:Bool
+	}>;
 
 	/**
 	 * A controller can set affinities for specific notebook documents. This allows a controller

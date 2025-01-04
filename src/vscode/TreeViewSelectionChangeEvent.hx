@@ -7,5 +7,5 @@ typedef TreeViewSelectionChangeEvent<T> = {
 	/**
 	 * Selected elements.
 	 */
-	var selection(default, null):Array<T>;
+	var selection(default, null):ReadOnlyArray<T>;
 }

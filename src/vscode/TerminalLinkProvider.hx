@@ -10,7 +10,7 @@ typedef TerminalLinkProvider<T:TerminalLink> = {
 	 * that could have problems when asynchronous usage may overlap.
 	 * @param context Information about what links are being provided for.
 	 * @param token A cancellation token.
-	 * @return A list of terminal links for the given line.
+	 * @returns A list of terminal links for the given line.
 	 */
 	function provideTerminalLinks(context:TerminalLinkContext, token:CancellationToken):ProviderResult<Array<T>>;
 

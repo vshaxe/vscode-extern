@@ -43,7 +43,7 @@ typedef WebviewPanelSerializer<T> = {
 	 * serializer must restore the webview's `.html` and hook up all webview events.
 	 * @param state Persisted state from the webview content.
 	 *
-	 * @return Thenable indicating that the webview has been fully restored.
+	 * @returns Thenable indicating that the webview has been fully restored.
 	 */
 	function deserializeWebviewPanel(webviewPanel:WebviewPanel, state:T):Thenable<Void>;
 }

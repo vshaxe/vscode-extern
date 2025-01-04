@@ -10,14 +10,14 @@ typedef InputBoxOptions = {
 	var ?title:String;
 
 	/**
-	 * The value to prefill in the input box.
+	 * The value to pre-fill in the input box.
 	 */
 	var ?value:String;
 
 	/**
-	 * Selection of the prefilled {@linkcode InputBoxOptions.value value}. Defined as tuple of two number where the
+	 * Selection of the pre-filled {@linkcode InputBoxOptions.value value}. Defined as tuple of two number where the
 	 * first is the inclusive start index and the second the exclusive end index. When `undefined` the whole
-	 * word will be selected, when empty (start equals end) only the cursor will be set,
+	 * pre-filled value will be selected, when empty (start equals end) only the cursor will be set,
 	 * otherwise the defined range will be selected.
 	 */
 	var ?valueSelection:Array<Int>;
@@ -48,8 +48,8 @@ typedef InputBoxOptions = {
 	 * to the user.
 	 *
 	 * @param value The current value of the input box.
-	 * @return A human-readable string which is presented as diagnostic message.
-	 * Return `undefined`, `null`, or the empty string when 'value' is valid.
+	 * @returns Either a human-readable string which is presented as an error message or an {@link InputBoxValidationMessage}
+	 *  which can provide a specific message severity. Return `undefined`, `null`, or the empty string when 'value' is valid.
 	 */
-	var ?validateInput:String->ProviderResult<Null<String>>;
+	var ?validateInput:String->EitherType<Null<String>, Thenable<Null<String>>>;
 }

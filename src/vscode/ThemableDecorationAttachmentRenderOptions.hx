@@ -1,5 +1,9 @@
 package vscode;
 
+/**
+ * Represents theme specific rendering styles for {@link ThemableDecorationRenderOptions.before before} and
+ * {@link ThemableDecorationRenderOptions.after after} the content of text decorations.
+ */
 typedef ThemableDecorationAttachmentRenderOptions = {
 	/**
 	 * Defines a text content that is shown in the attachment. Either an icon or a text can be shown, but not both.

@@ -8,7 +8,7 @@ typedef TaskProvider<T:Task> = {
 	/**
 	 * Provides tasks.
 	 * @param token A cancellation token.
-	 * @return an array of tasks
+	 * @returns an array of tasks
 	 */
 	function provideTasks(token:CancellationToken):ProviderResult<Array<T>>;
 
@@ -27,7 +27,7 @@ typedef TaskProvider<T:Task> = {
 	 *
 	 * @param task The task to resolve.
 	 * @param token A cancellation token.
-	 * @return The resolved task
+	 * @returns The resolved task
 	 */
 	function resolveTask(task:T, token:CancellationToken):ProviderResult<T>;
 }

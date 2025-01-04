@@ -1,8 +1,10 @@
 package vscode;
 
 /**
- * Represents a storage utility for secrets, information that is
- * sensitive.
+ * Represents a storage utility for secrets (or any information that is sensitive)
+ * that will be stored encrypted. The implementation of the secret storage will
+ * be different on each platform and the secrets will not be synced across
+ * machines.
  */
 typedef SecretStorage = {
 	/**

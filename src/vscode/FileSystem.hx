@@ -15,7 +15,7 @@ typedef FileSystem = {
 	 * Retrieve metadata about a file.
 	 *
 	 * @param uri The uri of the file to retrieve metadata about.
-	 * @return The file metadata about the file.
+	 * @returns The file metadata about the file.
 	 */
 	function stat(uri:Uri):Thenable<FileStat>;
 
@@ -23,7 +23,7 @@ typedef FileSystem = {
 	 * Retrieve all entries of a {@link FileType.Directory directory}.
 	 *
 	 * @param uri The uri of the folder.
-	 * @return An array of name/type-tuples or a thenable that resolves to such.
+	 * @returns An array of name/type-tuples or a thenable that resolves to such.
 	 */
 	function readDirectory(uri:Uri):Thenable<Array<FileSystemReadDirectoryTuple>>;
 
@@ -41,7 +41,7 @@ typedef FileSystem = {
 	 * Read the entire contents of a file.
 	 *
 	 * @param uri The uri of the file.
-	 * @return An array of bytes or a thenable that resolves to such.
+	 * @returns An array of bytes or a thenable that resolves to such.
 	 */
 	function readFile(uri:Uri):Thenable<Uint8Array>;
 
@@ -59,25 +59,44 @@ typedef FileSystem = {
 	 * @param uri The resource that is to be deleted.
 	 * @param options Defines if trash can should be used and if deletion of folders is recursive
 	 */
-	function delete(uri:Uri, ?options:{?recursive:Bool, ?useTrash:Bool}):Thenable<Void>;
+	function delete(uri:Uri, ?options:{
+		/**
+		 * Delete the content recursively if a folder is denoted.
+		 */
+		?recursive:Bool,
+		/**
+		 * Use the os's trashcan instead of permanently deleting files whenever possible.
+		 */
+		?useTrash:Bool
+	}):Thenable<Void>;
 
 	/**
 	 * Rename a file or folder.
 	 *
-	 * @param oldUri The existing file.
-	 * @param newUri The new location.
+	 * @param source The existing file.
+	 * @param target The new location.
 	 * @param options Defines if existing files should be overwritten.
 	 */
-	function rename(source:Uri, target:Uri, ?options:{?overwrite:Bool}):Thenable<Void>;
+	function rename(source:Uri, target:Uri, ?options:{
+		/**
+		 * Overwrite the file if it does exist.
+		 */
+		?overwrite:Bool
+	}):Thenable<Void>;
 
 	/**
 	 * Copy files or folders.
 	 *
 	 * @param source The existing file.
-	 * @param destination The destination location.
+	 * @param target The destination location.
 	 * @param options Defines if existing files should be overwritten.
 	 */
-	function copy(source:Uri, target:Uri, ?options:{?overwrite:Bool}):Thenable<Void>;
+	function copy(source:Uri, target:Uri, ?options:{
+		/**
+		 * Overwrite the file if it does exist.
+		 */
+		?overwrite:Bool
+	}):Thenable<Void>;
 
 	/**
 	 * Check if a given file system supports writing files.
@@ -88,7 +107,7 @@ typedef FileSystem = {
 	 *
 	 * @param scheme The scheme of the filesystem, for example `file` or `git`.
 	 *
-	 * @return `true` if the file system supports writing, `false` if it does not
+	 * @returns `true` if the file system supports writing, `false` if it does not
 	 * support writing (i.e. it is readonly), and `undefined` if the editor does not
 	 * know about the filesystem.
 	 */

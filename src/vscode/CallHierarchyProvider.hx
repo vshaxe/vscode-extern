@@ -16,8 +16,8 @@ typedef CallHierarchyProvider = {
 	 * @param document The document in which the command was invoked.
 	 * @param position The position at which the command was invoked.
 	 * @param token A cancellation token.
-	 * @returns A call hierarchy item or a thenable that resolves to such. The lack of a result can be
-	 * signaled by returning `undefined` or `null`.
+	 * @returns One or multiple call hierarchy items or a thenable that resolves to such. The lack of a result can be
+	 * signaled by returning `undefined`, `null`, or an empty array.
 	 */
 	function prepareCallHierarchy(document:TextDocument, position:Position,
 		token:CancellationToken):ProviderResult<Null<EitherType<CallHierarchyItem, Array<CallHierarchyItem>>>>;

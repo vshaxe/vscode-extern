@@ -21,9 +21,8 @@ typedef InlineValuesProvider = {
 	 * @param viewPort The visible document range for which inline values should be computed.
 	 * @param context A bag containing contextual information like the current location.
 	 * @param token A cancellation token.
-	 * @return An array of InlineValueDescriptors or a thenable that resolves to such. The lack of a result can be
+	 * @returns An array of InlineValueDescriptors or a thenable that resolves to such. The lack of a result can be
 	 * signaled by returning `undefined` or `null`.
 	 */
-	function provideInlineValues(document:TextDocument, viewPort:Range, context:InlineValueContext,
-		token:CancellationToken):ProviderResult<Array<InlineValue>>;
+	function provideInlineValues(document:TextDocument, viewPort:Range, context:InlineValueContext, token:CancellationToken):ProviderResult<Array<InlineValue>>;
 }

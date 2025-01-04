@@ -178,6 +178,9 @@ extern class Vscode {
 	static var tests(default, null):VscodeTests;
 }
 
+/**
+ * Namespace describing the environment the editor runs in.
+ */
 extern class VscodeEnv {
 	/**
 	 * The application name of the editor, like 'VS Code'.
@@ -193,7 +196,10 @@ extern class VscodeEnv {
 	var appRoot(default, null):String;
 
 	/**
-	 * The environment in which the app is hosted in. i.e. 'desktop', 'codespaces', 'web'.
+	 * The hosted location of the application
+	 * On desktop this is 'desktop'
+	 * In the web this is the specified embedder i.e. 'github.dev', 'codespaces', or 'web' if the embedder
+	 * does not provide that information
 	 */
 	var appHost(default, null):String;
 
@@ -242,6 +248,21 @@ extern class VscodeEnv {
 	var onDidChangeTelemetryEnabled(default, null):Event<Bool>;
 
 	/**
+	 * An {@link Event} which fires when the default shell changes. This fires with the new
+	 * shell path.
+	 */
+	var onDidChangeShell(default, null):Event<String>;
+
+	/**
+	 * Creates a new {@link TelemetryLogger telemetry logger}.
+	 *
+	 * @param sender The telemetry sender that is used by the telemetry logger.
+	 * @param options Options for the telemetry logger.
+	 * @returns A new telemetry logger
+	 */
+	function createTelemetryLogger(sender:TelemetrySender, ?options:TelemetryLoggerOptions):TelemetryLogger;
+
+	/**
 	 * The name of a remote. Defined by extensions, popular samples are `wsl` for the Windows
 	 * Subsystem for Linux or `ssh-remote` for remotes using a secure shell.
 	 *
@@ -254,7 +275,7 @@ extern class VscodeEnv {
 
 	/**
 	 * The detected default shell for the extension host, this is overridden by the
-	 * `terminal.integrated.shell` setting for the extension host's platform. Note that in
+	 * `terminal.integrated.defaultProfile` setting for the extension host's platform. Note that in
 	 * environments that do not support a shell the value is the empty string.
 	 */
 	var shell(default, null):String;
@@ -319,12 +340,12 @@ extern class VscodeEnv {
 	 *   }
 	 * });
 	 *
-	 * const callableUri = await vscode.env.asExternalUri(vscode.Uri.parse(`${vscode.env.uriScheme}://my.extension/did-authenticate`));
+	 * const callableUri = await vscode.env.asExternalUri(vscode.Uri.parse(vscode.env.uriScheme + '://my.extension/did-authenticate'));
 	 * await vscode.env.openExternal(callableUri);
 	 * ```
 	 *
 	 * *Note* that extensions should not cache the result of `asExternalUri` as the resolved uri may become invalid due to
-	 * a system or user action — for example, in remote cases, a user may close a port forwarding tunnel that was opened by
+	 * a system or user action — for example, in remote cases, a user may close a port forwarding tunnel that was opened by
 	 * `asExternalUri`.
 	 *
 	 * #### Any other scheme
@@ -332,11 +353,57 @@ extern class VscodeEnv {
 	 * Any other scheme will be handled as if the provided URI is a workspace URI. In that case, the method will return
 	 * a URI which, when handled, will make the editor open the workspace.
 	 *
-	 * @return A uri that can be used on the client machine.
+	 * @returns A uri that can be used on the client machine.
 	 */
 	function asExternalUri(target:Uri):Thenable<Uri>;
+
+	/**
+	 * The current log level of the editor.
+	 */
+	var logLevel(default, null):LogLevel;
+
+	/**
+	 * An {@link Event} which fires when the log level of the editor changes.
+	 */
+	var onDidChangeLogLevel(default, null):Event<LogLevel>;
 }
 
+/**
+ * Namespace for dealing with commands. In short, a command is a function with a
+ * unique identifier. The function is sometimes also called _command handler_.
+ *
+ * Commands can be added to the editor using the {@link commands.registerCommand registerCommand}
+ * and {@link commands.registerTextEditorCommand registerTextEditorCommand} functions. Commands
+ * can be executed {@link commands.executeCommand manually} or from a UI gesture. Those are:
+ *
+ * * palette - Use the `commands`-section in `package.json` to make a command show in
+ * the [command palette](https://code.visualstudio.com/docs/getstarted/userinterface#_command-palette).
+ * * keybinding - Use the `keybindings`-section in `package.json` to enable
+ * [keybindings](https://code.visualstudio.com/docs/getstarted/keybindings#_advanced-customization)
+ * for your extension.
+ *
+ * Commands from other extensions and from the editor itself are accessible to an extension. However,
+ * when invoking an editor command not all argument types are supported.
+ *
+ * This is a sample that registers a command handler and adds an entry for that command to the palette. First
+ * register a command handler with the identifier `extension.sayHello`.
+ * ```javascript
+ * commands.registerCommand('extension.sayHello', () => {
+ * 	window.showInformationMessage('Hello World!');
+ * });
+ * ```
+ * Second, bind the command identifier to a title under which it will show in the palette (`package.json`).
+ * ```json
+ * {
+ * 	"contributes": {
+ * 		"commands": [{
+ * 			"command": "extension.sayHello",
+ * 			"title": "Hello World"
+ * 		}]
+ * 	}
+ * }
+ * ```
+ */
 extern class VscodeCommands {
 	/**
 	 * Registers a command that can be invoked via a keyboard shortcut,
@@ -348,7 +415,7 @@ extern class VscodeCommands {
 	 * @param command A unique identifier for the command.
 	 * @param callback A command handler function.
 	 * @param thisArg The `this` context used when invoking the handler function.
-	 * @return Disposable which unregisters this command on disposal.
+	 * @returns Disposable which unregisters this command on disposal.
 	 */
 	function registerCommand(command:String, callback:Function, ?thisArg:Any):Disposable;
 
@@ -365,7 +432,7 @@ extern class VscodeCommands {
 	 * @param command A unique identifier for the command.
 	 * @param callback A command handler function with access to an {@link TextEditor editor} and an {@link TextEditorEdit edit}.
 	 * @param thisArg The `this` context used when invoking the handler function.
-	 * @return Disposable which unregisters this command on disposal.
+	 * @returns Disposable which unregisters this command on disposal.
 	 */
 	// TODO callback should receive Rest really
 	function registerTextEditorCommand(command:String, callback:TextEditor->TextEditorEdit->Void, ?thisArg:Any):Disposable;
@@ -381,22 +448,27 @@ extern class VscodeCommands {
 	 *
 	 * @param command Identifier of the command to execute.
 	 * @param rest Parameters passed to the command function.
-	 * @return A thenable that resolves to the returned value of the given command. `undefined` when
+	 * @returns A thenable that resolves to the returned value of the given command. Returns `undefined` when
 	 * the command handler function doesn't return anything.
 	 */
-	function executeCommand<T>(command:String, rest:Rest<Any>):Thenable<Null<T>>;
+	function executeCommand<T>(command:String, rest:Rest<Any>):Thenable<T>;
 
 	/**
 	 * Retrieve the list of all available commands. Commands starting with an underscore are
 	 * treated as internal commands.
 	 *
 	 * @param filterInternal Set `true` to not see internal commands (starting with an underscore)
-	 * @return Thenable that resolves to a list of command ids.
+	 * @returns Thenable that resolves to a list of command ids.
 	 */
 	function getCommands(?filterInternal:Bool):Thenable<Array<String>>;
 }
 
 extern class VscodeWindow {
+	/**
+	 * Represents the grid widget within the main editor area
+	 */
+	var tabGroups(default, null):TabGroups;
+
 	/**
 	 * The currently active editor or `undefined`. The active editor is the one
 	 * that currently has focus or, when none has focus, the one that has changed
@@ -407,7 +479,7 @@ extern class VscodeWindow {
 	/**
 	 * The currently visible editors or an empty array.
 	 */
-	var visibleTextEditors:Array<TextEditor>;
+	var visibleTextEditors:ReadOnlyArray<TextEditor>;
 
 	/**
 	 * An {@link Event} which fires when the {@link window.activeTextEditor active editor}
@@ -420,7 +492,7 @@ extern class VscodeWindow {
 	 * An {@link Event} which fires when the array of {@link window.visibleTextEditors visible editors}
 	 * has changed.
 	 */
-	var onDidChangeVisibleTextEditors(default, null):Event<Array<TextEditor>>;
+	var onDidChangeVisibleTextEditors(default, null):Event<ReadOnlyArray<TextEditor>>;
 
 	/**
 	 * An {@link Event} which fires when the selection in an editor has changed.
@@ -441,6 +513,43 @@ extern class VscodeWindow {
 	 * An {@link Event} which fires when the view column of an editor has changed.
 	 */
 	var onDidChangeTextEditorViewColumn(default, null):Event<TextEditorViewColumnChangeEvent>;
+
+	/**
+	 * The currently visible {@link NotebookEditor notebook editors} or an empty array.
+	 */
+	var visibleNotebookEditors(default, null):ReadOnlyArray<NotebookEditor>;
+
+	/**
+	 * An {@link Event} which fires when the {@link window.visibleNotebookEditors visible notebook editors}
+	 * has changed.
+	 */
+	var onDidChangeVisibleNotebookEditors(default, null):Event<ReadOnlyArray<NotebookEditor>>;
+
+	/**
+	 * The currently active {@link NotebookEditor notebook editor} or `undefined`. The active editor is the one
+	 * that currently has focus or, when none has focus, the one that has changed
+	 * input most recently.
+	 */
+	var activeNotebookEditor(default, null):Null<NotebookEditor>;
+
+	/**
+	 * An {@link Event} which fires when the {@link window.activeNotebookEditor active notebook editor}
+	 * has changed. *Note* that the event also fires when the active editor changes
+	 * to `undefined`.
+	 */
+	var onDidChangeActiveNotebookEditor(default, null):Event<Null<NotebookEditor>>;
+
+	/**
+	 * An {@link Event} which fires when the {@link NotebookEditor.selections notebook editor selections}
+	 * have changed.
+	 */
+	var onDidChangeNotebookEditorSelection(default, null):Event<NotebookEditorSelectionChangeEvent>;
+
+	/**
+	 * An {@link Event} which fires when the {@link NotebookEditor.visibleRanges notebook editor visible ranges}
+	 * have changed.
+	 */
+	var onDidChangeNotebookEditorVisibleRanges(default, null):Event<NotebookEditorVisibleRangesChangeEvent>;
 
 	/**
 	 * The currently opened terminals or an empty array.
@@ -472,12 +581,36 @@ extern class VscodeWindow {
 	var onDidCloseTerminal(default, null):Event<Terminal>;
 
 	/**
+	 * An {@link Event} which fires when a {@link Terminal.state terminal's state} has changed.
+	 */
+	var onDidChangeTerminalState(default, null):Event<Terminal>;
+
+	/**
+	 * Fires when shell integration activates or one of its properties changes in a terminal.
+	 */
+	var onDidChangeTerminalShellIntegration(default, null):Event<TerminalShellIntegrationChangeEvent>;
+
+	/**
+	 * This will be fired when a terminal command is started. This event will fire only when
+	 * [shell integration](https://code.visualstudio.com/docs/terminal/shell-integration) is
+	 * activated for the terminal.
+	 */
+	var onDidStartTerminalShellExecution(default, null):Event<TerminalShellExecutionStartEvent>;
+
+	/**
+	 * This will be fired when a terminal command is ended. This event will fire only when
+	 * [shell integration](https://code.visualstudio.com/docs/terminal/shell-integration) is
+	 * activated for the terminal.
+	 */
+	var onDidEndTerminalShellExecution(default, null):Event<TerminalShellExecutionEndEvent>;
+
+	/**
 	 * Represents the current window's state.
 	 */
 	var state(default, null):WindowState;
 
 	/**
-	 * An {@link Event} which fires when the focus state of the current window
+	 * An {@link Event} which fires when the focus or activity state of the current window
 	 * changes. The value of the event represents whether the window is focused.
 	 */
 	var onDidChangeWindowState(default, null):Event<WindowState>;
@@ -487,23 +620,73 @@ extern class VscodeWindow {
 	 * to control where the editor is being shown. Might change the {@link window.activeTextEditor active editor}.
 	 *
 	 * @param document A text document to be shown.
-	 * @param column A view column in which the {@link TextEditor editor} should be shown. The default is the {@link ViewColumn.Active active}, other values
-	 * are adjusted to be `Min(column, columnCount + 1)`, the {@link ViewColumn.Active active}-column is not adjusted. Use {@linkcode ViewColumn.Beside}
+	 * @param column A view column in which the {@link TextEditor editor} should be shown. The default is the {@link ViewColumn.Active active}.
+	 * Columns that do not exist will be created as needed up to the maximum of {@linkcode ViewColumn.Nine}. Use {@linkcode ViewColumn.Beside}
 	 * to open the editor to the side of the currently active one.
 	 * @param preserveFocus When `true` the editor will not take focus.
-	 * @return A promise that resolves to an {@link TextEditor editor}.
+	 * @returns A promise that resolves to an {@link TextEditor editor}.
 	 */
-	@:overload(function(uri:Uri, ?options:TextDocumentShowOptions):Thenable<TextEditor> {})
-	@:overload(function(document:TextDocument, ?options:TextDocumentShowOptions):Thenable<TextEditor> {})
-	function showTextDocument(document:TextDocument, ?column:ViewColumn, ?preserveFocus:Bool):Thenable<TextEditor>;
+	overload function showTextDocument(document:TextDocument, ?column:ViewColumn, ?preserveFocus:Bool):Thenable<TextEditor>;
+
+	/**
+	 * A short-hand for `openTextDocument(uri).then(document => showTextDocument(document, options))`.
+	 *
+	 * @see {@link workspace.openTextDocument}
+	 *
+	 * @param uri A resource identifier.
+	 * @param options {@link TextDocumentShowOptions Editor options} to configure the behavior of showing the {@link TextEditor editor}.
+	 * @returns A promise that resolves to an {@link TextEditor editor}.
+	 */
+	overload function showTextDocument(uri:Uri, ?options:TextDocumentShowOptions):Thenable<TextEditor>;
+
+	/**
+	 * Show the given document in a text editor. {@link TextDocumentShowOptions Options} can be provided
+	 * to control options of the editor is being shown. Might change the {@link window.activeTextEditor active editor}.
+	 *
+	 * @param document A text document to be shown.
+	 * @param options {@link TextDocumentShowOptions Editor options} to configure the behavior of showing the {@link TextEditor editor}.
+	 * @returns A promise that resolves to an {@link TextEditor editor}.
+	 */
+	overload function showTextDocument(document:TextDocument, ?options:TextDocumentShowOptions):Thenable<TextEditor>;
+
+	/**
+	 * Show the given {@link NotebookDocument} in a {@link NotebookEditor notebook editor}.
+	 *
+	 * @param document A text document to be shown.
+	 * @param options {@link NotebookDocumentShowOptions Editor options} to configure the behavior of showing the {@link NotebookEditor notebook editor}.
+	 *
+	 * @returns A promise that resolves to an {@link NotebookEditor notebook editor}.
+	 */
+	function showNotebookDocument(document:NotebookDocument, ?options:NotebookDocumentShowOptions):Thenable<NotebookEditor>;
 
 	/**
 	 * Create a TextEditorDecorationType that can be used to add decorations to text editors.
 	 *
 	 * @param options Rendering options for the decoration type.
-	 * @return A new decoration type instance.
+	 * @returns A new decoration type instance.
 	 */
 	function createTextEditorDecorationType(options:DecorationRenderOptions):TextEditorDecorationType;
+
+	/**
+	 * Show an information message to users. Optionally provide an array of items which will be presented as
+	 * clickable buttons.
+	 *
+	 * @param message The message to show.
+	 * @param items A set of items that will be rendered as actions in the message.
+	 * @returns A thenable that resolves to the selected item or `undefined` when being dismissed.
+	 */
+	overload function showInformationMessage(message:String, items:Rest<String>):Thenable<Null<String>>;
+
+	/**
+	 * Show an information message to users. Optionally provide an array of items which will be presented as
+	 * clickable buttons.
+	 *
+	 * @param message The message to show.
+	 * @param options Configures the behaviour of the message.
+	 * @param items A set of items that will be rendered as actions in the message.
+	 * @returns A thenable that resolves to the selected item or `undefined` when being dismissed.
+	 */
+	overload function showInformationMessage(message:String, options:MessageOptions, items:Rest<String>):Thenable<Null<String>>;
 
 	/**
 	 * Show an information message.
@@ -512,31 +695,32 @@ extern class VscodeWindow {
 	 *
 	 * @param message The message to show.
 	 * @param items A set of items that will be rendered as actions in the message.
-	 * @param options Configures the behaviour of the message.
-	 * @return A thenable that resolves to the selected item or `undefined` when being dismissed.
+	 * @returns A thenable that resolves to the selected item or `undefined` when being dismissed.
 	 */
-	// TODO overload plox
-	// /**
-	//  * Show an information message to users. Optionally provide an array of items which will be presented as
-	//  * clickable buttons.
-	//  *
-	//  * @param message The message to show.
-	//  * @param items A set of items that will be rendered as actions in the message.
-	//  * @return A thenable that resolves to the selected item or `undefined` when being dismissed.
-	//  */
-	// /**
-	//  * Show an information message to users. Optionally provide an array of items which will be presented as
-	//  * clickable buttons.
-	//  *
-	//  * @param message The message to show.
-	//  * @param options Configures the behaviour of the message.
-	//  * @param items A set of items that will be rendered as actions in the message.
-	//  * @return A thenable that resolves to the selected item or `undefined` when being dismissed.
-	//  */
-	@:overload(function<T:MessageItem>(message:String, items:Rest<T>):Thenable<Null<T>> {})
-	@:overload(function<T:MessageItem>(message:String, options:MessageOptions, items:Rest<T>):Thenable<Null<T>> {})
-	@:overload(function(message:String, items:Rest<String>):Thenable<Null<String>> {})
-	function showInformationMessage(message:String, options:MessageOptions, items:Rest<String>):Thenable<Null<String>>;
+	overload function showInformationMessage<T:MessageItem>(message:String, items:Rest<T>):Thenable<Null<T>>;
+
+	/**
+	 * Show an information message.
+	 *
+	 * @see {@link window.showInformationMessage showInformationMessage}
+	 *
+	 * @param message The message to show.
+	 * @param options Configures the behaviour of the message.
+	 * @param items A set of items that will be rendered as actions in the message.
+	 * @returns A thenable that resolves to the selected item or `undefined` when being dismissed.
+	 */
+	overload function showInformationMessage<T:MessageItem>(message:String, options:MessageOptions, items:Rest<T>):Thenable<Null<T>>;
+
+	/**
+	 * Show a warning message.
+	 *
+	 * @see {@link window.showInformationMessage showInformationMessage}
+	 *
+	 * @param message The message to show.
+	 * @param items A set of items that will be rendered as actions in the message.
+	 * @returns A thenable that resolves to the selected item or `undefined` when being dismissed.
+	 */
+	overload function showWarningMessage(message:String, items:Rest<String>):Thenable<Null<String>>;
 
 	/**
 	 * Show a warning message.
@@ -546,12 +730,43 @@ extern class VscodeWindow {
 	 * @param message The message to show.
 	 * @param options Configures the behaviour of the message.
 	 * @param items A set of items that will be rendered as actions in the message.
-	 * @return A thenable that resolves to the selected item or `undefined` when being dismissed.
+	 * @returns A thenable that resolves to the selected item or `undefined` when being dismissed.
 	 */
-	@:overload(function<T:MessageItem>(message:String, items:Rest<T>):Thenable<Null<T>> {})
-	@:overload(function<T:MessageItem>(message:String, options:MessageOptions, items:Rest<T>):Thenable<Null<T>> {})
-	@:overload(function(message:String, items:Rest<String>):Thenable<Null<String>> {})
-	function showWarningMessage(message:String, options:MessageOptions, items:Rest<String>):Thenable<Null<String>>;
+	overload function showWarningMessage(message:String, options:MessageOptions, items:Rest<String>):Thenable<Null<String>>;
+
+	/**
+	 * Show a warning message.
+	 *
+	 * @see {@link window.showInformationMessage showInformationMessage}
+	 *
+	 * @param message The message to show.
+	 * @param items A set of items that will be rendered as actions in the message.
+	 * @returns A thenable that resolves to the selected item or `undefined` when being dismissed.
+	 */
+	overload function showWarningMessage<T:MessageItem>(message:String, items:Rest<T>):Thenable<Null<T>>;
+
+	/**
+	 * Show a warning message.
+	 *
+	 * @see {@link window.showInformationMessage showInformationMessage}
+	 *
+	 * @param message The message to show.
+	 * @param options Configures the behaviour of the message.
+	 * @param items A set of items that will be rendered as actions in the message.
+	 * @returns A thenable that resolves to the selected item or `undefined` when being dismissed.
+	 */
+	overload function showWarningMessage<T:MessageItem>(message:String, options:MessageOptions, items:Rest<T>):Thenable<Null<T>>;
+
+	/**
+	 * Show an error message.
+	 *
+	 * @see {@link window.showInformationMessage showInformationMessage}
+	 *
+	 * @param message The message to show.
+	 * @param items A set of items that will be rendered as actions in the message.
+	 * @returns A thenable that resolves to the selected item or `undefined` when being dismissed.
+	 */
+	overload function showErrorMessage(message:String, items:Rest<String>):Thenable<Null<String>>;
 
 	/**
 	 * Show an error message.
@@ -561,24 +776,53 @@ extern class VscodeWindow {
 	 * @param message The message to show.
 	 * @param options Configures the behaviour of the message.
 	 * @param items A set of items that will be rendered as actions in the message.
-	 * @return A thenable that resolves to the selected item or `undefined` when being dismissed.
+	 * @returns A thenable that resolves to the selected item or `undefined` when being dismissed.
 	 */
-	@:overload(function<T:MessageItem>(message:String, items:Rest<T>):Thenable<Null<T>> {})
-	@:overload(function<T:MessageItem>(message:String, options:MessageOptions, items:Rest<T>):Thenable<Null<T>> {})
-	@:overload(function(message:String, items:Rest<String>):Thenable<Null<String>> {})
-	function showErrorMessage(message:String, options:MessageOptions, items:Rest<String>):Thenable<Null<String>>;
+	overload function showErrorMessage(message:String, options:MessageOptions, items:Rest<String>):Thenable<Null<String>>;
 
 	/**
-	 * Shows a selection list.
+	 * Show an error message.
+	 *
+	 * @see {@link window.showInformationMessage showInformationMessage}
+	 *
+	 * @param message The message to show.
+	 * @param items A set of items that will be rendered as actions in the message.
+	 * @returns A thenable that resolves to the selected item or `undefined` when being dismissed.
+	 */
+	overload function showErrorMessage<T:MessageItem>(message:String, items:Rest<T>):Thenable<Null<T>>;
+
+	/**
+	 * Show an error message.
+	 *
+	 * @see {@link window.showInformationMessage showInformationMessage}
+	 *
+	 * @param message The message to show.
+	 * @param options Configures the behaviour of the message.
+	 * @param items A set of items that will be rendered as actions in the message.
+	 * @returns A thenable that resolves to the selected item or `undefined` when being dismissed.
+	 */
+	overload function showErrorMessage<T:MessageItem>(message:String, options:MessageOptions, items:Rest<T>):Thenable<Null<T>>;
+
+	/**
+	 * Shows a selection list allowing multiple selections.
 	 *
 	 * @param items An array of strings, or a promise that resolves to an array of strings.
 	 * @param options Configures the behavior of the selection list.
 	 * @param token A token that can be used to signal cancellation.
-	 * @return A promise that resolves to the selection or `undefined`.
+	 * @returns A promise that resolves to the selected items or `undefined`.
 	 */
-	@:overload(function(items:EitherType<ReadOnlyArray<String>, Thenable<ReadOnlyArray<String>>>, ?options:QuickPickOptions,
-		?token:CancellationToken):Thenable<Null<String>> {})
-	function showQuickPick<T:QuickPickItem>(items:EitherType<ReadOnlyArray<T>, Thenable<ReadOnlyArray<T>>>, ?options:QuickPickOptions,
+	overload function showQuickPick(items:EitherType<ReadOnlyArray<String>, Thenable<ReadOnlyArray<String>>>, ?options:QuickPickOptions,
+		?token:CancellationToken):Thenable<Null<String>>;
+
+	/**
+	 * Shows a selection list allowing multiple selections.
+	 *
+	 * @param items An array of items, or a promise that resolves to an array of items.
+	 * @param options Configures the behavior of the selection list.
+	 * @param token A token that can be used to signal cancellation.
+	 * @returns A promise that resolves to the selected items or `undefined`.
+	 */
+	overload function showQuickPick<T:QuickPickItem>(items:EitherType<ReadOnlyArray<T>, Thenable<ReadOnlyArray<T>>>, ?options:QuickPickOptions,
 		?token:CancellationToken):Thenable<Null<T>>;
 
 	/**
@@ -587,7 +831,7 @@ extern class VscodeWindow {
 	 * @param items An array of items, or a promise that resolves to an array of items.
 	 * @param options Configures the behavior of the selection list.
 	 * @param token A token that can be used to signal cancellation.
-	 * @return A promise that resolves to the selected items or `undefined`.
+	 * @returns A promise that resolves to the selected items or `undefined`.
 	 */
 	// see #13 for details on why this is needed
 	extern inline function showQuickPickMany<T:QuickPickItem>(items:EitherType<ReadOnlyArray<T>, Thenable<ReadOnlyArray<T>>>, ?options:QuickPickOptions,
@@ -604,7 +848,7 @@ extern class VscodeWindow {
 	 * Returns `undefined` if no folder is open.
 	 *
 	 * @param options Configures the behavior of the workspace folder list.
-	 * @return A promise that resolves to the workspace folder or `undefined`.
+	 * @returns A promise that resolves to the workspace folder or `undefined`.
 	 */
 	function showWorkspaceFolderPick(?options:WorkspaceFolderPickOptions):Thenable<Null<WorkspaceFolder>>;
 
@@ -635,7 +879,7 @@ extern class VscodeWindow {
 	 *
 	 * @param options Configures the behavior of the input box.
 	 * @param token A token that can be used to signal cancellation.
-	 * @return A promise that resolves to a string the user provided or to `undefined` in case of dismissal.
+	 * @returns A promise that resolves to a string the user provided or to `undefined` in case of dismissal.
 	 */
 	function showInputBox(?options:InputBoxOptions, ?token:CancellationToken):Thenable<Null<String>>;
 
@@ -647,7 +891,7 @@ extern class VscodeWindow {
 	 * is easier to use. {@link window.createQuickPick} should be used
 	 * when {@link window.showQuickPick} does not offer the required flexibility.
 	 *
-	 * @return A new {@link QuickPick}.
+	 * @returns A new {@link QuickPick}.
 	 */
 	function createQuickPick<T:QuickPickItem>():QuickPick<T>;
 
@@ -658,16 +902,31 @@ extern class VscodeWindow {
 	 * is easier to use. {@link window.createInputBox} should be used
 	 * when {@link window.showInputBox} does not offer the required flexibility.
 	 *
-	 * @return A new {@link InputBox}.
+	 * @returns A new {@link InputBox}.
 	 */
 	function createInputBox():InputBox;
 
 	/**
-	 * Creates a new {@link OutputChannel output channel} with the given name.
+	 * Creates a new {@link OutputChannel output channel} with the given name and language id
+	 * If language id is not provided, then **Log** is used as default language id.
+	 *
+	 * You can access the visible or active output channel as a {@link TextDocument text document} from {@link window.visibleTextEditors visible editors} or {@link window.activeTextEditor active editor}
+	 * and use the language id to contribute language features like syntax coloring, code lens etc.,
 	 *
 	 * @param name Human-readable string which will be used to represent the channel in the UI.
+	 * @param languageId The identifier of the language associated with the channel.
+	 * @returns A new output channel.
 	 */
-	function createOutputChannel(name:String):OutputChannel;
+	overload function createOutputChannel(name:String, ?languageId:String):OutputChannel;
+
+	/**
+	 * Creates a new {@link LogOutputChannel log output channel} with the given name.
+	 *
+	 * @param name Human-readable string which will be used to represent the channel in the UI.
+	 * @param options Options for the log output channel.
+	 * @returns A new log output channel.
+	 */
+	overload function createOutputChannel(name:String, options:{/** literal-type defines return type */ log:Bool}):LogOutputChannel;
 
 	/**
 	 * Create and show a new webview panel.
@@ -677,26 +936,50 @@ extern class VscodeWindow {
 	 * @param showOptions Where to show the webview in the editor. If preserveFocus is set, the new webview will not take focus.
 	 * @param options Settings for the new panel.
 	 *
-	 * @return New webview panel.
+	 * @returns New webview panel.
 	 */
-	function createWebviewPanel(viewType:String, title:String, showOptions:EitherType<ViewColumn, {viewColumn:ViewColumn, ?preserveFocus:Bool}>,
-		?options:WebviewPanelOptions & WebviewOptions):WebviewPanel;
+	function createWebviewPanel(viewType:String, title:String, showOptions:EitherType<ViewColumn, {
+		/**
+		 * The view column in which the {@link WebviewPanel} should be shown.
+		 */
+		viewColumn:ViewColumn,
+		/**
+		 * An optional flag that when `true` will stop the panel from taking focus.
+		 */
+		?preserveFocus:Bool
+	}>, ?options:WebviewPanelOptions & WebviewOptions):WebviewPanel;
 
 	/**
 	 * Set a message to the status bar. This is a short hand for the more powerful
 	 * status bar {@link window.createStatusBarItem items}.
 	 *
-	 * *Note* that status bar messages without hide arguments stack and that they must be disposed when no
+	 * @param text The message to show, supports icon substitution as in status bar {@link StatusBarItem.text items}.
+	 * @param hideAfterTimeout Timeout in milliseconds after which the message will be disposed.
+	 * @returns A disposable which hides the status bar message.
+	 */
+	overload function setStatusBarMessage(text:String, hideAfterTimeout:Float):Disposable;
+
+	/**
+	 * Set a message to the status bar. This is a short hand for the more powerful
+	 * status bar {@link window.createStatusBarItem items}.
+	 *
+	 * @param text The message to show, supports icon substitution as in status bar {@link StatusBarItem.text items}.
+	 * @param hideWhenDone Thenable on which completion (resolve or reject) the message will be disposed.
+	 * @returns A disposable which hides the status bar message.
+	 */
+	overload function setStatusBarMessage(text:String, hideWhenDone:Thenable<Dynamic>):Disposable;
+
+	/**
+	 * Set a message to the status bar. This is a short hand for the more powerful
+	 * status bar {@link window.createStatusBarItem items}.
+	 *
+	 * *Note* that status bar messages stack and that they must be disposed when no
 	 * longer used.
 	 *
 	 * @param text The message to show, supports icon substitution as in status bar {@link StatusBarItem.text items}.
-	 * @param hideAfterTimeout Timeout in milliseconds after which the message will be disposed.
-	 * @param hideWhenDone Thenable on which completion (resolve or reject) the message will be disposed.
-	 * @return A disposable which hides the status bar message.
+	 * @returns A disposable which hides the status bar message.
 	 */
-	@:overload(function(text:String, hideAfterTimeout:Float):Disposable {})
-	@:overload(function(text:String, hideWhenDone:Thenable<Dynamic>):Disposable {})
-	function setStatusBarMessage(text:String):Disposable;
+	overload function setStatusBarMessage(text:String):Disposable;
 
 	/**
 	 * Show progress in the Source Control viewlet while running the given callback and while
@@ -706,7 +989,7 @@ extern class VscodeWindow {
 	 *
 	 * @param task A callback returning a promise. Progress increments can be reported with
 	 * the provided {@link Progress}-object.
-	 * @return The thenable the task did return.
+	 * @returns The thenable the task did return.
 	 */
 	@:deprecated("Use `withProgress` instead.")
 	function withScmProgress<R>(task:Progress<Float>->Thenable<R>):Thenable<R>;
@@ -716,6 +999,7 @@ extern class VscodeWindow {
 	 * and while the promise it returned isn't resolved nor rejected. The location at which
 	 * progress should show (and other details) is defined via the passed {@linkcode ProgressOptions}.
 	 *
+	 * @param options A {@linkcode ProgressOptions}-object describing the options to use for showing progress, like its location
 	 * @param task A callback returning a promise. Progress state can be reported with
 	 * the provided {@link Progress}-object.
 	 *
@@ -728,20 +1012,38 @@ extern class VscodeWindow {
 	 * Note that currently only `ProgressLocation.Notification` is supporting to show a cancel button to cancel the
 	 * long running operation.
 	 *
-	 * @return The thenable the task-callback returned.
+	 * @returns The thenable the task-callback returned.
 	 */
-	function withProgress<R>(options:ProgressOptions, task:Progress<{?message:String, ?increment:Float}>->CancellationToken->Thenable<R>):Thenable<R>;
+	function withProgress<R>(options:ProgressOptions, task:Progress<{
+		/**
+		 * A progress message that represents a chunk of work
+		 */
+		?message:String,
+		/**
+		 * An increment for discrete progress. Increments will be summed up until 100% is reached
+		 */
+		?increment:Float
+	}>->CancellationToken->Thenable<R>):Thenable<R>;
 
 	/**
 	 * Creates a status bar {@link StatusBarItem item}.
 	 *
-	 * @param id The unique identifier of the item.
+	 * @param id The identifier of the item. Must be unique within the extension.
 	 * @param alignment The alignment of the item.
 	 * @param priority The priority of the item. Higher values mean the item should be shown more to the left.
-	 * @return A new status bar item.
+	 * @returns A new status bar item.
 	 */
-	@:overload(function(id:String, ?alignment:StatusBarAlignment, ?priority:Float):StatusBarItem {})
-	function createStatusBarItem(?alignment:StatusBarAlignment, ?priority:Float):StatusBarItem;
+	overload function createStatusBarItem(id:String, ?alignment:StatusBarAlignment, ?priority:Float):StatusBarItem;
+
+	/**
+	 * Creates a status bar {@link StatusBarItem item}.
+	 *
+	 * @see {@link createStatusBarItem} for creating a status bar item with an identifier.
+	 * @param alignment The alignment of the item.
+	 * @param priority The priority of the item. Higher values mean the item should be shown more to the left.
+	 * @returns A new status bar item.
+	 */
+	overload function createStatusBarItem(?alignment:StatusBarAlignment, ?priority:Float):StatusBarItem;
 
 	/**
 	 * Creates a {@link Terminal} with a backing shell process. The cwd of the terminal will be the workspace
@@ -752,15 +1054,28 @@ extern class VscodeWindow {
 	 * @param shellArgs Optional args for the custom shell executable. A string can be used on Windows only which
 	 * allows specifying shell args in
 	 * [command-line format](https://msdn.microsoft.com/en-au/08dfcab2-eb6e-49a4-80eb-87d4076c98c6).
-	 * @param options A TerminalOptions object describing the characteristics of the new terminal.
-	 * @param options An {@link ExtensionTerminalOptions} object describing
-	 * the characteristics of the new terminal.
-	 * @return A new Terminal.
+	 * @returns A new Terminal.
 	 * @throws When running in an environment where a new process cannot be started.
 	 */
-	@:overload(function(options:TerminalOptions):Terminal {})
-	@:overload(function(options:ExtensionTerminalOptions):Terminal {})
-	function createTerminal(?name:String, ?shellPath:String, ?shellArgs:EitherType<Array<String>, String>):Terminal;
+	overload function createTerminal(?name:String, ?shellPath:String, ?shellArgs:EitherType<ReadOnlyArray<String>, String>):Terminal;
+
+	/**
+	 * Creates a {@link Terminal} with a backing shell process.
+	 *
+	 * @param options A TerminalOptions object describing the characteristics of the new terminal.
+	 * @returns A new Terminal.
+	 * @throws When running in an environment where a new process cannot be started.
+	 */
+	overload function createTerminal(options:TerminalOptions):Terminal;
+
+	/**
+	 * Creates a {@link Terminal} where an extension controls its input and output.
+	 *
+	 * @param options An {@link ExtensionTerminalOptions} object describing
+	 * the characteristics of the new terminal.
+	 * @returns A new Terminal.
+	 */
+	overload function createTerminal(options:ExtensionTerminalOptions):Terminal;
 
 	/**
 	 * Register a {@link TreeDataProvider} for the view contributed using the extension point `views`.
@@ -770,6 +1085,7 @@ extern class VscodeWindow {
 	 *
 	 * @param viewId Id of the view contributed using the extension point `views`.
 	 * @param treeDataProvider A {@link TreeDataProvider} that provides tree data for the view
+	 * @returns A {@link Disposable disposable} that unregisters the {@link TreeDataProvider}.
 	 */
 	function registerTreeDataProvider<T>(viewId:String, treeDataProvider:TreeDataProvider<T>):Disposable;
 
@@ -801,6 +1117,7 @@ extern class VscodeWindow {
 	 * the current extension is about to be handled.
 	 *
 	 * @param handler The uri handler to register for this extension.
+	 * @returns A {@link Disposable disposable} that unregisters the handler.
 	 */
 	function registerUriHandler(handler:UriHandler):Disposable;
 
@@ -808,12 +1125,13 @@ extern class VscodeWindow {
 	 * Registers a webview panel serializer.
 	 *
 	 * Extensions that support reviving should have an `"onWebviewPanel:viewType"` activation event and
-	 * make sure that {@link registerWebviewPanelSerializer} is called during activation.
+	 * make sure that `registerWebviewPanelSerializer` is called during activation.
 	 *
 	 * Only a single serializer may be registered at a time for a given `viewType`.
 	 *
 	 * @param viewType Type of the webview panel that can be serialized.
 	 * @param serializer Webview serializer.
+	 * @returns A {@link Disposable disposable} that unregisters the serializer.
 	 */
 	function registerWebviewPanelSerializer<T>(viewType:String, serializer:WebviewPanelSerializer<T>):Disposable;
 
@@ -824,7 +1142,7 @@ extern class VscodeWindow {
 	 *   `views` contribution in the package.json.
 	 * @param provider Provider for the webview views.
 	 *
-	 * @return Disposable that unregisters the provider.
+	 * @returns Disposable that unregisters the provider.
 	 */
 	function registerWebviewViewProvider(viewId:String, provider:WebviewViewProvider, ?options:{
 		/**
@@ -863,7 +1181,7 @@ extern class VscodeWindow {
 	 * @param provider Provider that resolves custom editors.
 	 * @param options Options for the provider.
 	 *
-	 * @return Disposable that unregisters the provider.
+	 * @returns Disposable that unregisters the provider.
 	 */
 	function registerCustomEditorProvider<T:CustomDocument>(viewType:String,
 		provider:EitherType<CustomTextEditorProvider, EitherType<CustomReadonlyEditorProvider<T>, CustomEditorProvider<T>>>, ?options:{
@@ -871,7 +1189,6 @@ extern class VscodeWindow {
 			 * Content settings for the webview panels created for this custom editor.
 			 */
 			final ?webviewOptions:WebviewPanelOptions;
-
 			/**
 			 * Only applies to `CustomReadonlyEditorProvider | CustomEditorProvider`.
 			 *
@@ -892,14 +1209,16 @@ extern class VscodeWindow {
 	/**
 	 * Register provider that enables the detection and handling of links within the terminal.
 	 * @param provider The provider that provides the terminal links.
-	 * @return Disposable that unregisters the provider.
+	 * @returns Disposable that unregisters the provider.
 	 */
 	function registerTerminalLinkProvider<T:TerminalLink>(provider:TerminalLinkProvider<T>):Disposable;
 
 	/**
 	 * Registers a provider for a contributed terminal profile.
+	 *
 	 * @param id The ID of the contributed terminal profile.
 	 * @param provider The terminal profile provider.
+	 * @returns A {@link Disposable disposable} that unregisters the provider.
 	 */
 	function registerTerminalProfileProvider(id:String, provider:TerminalProfileProvider):Disposable;
 
@@ -907,7 +1226,7 @@ extern class VscodeWindow {
 	 * Register a file decoration provider.
 	 *
 	 * @param provider A {@link FileDecorationProvider}.
-	 * @return A {@link Disposable} that unregisters the provider.
+	 * @returns A {@link Disposable} that unregisters the provider.
 	 */
 	function registerFileDecorationProvider(provider:FileDecorationProvider):Disposable;
 
@@ -928,7 +1247,7 @@ extern class VscodeExtensions {
 	 * Get an extension by its full identifier in the form of: `publisher.name`.
 	 *
 	 * @param extensionId An extension identifier.
-	 * @return An extension or `undefined`.
+	 * @returns An extension or `undefined`.
 	 */
 	function getExtension<T>(extensionId:String):Null<Extension<T>>;
 
@@ -944,6 +1263,9 @@ extern class VscodeExtensions {
 	var onDidChange(default, null):Event<Void>;
 }
 
+/**
+ * Namespace for source control mangement.
+ */
 extern class VscodeScm {
 	/**
 	 * The {@link SourceControlInputBox input box} for the last source control
@@ -960,7 +1282,7 @@ extern class VscodeScm {
 	 * @param id An `id` for the source control. Something short, e.g.: `git`.
 	 * @param label A human-readable string for the source control. E.g.: `Git`.
 	 * @param rootUri An optional Uri of the root of the source control. E.g.: `Uri.parse(workspaceRoot)`.
-	 * @return An instance of {@link SourceControl source control}.
+	 * @returns An instance of {@link SourceControl source control}.
 	 */
 	function createSourceControl(id:String, label:String, ?rootUri:Uri):SourceControl;
 }
@@ -968,7 +1290,7 @@ extern class VscodeScm {
 extern class VscodeLanguages {
 	/**
 	 * Return the identifiers of all known languages.
-	 * @return Promise resolving to an array of identifier strings.
+	 * @returns Promise resolving to an array of identifier strings.
 	 */
 	function getLanguages():Thenable<Array<String>>;
 
@@ -993,10 +1315,10 @@ extern class VscodeLanguages {
 	 * 1. When {@linkcode DocumentSelector} is an array, compute the match for each contained `DocumentFilter` or language identifier and take the maximum value.
 	 * 2. A string will be desugared to become the `language`-part of a {@linkcode DocumentFilter}, so `"fooLang"` is like `{ language: "fooLang" }`.
 	 * 3. A {@linkcode DocumentFilter} will be matched against the document by comparing its parts with the document. The following rules apply:
-	 *  1. When the `DocumentFilter` is empty (`{}`) the result is `0`
-	 *  2. When `scheme`, `language`, or `pattern` are defined but one doesn’t match, the result is `0`
-	 *  3. Matching against `*` gives a score of `5`, matching via equality or via a glob-pattern gives a score of `10`
-	 *  4. The result is the maximum value of each match
+	 *    1. When the `DocumentFilter` is empty (`{}`) the result is `0`
+	 *    2. When `scheme`, `language`, `pattern`, or `notebook` are defined but one doesn't match, the result is `0`
+	 *    3. Matching against `*` gives a score of `5`, matching via equality or via a glob-pattern gives a score of `10`
+	 *    4. The result is the maximum value of each match
 	 *
 	 * Samples:
 	 * ```js
@@ -1004,8 +1326,8 @@ extern class VscodeLanguages {
 	 * doc.uri; //'file:///my/file.js'
 	 * doc.languageId; // 'javascript'
 	 * match('javascript', doc); // 10;
-	 * match({language: 'javascript'}, doc); // 10;
-	 * match({language: 'javascript', scheme: 'file'}, doc); // 10;
+	 * match({ language: 'javascript' }, doc); // 10;
+	 * match({ language: 'javascript', scheme: 'file' }, doc); // 10;
 	 * match('*', doc); // 5
 	 * match('fooLang', doc); // 0
 	 * match(['fooLang', '*'], doc); // 5
@@ -1014,13 +1336,21 @@ extern class VscodeLanguages {
 	 * doc.uri; // 'git:/my/file.js'
 	 * doc.languageId; // 'javascript'
 	 * match('javascript', doc); // 10;
-	 * match({language: 'javascript', scheme: 'git'}, doc); // 10;
+	 * match({ language: 'javascript', scheme: 'git' }, doc); // 10;
 	 * match('*', doc); // 5
+	 *
+	 * // notebook cell document
+	 * doc.uri; // `vscode-notebook-cell:///my/notebook.ipynb#gl65s2pmha`;
+	 * doc.languageId; // 'python'
+	 * match({ notebookType: 'jupyter-notebook' }, doc) // 10
+	 * match({ notebookType: 'fooNotebook', language: 'python' }, doc) // 0
+	 * match({ language: 'python' }, doc) // 10
+	 * match({ notebookType: '*' }, doc) // 5
 	 * ```
 	 *
 	 * @param selector A document selector.
 	 * @param document A text document.
-	 * @return A number `>0` when the selector matches and `0` when the selector does not match.
+	 * @returns A number `>0` when the selector matches and `0` when the selector does not match.
 	 */
 	function match(selector:DocumentSelector, document:TextDocument):Float;
 
@@ -1035,23 +1365,32 @@ extern class VscodeLanguages {
 	 *
 	 * @param resource A resource
 	 * @returns An array of {@link Diagnostic diagnostics} objects or an empty array.
-	 *
-	 * OR
-	 *
+	 */
+	overload function getDiagnostics(resource:Uri):Array<Diagnostic>;
+
+	/**
 	 * Get all diagnostics.
 	 *
 	 * @returns An array of uri-diagnostics tuples or an empty array.
 	 */
-	@:overload(function(resource:Uri):Array<Diagnostic> {})
-	function getDiagnostics():Array<VscodeLanguagesGetDiagnosticsReturn>;
+	overload function getDiagnostics():Array<VscodeLanguagesGetDiagnosticsReturn>;
 
 	/**
 	 * Create a diagnostics collection.
 	 *
 	 * @param name The {@link DiagnosticCollection.name name} of the collection.
-	 * @return A new diagnostic collection.
+	 * @returns A new diagnostic collection.
 	 */
 	function createDiagnosticCollection(?name:String):DiagnosticCollection;
+
+	/**
+	 * Creates a new {@link LanguageStatusItem language status item}.
+	 *
+	 * @param id The identifier of the item.
+	 * @param selector The document selector that defines for what editors the item shows.
+	 * @returns A new language status item.
+	 */
+	function createLanguageStatusItem(id:String, selector:DocumentSelector):LanguageStatusItem;
 
 	/**
 	 * Register a completion provider.
@@ -1070,10 +1409,23 @@ extern class VscodeLanguages {
 	 * @param selector A selector that defines the documents this provider is applicable to.
 	 * @param provider A completion provider.
 	 * @param triggerCharacters Trigger completion when the user types one of the characters.
-	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
 	 */
 	function registerCompletionItemProvider<T:CompletionItem>(selector:DocumentSelector, provider:CompletionItemProvider<T>,
 		triggerCharacters:Rest<String>):Disposable;
+
+	/**
+	 * Registers an inline completion provider.
+	 *
+	 * Multiple providers can be registered for a language. In that case providers are asked in
+	 * parallel and the results are merged. A failing provider (rejected promise or exception) will
+	 * not cause a failure of the whole operation.
+	 *
+	 * @param selector A selector that defines the documents this provider is applicable to.
+	 * @param provider An inline completion provider.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
+	 */
+	function registerInlineCompletionItemProvider(selector:DocumentSelector, provider:InlineCompletionItemProvider):Disposable;
 
 	/**
 	 * Register a code action provider.
@@ -1085,7 +1437,7 @@ extern class VscodeLanguages {
 	 * @param selector A selector that defines the documents this provider is applicable to.
 	 * @param provider A code action provider.
 	 * @param metadata Metadata about the kind of code actions the provider provides.
-	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
 	 */
 	function registerCodeActionsProvider<T:CodeAction>(selector:DocumentSelector, provider:CodeActionProvider<T>,
 		?metadata:CodeActionProviderMetadata):Disposable;
@@ -1099,7 +1451,7 @@ extern class VscodeLanguages {
 	 *
 	 * @param selector A selector that defines the documents this provider is applicable to.
 	 * @param provider A code lens provider.
-	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
 	 */
 	function registerCodeLensProvider<T:CodeLens>(selector:DocumentSelector, provider:CodeLensProvider<T>):Disposable;
 
@@ -1112,7 +1464,7 @@ extern class VscodeLanguages {
 	 *
 	 * @param selector A selector that defines the documents this provider is applicable to.
 	 * @param provider A definition provider.
-	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
 	 */
 	function registerDefinitionProvider(selector:DocumentSelector, provider:DefinitionProvider):Disposable;
 
@@ -1125,7 +1477,7 @@ extern class VscodeLanguages {
 	 *
 	 * @param selector A selector that defines the documents this provider is applicable to.
 	 * @param provider An implementation provider.
-	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
 	 */
 	function registerImplementationProvider(selector:DocumentSelector, provider:ImplementationProvider):Disposable;
 
@@ -1138,7 +1490,7 @@ extern class VscodeLanguages {
 	 *
 	 * @param selector A selector that defines the documents this provider is applicable to.
 	 * @param provider A type definition provider.
-	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
 	 */
 	function registerTypeDefinitionProvider(selector:DocumentSelector, provider:TypeDefinitionProvider):Disposable;
 
@@ -1151,7 +1503,7 @@ extern class VscodeLanguages {
 	 *
 	 * @param selector A selector that defines the documents this provider is applicable to.
 	 * @param provider A declaration provider.
-	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
 	 */
 	function registerDeclarationProvider(selector:DocumentSelector, provider:DeclarationProvider):Disposable;
 
@@ -1164,7 +1516,7 @@ extern class VscodeLanguages {
 	 *
 	 * @param selector A selector that defines the documents this provider is applicable to.
 	 * @param provider A hover provider.
-	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
 	 */
 	function registerHoverProvider(selector:DocumentSelector, provider:HoverProvider):Disposable;
 
@@ -1176,7 +1528,7 @@ extern class VscodeLanguages {
 	 *
 	 * @param selector A selector that defines the documents this provider is applicable to.
 	 * @param provider An evaluatable expression provider.
-	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
 	 */
 	function registerEvaluatableExpressionProvider(selector:DocumentSelector, provider:EvaluatableExpressionProvider):Disposable;
 
@@ -1191,7 +1543,7 @@ extern class VscodeLanguages {
 	 *
 	 * @param selector A selector that defines the documents this provider is applicable to.
 	 * @param provider An inline values provider.
-	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
 	 */
 	function registerInlineValuesProvider(selector:DocumentSelector, provider:InlineValuesProvider):Disposable;
 
@@ -1204,7 +1556,7 @@ extern class VscodeLanguages {
 	 *
 	 * @param selector A selector that defines the documents this provider is applicable to.
 	 * @param provider A document highlight provider.
-	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
 	 */
 	function registerDocumentHighlightProvider(selector:DocumentSelector, provider:DocumentHighlightProvider):Disposable;
 
@@ -1218,7 +1570,7 @@ extern class VscodeLanguages {
 	 * @param selector A selector that defines the documents this provider is applicable to.
 	 * @param provider A document symbol provider.
 	 * @param metaData metadata about the provider
-	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
 	 */
 	function registerDocumentSymbolProvider(selector:DocumentSelector, provider:DocumentSymbolProvider, ?metaData:DocumentSymbolProviderMetadata):Disposable;
 
@@ -1230,7 +1582,7 @@ extern class VscodeLanguages {
 	 * a failure of the whole operation.
 	 *
 	 * @param provider A workspace symbol provider.
-	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
 	 */
 	function registerWorkspaceSymbolProvider<T:SymbolInformation>(provider:WorkspaceSymbolProvider<T>):Disposable;
 
@@ -1243,7 +1595,7 @@ extern class VscodeLanguages {
 	 *
 	 * @param selector A selector that defines the documents this provider is applicable to.
 	 * @param provider A reference provider.
-	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
 	 */
 	function registerReferenceProvider(selector:DocumentSelector, provider:ReferenceProvider):Disposable;
 
@@ -1256,7 +1608,7 @@ extern class VscodeLanguages {
 	 *
 	 * @param selector A selector that defines the documents this provider is applicable to.
 	 * @param provider A rename provider.
-	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
 	 */
 	function registerRenameProvider(selector:DocumentSelector, provider:RenameProvider):Disposable;
 
@@ -1269,10 +1621,9 @@ extern class VscodeLanguages {
 	 *
 	 * @param selector A selector that defines the documents this provider is applicable to.
 	 * @param provider A document semantic tokens provider.
-	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
 	 */
-	function registerDocumentSemanticTokensProvider(selector:DocumentSelector, provider:DocumentSemanticTokensProvider,
-		legend:SemanticTokensLegend):Disposable;
+	function registerDocumentSemanticTokensProvider(selector:DocumentSelector, provider:DocumentSemanticTokensProvider, legend:SemanticTokensLegend):Disposable;
 
 	/**
 	 * Register a semantic tokens provider for a document range.
@@ -1289,7 +1640,7 @@ extern class VscodeLanguages {
 	 *
 	 * @param selector A selector that defines the documents this provider is applicable to.
 	 * @param provider A document range semantic tokens provider.
-	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
 	 */
 	function registerDocumentRangeSemanticTokensProvider(selector:DocumentSelector, provider:DocumentRangeSemanticTokensProvider,
 		legend:SemanticTokensLegend):Disposable;
@@ -1303,7 +1654,7 @@ extern class VscodeLanguages {
 	 *
 	 * @param selector A selector that defines the documents this provider is applicable to.
 	 * @param provider A document formatting edit provider.
-	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
 	 */
 	function registerDocumentFormattingEditProvider(selector:DocumentSelector, provider:DocumentFormattingEditProvider):Disposable;
 
@@ -1320,7 +1671,7 @@ extern class VscodeLanguages {
 	 *
 	 * @param selector A selector that defines the documents this provider is applicable to.
 	 * @param provider A document range formatting edit provider.
-	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
 	 */
 	function registerDocumentRangeFormattingEditProvider(selector:DocumentSelector, provider:DocumentRangeFormattingEditProvider):Disposable;
 
@@ -1335,7 +1686,7 @@ extern class VscodeLanguages {
 	 * @param provider An on type formatting edit provider.
 	 * @param firstTriggerCharacter A character on which formatting should be triggered, like `}`.
 	 * @param moreTriggerCharacter More trigger characters.
-	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
 	 */
 	function registerOnTypeFormattingEditProvider(selector:DocumentSelector, provider:OnTypeFormattingEditProvider, firstTriggerCharacter:String,
 		moreTriggerCharacter:Rest<String>):Disposable;
@@ -1350,11 +1701,20 @@ extern class VscodeLanguages {
 	 * @param selector A selector that defines the documents this provider is applicable to.
 	 * @param provider A signature help provider.
 	 * @param triggerCharacters Trigger signature help when the user types one of the characters, like `,` or `(`.
-	 * @param metadata Information about the provider.
-	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
 	 */
-	@:overload(function(selector:DocumentSelector, provider:SignatureHelpProvider, triggerCharacters:Rest<String>):Disposable {})
-	function registerSignatureHelpProvider(selector:DocumentSelector, provider:SignatureHelpProvider, metadata:SignatureHelpProviderMetadata):Disposable;
+	overload function registerSignatureHelpProvider(selector:DocumentSelector, provider:SignatureHelpProvider, triggerCharacters:Rest<String>):Disposable;
+
+	/**
+	 * @see {@link languages.registerSignatureHelpProvider}
+	 *
+	 * @param selector A selector that defines the documents this provider is applicable to.
+	 * @param provider A signature help provider.
+	 * @param metadata Information about the provider.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
+	 */
+	overload function registerSignatureHelpProvider(selector:DocumentSelector, provider:SignatureHelpProvider,
+		metadata:SignatureHelpProviderMetadata):Disposable;
 
 	/**
 	 * Register a document link provider.
@@ -1365,7 +1725,7 @@ extern class VscodeLanguages {
 	 *
 	 * @param selector A selector that defines the documents this provider is applicable to.
 	 * @param provider A document link provider.
-	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
 	 */
 	function registerDocumentLinkProvider<T:DocumentLink>(selector:DocumentSelector, provider:DocumentLinkProvider<T>):Disposable;
 
@@ -1378,9 +1738,22 @@ extern class VscodeLanguages {
 	 *
 	 * @param selector A selector that defines the documents this provider is applicable to.
 	 * @param provider A color provider.
-	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
 	 */
 	function registerColorProvider(selector:DocumentSelector, provider:DocumentColorProvider):Disposable;
+
+	/**
+	 * Register a inlay hints provider.
+	 *
+	 * Multiple providers can be registered for a language. In that case providers are asked in
+	 * parallel and the results are merged. A failing provider (rejected promise or exception) will
+	 * not cause a failure of the whole operation.
+	 *
+	 * @param selector A selector that defines the documents this provider is applicable to.
+	 * @param provider An inlay hints provider.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
+	 */
+	function registerInlayHintsProvider(selector:DocumentSelector, provider:InlayHintsProvider):Disposable;
 
 	/**
 	 * Register a folding range provider.
@@ -1395,7 +1768,7 @@ extern class VscodeLanguages {
 	 *
 	 * @param selector A selector that defines the documents this provider is applicable to.
 	 * @param provider A folding range provider.
-	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
 	 */
 	function registerFoldingRangeProvider(selector:DocumentSelector, provider:FoldingRangeProvider):Disposable;
 
@@ -1408,7 +1781,7 @@ extern class VscodeLanguages {
 	 *
 	 * @param selector A selector that defines the documents this provider is applicable to.
 	 * @param provider A selection range provider.
-	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
 	 */
 	function registerSelectionRangeProvider(selector:DocumentSelector, provider:SelectionRangeProvider):Disposable;
 
@@ -1417,9 +1790,18 @@ extern class VscodeLanguages {
 	 *
 	 * @param selector A selector that defines the documents this provider is applicable to.
 	 * @param provider A call hierarchy provider.
-	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
 	 */
 	function registerCallHierarchyProvider(selector:DocumentSelector, provider:CallHierarchyProvider):Disposable;
+
+	/**
+	 * Register a type hierarchy provider.
+	 *
+	 * @param selector A selector that defines the documents this provider is applicable to.
+	 * @param provider A type hierarchy provider.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
+	 */
+	function registerTypeHierarchyProvider(selector:DocumentSelector, provider:TypeHierarchyProvider):Disposable;
 
 	/**
 	 * Register a linked editing range provider.
@@ -1430,16 +1812,26 @@ extern class VscodeLanguages {
 	 *
 	 * @param selector A selector that defines the documents this provider is applicable to.
 	 * @param provider A linked editing range provider.
-	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
 	 */
 	function registerLinkedEditingRangeProvider(selector:DocumentSelector, provider:LinkedEditingRangeProvider):Disposable;
+
+	/**
+	 * Registers a new {@link DocumentDropEditProvider}.
+	 *
+	 * @param selector A selector that defines the documents this provider applies to.
+	 * @param provider A drop provider.
+	 *
+	 * @returns A {@link Disposable} that unregisters this provider when disposed of.
+	 */
+	function registerDocumentDropEditProvider(selector:DocumentSelector, provider:DocumentDropEditProvider):Disposable;
 
 	/**
 	 * Set a {@link LanguageConfiguration language configuration} for a language.
 	 *
 	 * @param language A language identifier like `typescript`.
 	 * @param configuration Language configuration.
-	 * @return A {@link Disposable} that unsets this configuration.
+	 * @returns A {@link Disposable} that unsets this configuration.
 	 */
 	function setLanguageConfiguration(language:String, configuration:LanguageConfiguration):Disposable;
 }
@@ -1519,6 +1911,11 @@ extern class VscodeWorkspace {
 
 	/**
 	 * An event that is emitted when a workspace folder is added or removed.
+	 *
+	 * **Note:** this event will not fire if the first workspace folder is added, removed or changed,
+	 * because in that case the currently executing extensions (including the one that listens to this
+	 * event) will be terminated and restarted so that the (deprecated) `rootPath` property is updated
+	 * to point to the first workspace folder.
 	 */
 	var onDidChangeWorkspaceFolders(default, null):Event<WorkspaceFoldersChangeEvent>;
 
@@ -1528,7 +1925,7 @@ extern class VscodeWorkspace {
 	 * * returns the *input* when the given uri is a workspace folder itself
 	 *
 	 * @param uri An uri.
-	 * @return A workspace folder or `undefined`
+	 * @returns A workspace folder or `undefined`
 	 */
 	function getWorkspaceFolder(uri:Uri):Null<WorkspaceFolder>;
 
@@ -1542,7 +1939,7 @@ extern class VscodeWorkspace {
 	 * @param includeWorkspaceFolder When `true` and when the given path is contained inside a
 	 * workspace folder the name of the workspace is prepended. Defaults to `true` when there are
 	 * multiple workspace folders and `false` otherwise.
-	 * @return A path relative to the root or the input.
+	 * @returns A path relative to the root or the input.
 	 */
 	function asRelativePath(pathOrUri:EitherType<String, Uri>, ?includeWorkspaceFolder:Bool):String;
 
@@ -1551,9 +1948,11 @@ extern class VscodeWorkspace {
 	 * by an optional set of `workspaceFoldersToAdd` on the `vscode.workspace.workspaceFolders` array. This "splice"
 	 * behavior can be used to add, remove and change workspace folders in a single operation.
 	 *
-	 * If the first workspace folder is added, removed or changed, the currently executing extensions (including the
-	 * one that called this method) will be terminated and restarted so that the (deprecated) `rootPath` property is
-	 * updated to point to the first workspace folder.
+	 * **Note:** in some cases calling this method may result in the currently executing extensions (including the
+	 * one that called this method) to be terminated and restarted. For example when the first workspace folder is
+	 * added, removed or changed the (deprecated) `rootPath` property is updated to point to the first workspace
+	 * folder. Another case is when transitioning from an empty or single-folder workspace into a multi-folder
+	 * workspace (see also: https://code.visualstudio.com/docs/editor/workspaces).
 	 *
 	 * Use the {@linkcode onDidChangeWorkspaceFolders onDidChangeWorkspaceFolders()} event to get notified when the
 	 * workspace folders have been updated.
@@ -1584,27 +1983,123 @@ extern class VscodeWorkspace {
 	 * @param deleteCount the optional number of workspace folders to remove.
 	 * @param workspaceFoldersToAdd the optional variable set of workspace folders to add in place of the deleted ones.
 	 * Each workspace is identified with a mandatory URI and an optional name.
-	 * @return true if the operation was successfully started and false otherwise if arguments were used that would result
+	 * @returns true if the operation was successfully started and false otherwise if arguments were used that would result
 	 * in invalid workspace folder state (e.g. 2 folders with the same URI).
 	 */
-	function updateWorkspaceFolders(start:Int, deleteCount:Null<Int>, workspaceFoldersToAdd:Rest<{uri:Uri, ?name:String}>):Bool;
+	function updateWorkspaceFolders(start:Int, deleteCount:Null<Int>, workspaceFoldersToAdd:Rest<{
+		/**
+		 * The uri of a workspace folder that's to be added.
+		 */
+		uri:Uri,
+		/**
+		 * The name of a workspace folder that's to be added.
+		 */
+		?name:String
+	}>):Bool;
 
 	/**
-	 * Creates a file system watcher.
+	 * Creates a file system watcher that is notified on file events (create, change, delete)
+	 * depending on the parameters provided.
 	 *
-	 * A glob pattern that filters the file events on their absolute path must be provided. Optionally,
-	 * flags to ignore certain kinds of events can be provided. To stop listening to events the watcher must be disposed.
+	 * By default, all opened {@link workspace.workspaceFolders workspace folders} will be watched
+	 * for file changes recursively.
 	 *
-	 * *Note* that only files within the current {@link workspace.workspaceFolders workspace folders} can be watched.
-	 * *Note* that when watching for file changes such as '**​/*.js', notifications will not be sent when a parent folder is
-	 * moved or deleted (this is a known limitation of the current implementation and may change in the future).
+	 * Additional paths can be added for file watching by providing a {@link RelativePattern} with
+	 * a `base` path to watch. If the path is a folder and the `pattern` is complex (e.g. contains
+	 * `**` or path segments), it will be watched recursively and otherwise will be watched
+	 * non-recursively (i.e. only changes to the first level of the path will be reported).
 	 *
-	 * @param globPattern A {@link GlobPattern glob pattern} that is applied to the absolute paths of created, changed,
-	 * and deleted files. Use a {@link RelativePattern relative pattern} to limit events to a certain {@link WorkspaceFolder workspace folder}.
+	 * *Note* that paths that do not exist in the file system will be monitored with a delay until
+	 * created and then watched depending on the parameters provided. If a watched path is deleted,
+	 * the watcher will suspend and not report any events until the path is created again.
+	 *
+	 * If possible, keep the use of recursive watchers to a minimum because recursive file watching
+	 * is quite resource intense.
+	 *
+	 * Providing a `string` as `globPattern` acts as convenience method for watching file events in
+	 * all opened workspace folders. It cannot be used to add more folders for file watching, nor will
+	 * it report any file events from folders that are not part of the opened workspace folders.
+	 *
+	 * Optionally, flags to ignore certain kinds of events can be provided.
+	 *
+	 * To stop listening to events the watcher must be disposed.
+	 *
+	 * *Note* that file events from recursive file watchers may be excluded based on user configuration.
+	 * The setting `files.watcherExclude` helps to reduce the overhead of file events from folders
+	 * that are known to produce many file changes at once (such as `.git` folders). As such,
+	 * it is highly recommended to watch with simple patterns that do not require recursive watchers
+	 * where the exclude settings are ignored and you have full control over the events.
+	 *
+	 * *Note* that symbolic links are not automatically followed for file watching unless the path to
+	 * watch itself is a symbolic link.
+	 *
+	 * *Note* that the file paths that are reported for having changed may have a different path casing
+	 * compared to the actual casing on disk on case-insensitive platforms (typically macOS and Windows
+	 * but not Linux). We allow a user to open a workspace folder with any desired path casing and try
+	 * to preserve that. This means:
+	 * * if the path is within any of the workspace folders, the path will match the casing of the
+	 *   workspace folder up to that portion of the path and match the casing on disk for children
+	 * * if the path is outside of any of the workspace folders, the casing will match the case of the
+	 *   path that was provided for watching
+	 * In the same way, symbolic links are preserved, i.e. the file event will report the path of the
+	 * symbolic link as it was provided for watching and not the target.
+	 *
+	 * ### Examples
+	 *
+	 * The basic anatomy of a file watcher is as follows:
+	 *
+	 * ```ts
+	 * const watcher = vscode.workspace.createFileSystemWatcher(new vscode.RelativePattern(<folder>, <pattern>));
+	 *
+	 * watcher.onDidChange(uri => { ... }); // listen to files being changed
+	 * watcher.onDidCreate(uri => { ... }); // listen to files/folders being created
+	 * watcher.onDidDelete(uri => { ... }); // listen to files/folders getting deleted
+	 *
+	 * watcher.dispose(); // dispose after usage
+	 * ```
+	 *
+	 * #### Workspace file watching
+	 *
+	 * If you only care about file events in a specific workspace folder:
+	 *
+	 * ```ts
+	 * vscode.workspace.createFileSystemWatcher(new vscode.RelativePattern(vscode.workspace.workspaceFolders[0], '**​/*.js'));
+	 * ```
+	 *
+	 * If you want to monitor file events across all opened workspace folders:
+	 *
+	 * ```ts
+	 * vscode.workspace.createFileSystemWatcher('**​/*.js');
+	 * ```
+	 *
+	 * *Note:* the array of workspace folders can be empty if no workspace is opened (empty window).
+	 *
+	 * #### Out of workspace file watching
+	 *
+	 * To watch a folder for changes to *.js files outside the workspace (non recursively), pass in a `Uri` to such
+	 * a folder:
+	 *
+	 * ```ts
+	 * vscode.workspace.createFileSystemWatcher(new vscode.RelativePattern(vscode.Uri.file(<path to folder outside workspace>), '*.js'));
+	 * ```
+	 *
+	 * And use a complex glob pattern to watch recursively:
+	 *
+	 * ```ts
+	 * vscode.workspace.createFileSystemWatcher(new vscode.RelativePattern(vscode.Uri.file(<path to folder outside workspace>), '**​/*.js'));
+	 * ```
+	 *
+	 * Here is an example for watching the active editor for file changes:
+	 *
+	 * ```ts
+	 * vscode.workspace.createFileSystemWatcher(new vscode.RelativePattern(vscode.window.activeTextEditor.document.uri, '*'));
+	 * ```
+	 *
+	 * @param globPattern A {@link GlobPattern glob pattern} that controls which file events the watcher should report.
 	 * @param ignoreCreateEvents Ignore when files have been created.
 	 * @param ignoreChangeEvents Ignore when files have been changed.
 	 * @param ignoreDeleteEvents Ignore when files have been deleted.
-	 * @return A new file system watcher instance.
+	 * @returns A new file system watcher instance. Must be disposed when no longer needed.
 	 */
 	function createFileSystemWatcher(globPattern:GlobPattern, ?ignoreCreateEvents:Bool, ?ignoreChangeEvents:Bool, ?ignoreDeleteEvents:Bool):FileSystemWatcher;
 
@@ -1618,20 +2113,44 @@ extern class VscodeWorkspace {
 	 * will be matched against the file paths of resulting matches relative to their workspace. Use a {@link RelativePattern relative pattern}
 	 * to restrict the search results to a {@link WorkspaceFolder workspace folder}.
 	 * @param exclude  A {@link GlobPattern glob pattern} that defines files and folders to exclude. The glob pattern
-	 * will be matched against the file paths of resulting matches relative to their workspace. When `undefined`, default excludes and the user's
-	 * configured excludes will apply. When `null`, no excludes will apply.
+	 * will be matched against the file paths of resulting matches relative to their workspace. When `undefined`, default file-excludes (e.g. the `files.exclude`-setting
+	 * but not `search.exclude`) will apply. When `null`, no excludes will apply.
 	 * @param maxResults An upper-bound for the result.
 	 * @param token A token that can be used to signal cancellation to the underlying search engine.
-	 * @return A thenable that resolves to an array of resource identifiers. Will return no results if no
+	 * @returns A thenable that resolves to an array of resource identifiers. Will return no results if no
 	 * {@link workspace.workspaceFolders workspace folders} are opened.
 	 */
 	function findFiles(include:GlobPattern, ?exclude:Null<GlobPattern>, ?maxResults:Int, ?token:CancellationToken):Thenable<Array<Uri>>;
 
 	/**
+	 * Saves the editor identified by the given resource and returns the resulting resource or `undefined`
+	 * if save was not successful or no editor with the given resource was found.
+	 *
+	 * **Note** that an editor with the provided resource must be opened in order to be saved.
+	 *
+	 * @param uri the associated uri for the opened editor to save.
+	 * @returns A thenable that resolves when the save operation has finished.
+	 */
+	function save(uri:Uri):Thenable<Null<Uri>>;
+
+	/**
+	 * Saves the editor identified by the given resource to a new file name as provided by the user and
+	 * returns the resulting resource or `undefined` if save was not successful or cancelled or no editor
+	 * with the given resource was found.
+	 *
+	 * **Note** that an editor with the provided resource must be opened in order to be saved as.
+	 *
+	 * @param uri the associated uri for the opened editor to save as.
+	 * @returns A thenable that resolves when the save-as operation has finished.
+	 */
+	function saveAs(uri:Uri):Thenable<Null<Uri>>;
+
+	/**
 	 * Save all dirty files.
 	 *
 	 * @param includeUntitled Also save files that have been created during this session.
-	 * @return A thenable that resolves when the files have been saved.
+	 * @returns A thenable that resolves when the files have been saved. Will return `false`
+	 * for any file that failed to save.
 	 */
 	function saveAll(?includeUntitled:Bool):Thenable<Bool>;
 
@@ -1649,9 +2168,10 @@ extern class VscodeWorkspace {
 	 * not be attempted, when a single edit fails.
 	 *
 	 * @param edit A workspace edit.
-	 * @return A thenable that resolves when the edit could be applied.
+	 * @param metadata Optional {@link WorkspaceEditMetadata metadata} for the edit.
+	 * @returns A thenable that resolves when the edit could be applied.
 	 */
-	function applyEdit(edit:WorkspaceEdit):Thenable<Bool>;
+	function applyEdit(edit:WorkspaceEdit, ?metadata:WorkspaceEditMetadata):Thenable<Bool>;
 
 	/**
 	 * All text documents currently known to the editor.
@@ -1674,24 +2194,38 @@ extern class VscodeWorkspace {
 	 * *Note* that the lifecycle of the returned document is owned by the editor and not by the extension. That means an
 	 * {@linkcode workspace.onDidCloseTextDocument onDidClose}-event can occur at any time after opening it.
 	 *
-	 * ---
+	 * @param uri Identifies the resource to open.
+	 * @returns A promise that resolves to a {@link TextDocument document}.
+	 */
+	overload function openTextDocument(uri:Uri):Thenable<TextDocument>;
+
+	/**
+	 * A short-hand for `openTextDocument(Uri.file(path))`.
 	 *
-	 * A short-hand for `openTextDocument(Uri.file(fileName))`.
-	 *
-	 * ---
-	 *
+	 * @see {@link workspace.openTextDocument}
+	 * @param path A path of a file on disk.
+	 * @returns A promise that resolves to a {@link TextDocument document}.
+	 */
+	overload function openTextDocument(path:String):Thenable<TextDocument>;
+
+	/**
 	 * Opens an untitled text document. The editor will prompt the user for a file
 	 * path when the document is to be saved. The `options` parameter allows to
 	 * specify the *language* and/or the *content* of the document.
 	 *
-	 * @param uri Identifies the resource to open.
-	 * @param fileName A name of a file on disk.
 	 * @param options Options to control how the document will be created.
-	 * @return A promise that resolves to a {@link TextDocument document}.
+	 * @returns A promise that resolves to a {@link TextDocument document}.
 	 */
-	@:overload(function(?options:{?language:String, ?content:String}):Thenable<TextDocument> {})
-	@:overload(function(fileName:String):Thenable<TextDocument> {})
-	function openTextDocument(uri:Uri):Thenable<TextDocument>;
+	overload function openTextDocument(?options:{
+		/**
+		 * The {@link TextDocument.languageId language} of the document.
+		 */
+		?language:String,
+		/**
+		 * The initial contents of the document.
+		 */
+		?content:String
+	}):Thenable<TextDocument>;
 
 	/**
 	 * Register a text document content provider.
@@ -1700,7 +2234,7 @@ extern class VscodeWorkspace {
 	 *
 	 * @param scheme The uri-scheme to register for.
 	 * @param provider A content provider.
-	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
 	 */
 	function registerTextDocumentContentProvider(scheme:String, provider:TextDocumentContentProvider):Disposable;
 
@@ -1763,27 +2297,55 @@ extern class VscodeWorkspace {
 	var notebookDocuments(default, null):ReadOnlyArray<NotebookDocument>;
 
 	/**
-	 * Open a notebook. Will return early if this notebook is already {@link notebook.notebookDocuments loaded}. Otherwise
-	 * the notebook is loaded and the {@linkcode notebook.onDidOpenNotebookDocument onDidOpenNotebookDocument}-event fires.
+	 * Open a notebook. Will return early if this notebook is already {@link notebookDocuments loaded}. Otherwise
+	 * the notebook is loaded and the {@linkcode onDidOpenNotebookDocument}-event fires.
 	 *
 	 * *Note* that the lifecycle of the returned notebook is owned by the editor and not by the extension. That means an
-	 * {@linkcode notebook.onDidCloseNotebookDocument onDidCloseNotebookDocument}-event can occur at any time after.
+	 * {@linkcode onDidCloseNotebookDocument}-event can occur at any time after.
 	 *
 	 * *Note* that opening a notebook does not show a notebook editor. This function only returns a notebook document which
-	 * can be showns in a notebook editor but it can also be used for other things.
+	 * can be shown in a notebook editor but it can also be used for other things.
 	 *
-	 * ---
-	 *
+	 * @param uri The resource to open.
+	 * @returns A promise that resolves to a {@link NotebookDocument notebook}
+	 */
+	overload function openNotebookDocument(uri:Uri):Thenable<NotebookDocument>;
+
+	/**
 	 * Open an untitled notebook. The editor will prompt the user for a file
 	 * path when the document is to be saved.
 	 *
-	 * @param uri The resource to open.
+	 * @see {@link workspace.openNotebookDocument}
 	 * @param notebookType The notebook type that should be used.
 	 * @param content The initial contents of the notebook.
-	 * @returns A promise that resolves to a {@link NotebookDocument notebook}
+	 * @returns A promise that resolves to a {@link NotebookDocument notebook}.
 	 */
-	@:overload(function(notebookType:String, ?content:NotebookData):Thenable<NotebookDocument> {})
-	function openNotebookDocument(uri:Uri):Thenable<NotebookDocument>;
+	overload function openNotebookDocument(notebookType:String, ?content:NotebookData):Thenable<NotebookDocument>;
+
+	/**
+	 * An event that is emitted when a {@link NotebookDocument notebook} has changed.
+	 */
+	final onDidChangeNotebookDocument:Event<NotebookDocumentChangeEvent>;
+
+	/**
+	 * An event that is emitted when a {@link NotebookDocument notebook document} will be saved to disk.
+	 *
+	 * *Note 1:* Subscribers can delay saving by registering asynchronous work. For the sake of data integrity the editor
+	 * might save without firing this event. For instance when shutting down with dirty files.
+	 *
+	 * *Note 2:* Subscribers are called sequentially and they can {@link NotebookDocumentWillSaveEvent.waitUntil delay} saving
+	 * by registering asynchronous work. Protection against misbehaving listeners is implemented as such:
+	 *  * there is an overall time budget that all listeners share and if that is exhausted no further listener is called
+	 *  * listeners that take a long time or produce errors frequently will not be called anymore
+	 *
+	 * The current thresholds are 1.5 seconds as overall time budget and a listener can misbehave 3 times before being ignored.
+	 */
+	final onWillSaveNotebookDocument:Event<NotebookDocumentWillSaveEvent>;
+
+	/**
+	 * An event that is emitted when a {@link NotebookDocument notebook} is saved.
+	 */
+	final onDidSaveNotebookDocument:Event<NotebookDocument>;
 
 	/**
 	 * Register a {@link NotebookSerializer notebook serializer}.
@@ -1794,7 +2356,7 @@ extern class VscodeWorkspace {
 	 * @param notebookType A notebook.
 	 * @param serializer A notebook serialzier.
 	 * @param options Optional context options that define what parts of a notebook should be persisted
-	 * @return A {@link Disposable} that unregisters this serializer when being disposed.
+	 * @returns A {@link Disposable} that unregisters this serializer when being disposed.
 	 */
 	function registerNotebookSerializer(notebookType:String, serializer:NotebookSerializer, ?options:NotebookDocumentContentOptions):Disposable;
 
@@ -1894,7 +2456,7 @@ extern class VscodeWorkspace {
 	 *
 	 * @param section A dot-separated identifier.
 	 * @param scope A scope for which the configuration is asked for.
-	 * @return The full configuration or a subset.
+	 * @returns The full configuration or a subset.
 	 */
 	function getConfiguration(?section:String, ?scope:Null<ConfigurationScope>):WorkspaceConfiguration;
 
@@ -1910,7 +2472,7 @@ extern class VscodeWorkspace {
 	 *
 	 * @param type The task kind type this provider is registered for.
 	 * @param provider A task provider.
-	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
 	 */
 	@:deprecated("Use the corresponding function on the `tasks` namespace instead")
 	function registerTaskProvider<T:Task>(type:String, provider:TaskProvider<T>):Disposable;
@@ -1924,10 +2486,19 @@ extern class VscodeWorkspace {
 	 * @param scheme The uri-{@link Uri.scheme scheme} the provider registers for.
 	 * @param provider The filesystem provider.
 	 * @param options Immutable metadata about the provider.
-	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
 	 */
-	function registerFileSystemProvider(scheme:String, provider:FileSystemProvider,
-		options:{var ?isCaseSensitive(default, null):Bool; var ?isReadonly(default, null):Bool;}):Disposable;
+	function registerFileSystemProvider(scheme:String, provider:FileSystemProvider, options:{
+		/**
+		 * Whether the file system provider use case sensitive compare for {@link Uri.path paths}
+		 */
+		var ?isCaseSensitive(default, null):Bool;
+		/**
+		 * Whether the file system provider is readonly, no modifications like write, delete, create are possible.
+		 * If a {@link MarkdownString} is given, it will be shown as the reason why the file system is readonly.
+		 */
+		var ?isReadonly(default, null):Bool;
+	}):Disposable;
 
 	/**
 	 * When true, the user has explicitly trusted the contents of the workspace.
@@ -1940,6 +2511,9 @@ extern class VscodeWorkspace {
 	var onDidGrantWorkspaceTrust(default, null):Event<Void>;
 }
 
+/**
+ * Namespace for debug functionality.
+ */
 extern class VscodeDebug {
 	/**
 	 * The currently active {@link DebugSession debug session} or `undefined`. The active debug session is the one
@@ -1957,7 +2531,7 @@ extern class VscodeDebug {
 	/**
 	 * List of breakpoints.
 	 */
-	var breakpoints:Array<Breakpoint>;
+	var breakpoints:ReadOnlyArray<Breakpoint>;
 
 	/**
 	 * An {@link Event} which fires when the {@link debug.activeDebugSession active debug session}
@@ -1987,6 +2561,19 @@ extern class VscodeDebug {
 	var onDidChangeBreakpoints(default, null):Event<BreakpointsChangeEvent>;
 
 	/**
+	 * The currently focused thread or stack frame, or `undefined` if no
+	 * thread or stack is focused. A thread can be focused any time there is
+	 * an active debug session, while a stack frame can only be focused when
+	 * a session is paused and the call stack has been retrieved.
+	 */
+	var activeStackItem:Null<EitherType<DebugThread, DebugStackFrame>>;
+
+	/**
+	 * An event which fires when the {@link debug.activeStackItem} has changed.
+	 */
+	var onDidChangeActiveStackItem:Event<Null<EitherType<DebugThread, DebugStackFrame>>>;
+
+	/**
 	 * Register a {@link DebugConfigurationProvider debug configuration provider} for a specific debug type.
 	 * The optional {@link DebugConfigurationProviderTriggerKind triggerKind} can be used to specify when the `provideDebugConfigurations` method of the provider is triggered.
 	 * Currently two trigger kinds are possible: with the value `Initial` (or if no trigger kind argument is given) the `provideDebugConfigurations` method is used to provide the initial debug configurations to be copied into a newly created launch.json.
@@ -1995,10 +2582,10 @@ extern class VscodeDebug {
 	 * Registering a single provider with resolve methods for different trigger kinds, results in the same resolve methods called multiple times.
 	 * More than one provider can be registered for the same type.
 	 *
-	 * @param type The debug type for which the provider is registered.
+	 * @param debugType The debug type for which the provider is registered.
 	 * @param provider The {@link DebugConfigurationProvider debug configuration provider} to register.
-	 * @param triggerKind The {@link DebugConfigurationProviderTrigger trigger} for which the 'provideDebugConfiguration' method of the provider is registered. If `triggerKind` is missing, the value `DebugConfigurationProviderTriggerKind.Initial` is assumed.
-	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 * @param triggerKind The {@link DebugConfigurationProviderTriggerKind trigger} for which the 'provideDebugConfiguration' method of the provider is registered. If `triggerKind` is missing, the value `DebugConfigurationProviderTriggerKind.Initial` is assumed.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
 	 */
 	function registerDebugConfigurationProvider(debugType:String, provider:DebugConfigurationProvider,
 		?triggerKind:DebugConfigurationProviderTriggerKind):Disposable;
@@ -2010,7 +2597,7 @@ extern class VscodeDebug {
 	 *
 	 * @param debugType The debug type for which the factory is registered.
 	 * @param factory The {@link DebugAdapterDescriptorFactory debug adapter descriptor factory} to register.
-	 * @return A {@link Disposable} that unregisters this factory when being disposed.
+	 * @returns A {@link Disposable} that unregisters this factory when being disposed.
 	 */
 	function registerDebugAdapterDescriptorFactory(debugType:String, factory:DebugAdapterDescriptorFactory):Disposable;
 
@@ -2019,7 +2606,7 @@ extern class VscodeDebug {
 	 *
 	 * @param debugType The debug type for which the factory is registered or '*' for matching all debug types.
 	 * @param factory The {@link DebugAdapterTrackerFactory debug adapter tracker factory} to register.
-	 * @return A {@link Disposable} that unregisters this factory when being disposed.
+	 * @returns A {@link Disposable} that unregisters this factory when being disposed.
 	 */
 	function registerDebugAdapterTrackerFactory(debugType:String, factory:DebugAdapterTrackerFactory):Disposable;
 
@@ -2032,14 +2619,16 @@ extern class VscodeDebug {
 	 * @param folder The {@link WorkspaceFolder workspace folder} for looking up named configurations and resolving variables or `undefined` for a non-folder setup.
 	 * @param nameOrConfiguration Either the name of a debug or compound configuration or a {@link DebugConfiguration} object.
 	 * @param parentSessionOrOptions Debug session options. When passed a parent {@link DebugSession debug session}, assumes options with just this parent session.
-	 * @return A thenable that resolves when debugging could be successfully started.
+	 * @returns A thenable that resolves when debugging could be successfully started.
 	 */
 	function startDebugging(folder:Null<WorkspaceFolder>, nameOrConfiguration:EitherType<String, DebugConfiguration>,
 		?parentSessionOrOptions:EitherType<DebugSession, DebugSessionOptions>):Thenable<Bool>;
 
 	/**
 	 * Stop the given debug session or stop all debug sessions if session is omitted.
+	 *
 	 * @param session The {@link DebugSession debug session} to stop; if omitted all sessions are stopped.
+	 * @returns A thenable that resolves when the session(s) have been stopped.
 	 */
 	function stopDebugging(?session:DebugSession):Thenable<Void>;
 
@@ -2064,7 +2653,7 @@ extern class VscodeDebug {
 	 *
 	 * @param source An object conforming to the [Source](https://microsoft.github.io/debug-adapter-protocol/specification#Types_Source) type defined in the Debug Adapter Protocol.
 	 * @param session An optional debug session that will be used when the source descriptor uses a reference number to load the contents from an active debug session.
-	 * @return A uri that can be used to load the contents of the source.
+	 * @returns A uri that can be used to load the contents of the source.
 	 */
 	function asDebugSourceUri(source:DebugProtocolSource, ?session:DebugSession):Uri;
 }
@@ -2085,13 +2674,16 @@ abstract VscodeLanguagesGetDiagnosticsReturn(Array<Dynamic>) {
 		return this[1];
 }
 
+/**
+ * Namespace for tasks functionality.
+ */
 extern class VscodeTasks {
 	/**
 	 * Register a task provider.
 	 *
 	 * @param type The task kind type this provider is registered for.
 	 * @param provider A task provider.
-	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
 	 */
 	function registerTaskProvider<T:Task>(type:String, provider:TaskProvider<T>):Disposable;
 
@@ -2101,6 +2693,7 @@ extern class VscodeTasks {
 	 * contributed through extensions.
 	 *
 	 * @param filter Optional filter to select tasks of a certain type or version.
+	 * @returns A thenable that resolves to an array of tasks.
 	 */
 	function fetchTasks(?filter:TaskFilter):Thenable<Array<Task>>;
 
@@ -2113,6 +2706,7 @@ extern class VscodeTasks {
 	 * In such an environment, only CustomExecution tasks can be run.
 	 *
 	 * @param task the task to execute
+	 * @returns A thenable that resolves to a task execution.
 	 */
 	function executeTask(task:Task):Thenable<TaskExecution>;
 
@@ -2146,13 +2740,16 @@ extern class VscodeTasks {
 	var onDidEndTaskProcess(default, null):Event<TaskProcessEndEvent>;
 }
 
+/**
+ * Namespace for authentication.
+ */
 extern class VscodeComments {
 	/**
 	 * Creates a new {@link CommentController comment controller} instance.
 	 *
 	 * @param id An `id` for the comment controller.
 	 * @param label A human-readable string for the comment controller.
-	 * @return An instance of {@link CommentController comment controller}.
+	 * @returns An instance of {@link CommentController comment controller}.
 	 */
 	function createCommentController(id:String, label:String):CommentController;
 }
@@ -2168,12 +2765,25 @@ extern class VscodeAuthentication {
 	 * to the editor that implement GitHub and Microsoft authentication: their providerId's are 'github' and 'microsoft'.
 	 * @param providerId The id of the provider to use
 	 * @param scopes A list of scopes representing the permissions requested. These are dependent on the authentication provider
-	 * @param options The {@link GetSessionOptions} to use
-	 * @returns A thenable that resolves to an authentication session
+	 * @param options The {@link AuthenticationGetSessionOptions} to use
+	 * @returns A thenable that resolves to an authentication session if available, or undefined if there are no sessions
 	 */
-	@:overload(function(providerId:String, scopes:ReadOnlyArray<String>, ?options:AuthenticationGetSessionOptions):Thenable<Null<AuthenticationSession>> {})
-	function getSession(providerId:String, scopes:ReadOnlyArray<String>,
-		options:AuthenticationGetSessionOptions & {createIfNone:Bool}):Thenable<AuthenticationSession>;
+	overload function getSession(providerId:String, scopes:ReadOnlyArray<String>,
+		?options:AuthenticationGetSessionOptions):Thenable<Null<AuthenticationSession>>;
+
+	/**
+	 * Get all accounts that the user is logged in to for the specified provider.
+	 * Use this paired with {@link getSession} in order to get an authentication session for a specific account.
+	 *
+	 * Currently, there are only two authentication providers that are contributed from built in extensions
+	 * to the editor that implement GitHub and Microsoft authentication: their providerId's are 'github' and 'microsoft'.
+	 *
+	 * Note: Getting accounts does not imply that your extension has access to that account or its authentication sessions. You can verify access to the account by calling {@link getSession}.
+	 *
+	 * @param providerId The id of the provider to use
+	 * @returns A thenable that resolves to a readonly array of authentication accounts.
+	 */
+	function getAccounts(providerId:String):Thenable<ReadOnlyArray<AuthenticationSessionAccountInformation>>;
 
 	/**
 	 * An {@link Event} which fires when the authentication sessions of an authentication provider have
@@ -2190,12 +2800,107 @@ extern class VscodeAuthentication {
 	 * @param id The unique identifier of the provider.
 	 * @param label The human-readable name of the provider.
 	 * @param provider The authentication provider provider.
-	 * @params options Additional options for the provider.
-	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 * @param options Additional options for the provider.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
 	 */
 	function registerAuthenticationProvider(id:String, label:String, provider:AuthenticationProvider, ?options:AuthenticationProviderOptions):Disposable;
 }
 
+/**
+ * Namespace for localization-related functionality in the extension API. To use this properly,
+ * you must have `l10n` defined in your extension manifest and have bundle.l10n.<language>.json files.
+ * For more information on how to generate bundle.l10n.<language>.json files, check out the
+ * [vscode-l10n repo](https://github.com/microsoft/vscode-l10n).
+ *
+ * Note: Built-in extensions (for example, Git, TypeScript Language Features, GitHub Authentication)
+ * are excluded from the `l10n` property requirement. In other words, they do not need to specify
+ * a `l10n` in the extension manifest because their translated strings come from Language Packs.
+ */
+extern class VscodeL10n {
+	/**
+	 * Marks a string for localization. If a localized bundle is available for the language specified by
+	 * {@link env.language} and the bundle has a localized value for this message, then that localized
+	 * value will be returned (with injected {@link args} values for any templated values).
+	 *
+	 * @param message - The message to localize. Supports index templating where strings like `{0}` and `{1}` are
+	 * replaced by the item at that index in the {@link args} array.
+	 * @param args - The arguments to be used in the localized string. The index of the argument is used to
+	 * match the template placeholder in the localized string.
+	 * @returns localized string with injected arguments.
+	 *
+	 * @example
+	 * l10n.t('Hello {0}!', 'World');
+	 */
+	overload function t(message:String, ...args:Array<EitherType<String, EitherType<Float, EitherType<Int, Bool>>>>):String;
+
+	/**
+	 * Marks a string for localization. If a localized bundle is available for the language specified by
+	 * {@link env.language} and the bundle has a localized value for this message, then that localized
+	 * value will be returned (with injected {@link args} values for any templated values).
+	 *
+	 * @param message The message to localize. Supports named templating where strings like `{foo}` and `{bar}` are
+	 * replaced by the value in the Record for that key (foo, bar, etc).
+	 * @param args The arguments to be used in the localized string. The name of the key in the record is used to
+	 * match the template placeholder in the localized string.
+	 * @returns localized string with injected arguments.
+	 *
+	 * @example
+	 * l10n.t('Hello {name}', { name: 'Erich' });
+	 */
+	overload function t(message:String, args:Record<String, Any>):String;
+
+	/**
+	 * Marks a string for localization. If a localized bundle is available for the language specified by
+	 * {@link env.language} and the bundle has a localized value for this message, then that localized
+	 * value will be returned (with injected args values for any templated values).
+	 *
+	 * @param options The options to use when localizing the message.
+	 * @returns localized string with injected arguments.
+	 */
+	overload function t(options:{
+		/**
+		 * The message to localize. If {@link options.args args} is an array, this message supports index templating where strings like
+		 * `{0}` and `{1}` are replaced by the item at that index in the {@link options.args args} array. If `args` is a `Record<string, any>`,
+		 * this supports named templating where strings like `{foo}` and `{bar}` are replaced by the value in
+		 * the Record for that key (foo, bar, etc).
+		 */
+		message:String,
+		/**
+		 * The arguments to be used in the localized string. As an array, the index of the argument is used to
+		 * match the template placeholder in the localized string. As a Record, the key is used to match the template
+		 * placeholder in the localized string.
+		 */
+		?args:EitherType<Array<EitherType<String, EitherType<Float, EitherType<Int, Bool>>>>, Record<String, Any>>,
+		/**
+		 * A comment to help translators understand the context of the message.
+		 */
+		comment:EitherType<String, Array<String>>
+	}):String;
+
+	/**
+	 * The bundle of localized strings that have been loaded for the extension.
+	 * It's undefined if no bundle has been loaded. The bundle is typically not loaded if
+	 * there was no bundle found or when we are running with the default language.
+	 */
+	final bundle:Null<DynamicAccess<String>>;
+
+	/**
+	 * The URI of the localization bundle that has been loaded for the extension.
+	 * It's undefined if no bundle has been loaded. The bundle is typically not loaded if
+	 * there was no bundle found or when we are running with the default language.
+	 */
+	final uri:Null<Uri>;
+}
+
+/**
+ * Namespace for notebooks.
+ *
+ * The notebooks functionality is composed of three loosely coupled components:
+ *
+ * 1. {@link NotebookSerializer} enable the editor to open, show, and save notebooks
+ * 2. {@link NotebookController} own the execution of notebooks, e.g they create output from code cells.
+ * 3. NotebookRenderer present notebook output in the editor. They run in a separate context.
+ */
 extern class VscodeNotebooks {
 	/**
 	 * Creates a new notebook controller.
@@ -2204,6 +2909,7 @@ extern class VscodeNotebooks {
 	 * @param notebookType A notebook type for which this controller is for.
 	 * @param label The label of the controller.
 	 * @param handler The execute-handler of the controller.
+	 * @returns A new notebook controller.
 	 */
 	function createNotebookController(id:String, notebookType:String, label:String,
 		?handler:(cells:Array<NotebookCell>, notebook:NotebookDocument, controller:NotebookController) -> Thenable<Void>):NotebookController;
@@ -2213,7 +2919,7 @@ extern class VscodeNotebooks {
 	 *
 	 * @param notebookType The notebook type to register for.
 	 * @param provider A cell status bar provider.
-	 * @return A {@link Disposable} that unregisters this provider when being disposed.
+	 * @returns A {@link Disposable} that unregisters this provider when being disposed.
 	 */
 	function registerNotebookCellStatusBarItemProvider(notebookType:String, provider:NotebookCellStatusBarItemProvider):Disposable;
 
@@ -2230,6 +2936,12 @@ extern class VscodeNotebooks {
 	function createRendererMessaging(rendererId:String):NotebookRendererMessaging;
 }
 
+/**
+ * Namespace for testing functionality. Tests are published by registering
+ * {@link TestController} instances, then adding {@link TestItem TestItems}.
+ * Controllers may also describe how to run tests by creating one or more
+ * {@link TestRunProfile} instances.
+ */
 extern class VscodeTests {
 	/**
 	 * Creates a new test controller.
@@ -2240,3 +2952,100 @@ extern class VscodeTests {
 	 */
 	function createTestController(id:String, label:String):TestController;
 }
+
+/**
+ * Namespace for chat functionality. Users interact with chat participants by sending messages
+ * to them in the chat view. Chat participants can respond with markdown or other types of content
+ * via the {@link ChatResponseStream}.
+ */
+extern class VscodeChat {
+	/**
+	 * Create a new {@link ChatParticipant chat participant} instance.
+	 *
+	 * @param id A unique identifier for the participant.
+	 * @param handler A request handler for the participant.
+	 * @returns A new chat participant
+	 */
+	function createChatParticipant(id:String, handler:ChatRequestHandler):ChatParticipant;
+}
+
+/**
+ * Namespace for language model related functionality.
+ */
+extern class VscodeLm {
+	/**
+	 * An event that is fired when the set of available chat models changes.
+	 */
+	var onDidChangeChatModels:Event<Void>;
+
+	/**
+	 * Select chat models by a {@link LanguageModelChatSelector selector}. This can yield multiple or no chat models and
+	 * extensions must handle these cases, esp. when no chat model exists, gracefully.
+	 *
+	 * ```ts
+	 * const models = await vscode.lm.selectChatModels({ family: 'gpt-3.5-turbo' });
+	 * if (models.length > 0) {
+	 * 	const [first] = models;
+	 * 	const response = await first.sendRequest(...)
+	 * 	// ...
+	 * } else {
+	 * 	// NO chat models available
+	 * }
+	 * ```
+	 *
+	 * A selector can be written to broadly match all models of a given vendor or family, or it can narrowly select one model by ID.
+	 * Keep in mind that the available set of models will change over time, but also that prompts may perform differently in
+	 * different models.
+	 *
+	 * *Note* that extensions can hold on to the results returned by this function and use them later. However, when the
+	 * {@link onDidChangeChatModels}-event is fired the list of chat models might have changed and extensions should re-query.
+	 *
+	 * @param selector A chat model selector. When omitted all chat models are returned.
+	 * @returns An array of chat models, can be empty!
+	 */
+	function selectChatModels(?selector:LanguageModelChatSelector):Thenable<Array<LanguageModelChat>>;
+
+	/**
+	 * Register a LanguageModelTool. The tool must also be registered in the package.json `languageModelTools` contribution
+	 * point. A registered tool is available in the {@link lm.tools} list for any extension to see. But in order for it to
+	 * be seen by a language model, it must be passed in the list of available tools in {@link LanguageModelChatRequestOptions.tools}.
+	 * @returns A {@link Disposable} that unregisters the tool when disposed.
+	 */
+	function registerTool<T>(name:String, tool:LanguageModelTool<T>):Disposable;
+
+	/**
+	 * A list of all available tools that were registered by all extensions using {@link lm.registerTool}. They can be called
+	 * with {@link lm.invokeTool} with input that match their declared `inputSchema`.
+	 */
+	var tools:ReadOnlyArray<LanguageModelToolInformation>;
+
+	/**
+	 * Invoke a tool listed in {@link lm.tools} by name with the given input. The input will be validated against
+	 * the schema declared by the tool
+	 *
+	 * A tool can be invoked by a chat participant, in the context of handling a chat request, or globally by any extension in
+	 * any custom flow.
+	 *
+	 * In the former case, the caller shall pass the
+	 * {@link LanguageModelToolInvocationOptions.toolInvocationToken toolInvocationToken}, which comes with the a
+	 * {@link ChatRequest.toolInvocationToken chat request}. This makes sure the chat UI shows the tool invocation for the
+	 * correct conversation.
+	 *
+	 * A tool {@link LanguageModelToolResult result} is an array of {@link LanguageModelTextPart text-} and
+	 * {@link LanguageModelPromptTsxPart prompt-tsx}-parts. If the tool caller is using `@vscode/prompt-tsx`, it can
+	 * incorporate the response parts into its prompt using a `ToolResult`. If not, the parts can be passed along to the
+	 * {@link LanguageModelChat} via a user message with a {@link LanguageModelToolResultPart}.
+	 *
+	 * If a chat participant wants to preserve tool results for requests across multiple turns, it can store tool results in
+	 * the {@link ChatResult.metadata} returned from the handler and retrieve them on the next turn from
+	 * {@link ChatResponseTurn.result}.
+	 *
+	 * @param name The name of the tool to call.
+	 * @param options The options to use when invoking the tool.
+	 * @param token A cancellation token. See {@link CancellationTokenSource} for how to create one.
+	 * @returns The result of the tool invocation.
+	 */
+	function invokeTool(name:String, options:LanguageModelToolInvocationOptions<{}>, ?token:CancellationToken):Thenable<LanguageModelToolResult>;
+}
+
+typedef Record<K, V> = Map<K, V>;

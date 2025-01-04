@@ -8,9 +8,9 @@
 This extern library makes it possible to write extensions for [Visual Studio Code](https://code.visualstudio.com/)
 using [Haxe](https://haxe.org/).
 
-VS Code API version: **1.60**
+VS Code API version: **1.97**
 
-**NOTE**: Requires Haxe 4 or later
+**NOTE**: Requires Haxe 4.3 or later
 
 ## Usage
 
@@ -18,13 +18,14 @@ Global functions and variables from the `vscode` namespace are available through
 while types defined in `vscode` namespace are located in the `vscode` package. The node.js API externs are
 provided by the [hxnodejs](https://github.com/HaxeFoundation/hxnodejs) library.
 
-The current "proposed" APIs are provided are provided via `VscodeProposed` top-level class for the `vscode` namespace
-and the `vscode.proposed` package.
+~~The current "proposed" APIs are provided via `VscodeProposed` top-level class for the `vscode` namespace
+and the `vscode.proposed` package.~~
 
 VS Code expects a .js module that exports the `activate` function that will be called upon
 extension activation. In Haxe this is done using the `@:expose` metdata.
 
 Example:
+
 ```haxe
 class HelloHaxe {
     @:expose("activate")

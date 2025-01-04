@@ -47,7 +47,7 @@ typedef CustomEditorProvider<T:CustomDocument> = CustomReadonlyEditorProvider<T>
 	 * @param document Document to save.
 	 * @param cancellation Token that signals the save is no longer required (for example, if another save was triggered).
 	 *
-	 * @return Thenable signaling that saving has completed.
+	 * @returns Thenable signaling that saving has completed.
 	 */
 	function saveCustomDocument(document:T, cancellation:CancellationToken):Thenable<Void>;
 
@@ -63,7 +63,7 @@ typedef CustomEditorProvider<T:CustomDocument> = CustomReadonlyEditorProvider<T>
 	 * @param destination Location to save to.
 	 * @param cancellation Token that signals the save is no longer required.
 	 *
-	 * @return Thenable signaling that saving has completed.
+	 * @returns Thenable signaling that saving has completed.
 	 */
 	function saveCustomDocumentAs(document:T, destination:Uri, cancellation:CancellationToken):Thenable<Void>;
 
@@ -80,7 +80,7 @@ typedef CustomEditorProvider<T:CustomDocument> = CustomReadonlyEditorProvider<T>
 	 * @param document Document to revert.
 	 * @param cancellation Token that signals the revert is no longer required.
 	 *
-	 * @return Thenable signaling that the change has completed.
+	 * @returns Thenable signaling that the change has completed.
 	 */
 	function revertCustomDocument(document:T, cancellation:CancellationToken):Thenable<Void>;
 

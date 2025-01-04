@@ -49,7 +49,7 @@ typedef DebugSession = {
 	 * If no DAP breakpoint exists (either because the editor breakpoint was not yet registered or because the debug adapter is not interested in the breakpoint), the value `undefined` is returned.
 	 *
 	 * @param breakpoint A {@link Breakpoint} in the editor.
-	 * @return A promise that resolves to the Debug Adapter Protocol breakpoint or `undefined`.
+	 * @returns A promise that resolves to the Debug Adapter Protocol breakpoint or `undefined`.
 	 */
 	function getDebugProtocolBreakpoint(breakpoint:Breakpoint):Thenable<Null<DebugProtocolBreakpoint>>;
 }

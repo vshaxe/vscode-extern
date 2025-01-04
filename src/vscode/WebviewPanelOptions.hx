@@ -7,7 +7,7 @@ typedef WebviewPanelOptions = {
 	/**
 	 * Controls if the find widget is enabled in the panel.
 	 *
-	 * Defaults to false.
+	 * Defaults to `false`.
 	 */
 	var ?enableFindWidget(default, null):Bool;
 

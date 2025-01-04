@@ -19,4 +19,9 @@ extern enum abstract TextEditorLineNumbersStyle(Int) {
 	 * Render the line numbers with values relative to the primary cursor location.
 	 */
 	var Relative;
+
+	/**
+	 * Render the line numbers on every 10th line number.
+	 */
+	var Interval;
 }

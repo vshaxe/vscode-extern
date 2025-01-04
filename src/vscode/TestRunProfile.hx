@@ -27,8 +27,30 @@ typedef TestRunProfile = {
 	 * the generic "run all" button, then the default profile for
 	 * {@link TestRunProfileKind.Run} will be executed, although the
 	 * user can configure this.
+	 *
+	 * Changes the user makes in their default profiles will be reflected
+	 * in this property after a {@link onDidChangeDefault} event.
 	 */
 	var isDefault:Bool;
+
+	/**
+	 * Fired when a user has changed whether this is a default profile. The
+	 * event contains the new value of {@link isDefault}
+	 */
+	var onDidChangeDefault:Event<Bool>;
+
+	/**
+	 * Whether this profile supports continuous running of requests. If so,
+	 * then {@link TestRunRequest.continuous} may be set to `true`. Defaults
+	 * to false.
+	 */
+	var supportsContinuousRun:Bool;
+
+	/**
+	 * Associated tag for the profile. If this is set, only {@link TestItem}
+	 * instances with the same tag will be eligible to execute in this profile.
+	 */
+	var tag:Null<TestTag>;
 
 	/**
 	 * If this method is present, a configuration gear will be present in the
@@ -36,13 +58,18 @@ typedef TestRunProfile = {
 	 * you can take other editor actions, such as showing a quick pick or
 	 * opening a configuration file.
 	 */
-	var ?configureHandler:() -> Void;
+	var configureHandler:Null<() -> Void>;
 
 	/**
 	 * Handler called to start a test run. When invoked, the function should call
 	 * {@link TestController.createTestRun} at least once, and all test runs
 	 * associated with the request should be created before the function returns
 	 * or the returned promise is resolved.
+	 *
+	 * If {@link supportsContinuousRun} is set, then {@link TestRunRequest.continuous}
+	 * may be `true`. In this case, the profile should observe changes to
+	 * source code and create new test runs by calling {@link TestController.createTestRun},
+	 * until the cancellation is requested on the `token`.
 	 *
 	 * @param request Request information for the test run.
 	 * @param cancellationToken Token that signals the used asked to abort the
@@ -51,6 +78,41 @@ typedef TestRunProfile = {
 	 * automatically cancelled as well.
 	 */
 	var runHandler:(request:TestRunRequest, token:CancellationToken) -> Thenable<Void>;
+
+	/**
+	 * An extension-provided function that provides detailed statement and
+	 * function-level coverage for a file. The editor will call this when more
+	 * detail is needed for a file, such as when it's opened in an editor or
+	 * expanded in the **Test Coverage** view.
+	 *
+	 * The {@link FileCoverage} object passed to this function is the same instance
+	 * emitted on {@link TestRun.addCoverage} calls associated with this profile.
+	 */
+	var ?loadDetailedCoverage:(testRun:TestRun, fileCoverage:FileCoverage, token:CancellationToken) -> Thenable<Array<FileCoverageDetail>>;
+
+	/**
+	 * An extension-provided function that provides detailed statement and
+	 * function-level coverage for a single test in a file. This is the per-test
+	 * sibling of {@link TestRunProfile.loadDetailedCoverage}, called only if
+	 * a test item is provided in {@link FileCoverage.includesTests} and only
+	 * for files where such data is reported.
+	 *
+	 * Often {@link TestRunProfile.loadDetailedCoverage} will be called first
+	 * when a user opens a file, and then this method will be called if they
+	 * drill down into specific per-test coverage information. This method
+	 * should then return coverage data only for statements and declarations
+	 * executed by the specific test during the run.
+	 *
+	 * The {@link FileCoverage} object passed to this function is the same
+	 * instance emitted on {@link TestRun.addCoverage} calls associated with this profile.
+	 *
+	 * @param testRun The test run that generated the coverage data.
+	 * @param fileCoverage The file coverage object to load detailed coverage for.
+	 * @param fromTestItem The test item to request coverage information for.
+	 * @param token A cancellation token that indicates the operation should be cancelled.
+	 */
+	var ?loadDetailedCoverageForTest:(testRun:TestRun, fileCoverage:FileCoverage, fromTestItem:TestItem,
+		token:CancellationToken) -> Thenable<Array<FileCoverageDetail>>;
 
 	/**
 	 * Deletes the run profile.

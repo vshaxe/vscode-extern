@@ -17,5 +17,5 @@ typedef DebugSessionCustomEvent = {
 	/**
 	 * Event specific information.
 	 */
-	var ?body(default, null):Any;
+	var body(default, null):Any;
 }

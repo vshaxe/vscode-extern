@@ -7,7 +7,13 @@ package vscode;
  * call the {@linkcode FileWillCreateEvent.waitUntil waitUntil}-function with a
  * thenable that resolves to a {@link WorkspaceEdit workspace edit}.
  */
-typedef FileWillCreateEvent = {
+@:jsRequire("vscode", "FileWillCreateEvent")
+extern class FileWillCreateEvent {
+	/**
+	 * A cancellation token.
+	 */
+	var token(default, null):CancellationToken;
+
 	/**
 	 * The files that are going to be created.
 	 */
@@ -31,6 +37,14 @@ typedef FileWillCreateEvent = {
 	 *
 	 * @param thenable A thenable that delays saving.
 	 */
-	@:overload(function(thenable:Thenable<Dynamic>):Void {})
-	function waitUntil(thenable:Thenable<WorkspaceEdit>):Void;
+	overload function waitUntil(thenable:Thenable<WorkspaceEdit>):Void;
+
+	/**
+	 * Allows to pause the event until the provided thenable resolves.
+	 *
+	 * *Note:* This function can only be called during event dispatch.
+	 *
+	 * @param thenable A thenable that delays saving.
+	 */
+	overload function waitUntil(thenable:Thenable<Dynamic>):Void;
 }

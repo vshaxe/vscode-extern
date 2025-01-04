@@ -7,22 +7,30 @@ package vscode;
 @:jsRequire("vscode", "Disposable")
 extern class Disposable {
 	/**
-	 * Combine many disposable-likes into one. Use this method
-	 * when having objects with a dispose function which are not
-	 * instances of Disposable.
+	 * Combine many disposable-likes into one. You can use this method when having objects with
+	 * a dispose function which aren't instances of `Disposable`.
 	 *
-	 * @param disposableLikes Objects that have at least a `dispose`-function member.
-	 * @return Returns a new disposable which, upon dispose, will
+	 * @param disposableLikes Objects that have at least a `dispose`-function member. Note that asynchronous
+	 * dispose-functions aren't awaited.
+	 * @returns Returns a new disposable which, upon dispose, will
 	 * dispose all provided disposables.
 	 */
-	static function from(disposableLikes:Rest<{function dispose():Void;}>):Disposable;
+	static function from(disposableLikes:Rest<{
+		/**
+		 * Function to clean up resources.
+		 */
+		function dispose():Void;
+	}>):Disposable;
 
 	/**
-	 * Creates a new Disposable calling the provided function
+	 * Creates a new disposable that calls the provided function
 	 * on dispose.
+	 *
+	 * *Note* that an asynchronous function is not awaited.
+	 *
 	 * @param callOnDispose Function that disposes something.
 	 */
-	function new(callOnDispose:Function):Void;
+	function new(callOnDispose:() -> Any):Void;
 
 	/**
 	 * Dispose this object.

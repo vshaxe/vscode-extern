@@ -42,15 +42,15 @@ typedef Extension<T> = {
 	var extensionKind:ExtensionKind;
 
 	/**
-	 * The public API exported by this extension. It is an invalid action
-	 * to access this field before this extension has been activated.
+	 * The public API exported by this extension (return value of `activate`).
+	 * It is an invalid action to access this field before this extension has been activated.
 	 */
 	var exports:T;
 
 	/**
 	 * Activates this extension and returns its public API.
 	 *
-	 * @return A promise that will resolve when this extension has been activated.
+	 * @returns A promise that will resolve when this extension has been activated.
 	 */
 	function activate():Thenable<T>;
 }

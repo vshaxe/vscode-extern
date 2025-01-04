@@ -1,7 +1,7 @@
 package vscode;
 
 /**
- * Additional information used to implement {@linkcode CustomEditableDocument.backup}.
+ * Additional information used to implement {@linkcode CustomDocumentBackup}.
  */
 typedef CustomDocumentBackupContext = {
 	/**

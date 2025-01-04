@@ -6,7 +6,8 @@ import js.lib.RegExp;
  * Represents a text document, such as a source file. Text documents have
  * {@link TextLine lines} and knowledge about an underlying resource like a file.
  */
-typedef TextDocument = {
+@:jsRequire("vscode", "TextDocument")
+extern class TextDocument {
 	/**
 	 * The associated uri for this document.
 	 *
@@ -56,9 +57,8 @@ typedef TextDocument = {
 	/**
 	 * Save the underlying file.
 	 *
-	 * @return A promise that will resolve to true when the file
-	 * has been saved. If the file was not dirty or the save failed,
-	 * will return false.
+	 * @returns A promise that will resolve to `true` when the file
+	 * has been saved. If the save failed, will return `false`.
 	 */
 	function save():Thenable<Bool>;
 
@@ -78,24 +78,24 @@ typedef TextDocument = {
 	 * that the returned object is *not* live and changes to the
 	 * document are not reflected.
 	 *
-	 * @param line A line number in [0, lineCount).
-	 * @return A {@link TextLine line}.
+	 * @param line A line number in `[0, lineCount)`.
+	 * @returns A {@link TextLine line}.
 	 */
-	// TODO: overload PLOX
-	// /**
-	//  * Returns a text line denoted by the position. Note
-	//  * that the returned object is *not* live and changes to the
-	//  * document are not reflected.
-	//  *
-	//  * The position will be {@link TextDocument.validatePosition adjusted}.
-	//  *
-	//  * @see {@link TextDocument.lineAt}
-	//  *
-	//  * @param position A position.
-	//  * @return A {@link TextLine line}.
-	//  */
-	@:overload(function(position:Position):TextLine {})
-	function lineAt(line:Int):TextLine;
+	overload function lineAt(line:Int):TextLine;
+
+	/**
+	 * Returns a text line denoted by the position. Note
+	 * that the returned object is *not* live and changes to the
+	 * document are not reflected.
+	 *
+	 * The position will be {@link TextDocument.validatePosition adjusted}.
+	 *
+	 * @see {@link TextDocument.lineAt}
+	 *
+	 * @param position A position.
+	 * @returns A {@link TextLine line}.
+	 */
+	overload function lineAt(position:Position):TextLine;
 
 	/**
 	 * Converts the position to a zero-based offset.
@@ -103,7 +103,7 @@ typedef TextDocument = {
 	 * The position will be {@link TextDocument.validatePosition adjusted}.
 	 *
 	 * @param position A position.
-	 * @return A valid zero-based offset.
+	 * @returns A valid zero-based offset.
 	 */
 	function offsetAt(position:Position):Int;
 
@@ -111,7 +111,7 @@ typedef TextDocument = {
 	 * Converts a zero-based offset to a position.
 	 *
 	 * @param offset A zero-based offset.
-	 * @return A valid {@link Position}.
+	 * @returns A valid {@link Position}.
 	 */
 	function positionAt(offset:Int):Position;
 
@@ -120,14 +120,14 @@ typedef TextDocument = {
 	 * a range. The range will be {@link TextDocument.validateRange adjusted}.
 	 *
 	 * @param range Include only the text included by the range.
-	 * @return The text inside the provided range or the entire text.
+	 * @returns The text inside the provided range or the entire text.
 	 */
 	function getText(?range:Range):String;
 
 	/**
 	 * Get a word-range at the given position. By default words are defined by
 	 * common separators, like space, -, _, etc. In addition, per language custom
-	 * [word definitions} can be defined. It
+	 * [word definitions] can be defined. It
 	 * is also possible to provide a custom regular expression.
 	 *
 	 * * *Note 1:* A custom regular expression must not match the empty string and
@@ -140,7 +140,7 @@ typedef TextDocument = {
 	 *
 	 * @param position A position.
 	 * @param regex Optional regular expression that describes what a word is.
-	 * @return A range spanning a word, or `undefined`.
+	 * @returns A range spanning a word, or `undefined`.
 	 */
 	function getWordRangeAtPosition(position:Position, ?regex:RegExp):Null<Range>;
 
@@ -148,7 +148,7 @@ typedef TextDocument = {
 	 * Ensure a range is completely contained in this document.
 	 *
 	 * @param range A range.
-	 * @return The given range or a new, adjusted range.
+	 * @returns The given range or a new, adjusted range.
 	 */
 	function validateRange(range:Range):Range;
 
@@ -156,7 +156,7 @@ typedef TextDocument = {
 	 * Ensure a position is contained in the range of this document.
 	 *
 	 * @param position A position.
-	 * @return The given position or a new, adjusted position.
+	 * @returns The given position or a new, adjusted position.
 	 */
 	function validatePosition(position:Position):Position;
 }

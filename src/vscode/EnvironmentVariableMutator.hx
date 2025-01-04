@@ -13,4 +13,9 @@ typedef EnvironmentVariableMutator = {
 	 * The value to use for the variable.
 	 */
 	final value:String;
+
+	/**
+	 * Options applied to the mutator.
+	 */
+	final options:EnvironmentVariableMutatorOptions;
 }

@@ -7,8 +7,13 @@ package vscode;
 @:jsRequire("vscode", "ThemeColor")
 extern class ThemeColor {
 	/**
+	 * The id of this color.
+	 */
+	var id(default, null):String;
+
+	/**
 	 * Creates a reference to a theme color.
-	 * @param id of the color. The available colors are listed in https://code.visualstudio.com/docs/getstarted/theme-color-reference.
+	 * @param id of the color. The available colors are listed in https://code.visualstudio.com/api/references/theme-color.
 	 */
 	function new(id:String);
 }

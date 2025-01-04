@@ -25,7 +25,7 @@ typedef CustomTextEditorProvider = {
 	 *
 	 * @param token A cancellation token that indicates the result is no longer needed.
 	 *
-	 * @return Thenable indicating that the custom editor has been resolved.
+	 * @returns Thenable indicating that the custom editor has been resolved.
 	 */
 	function resolveCustomTextEditor(document:TextDocument, webviewPanel:WebviewPanel, token:CancellationToken):EitherType<Thenable<Void>, Void>;
 }

@@ -14,9 +14,10 @@ typedef AuthenticationProvider = {
 	 * Get a list of sessions.
 	 * @param scopes An optional list of scopes. If provided, the sessions returned should match
 	 * these permissions, otherwise all sessions should be returned.
+	 * @param options Additional options for getting sessions.
 	 * @returns A promise that resolves to an array of authentication sessions.
 	 */
-	function getSessions(?scopes:ReadOnlyArray<String>):Thenable<ReadOnlyArray<AuthenticationSession>>;
+	function getSessions(scopes:Null<ReadOnlyArray<String>>, options:AuthenticationProviderSessionOptions):Thenable<ReadOnlyArray<AuthenticationSession>>;
 
 	/**
 	 * Prompts a user to login.
@@ -29,9 +30,10 @@ typedef AuthenticationProvider = {
 	 * then this should never be called if there is already an existing session matching these
 	 * scopes.
 	 * @param scopes A list of scopes, permissions, that the new session should be created with.
+	 * @param options Additional options for creating a session.
 	 * @returns A promise that resolves to an authentication session.
 	 */
-	function createSession(scopes:ReadOnlyArray<String>):Thenable<AuthenticationSession>;
+	function createSession(scopes:ReadOnlyArray<String>, options:AuthenticationProviderSessionOptions):Thenable<AuthenticationSession>;
 
 	/**
 	 * Removes the session corresponding to session id.

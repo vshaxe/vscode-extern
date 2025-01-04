@@ -4,10 +4,16 @@ package vscode;
  * An event that is fired when files are going to be deleted.
  *
  * To make modifications to the workspace before the files are deleted,
- * call the {@link FileWillCreateEvent.waitUntil `waitUntil}-function with a
+ * call the {@link FileWillCreateEvent.waitUntil `waitUntil`}-function with a
  * thenable that resolves to a {@link WorkspaceEdit workspace edit}.
  */
-typedef FileWillDeleteEvent = {
+@:jsRequire("vscode", "FileWillDeleteEvent")
+extern class FileWillDeleteEvent {
+	/**
+	 * A cancellation token.
+	 */
+	var token(default, null):CancellationToken;
+
 	/**
 	 * The files that are going to be deleted.
 	 */
@@ -31,6 +37,14 @@ typedef FileWillDeleteEvent = {
 	 *
 	 * @param thenable A thenable that delays saving.
 	 */
-	@:overload(function(thenable:Thenable<Dynamic>):Void {})
-	function waitUntil(thenable:Thenable<WorkspaceEdit>):Void;
+	overload function waitUntil(thenable:Thenable<WorkspaceEdit>):Void;
+
+	/**
+	 * Allows to pause the event until the provided thenable resolves.
+	 *
+	 * *Note:* This function can only be called during event dispatch.
+	 *
+	 * @param thenable A thenable that delays saving.
+	 */
+	overload function waitUntil(thenable:Thenable<Dynamic>):Void;
 }

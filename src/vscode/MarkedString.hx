@@ -7,4 +7,16 @@ package vscode;
  *
  * @deprecated This type is deprecated, please use {@linkcode MarkdownString} instead.
  */
-typedef MarkedString = EitherType<String, {language:String, value:String}>;
+typedef MarkedString = EitherType<String, {
+	/**
+	 * The language of a markdown code block
+	 * @deprecated please use {@linkcode MarkdownString} instead
+	 */
+	language:String,
+
+	/**
+	 * The code snippet of a markdown code block.
+	 * @deprecated please use {@linkcode MarkdownString} instead
+	 */
+	value:String
+}>;

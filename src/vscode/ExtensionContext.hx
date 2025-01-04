@@ -11,8 +11,15 @@ typedef ExtensionContext = {
 	/**
 	 * An array to which disposables can be added. When this
 	 * extension is deactivated the disposables will be disposed.
+	 *
+	 * *Note* that asynchronous dispose-functions aren't awaited.
 	 */
-	var subscriptions(default, null):Array<{function dispose():Void;}>;
+	var subscriptions(default, null):Array<{
+		/**
+		 * Function to clean up resources.
+		 */
+		function dispose():Void;
+	}>;
 
 	/**
 	 * A memento object that stores state in the context
@@ -24,27 +31,11 @@ typedef ExtensionContext = {
 	 * A memento object that stores state independent
 	 * of the current opened {@link workspace.workspaceFolders workspace}.
 	 */
-	var globalState(default, null):Memento & {
-
-		/**
-		 * Set the keys whose values should be synchronized across devices when synchronizing user-data
-		 * like configuration, extensions, and mementos.
-		 *
-		 * Note that this function defines the whole set of keys whose values are synchronized:
-		 *  - calling it with an empty array stops synchronization for this memento
-		 *  - calling it with a non-empty array replaces all keys whose values are synchronized
-		 *
-		 * For any given set of keys this function needs to be called only once but there is no harm in
-		 * repeatedly calling it.
-		 *
-		 * @param keys The set of keys whose values are synced.
-		 */
-		function setKeysForSync(keys:ReadOnlyArray<String>):Void;
-	};
+	var globalState(default, null):MementoKeysForSync;
 
 	/**
-	 * A storage utility for secrets. Secrets are persisted across reloads and are independent of the
-	 * current opened {@link workspace.workspaceFolders workspace}.
+	 * A secret storage object that stores state independent
+	 * of the current opened {@link workspace.workspaceFolders workspace}.
 	 */
 	var secrets(default, null):SecretStorage;
 
@@ -60,10 +51,10 @@ typedef ExtensionContext = {
 	var extensionPath(default, null):String;
 
 	/**
-	 * Gets the extension's environment variable collection for this workspace, enabling changes
-	 * to be applied to terminal environment variables.
+	 * Gets the extension's global environment variable collection for this workspace, enabling changes to be
+	 * applied to terminal environment variables.
 	 */
-	var environmentVariableCollection(default, null):EnvironmentVariableCollection;
+	var environmentVariableCollection(default, null):GlobalEnvironmentVariableCollection;
 
 	/**
 	 * Get the absolute path of a resource contained in the extension.
@@ -72,7 +63,7 @@ typedef ExtensionContext = {
 	 * {@linkcode ExtensionContext.extensionUri extensionUri}, e.g. `vscode.Uri.joinPath(context.extensionUri, relativePath);`
 	 *
 	 * @param relativePath A relative path to a resource contained in the extension.
-	 * @return The absolute path of the resource.
+	 * @returns The absolute path of the resource.
 	 */
 	function asAbsolutePath(relativePath:String):String;
 
@@ -148,9 +139,8 @@ typedef ExtensionContext = {
 	var logPath(default, null):String;
 
 	/**
-	 * The mode the extension is running in. This is specific to the current
-	 * extension. One extension may be in `ExtensionMode.Development` while
-	 * other extensions in the host run in `ExtensionMode.Release`.
+	 * The mode the extension is running in. See {@link ExtensionMode}
+	 * for possible values and scenarios.
 	 */
 	var extensionMode(default, null):ExtensionMode;
 
@@ -158,4 +148,28 @@ typedef ExtensionContext = {
 	 * The current `Extension` instance.
 	 */
 	var extension(default, null):Extension<Dynamic>;
+
+	/**
+	 * An object that keeps information about how this extension can use language models.
+	 *
+	 * @see {@link LanguageModelChat.sendRequest}
+	 */
+	var languageModelAccessInformation(default, null):LanguageModelAccessInformation;
+}
+
+abstract class MementoKeysForSync extends Memento {
+	/**
+	 * Set the keys whose values should be synchronized across devices when synchronizing user-data
+	 * like configuration, extensions, and mementos.
+	 *
+	 * Note that this function defines the whole set of keys whose values are synchronized:
+	 *  - calling it with an empty array stops synchronization for this memento
+	 *  - calling it with a non-empty array replaces all keys whose values are synchronized
+	 *
+	 * For any given set of keys this function needs to be called only once but there is no harm in
+	 * repeatedly calling it.
+	 *
+	 * @param keys The set of keys whose values are synced.
+	 */
+	abstract function setKeysForSync(keys:ReadOnlyArray<String>):Void;
 }

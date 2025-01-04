@@ -17,5 +17,14 @@ typedef NotebookCellExecutionSummary = {
 	/**
 	 * The times at which execution started and ended, as unix timestamps
 	 */
-	var ?timing(default, null):{startTime:Float, endTime:Float};
+	var ?timing(default, null):{
+		/**
+		 * Execution start time.
+		 */
+		startTime:Float,
+		/**
+		 * Execution end time.
+		 */
+		endTime:Float
+	};
 }

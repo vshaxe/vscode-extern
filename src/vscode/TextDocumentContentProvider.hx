@@ -27,7 +27,7 @@ typedef TextDocumentContentProvider = {
 	 *
 	 * @param uri An uri which scheme matches the scheme this provider was {@link workspace.registerTextDocumentContentProvider registered} for.
 	 * @param token A cancellation token.
-	 * @return A string or a thenable that resolves to such.
+	 * @returns A string or a thenable that resolves to such.
 	 */
 	function provideTextDocumentContent(uri:Uri, token:CancellationToken):ProviderResult<String>;
 }

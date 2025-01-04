@@ -16,7 +16,7 @@ typedef SignatureHelpContext = {
 	 * This is `undefined` when signature help is not triggered by typing, such as when manually invoking
 	 * signature help or when moving the cursor.
 	 */
-	var ?triggerCharacter(default, null):String;
+	var triggerCharacter(default, null):Null<String>;
 
 	/**
 	 * `true` if signature help was already showing when it was triggered.
@@ -29,8 +29,8 @@ typedef SignatureHelpContext = {
 	/**
 	 * The currently active {@linkcode SignatureHelp}.
 	 *
-	 * The `activeSignatureHelp` has its [`SignatureHelp.activeSignature`] field updated based on
+	 * The `activeSignatureHelp` has its {@linkcode SignatureHelp.activeSignature activeSignature} field updated based on
 	 * the user arrowing through available signatures.
 	 */
-	var ?activeSignatureHelp(default, null):SignatureHelp;
+	var activeSignatureHelp(default, null):Null<SignatureHelp>;
 }

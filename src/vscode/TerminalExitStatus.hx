@@ -11,5 +11,10 @@ typedef TerminalExitStatus = {
 	 * - `undefined`: the user forcibly closed the terminal or a custom execution exited
 	 *   without providing an exit code.
 	 */
-	var ?code(default, null):Int;
+	var code(default, null):Null<Int>;
+
+	/**
+	 * The reason that triggered the exit of a terminal.
+	 */
+	var reason(default, null):TerminalExitReason;
 }

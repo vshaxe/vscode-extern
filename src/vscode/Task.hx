@@ -8,7 +8,7 @@ extern class Task {
 	/**
 	 * Creates a new task.
 	 *
-	 * @param definition The task definition as defined in the taskDefinitions extension point.
+	 * @param taskDefinition The task definition as defined in the taskDefinitions extension point.
 	 * @param scope Specifies the task's scope. It is either a global or a workspace task or a task for a specific workspace folder. Global tasks are currently not supported.
 	 * @param name The task's name. Is presented in the user interface.
 	 * @param source The task's source (e.g. 'gulp', 'npm', ...). Is presented in the user interface.
@@ -17,6 +17,20 @@ extern class Task {
 	 *  or '$eslint'. Problem matchers can be contributed by an extension using
 	 *  the `problemMatchers` extension point.
 	 */
+	// TODO overload plox
+	// /**
+	//  * Creates a new task.
+	//  *
+	//  * @deprecated Use the new constructors that allow specifying a scope for the task.
+	//  *
+	//  * @param taskDefinition The task definition as defined in the taskDefinitions extension point.
+	//  * @param name The task's name. Is presented in the user interface.
+	//  * @param source The task's source (e.g. 'gulp', 'npm', ...). Is presented in the user interface.
+	//  * @param execution The process or shell execution.
+	//  * @param problemMatchers the names of problem matchers to use, like '$tsc'
+	//  *  or '$eslint'. Problem matchers can be contributed by an extension using
+	//  *  the `problemMatchers` extension point.
+	//  */
 	@:overload(function(taskDefinition:TaskDefinition, name:String, source:String, ?execution:EitherType<ProcessExecution, ShellExecution>,
 		?problemMatchers:EitherType<String, Array<String>>):Void {}) // deprecated
 	function new(taskDefinition:TaskDefinition, target:EitherType<WorkspaceFolder, TaskScope>, name:String, source:String,

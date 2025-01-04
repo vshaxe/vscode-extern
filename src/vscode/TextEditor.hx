@@ -17,13 +17,13 @@ typedef TextEditor = {
 	/**
 	 * The selections in this text editor. The primary selection is always at index 0.
 	 */
-	var selections:Array<Selection>;
+	var selections:ReadOnlyArray<Selection>;
 
 	/**
 	 * The current visible ranges in the editor (vertically).
 	 * This accounts only for vertical scrolling, and not for horizontal scrolling.
 	 */
-	var visibleRanges(default, never):Array<Range>;
+	var visibleRanges(default, never):ReadOnlyArray<Range>;
 
 	/**
 	 * Text editor options.
@@ -35,7 +35,7 @@ typedef TextEditor = {
 	 * isn't one of the main editors, e.g. an embedded editor, or when the editor
 	 * column is larger than three.
 	 */
-	var ?viewColumn(default, never):ViewColumn;
+	var viewColumn(default, never):Null<ViewColumn>;
 
 	/**
 	 * Perform an edit on the document associated with this text editor.
@@ -46,9 +46,18 @@ typedef TextEditor = {
 	 *
 	 * @param callback A function which can create edits using an {@link TextEditorEdit edit-builder}.
 	 * @param options The undo/redo behavior around this edit. By default, undo stops will be created before and after this edit.
-	 * @return A promise that resolves with a value indicating if the edits could be applied.
+	 * @returns A promise that resolves with a value indicating if the edits could be applied.
 	 */
-	function edit(callback:TextEditorEdit->Void, ?options:{undoStopBefore:Bool, undoStopAfter:Bool}):Thenable<Bool>;
+	function edit(callback:TextEditorEdit->Void, ?options:{
+		/**
+		 * Add undo stop before making the edits.
+		 */
+		undoStopBefore:Bool,
+		/**
+		 * Add undo stop after making the edits.
+		 */
+		undoStopAfter:Bool
+	}):Thenable<Bool>;
 
 	/**
 	 * Insert a {@link SnippetString snippet} and put the editor into snippet mode. "Snippet mode"
@@ -58,12 +67,18 @@ typedef TextEditor = {
 	 * @param snippet The snippet to insert in this edit.
 	 * @param location Position or range at which to insert the snippet, defaults to the current editor selection or selections.
 	 * @param options The undo/redo behavior around this edit. By default, undo stops will be created before and after this edit.
-	 * @return A promise that resolves with a value indicating if the snippet could be inserted. Note that the promise does not signal
+	 * @returns A promise that resolves with a value indicating if the snippet could be inserted. Note that the promise does not signal
 	 * that the snippet is completely filled-in or accepted.
 	 */
 	function insertSnippet(snippet:SnippetString,
 		?location:EitherType<Position, EitherType<Range, EitherType<ReadOnlyArray<Position>, ReadOnlyArray<Range>>>>, ?options:{
+			/**
+			 * Add undo stop before making the edits.
+			 */
 			undoStopBefore:Bool,
+			/**
+			 * Add undo stop after making the edits.
+			 */
 			undoStopAfter:Bool
 		}):Thenable<Bool>;
 

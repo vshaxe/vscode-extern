@@ -13,6 +13,8 @@ typedef Pseudoterminal = {
 	 * Note writing `\n` will just move the cursor down 1 row, you need to write `\r` as well
 	 * to move the cursor to the left-most cell.
 	 *
+	 * Events fired before {@link Pseudoterminal.open} is called will be be ignored.
+	 *
 	 * **Example:** Write red text to the terminal
 	 * ```typescript
 	 * const writeEmitter = new vscode.EventEmitter<string>();
@@ -38,6 +40,8 @@ typedef Pseudoterminal = {
 	 * bar). Set to `undefined` for the terminal to go back to the regular dimensions (fit to
 	 * the size of the panel).
 	 *
+	 * Events fired before {@link Pseudoterminal.open} is called will be be ignored.
+	 *
 	 * **Example:** Override the dimensions of a terminal to 20 columns and 10 rows
 	 * ```typescript
 	 * const dimensionsEmitter = new vscode.EventEmitter<vscode.TerminalDimensions>();
@@ -60,6 +64,8 @@ typedef Pseudoterminal = {
 	/**
 	 * An event that when fired will signal that the pty is closed and dispose of the terminal.
 	 *
+	 * Events fired before {@link Pseudoterminal.open} is called will be be ignored.
+	 *
 	 * A number can be used to provide an exit code for the terminal. Exit codes must be
 	 * positive and a non-zero exit codes signals failure which shows a notification for a
 	 * regular terminal and allows dependent tasks to proceed when used with the
@@ -68,7 +74,7 @@ typedef Pseudoterminal = {
 	 * **Example:** Exit the terminal when "y" is pressed, otherwise show a notification.
 	 * ```typescript
 	 * const writeEmitter = new vscode.EventEmitter<string>();
-	 * const closeEmitter = new vscode.EventEmitter<vscode.TerminalDimensions>();
+	 * const closeEmitter = new vscode.EventEmitter<void>();
 	 * const pty: vscode.Pseudoterminal = {
 	 *   onDidWrite: writeEmitter.event,
 	 *   onDidClose: closeEmitter.event,
@@ -81,7 +87,8 @@ typedef Pseudoterminal = {
 	 *     closeEmitter.fire();
 	 *   }
 	 * };
-	 * vscode.window.createTerminal({ name: 'Exit example', pty });
+	 * const terminal = vscode.window.createTerminal({ name: 'Exit example', pty });
+	 * terminal.show(true);
 	 * ```
 	 */
 	var ?onDidClose:Event<EitherType<Void, Int>>;

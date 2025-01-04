@@ -18,7 +18,7 @@ typedef TestItem = {
 	/**
 	 * URI this `TestItem` is associated with. May be a file or directory.
 	 */
-	var ?uri(default, null):Uri;
+	var uri(default, null):Null<Uri>;
 
 	/**
 	 * The children of this test item. For a test suite, this may contain the
@@ -29,9 +29,15 @@ typedef TestItem = {
 	/**
 	 * The parent of this item. It's set automatically, and is undefined
 	 * top-level items in the {@link TestController.items} and for items that
-	 * aren't yet included in another item's {@link children}.
+	 * aren't yet included in another item's {@link TestItem.children children}.
 	 */
-	var ?parent(default, null):TestItem;
+	var parent(default, null):Null<TestItem>;
+
+	/**
+	 * Tags associated with this test item. May be used in combination with
+	 * {@link TestRunProfile.tag tags}, or simply as an organizational feature.
+	 */
+	var tags:ReadOnlyArray<TestTag>;
 
 	/**
 	 * Indicates whether this test item may have children discovered by resolving.
@@ -63,11 +69,18 @@ typedef TestItem = {
 	var ?description:String;
 
 	/**
-	 * Location of the test item in its {@link uri}.
+	 * A string that should be used when comparing this item
+	 * with other items. When `falsy` the {@link TestItem.label label}
+	 * is used.
+	 */
+	var ?sortText:Null<String>;
+
+	/**
+	 * Location of the test item in its {@link TestItem.uri uri}.
 	 *
 	 * This is only meaningful if the `uri` points to a file.
 	 */
-	var ?range:Range;
+	var range:Null<Range>;
 
 	/**
 	 * Optional error encountered while loading the test.
@@ -75,5 +88,5 @@ typedef TestItem = {
 	 * Note that this is not a test result and should only be used to represent errors in
 	 * test discovery, such as syntax errors.
 	 */
-	var ?error:EitherType<String, MarkdownString>;
+	var error:Null<EitherType<String, MarkdownString>>;
 }
