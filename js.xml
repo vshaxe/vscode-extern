@@ -19172,7 +19172,7 @@
 	 * @deprecated Use {@link ExtensionContext.globalStorageUri globalStorageUri} instead.</haxe_doc>
 			</globalStoragePath>
 			<globalState set="null">
-				<c path="vscode.MementoKeysForSync"/>
+				<c path="vscode.Memento"/>
 				<haxe_doc>* A memento object that stores state independent
 	 * of the current opened {@link workspace.workspaceFolders workspace}.</haxe_doc>
 			</globalState>
@@ -19219,80 +19219,6 @@
  * An instance of an `ExtensionContext` is provided as the first
  * parameter to the `activate`-call of an extension.</haxe_doc>
 	</typedef>
-	<class path="vscode.Memento" params="" file="src/vscode/Memento.hx" extern="1">
-		<keys public="1" set="method">
-			<f a=""><x path="haxe.ds.ReadOnlyArray"><c path="String"/></x></f>
-			<haxe_doc>* Returns the stored keys.
-	 *
-	 * @returns The stored keys.</haxe_doc>
-		</keys>
-		<get public="1" params="T" set="method">
-			<f a="key">
-				<c path="String"/>
-				<x path="Null"><c path="get.T"/></x>
-			</f>
-			<haxe_doc>* Return a value.
-	 *
-	 * @param key A string.
-	 * @returns The stored value or `undefined`.</haxe_doc>
-			<overloads><get public="1" params="T" set="method">
-	<f a="key:defaultValue">
-		<c path="String"/>
-		<c path="get.T"/>
-		<c path="get.T"/>
-	</f>
-	<haxe_doc>* Return a value.
-	 *
-	 * @param key A string.
-	 * @param defaultValue A value that should be returned when there is no
-	 * value (`undefined`) with the given key.
-	 * @returns The stored value or the defaultValue.</haxe_doc>
-</get></overloads>
-		</get>
-		<update public="1" set="method">
-			<f a="key:value">
-				<c path="String"/>
-				<x path="Any"/>
-				<x path="js.lib.Thenable"><x path="Void"/></x>
-			</f>
-			<haxe_doc>* Store a value. The value must be JSON-stringifyable.
-	 *
-	 * *Note* that using `undefined` as value removes the key from the underlying
-	 * storage.
-	 *
-	 * @param key A string.
-	 * @param value A value. MUST not contain cyclic references.</haxe_doc>
-		</update>
-		<haxe_doc>* A memento represents a storage utility. It can store and retrieve
- * values.</haxe_doc>
-		<meta>
-			<m n=":directlyUsed"/>
-			<m n=":jsRequire">
-				<e>"vscode"</e>
-				<e>"Memento"</e>
-			</m>
-		</meta>
-	</class>
-	<class path="vscode.MementoKeysForSync" params="" file="src/vscode/ExtensionContext.hx" module="vscode.ExtensionContext" abstract="1">
-		<extends path="vscode.Memento"/>
-		<setKeysForSync abstract="1" set="method">
-			<f a="keys">
-				<x path="haxe.ds.ReadOnlyArray"><c path="String"/></x>
-				<x path="Void"/>
-			</f>
-			<haxe_doc>* Set the keys whose values should be synchronized across devices when synchronizing user-data
-	 * like configuration, extensions, and mementos.
-	 *
-	 * Note that this function defines the whole set of keys whose values are synchronized:
-	 *  - calling it with an empty array stops synchronization for this memento
-	 *  - calling it with a non-empty array replaces all keys whose values are synchronized
-	 *
-	 * For any given set of keys this function needs to be called only once but there is no harm in
-	 * repeatedly calling it.
-	 *
-	 * @param keys The set of keys whose values are synced.</haxe_doc>
-		</setKeysForSync>
-	</class>
 	<abstract path="vscode.ExtensionKind" params="" file="src/vscode/ExtensionKind.hx">
 		<this><x path="Int"/></this>
 		<haxe_doc>* In a remote window the extension kind describes if an extension
@@ -23253,6 +23179,57 @@
  *
  * @deprecated This type is deprecated, please use {@linkcode MarkdownString} instead.</haxe_doc>
 	</typedef>
+	<class path="vscode.Memento" params="" file="src/vscode/Memento.hx" extern="1">
+		<keys public="1" set="method">
+			<f a=""><x path="haxe.ds.ReadOnlyArray"><c path="String"/></x></f>
+			<haxe_doc>* Returns the stored keys.
+	 *
+	 * @returns The stored keys.</haxe_doc>
+		</keys>
+		<get public="1" params="T" set="method">
+			<f a="key">
+				<c path="String"/>
+				<x path="Null"><c path="get.T"/></x>
+			</f>
+			<haxe_doc>* Return a value.
+	 *
+	 * @param key A string.
+	 * @returns The stored value or `undefined`.</haxe_doc>
+			<overloads><get public="1" params="T" set="method">
+	<f a="key:defaultValue">
+		<c path="String"/>
+		<c path="get.T"/>
+		<c path="get.T"/>
+	</f>
+	<haxe_doc>* Return a value.
+	 *
+	 * @param key A string.
+	 * @param defaultValue A value that should be returned when there is no
+	 * value (`undefined`) with the given key.
+	 * @returns The stored value or the defaultValue.</haxe_doc>
+</get></overloads>
+		</get>
+		<update public="1" set="method">
+			<f a="key:value">
+				<c path="String"/>
+				<x path="Any"/>
+				<x path="js.lib.Thenable"><x path="Void"/></x>
+			</f>
+			<haxe_doc>* Store a value. The value must be JSON-stringifyable.
+	 *
+	 * *Note* that using `undefined` as value removes the key from the underlying
+	 * storage.
+	 *
+	 * @param key A string.
+	 * @param value A value. MUST not contain cyclic references.</haxe_doc>
+		</update>
+		<haxe_doc>* A memento represents a storage utility. It can store and retrieve
+ * values.</haxe_doc>
+		<meta><m n=":jsRequire">
+	<e>"vscode"</e>
+	<e>"Memento"</e>
+</m></meta>
+	</class>
 	<typedef path="vscode.MessageItem" params="" file="src/vscode/MessageItem.hx">
 		<a>
 			<title>
