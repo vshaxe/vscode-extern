@@ -19046,7 +19046,7 @@
 				<haxe_doc>* The canonical extension identifier in the form of: `publisher.name`.</haxe_doc>
 			</id>
 			<extensionUri set="null">
-				<c path="String"/>
+				<c path="vscode.Uri"/>
 				<haxe_doc>* The uri of the directory containing the extension.</haxe_doc>
 			</extensionUri>
 			<extensionPath set="null">
@@ -19177,7 +19177,7 @@
 	 * of the current opened {@link workspace.workspaceFolders workspace}.</haxe_doc>
 			</globalState>
 			<extensionUri set="null">
-				<c path="String"/>
+				<c path="vscode.Uri"/>
 				<haxe_doc>* The uri of the directory containing the extension.</haxe_doc>
 			</extensionUri>
 			<extensionPath set="null">
