@@ -59,7 +59,7 @@ typedef ExtensionContext = {
 	/**
 	 * The uri of the directory containing the extension.
 	 */
-	var extensionUri(default, null):String;
+	var extensionUri(default, null):Uri;
 
 	/**
 	 * The absolute file path of the directory containing the extension. Shorthand
