@@ -667,7 +667,6 @@ extern class VscodeWindow {
 	 */
 	function createTextEditorDecorationType(options:DecorationRenderOptions):TextEditorDecorationType;
 
-
 	/**
 	 * Show an information message to users. Optionally provide an array of items which will be presented as
 	 * clickable buttons.
@@ -717,7 +716,7 @@ extern class VscodeWindow {
 	 * @param items A set of items that will be rendered as actions in the message.
 	 * @returns A thenable that resolves to the selected item or `undefined` when being dismissed.
 	 */
-	overload function showWarningMessage(message:String, items:Rest<String>):Thenable<Null<String>>;
+	overload function showWarningMessage<T:EitherType<String, MessageItem>>(message:String, items:Rest<T>):Thenable<Null<T>>;
 
 	/**
 	 * Show a warning message.
@@ -729,30 +728,7 @@ extern class VscodeWindow {
 	 * @param items A set of items that will be rendered as actions in the message.
 	 * @returns A thenable that resolves to the selected item or `undefined` when being dismissed.
 	 */
-	overload function showWarningMessage(message:String, options:MessageOptions, items:Rest<String>):Thenable<Null<String>>;
-
-	/**
-	 * Show a warning message.
-	 *
-	 * @see {@link window.showInformationMessage showInformationMessage}
-	 *
-	 * @param message The message to show.
-	 * @param items A set of items that will be rendered as actions in the message.
-	 * @returns A thenable that resolves to the selected item or `undefined` when being dismissed.
-	 */
-	overload function showWarningMessage<T:MessageItem>(message:String, items:Rest<T>):Thenable<Null<T>>;
-
-	/**
-	 * Show a warning message.
-	 *
-	 * @see {@link window.showInformationMessage showInformationMessage}
-	 *
-	 * @param message The message to show.
-	 * @param options Configures the behaviour of the message.
-	 * @param items A set of items that will be rendered as actions in the message.
-	 * @returns A thenable that resolves to the selected item or `undefined` when being dismissed.
-	 */
-	overload function showWarningMessage<T:MessageItem>(message:String, options:MessageOptions, items:Rest<T>):Thenable<Null<T>>;
+	overload function showWarningMessage<T:EitherType<String, MessageItem>>(message:String, options:MessageOptions, items:Rest<T>):Thenable<Null<T>>;
 
 	/**
 	 * Show an error message.
@@ -763,7 +739,7 @@ extern class VscodeWindow {
 	 * @param items A set of items that will be rendered as actions in the message.
 	 * @returns A thenable that resolves to the selected item or `undefined` when being dismissed.
 	 */
-	overload function showErrorMessage(message:String, items:Rest<String>):Thenable<Null<String>>;
+	overload function showErrorMessage<T:EitherType<String, MessageItem>>(message:String, items:Rest<T>):Thenable<Null<T>>;
 
 	/**
 	 * Show an error message.
@@ -775,30 +751,7 @@ extern class VscodeWindow {
 	 * @param items A set of items that will be rendered as actions in the message.
 	 * @returns A thenable that resolves to the selected item or `undefined` when being dismissed.
 	 */
-	overload function showErrorMessage(message:String, options:MessageOptions, items:Rest<String>):Thenable<Null<String>>;
-
-	/**
-	 * Show an error message.
-	 *
-	 * @see {@link window.showInformationMessage showInformationMessage}
-	 *
-	 * @param message The message to show.
-	 * @param items A set of items that will be rendered as actions in the message.
-	 * @returns A thenable that resolves to the selected item or `undefined` when being dismissed.
-	 */
-	overload function showErrorMessage<T:MessageItem>(message:String, items:Rest<T>):Thenable<Null<T>>;
-
-	/**
-	 * Show an error message.
-	 *
-	 * @see {@link window.showInformationMessage showInformationMessage}
-	 *
-	 * @param message The message to show.
-	 * @param options Configures the behaviour of the message.
-	 * @param items A set of items that will be rendered as actions in the message.
-	 * @returns A thenable that resolves to the selected item or `undefined` when being dismissed.
-	 */
-	overload function showErrorMessage<T:MessageItem>(message:String, options:MessageOptions, items:Rest<T>):Thenable<Null<T>>;
+	overload function showErrorMessage<T:EitherType<String, MessageItem>>(message:String, options:MessageOptions, items:Rest<T>):Thenable<Null<T>>;
 
 	/**
 	 * Shows a selection list allowing multiple selections.
