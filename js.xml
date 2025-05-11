@@ -1845,11 +1845,11 @@
 	 * @returns A thenable that resolves to the selected item or `undefined` when being dismissed.</haxe_doc>
 </showInformationMessage></overloads>
 		</showInformationMessage>
-		<showWarningMessage public="1" set="method">
+		<showWarningMessage public="1" params="T" set="method">
 			<f a="message:items">
 				<c path="String"/>
-				<t path="haxe.extern.Rest"><c path="String"/></t>
-				<x path="js.lib.Thenable"><x path="Null"><c path="String"/></x></x>
+				<t path="haxe.extern.Rest"><c path="showWarningMessage.T"/></t>
+				<x path="js.lib.Thenable"><x path="Null"><c path="showWarningMessage.T"/></x></x>
 			</f>
 			<haxe_doc>* Show a warning message.
 	 *
@@ -1858,15 +1858,14 @@
 	 * @param message The message to show.
 	 * @param items A set of items that will be rendered as actions in the message.
 	 * @returns A thenable that resolves to the selected item or `undefined` when being dismissed.</haxe_doc>
-			<overloads>
-				<showWarningMessage public="1" params="T" set="method">
-					<f a="message:options:items">
-						<c path="String"/>
-						<t path="vscode.MessageOptions"/>
-						<t path="haxe.extern.Rest"><c path="showWarningMessage.T"/></t>
-						<x path="js.lib.Thenable"><x path="Null"><c path="showWarningMessage.T"/></x></x>
-					</f>
-					<haxe_doc>* Show a warning message.
+			<overloads><showWarningMessage public="1" params="T" set="method">
+	<f a="message:options:items">
+		<c path="String"/>
+		<t path="vscode.MessageOptions"/>
+		<t path="haxe.extern.Rest"><c path="showWarningMessage.T"/></t>
+		<x path="js.lib.Thenable"><x path="Null"><c path="showWarningMessage.T"/></x></x>
+	</f>
+	<haxe_doc>* Show a warning message.
 	 *
 	 * @see {@link window.showInformationMessage showInformationMessage}
 	 *
@@ -1874,44 +1873,13 @@
 	 * @param options Configures the behaviour of the message.
 	 * @param items A set of items that will be rendered as actions in the message.
 	 * @returns A thenable that resolves to the selected item or `undefined` when being dismissed.</haxe_doc>
-				</showWarningMessage>
-				<showWarningMessage public="1" params="T" set="method">
-					<f a="message:items">
-						<c path="String"/>
-						<t path="haxe.extern.Rest"><c path="showWarningMessage.T"/></t>
-						<x path="js.lib.Thenable"><x path="Null"><c path="showWarningMessage.T"/></x></x>
-					</f>
-					<haxe_doc>* Show a warning message.
-	 *
-	 * @see {@link window.showInformationMessage showInformationMessage}
-	 *
-	 * @param message The message to show.
-	 * @param items A set of items that will be rendered as actions in the message.
-	 * @returns A thenable that resolves to the selected item or `undefined` when being dismissed.</haxe_doc>
-				</showWarningMessage>
-				<showWarningMessage public="1" set="method">
-					<f a="message:options:items">
-						<c path="String"/>
-						<t path="vscode.MessageOptions"/>
-						<t path="haxe.extern.Rest"><c path="String"/></t>
-						<x path="js.lib.Thenable"><x path="Null"><c path="String"/></x></x>
-					</f>
-					<haxe_doc>* Show a warning message.
-	 *
-	 * @see {@link window.showInformationMessage showInformationMessage}
-	 *
-	 * @param message The message to show.
-	 * @param options Configures the behaviour of the message.
-	 * @param items A set of items that will be rendered as actions in the message.
-	 * @returns A thenable that resolves to the selected item or `undefined` when being dismissed.</haxe_doc>
-				</showWarningMessage>
-			</overloads>
+</showWarningMessage></overloads>
 		</showWarningMessage>
-		<showErrorMessage public="1" set="method">
+		<showErrorMessage public="1" params="T" set="method">
 			<f a="message:items">
 				<c path="String"/>
-				<t path="haxe.extern.Rest"><c path="String"/></t>
-				<x path="js.lib.Thenable"><x path="Null"><c path="String"/></x></x>
+				<t path="haxe.extern.Rest"><c path="showErrorMessage.T"/></t>
+				<x path="js.lib.Thenable"><x path="Null"><c path="showErrorMessage.T"/></x></x>
 			</f>
 			<haxe_doc>* Show an error message.
 	 *
@@ -1920,15 +1888,14 @@
 	 * @param message The message to show.
 	 * @param items A set of items that will be rendered as actions in the message.
 	 * @returns A thenable that resolves to the selected item or `undefined` when being dismissed.</haxe_doc>
-			<overloads>
-				<showErrorMessage public="1" params="T" set="method">
-					<f a="message:options:items">
-						<c path="String"/>
-						<t path="vscode.MessageOptions"/>
-						<t path="haxe.extern.Rest"><c path="showErrorMessage.T"/></t>
-						<x path="js.lib.Thenable"><x path="Null"><c path="showErrorMessage.T"/></x></x>
-					</f>
-					<haxe_doc>* Show an error message.
+			<overloads><showErrorMessage public="1" params="T" set="method">
+	<f a="message:options:items">
+		<c path="String"/>
+		<t path="vscode.MessageOptions"/>
+		<t path="haxe.extern.Rest"><c path="showErrorMessage.T"/></t>
+		<x path="js.lib.Thenable"><x path="Null"><c path="showErrorMessage.T"/></x></x>
+	</f>
+	<haxe_doc>* Show an error message.
 	 *
 	 * @see {@link window.showInformationMessage showInformationMessage}
 	 *
@@ -1936,38 +1903,7 @@
 	 * @param options Configures the behaviour of the message.
 	 * @param items A set of items that will be rendered as actions in the message.
 	 * @returns A thenable that resolves to the selected item or `undefined` when being dismissed.</haxe_doc>
-				</showErrorMessage>
-				<showErrorMessage public="1" params="T" set="method">
-					<f a="message:items">
-						<c path="String"/>
-						<t path="haxe.extern.Rest"><c path="showErrorMessage.T"/></t>
-						<x path="js.lib.Thenable"><x path="Null"><c path="showErrorMessage.T"/></x></x>
-					</f>
-					<haxe_doc>* Show an error message.
-	 *
-	 * @see {@link window.showInformationMessage showInformationMessage}
-	 *
-	 * @param message The message to show.
-	 * @param items A set of items that will be rendered as actions in the message.
-	 * @returns A thenable that resolves to the selected item or `undefined` when being dismissed.</haxe_doc>
-				</showErrorMessage>
-				<showErrorMessage public="1" set="method">
-					<f a="message:options:items">
-						<c path="String"/>
-						<t path="vscode.MessageOptions"/>
-						<t path="haxe.extern.Rest"><c path="String"/></t>
-						<x path="js.lib.Thenable"><x path="Null"><c path="String"/></x></x>
-					</f>
-					<haxe_doc>* Show an error message.
-	 *
-	 * @see {@link window.showInformationMessage showInformationMessage}
-	 *
-	 * @param message The message to show.
-	 * @param options Configures the behaviour of the message.
-	 * @param items A set of items that will be rendered as actions in the message.
-	 * @returns A thenable that resolves to the selected item or `undefined` when being dismissed.</haxe_doc>
-				</showErrorMessage>
-			</overloads>
+</showErrorMessage></overloads>
 		</showErrorMessage>
 		<showQuickPick public="1" set="method">
 			<f a="items:?options:?token">
@@ -2003,7 +1939,7 @@
 	 * @returns A promise that resolves to the selected items or `undefined`.</haxe_doc>
 </showQuickPick></overloads>
 		</showQuickPick>
-		<showQuickPickMany public="1" params="T" get="inline" set="null" line="835">
+		<showQuickPickMany public="1" params="T" get="inline" set="null" line="788">
 			<f a="items:?options:?token">
 				<x path="haxe.extern.EitherType">
 					<x path="haxe.ds.ReadOnlyArray"><c path="showQuickPickMany.T"/></x>
