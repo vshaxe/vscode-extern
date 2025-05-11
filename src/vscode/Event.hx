@@ -14,4 +14,4 @@ package vscode;
  * @example
  * item.onDidChange(function(event) { console.log("Event happened: " + event); });
  */
-typedef Event<T> = (listener:(e:T) -> Void, ?thisArgs:Any, ?disposables:Array<Disposable>) -> Disposable;
+typedef Event<T> = (listener:(e:T) -> Void, ?thisArgs:Any, ?disposables:Array<{dispose:() -> Void}>) -> Disposable;
